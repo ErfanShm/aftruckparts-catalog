@@ -1,11 +1,12 @@
 {
-  "name": "Aftruckparts — Digital Chrome Vault",
+  "name": "Aftruckparts — Truck Parts Catalog",
   "short_name": "Aftruckparts",
+  "lang": "fa",
   "icons": [
     { "src": "/android-chrome-192x192.png", "sizes": "192x192", "type": "image/png" },
     { "src": "/android-chrome-512x512.png", "sizes": "512x512", "type": "image/png" }
   ],
-  "theme_color": "#0A0B10",
-  "background_color": "#0A0B10",
+  "theme_color": "#0a0e1a",
+  "background_color": "#0a0e1a",
   "display": "standalone"
 }
