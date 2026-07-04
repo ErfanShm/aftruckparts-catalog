@@ -24,6 +24,14 @@ export type LocaleMessages = {
     subtitle: string;
     cta: string;
     ctaPdf: string;
+    dragHint: string;
+    zoomHint: string;
+    scrollZoomHint: string;
+    showcaseFinishes: {
+      matte: string;
+      steel: string;
+      glossy: string;
+    };
     stats: {
       skus: { label: string; value: string };
       brands: { label: string; value: string };
@@ -117,7 +125,7 @@ export type LocaleMessages = {
   };
   whatsapp: {
     header: string;
-    line: (code: string, name: string, qty: number) => string;
+    line: (code: string, name: string, finish: string, qty: number) => string;
     footer: string;
   };
 };

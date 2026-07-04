@@ -6,6 +6,7 @@ type FilterChipsProps = {
   onSelect: (key: string) => void;
   orientation?: "horizontal" | "vertical";
   compact?: boolean;
+  dense?: boolean;
 };
 
 export function FilterChips({
@@ -14,6 +15,7 @@ export function FilterChips({
   onSelect,
   orientation = "horizontal",
   compact = false,
+  dense = false,
 }: FilterChipsProps) {
   const vertical = orientation === "vertical";
 
@@ -37,7 +39,11 @@ export function FilterChips({
               "touch-manipulation transition-colors duration-200",
               vertical
                 ? cn(
-                    compact ? "py-1 text-sm" : "py-1.5 text-sm",
+                    dense
+                      ? "py-0.5 text-xs leading-snug"
+                      : compact
+                        ? "py-1 text-sm"
+                        : "py-1.5 text-sm",
                     "w-full text-start",
                     isActive &&
                       "relative ps-3 before:absolute before:inset-y-1.5 before:start-0 before:w-px before:bg-accent/70",

@@ -240,10 +240,6 @@
   position: sticky;
   top: calc(var(--header-offset) + 1rem);
   z-index: 20;
-  max-height: calc(100svh - var(--header-offset) - 2rem);
-  overflow-y: auto;
-  overscroll-behavior: contain;
-  scrollbar-width: thin;
   padding-bottom: 0.5rem;
 }
 
@@ -301,6 +297,52 @@
   @media (width >= 64rem) {
     transform: translateY(var(--gallery-y, 0));
   }
+}
+
+@utility finish-pill-group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.125rem;
+  border-radius: 9999px;
+  border: 1px solid color-mix(in oklch, var(--brand) 22%, transparent);
+  background: color-mix(in oklch, var(--void) 82%, transparent);
+  padding: 0.25rem;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+@utility finish-pill {
+  border-radius: 9999px;
+  padding: 0.375rem 0.875rem;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--muted-foreground);
+  transition:
+    color 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+  &:hover {
+    color: var(--foreground);
+  }
+}
+
+@utility finish-pill-active {
+  background: var(--surface-2);
+  color: var(--foreground);
+  box-shadow: 0 1px 2px color-mix(in oklch, black 25%, transparent);
+}
+
+@utility finish-specimen-tag {
+  border-radius: 9999px;
+  border: 1px solid color-mix(in oklch, var(--brand) 20%, transparent);
+  background: color-mix(in oklch, var(--void) 72%, transparent);
+  padding: 0.2rem 0.55rem;
+  font-size: 9px;
+  letter-spacing: 0.06em;
+  color: color-mix(in oklch, var(--brand-highlight) 75%, var(--foreground-muted));
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 @utility chip-active {
@@ -718,6 +760,75 @@
 
 @utility ambient-drift {
   animation: ambient-drift 18s ease-in-out infinite;
+}
+
+@utility hero-stage-bleed {
+  margin-inline: calc(-1 * max(1.5rem, env(safe-area-inset-left, 0px)));
+  width: calc(100% + 2 * max(1.5rem, env(safe-area-inset-left, 0px)));
+  padding-inline: max(0.75rem, env(safe-area-inset-left, 0px));
+}
+
+@utility hero-stage-vignette {
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(
+      ellipse 88% 78% at 50% 44%,
+      transparent 42%,
+      color-mix(in oklch, var(--void) 55%, transparent) 100%
+    );
+  }
+}
+
+@utility hero-stage-glow {
+  background: radial-gradient(
+    circle at center,
+    color-mix(in oklch, var(--brand-highlight) 22%, transparent),
+    transparent 62%
+  );
+}
+
+@utility hero-vault-atmosphere {
+  background:
+    radial-gradient(ellipse 80% 60% at 70% 40%, color-mix(in oklch, #06b6d4 12%, transparent), transparent),
+    radial-gradient(ellipse 50% 40% at 20% 70%, color-mix(in oklch, #e23822 8%, transparent), transparent);
+}
+
+@utility hero-vault-frame {
+  border: 1px solid color-mix(in oklch, var(--brand) 22%, transparent);
+  box-shadow:
+    inset 0 0 60px color-mix(in oklch, black 28%, transparent),
+    0 20px 64px -44px color-mix(in oklch, var(--brand) 18%, transparent);
+}
+
+@utility hero-vault-grid-floor {
+  background: linear-gradient(to top, color-mix(in oklch, #020812 92%, transparent), transparent);
+  mask-image: linear-gradient(to top, black 30%, transparent);
+}
+
+@utility hero-hud-pill {
+  border-radius: 10px;
+  border: 1px solid color-mix(in oklch, var(--brand) 28%, transparent);
+  background: color-mix(in oklch, var(--void) 82%, transparent);
+  padding: 0.45rem 0.35rem;
+  text-align: center;
+  backdrop-filter: blur(10px);
+}
+
+@utility hero-hud-pill-value {
+  font-size: 0.875rem;
+  line-height: 1.1;
+  color: var(--foreground);
+}
+
+@utility hero-hud-pill-label {
+  margin-top: 0.2rem;
+  font-size: 8px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--foreground-muted);
 }
 
 @keyframes scroll-cue {

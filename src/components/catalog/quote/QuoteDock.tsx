@@ -6,8 +6,8 @@ import { useLocale } from "@/lib/i18n";
 import type { Product } from "@/locales";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 
+import { SectionRule } from "../layout/SectionRule";
 import { QuoteDockFab } from "./QuoteDockFab";
-import { SectionRule } from "./SectionRule";
 
 type QuoteDockProps = {
   open: boolean;
@@ -54,6 +54,7 @@ function QuoteList({
                   {p.code} · {p.brand}
                 </div>
                 <div className="truncate text-sm font-light">{p.name}</div>
+                <div className="truncate text-[10px] text-muted-foreground">{p.finish}</div>
               </div>
               <div
                 className={[

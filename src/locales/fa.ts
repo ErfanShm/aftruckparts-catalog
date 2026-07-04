@@ -27,6 +27,14 @@ export const fa: LocaleMessages = {
       "مجموعه‌ای منتخب از نشان‌ها و یراق‌آلات کامیون با روکش کروم، مات و استیل. مناسب ناوگان‌ها. پشتیبانی با گارانتی دو ساله.",
     cta: "ورود به کاتالوگ",
     ctaPdf: "دانلود PDF",
+    dragHint: "بکشید و بررسی کنید",
+    zoomHint: "نیشگون برای بزرگ‌نمایی",
+    scrollZoomHint: "اسکرول برای بزرگ‌نمایی",
+    showcaseFinishes: {
+      matte: "مات",
+      steel: "استیل کروم",
+      glossy: "پیانو بلک",
+    },
     stats: {
       skus: { label: "کد کالا", value: "۲۶+" },
       brands: { label: "برند", value: "۳" },
@@ -66,12 +74,13 @@ export const fa: LocaleMessages = {
   finishes: [
     { key: "matte", label: "مات" },
     { key: "matte-glossy", label: "مات و براق" },
-    { key: "glossy", label: "مشکی براق" },
-    { key: "steel", label: "استیل" },
+    { key: "glossy", label: "پیانو بلک" },
+    { key: "steel", label: "استیل کروم" },
   ],
 
   product: {
     warranty: "گارانتی ۲ ساله",
+    warrantyBadge: "۲۴ ماه",
     addToQuote: "افزودن به لیست",
     inQuote: "در لیست",
     increaseQty: "افزایش تعداد",
@@ -153,7 +162,7 @@ export const fa: LocaleMessages = {
 
   whatsapp: {
     header: "درخواست پیش‌فاکتور Aftruckparts",
-    line: (code, name, qty) => `• ${code} — ${name} × ${qty}`,
+    line: (code, name, finish, qty) => `• ${code} — ${name} · ${finish} × ${qty}`,
     footer: "لطفاً قیمت و زمان تحویل را اعلام کنید.",
   },
 };

@@ -7,8 +7,8 @@ import { scrollToSection } from "@/lib/scrollToCatalog";
 import { cn } from "@/lib/utils";
 
 import { BrandLogo } from "./BrandLogo";
-import { PageSection } from "./PageSection";
-import { SectionRule } from "./SectionRule";
+import { PageSection } from "../layout/PageSection";
+import { SectionRule } from "../layout/SectionRule";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -40,14 +40,14 @@ export function BrandsBand({ products, onSelectBrand }: BrandsBandProps) {
   };
 
   return (
-    <PageSection id="brands" borderTop clipX className="relative !py-16 md:!py-24 lg:!py-28">
+    <PageSection id="brands" borderTop clipX spine className="relative !py-16 md:!py-24 lg:!py-28">
       <motion.div
         initial={reduced ? false : { opacity: 0 }}
         whileInView={reduced ? undefined : { opacity: 1 }}
         viewport={{ once: true, margin: "-40px" }}
         transition={{ duration: 0.55, ease }}
       >
-        <SectionRule index="02" className="mb-10 md:mb-12" />
+        <SectionRule index="03" className="mb-10 md:mb-12" />
 
         <div className="mb-10 max-w-xl md:mb-12">
           <p className="section-tag">{brands.tag}</p>
@@ -90,8 +90,8 @@ export function BrandsBand({ products, onSelectBrand }: BrandsBandProps) {
                     "brand-specimen group relative flex h-full w-full overflow-hidden rounded-2xl text-start",
                     "min-h-[220px] sm:min-h-[260px]",
                     isLeader && "sm:min-h-[280px] md:min-h-[300px]",
-                    "border border-brand/15 transition-[border-color,box-shadow,transform] duration-500",
-                    "hover:border-brand/35 hover:shadow-[0_20px_56px_-24px_color-mix(in_oklch,var(--brand)_50%,transparent)]",
+                    "border border-brand/15 transition-[border-color,box-shadow] duration-500",
+                    "hover:border-brand/30 hover:shadow-[0_16px_48px_-28px_color-mix(in_oklch,var(--brand)_35%,transparent)]",
                     "active:scale-[0.99]",
                     "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/40 focus-visible:ring-offset-2 focus-visible:ring-offset-void",
                   )}
@@ -100,7 +100,7 @@ export function BrandsBand({ products, onSelectBrand }: BrandsBandProps) {
                     src={asset.heroImage}
                     alt=""
                     aria-hidden
-                    className="brand-specimen-photo absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+                    className="brand-specimen-photo absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
                   />
 
                   <div className="brand-specimen-scrim pointer-events-none absolute inset-0" />
@@ -109,19 +109,19 @@ export function BrandsBand({ products, onSelectBrand }: BrandsBandProps) {
                     {indexLabel}
                   </span>
 
-                  <span className="absolute end-4 top-4 z-10 rounded-full border border-brand/15 bg-void/55 px-3 py-1.5 text-center backdrop-blur-sm">
-                    <span className="font-mono-tech ltr-embed block text-sm font-light leading-none text-foreground/85">
+                  <div className="stat-chip absolute end-3 top-3 z-10 min-w-[4.5rem] px-2 py-1.5">
+                    <div className="display-stat text-sm leading-none">
                       {formatCount(count, locale)}
-                    </span>
-                    <span className="mt-0.5 block text-[8px] tracking-wide text-foreground-muted">
+                    </div>
+                    <div className="mt-0.5 text-[8px] tracking-wide text-foreground-muted">
                       {skuLabel}
-                    </span>
-                  </span>
+                    </div>
+                  </div>
 
                   <div className="relative z-10 flex h-full w-full flex-col items-center justify-center px-6 py-14 sm:px-8">
                     <div
                       className={cn(
-                        "flex items-center justify-center transition-transform duration-500 group-hover:scale-[1.04]",
+                        "flex items-center justify-center transition-transform duration-500 group-hover:scale-[1.03]",
                         isLeader ? "px-4 py-2" : "px-3 py-2",
                       )}
                     >

@@ -76,7 +76,7 @@ export const CATALOG_PAGES: CatalogPageProduct[] = [
     brand: "Volvo",
     finishKey: "matte",
     category: "model-badge",
-    names: { fa: "نشان NH 12 — مات", en: "NH 12 Model Badge — Matte" },
+    names: { fa: "نشان NH 12", en: "NH 12 Model Badge" },
     description: {
       fa: "آرم مدل NH 12 ولوو برای کامیون‌های کلاسیک دماغ‌دار. این نشان با پوشش مات، اصالت ظاهری ناوگان‌های قدیمی‌تر را حفظ می‌کند و برای بازسازی و تعویض قطعات آسیب‌دیده بسیار پرتقاضاست.",
       en: "Volvo NH 12 model badge for classic conventional trucks. The matte finish preserves the authentic look of older fleets and is in high demand for restoration and accident replacement.",
@@ -90,7 +90,7 @@ export const CATALOG_PAGES: CatalogPageProduct[] = [
     brand: "Volvo",
     finishKey: "matte",
     category: "model-badge",
-    names: { fa: "نشان FM9 — مات", en: "FM9 Model Badge — Matte" },
+    names: { fa: "نشان FM9", en: "FM9 Model Badge" },
     description: {
       fa: "نشان سری FM9 ولوو برای کاربری‌های توزیع منطقه‌ای، خدمات شهری و راه‌سازی. موتور ۹ لیتری این سری آن را به گزینه‌ای اقتصادی و کارآمد برای مسافت‌های کوتاه و متوسط تبدیل کرده است.",
       en: "Volvo FM9 series badge for regional distribution, urban services, and construction work. The 9-litre engine makes this series an efficient choice for short and medium haul routes.",
@@ -103,7 +103,7 @@ export const CATALOG_PAGES: CatalogPageProduct[] = [
     brand: "Volvo",
     finishKey: "matte",
     category: "horsepower",
-    names: { fa: "نشان قدرت 420 — مات", en: "420 HP Badge — Matte" },
+    names: { fa: "نشان قدرت 420", en: "420 HP Badge" },
     description: {
       fa: "نشان عددی 420 اسب بخار برای نصب روی درب‌های بغل کابین. یکی از رایج‌ترین توان‌های موتور برای حمل‌ونقل استاندارد جاده‌ای با طراحی آیرودینامیک مطابق استاندارد ولوو.",
       en: "420 horsepower numeric badge for cab-side mounting. One of the most common power ratings for standard road transport, styled to match Volvo's aerodynamic cab design.",
@@ -115,7 +115,7 @@ export const CATALOG_PAGES: CatalogPageProduct[] = [
     brand: "Volvo",
     finishKey: "matte",
     category: "horsepower",
-    names: { fa: "نشان قدرت 460 — مات", en: "460 HP Badge — Matte" },
+    names: { fa: "نشان قدرت 460", en: "460 HP Badge" },
     description: {
       fa: "نشان 460 اسب بخار با پوشش مات — یکی از پرفروش‌ترین تیپ‌های موتور در ناوگان حمل‌ونقل. تعادل عالی بین قدرت کشندگی و مصرف سوخت برای مسیرهای متنوع جاده‌ای.",
       en: "460 horsepower badge in matte finish — one of the best-selling engine ratings in road freight. Excellent balance of pulling power and fuel economy for varied routes.",
@@ -128,7 +128,7 @@ export const CATALOG_PAGES: CatalogPageProduct[] = [
     brand: "Volvo",
     finishKey: "matte",
     category: "horsepower",
-    names: { fa: "نشان قدرت 440 — مات", en: "440 HP Badge — Matte" },
+    names: { fa: "نشان قدرت 440", en: "440 HP Badge" },
     description: {
       fa: "نشان 440 اسب بخار یک پله بالاتر از مدل پایه قرار می‌گیرد و برای کاربری‌های متنوع جاده‌ای ایده‌آل است. فونت و انحنا دقیقاً مطابق استاندارد کابین‌های ولوو طراحی شده‌اند.",
       en: "440 horsepower badge sits one step above the base model and is ideal for diverse road applications. Font and curvature match Volvo cab standards precisely.",
@@ -140,7 +140,7 @@ export const CATALOG_PAGES: CatalogPageProduct[] = [
     brand: "Volvo",
     finishKey: "matte",
     category: "horsepower",
-    names: { fa: "نشان قدرت 480 — مات", en: "480 HP Badge — Matte" },
+    names: { fa: "نشان قدرت 480", en: "480 HP Badge" },
     description: {
       fa: "نشان 480 اسب بخار برای کامیون‌هایی که به قدرت بیشتر برای حمل بارهای سنگین‌تر در مسیرهای کوهستانی یا ترانزیت نیاز دارند. پوشش مات ظاهری اسپرت و صنعتی ایجاد می‌کند.",
       en: "480 horsepower badge for trucks needing extra power for heavier loads on mountain routes or transit corridors. Matte finish delivers a sporty, industrial look.",
@@ -153,7 +153,7 @@ export const CATALOG_PAGES: CatalogPageProduct[] = [
     brand: "Volvo",
     finishKey: "matte",
     category: "model-badge",
-    names: { fa: "نشان VOLVO — مات (FH12)", en: "VOLVO Grille Badge — Matte (FH12)" },
+    names: { fa: "نشان VOLVO (FH12)", en: "VOLVO Grille Badge (FH12)" },
     description: {
       fa: "آرم اصلی حروف VOLVO برای جلوپنجره کامیون. این نسخه مات مخصوص مدل FH12 کالیبره شده — ابعاد، انحنا و پایه‌های نصب دقیقاً برای قرارگیری روی جلوپنجره این مدل افسانه‌ای طراحی شده‌اند.",
       en: "Primary VOLVO lettering badge for the truck grille. This matte version is calibrated for the FH12 — dimensions, curvature, and mounting points match the legendary model's front grille exactly.",
@@ -168,7 +168,7 @@ export const CATALOG_PAGES: CatalogPageProduct[] = [
     brand: "Volvo",
     finishKey: "matte-glossy",
     category: "emissions",
-    names: { fa: "نشان EEV — مات و براق", en: "EEV Emissions Badge — Matte & Glossy" },
+    names: { fa: "نشان EEV", en: "EEV Emissions Badge" },
     description: {
       fa: "نشان EEV (خودروی سازگار با محیط زیست پیشرفته) — استانداردی بین یورو ۵ و یورو ۶. موتورهای بسیار کم‌دود که برای مجوز تردد در مناطق سبز اروپایی اهمیت داشتند.",
       en: "EEV (Enhanced Environmentally friendly Vehicle) badge — a stepping-stone standard between Euro 5 and Euro 6. Marks very clean-running engines important for low-emission zone access in Europe.",
@@ -181,7 +181,7 @@ export const CATALOG_PAGES: CatalogPageProduct[] = [
     brand: "Volvo",
     finishKey: "matte-glossy",
     category: "technology",
-    names: { fa: "نشان I-Shift — مات و براق", en: "I-Shift Badge — Matte & Glossy" },
+    names: { fa: "نشان I-Shift", en: "I-Shift Badge" },
     description: {
       fa: "نشان گیربکس اتوماتیک I-Shift ولوو — انقلابی در رانندگی ماشین‌های سنگین. تعویض دنده‌ها بر اساس شیب جاده و وزن بار تنظیم می‌شود و ارزش کامیون در بازار دست‌دوم را بالا می‌برد.",
       en: "Volvo I-Shift automated transmission badge — a revolution in heavy truck driving. Gear changes adapt to road grade and load weight, boosting resale value.",
@@ -194,7 +194,7 @@ export const CATALOG_PAGES: CatalogPageProduct[] = [
     brand: "Volvo",
     finishKey: "matte-glossy",
     category: "horsepower",
-    names: { fa: "نشان قدرت 500 — مات و براق", en: "500 HP Badge — Matte & Glossy" },
+    names: { fa: "نشان قدرت 500", en: "500 HP Badge" },
     description: {
       fa: "نشان 500 اسب بخار — نقطه عطف در ماشین‌های سنگین (به‌ویژه Volvo FH 500). طراحی شده برای ترانزیت‌های بین‌المللی سنگین با ظرفیت کامل بار. پوشش دوگانه جلوه‌ای درخشان روی درب کابین ایجاد می‌کند.",
       en: "500 horsepower badge — a milestone in heavy trucks, especially the Volvo FH 500. Built for full-load international transit. Dual matte-glossy finish creates a striking cab-side presence.",
@@ -207,7 +207,7 @@ export const CATALOG_PAGES: CatalogPageProduct[] = [
     brand: "Volvo",
     finishKey: "matte",
     category: "emissions",
-    names: { fa: "نشان EURO 4 — مات", en: "EURO 4 Emissions Badge — Matte" },
+    names: { fa: "نشان EURO 4", en: "EURO 4 Emissions Badge" },
     description: {
       fa: "نشان استاندارد آلایندگی یورو ۴ برای نسل‌های قبلی کامیون‌ها. تامین قطعات یدکی برای ناوگان‌های قدیمی‌تر که نیاز دارند ظاهر فابریک کامیون خود را در تصادفات یا بازسازی حفظ کنند.",
       en: "Euro 4 emissions standard badge for earlier-generation trucks. Replacement supply for older fleets maintaining factory appearance after accidents or rebuilds.",
@@ -220,7 +220,7 @@ export const CATALOG_PAGES: CatalogPageProduct[] = [
     brand: "Volvo",
     finishKey: "matte",
     category: "emissions",
-    names: { fa: "نشان EURO 5 — مات", en: "EURO 5 Emissions Badge — Matte" },
+    names: { fa: "نشان EURO 5", en: "EURO 5 Emissions Badge" },
     description: {
       fa: "نشان یورو ۵ — کامیون‌های یورو ۵ هنوز بخش عظیمی از ناوگان حمل‌ونقل در خاورمیانه و آسیا را تشکیل می‌دهند. حفظ این نشان برای عبور از مرزها و نمایش مشخصات فنی به ماموران راهداری کاربرد دارد.",
       en: "Euro 5 badge — Euro 5 trucks still form a large share of fleets in the Middle East and Asia. Keeping this badge aids border crossings and technical inspections.",
@@ -233,7 +233,7 @@ export const CATALOG_PAGES: CatalogPageProduct[] = [
     brand: "Volvo",
     finishKey: "matte-glossy",
     category: "emissions",
-    names: { fa: "نشان EURO 6 — مات و براق", en: "EURO 6 Emissions Badge — Matte & Glossy" },
+    names: { fa: "نشان EURO 6", en: "EURO 6 Emissions Badge" },
     description: {
       fa: "جدیدترین و پاک‌ترین استاندارد آلایندگی دیزل در اروپا. طراحی مدرن‌تر نسبت به یورو ۴ و ۵ — نشان‌دهنده تکنولوژی روز و مجوز تردد در تمام شهرهای بزرگ اروپایی.",
       en: "The latest and cleanest diesel emissions standard in Europe. Modern design versus Euro 4/5 badges — signals current technology and access to all major European cities.",
@@ -246,7 +246,7 @@ export const CATALOG_PAGES: CatalogPageProduct[] = [
     brand: "Volvo",
     finishKey: "matte-glossy",
     category: "horsepower",
-    names: { fa: "نشان قدرت 460 — مات و براق", en: "460 HP Badge — Matte & Glossy" },
+    names: { fa: "نشان قدرت 460", en: "460 HP Badge" },
     description: {
       fa: "همان نشان 460 اسب بخار پرفروش با پوشش لوکس‌تر مات و براق. به رانندگان و شرکت‌های حمل‌ونقل اجازه می‌دهد ظاهر کامیون‌هایشان را شخصی‌سازی کنند در حالی که قدرت موتور یکسان باقی می‌ماند.",
       en: "The same best-selling 460 HP badge in a premium matte-glossy finish. Lets fleets personalize truck appearance while keeping the same engine rating.",
@@ -260,7 +260,7 @@ export const CATALOG_PAGES: CatalogPageProduct[] = [
     brand: "Volvo",
     finishKey: "matte-glossy",
     category: "horsepower",
-    names: { fa: "نشان قدرت 540 — مات و براق", en: "540 HP Badge — Matte & Glossy" },
+    names: { fa: "نشان قدرت 540", en: "540 HP Badge" },
     description: {
       fa: "موتور 540 اسب بخاری برای کشیدن بارهای سنگین در مسیرهای کوهستانی و ترانزیت‌های پرفشار. پوشش دوگانه برای رانندگانی که ظاهر اسپرت و لوکس می‌خواهند بسیار جذاب است.",
       en: "540 horsepower for heavy loads on mountain routes and high-pressure transit. Dual finish appeals to drivers wanting a sporty yet premium look.",
@@ -272,7 +272,7 @@ export const CATALOG_PAGES: CatalogPageProduct[] = [
     brand: "Volvo",
     finishKey: "matte-glossy",
     category: "model-badge",
-    names: { fa: "نشان FH — مات و براق", en: "FH Model Badge — Matte & Glossy" },
+    names: { fa: "نشان FH", en: "FH Model Badge" },
     description: {
       fa: "نشان سری FH — پرچمدار ماشین‌های سنگین ولوو (Forward control High cab). معمولاً در نمای جلوی کامیون نصب می‌شود. نسخه مات و براق برای فیس‌لیفت و بازسازی کامیون تا ظاهری نزدیک به مدل‌های روز.",
       en: "FH series badge — flagship of Volvo heavy trucks (Forward control High cab). Usually mounted on the truck front. Matte-glossy version for facelifts bringing trucks closer to current models.",
@@ -285,7 +285,7 @@ export const CATALOG_PAGES: CatalogPageProduct[] = [
     brand: "Volvo",
     finishKey: "matte-glossy",
     category: "model-badge",
-    names: { fa: "نشان VOLVO — مات و براق", en: "VOLVO Grille Badge — Matte & Glossy" },
+    names: { fa: "نشان VOLVO", en: "VOLVO Grille Badge" },
     description: {
       fa: "مهم‌ترین هویت بصری یک کامیون ولوو. نسخه مات و براق با بازتاب نور زیبا ظاهر جلوی کابین را به‌شدت مدرن می‌کند — مناسب جلوپنجره تمام مدل‌های FH.",
       en: "The primary visual identity of a Volvo truck. Matte-glossy finish with beautiful light reflection modernizes the cab front — fits FH series grilles.",
@@ -301,7 +301,7 @@ export const CATALOG_PAGES: CatalogPageProduct[] = [
     brand: "DAF",
     finishKey: "matte",
     category: "model-badge",
-    names: { fa: "نشان XF — مات (DAF)", en: "XF Model Badge — Matte (DAF)" },
+    names: { fa: "نشان XF (DAF)", en: "XF Model Badge (DAF)" },
     description: {
       fa: "نشان مدل XF داف — یکی از محبوب‌ترین کشنده‌های اروپایی در مصرف بهینه سوخت و کابین جادار. طراحی انحصاری برای قالب بدنه DAF XF با ظاهری قدرتمند و صنعتی.",
       en: "DAF XF model badge — one of Europe's most popular tractors for fuel efficiency and spacious cabs. Exclusively designed for the DAF XF body with a powerful industrial look.",
@@ -314,7 +314,7 @@ export const CATALOG_PAGES: CatalogPageProduct[] = [
     brand: "Volvo",
     finishKey: "matte-glossy",
     category: "technology",
-    names: { fa: "نشان I-SAVE — مات و براق", en: "I-SAVE Badge — Matte & Glossy" },
+    names: { fa: "نشان I-SAVE", en: "I-SAVE Badge" },
     description: {
       fa: "تکنولوژی I-Save — پکیج موتوری پیشرفته ولوو که مصرف سوخت را در مسافت‌های طولانی تا حدود ۱۰٪ کاهش می‌دهد. نصب این آرم ارزش ذاتی ماشین و صرفه‌جویی سوخت را نشان می‌دهد.",
       en: "I-Save engine technology package that cuts fuel consumption on long hauls by up to 10%. This badge signals fuel-saving equipment and boosts intrinsic truck value.",
@@ -326,7 +326,7 @@ export const CATALOG_PAGES: CatalogPageProduct[] = [
     brand: "Volvo",
     finishKey: "matte-glossy",
     category: "horsepower",
-    names: { fa: "نشان قدرت 750 — مات و براق", en: "750 HP Badge — Matte & Glossy" },
+    names: { fa: "نشان قدرت 750", en: "750 HP Badge" },
     description: {
       fa: "نشان 750 اسب بخار — متعلق به Volvo FH16، یکی از قوی‌ترین کشنده‌های تولید انبوه جهان. برای حمل بارهای فوق‌سنگین و ترافیکی. نهایت پرستیژ با طراحی لوکس مات و براق.",
       en: "750 horsepower badge for the Volvo FH16 — one of the world's most powerful production tractors. For extreme heavy haulage. Ultimate prestige in matte-glossy finish.",

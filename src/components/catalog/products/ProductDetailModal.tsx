@@ -93,7 +93,7 @@ function VariantSwitcher({
   return (
     <div className="mt-4 md:mt-5">
       <p className="section-tag mb-2.5">{variantLabel}</p>
-      <div className="inline-flex max-w-full flex-wrap rounded-full border border-foreground/[0.08] bg-foreground/[0.03] p-0.5">
+      <div className="finish-pill-group inline-flex max-w-full flex-wrap">
         {variants.map((v) => (
           <button
             key={v.id}
@@ -101,10 +101,8 @@ function VariantSwitcher({
             onClick={() => onSelect(v.id)}
             aria-pressed={v.id === product.id}
             className={cn(
-              "rounded-full px-4 py-2 text-xs transition-colors md:px-3.5 md:py-1.5",
-              v.id === product.id
-                ? "bg-foreground text-background"
-                : "text-foreground/50 hover:text-foreground/80",
+              "finish-pill",
+              v.id === product.id && "finish-pill-active",
             )}
           >
             {v.finish}

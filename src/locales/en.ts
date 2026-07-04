@@ -27,6 +27,14 @@ export const en: LocaleMessages = {
       "A curated collection of truck badges and hardware in chrome, matte, and steel finishes. Built for fleets. Backed by a two-year warranty.",
     cta: "Browse catalog",
     ctaPdf: "Download PDF",
+    dragHint: "Drag to inspect",
+    zoomHint: "Pinch to zoom",
+    scrollZoomHint: "Scroll to zoom",
+    showcaseFinishes: {
+      matte: "Matte",
+      steel: "Chrome Steel",
+      glossy: "Piano Black",
+    },
     stats: {
       skus: { label: "SKUs", value: "26+" },
       brands: { label: "Brands", value: "3" },
@@ -66,12 +74,13 @@ export const en: LocaleMessages = {
   finishes: [
     { key: "matte", label: "Matte" },
     { key: "matte-glossy", label: "Matte & Glossy" },
-    { key: "glossy", label: "Glossy Black" },
-    { key: "steel", label: "Steel" },
+    { key: "glossy", label: "Piano Black" },
+    { key: "steel", label: "Chrome Steel" },
   ],
 
   product: {
     warranty: "2-year warranty",
+    warrantyBadge: "24 mo",
     addToQuote: "Add to list",
     inQuote: "In list",
     increaseQty: "Increase quantity",
@@ -153,7 +162,7 @@ export const en: LocaleMessages = {
 
   whatsapp: {
     header: "Aftruckparts — Quote Request",
-    line: (code, name, qty) => `• ${code} — ${name} × ${qty}`,
+    line: (code, name, finish, qty) => `• ${code} — ${name} · ${finish} × ${qty}`,
     footer: "Please confirm pricing and lead time.",
   },
 };

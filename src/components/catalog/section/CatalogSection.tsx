@@ -4,12 +4,13 @@ import type { FinishKey, ProductCategory } from "@/data/products";
 import { useLocale } from "@/lib/i18n";
 import type { Product } from "@/locales";
 
-import { FilterDock } from "./FilterDock";
-import { FilterRail } from "./FilterRail";
-import { PageSection } from "./PageSection";
-import { ProductDetailModal } from "./ProductDetailModal";
-import { ProductGrid } from "./ProductGrid";
-import { SectionIntro } from "./SectionIntro";
+import { FilterDock } from "../filters/FilterDock";
+import { FilterRail } from "../filters/FilterRail";
+import { PageSection } from "../layout/PageSection";
+import { SectionIntro } from "../layout/SectionIntro";
+import { SectionRule } from "../layout/SectionRule";
+import { ProductDetailModal } from "../products/ProductDetailModal";
+import { ProductGrid } from "../products/ProductGrid";
 
 type CatalogSectionProps = {
   filtered: Product[];
@@ -72,11 +73,13 @@ export function CatalogSection({
   };
 
   return (
-    <PageSection id="catalog">
-      <div className="mb-10 md:mb-12">
+    <PageSection id="catalog" spine>
+      <div className="mb-8 md:mb-10">
+        <SectionRule index="02" className="mb-6 md:mb-8" />
         <SectionIntro
           tag={messages.catalog.galleryTag}
           title={messages.catalog.galleryHeading}
+          hideTagMarker
         />
       </div>
 

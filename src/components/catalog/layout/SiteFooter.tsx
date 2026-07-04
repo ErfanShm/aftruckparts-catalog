@@ -29,10 +29,9 @@ function fadeUp(delay: number, reduced: boolean) {
   return reduced
     ? {}
     : {
-        initial: { opacity: 0, y: 20 },
-        whileInView: { opacity: 1, y: 0 },
-        viewport: { once: true, margin: "-60px" },
-        transition: { delay, duration: 0.7, ease },
+        initial: { opacity: 0, y: 16 },
+        animate: { opacity: 1, y: 0 },
+        transition: { delay, duration: 0.65, ease },
       };
 }
 
@@ -42,38 +41,33 @@ export function SiteFooter() {
   const { footer } = messages;
 
   return (
-    <footer id="contact" className="mt-auto scroll-mt-header border-t border-brand/12">
-      <PageSection as="section" className="relative !pt-20 !pb-8 md:!pt-28 md:!pb-16 lg:!pt-36">
-        <div
-          className="wireframe-watermark pointer-events-none absolute start-[-4%] top-[6%] text-[clamp(7rem,18vw,14rem)] opacity-[0.14] lg:start-[2%]"
-          aria-hidden
-        >
-          {footer.watermark}
-        </div>
-
+    <footer id="contact" className="mt-auto scroll-mt-header">
+      <PageSection
+        as="div"
+        borderTop
+        spine
+        className="relative !pt-16 !pb-8 md:!pt-24 md:!pb-20 lg:!pt-28"
+      >
         <motion.div {...fadeUp(0, reduced)} className="relative">
-          <SectionRule index="04" className="mb-12 md:mb-16 lg:mb-20" />
+          <SectionRule index="05" className="mb-10 md:mb-12" />
 
-          <div className="grid gap-14 lg:grid-cols-[minmax(0,1.08fr)_minmax(0,0.92fr)] lg:gap-16 xl:gap-24">
-            <div className="relative z-10 flex flex-col justify-between gap-12 md:gap-14">
+          <div className="grid gap-12 lg:grid-cols-[minmax(0,1.08fr)_minmax(0,0.92fr)] lg:gap-14 xl:gap-20">
+            <div className="relative z-10 flex flex-col justify-between gap-10 md:gap-12">
               <div>
-                <div className="mb-7 flex items-center gap-2.5 md:mb-9">
-                  <span className="h-1 w-1 shrink-0 rotate-45 bg-brand/45" aria-hidden />
-                  <p className="section-tag">{footer.socialLabel}</p>
-                </div>
+                <p className="section-tag">{footer.socialLabel}</p>
 
-                <h2 className="max-w-2xl text-[clamp(2.5rem,7vw,5.25rem)] font-extralight leading-[0.92] tracking-tight">
+                <h2 className="mt-4 max-w-2xl text-[clamp(2rem,5.5vw,3.75rem)] font-extralight leading-[1.05] tracking-tight">
                   {footer.headlineLine1}
                   <br />
-                  <span className="text-foreground/50">{footer.headlineLine2}</span>
+                  <span className="text-foreground/55">{footer.headlineLine2}</span>
                 </h2>
 
-                <p className="mt-8 max-w-md text-base leading-[1.75] text-muted-foreground md:mt-10 md:text-lg">
+                <p className="mt-6 max-w-md text-[0.9375rem] leading-relaxed text-muted-foreground md:mt-8 md:text-base">
                   {footer.tagline}
                 </p>
               </div>
 
-              <div className="flex items-center gap-4 border-t border-brand/12 pt-8 md:pt-10">
+              <div className="flex items-center gap-4 border-t border-brand/12 pt-8">
                 <BrandMark size={44} />
                 <div>
                   <span className="font-mono-tech ltr-embed block text-lg tracking-[0.14em] text-foreground md:text-xl">
@@ -90,16 +84,6 @@ export function SiteFooter() {
               {...fadeUp(0.1, reduced)}
               className="relative grid grid-cols-2 gap-px border border-brand/12 bg-brand/12"
             >
-              <div
-                className="registration-marks pointer-events-none absolute inset-2 hidden lg:block"
-                aria-hidden
-              >
-                <span />
-                <span />
-                <span />
-                <span />
-              </div>
-
               {footer.social.map((link, i) => {
                 const Icon = SOCIAL_ICONS[link.key];
                 return (
@@ -110,7 +94,7 @@ export function SiteFooter() {
                       rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
                       aria-label={link.label}
                       className={cn(
-                        "group relative flex min-h-[9.5rem] flex-col justify-between p-5 transition-colors duration-300 md:min-h-[11rem] md:p-7",
+                        "group relative flex min-h-[9rem] flex-col justify-between p-5 transition-colors duration-300 md:min-h-[10.5rem] md:p-6",
                         "hover:bg-brand/6 focus-visible:bg-brand/6 focus-visible:outline-none",
                       )}
                     >
@@ -121,21 +105,16 @@ export function SiteFooter() {
                         {String(i + 1).padStart(2, "0")}
                       </span>
 
-                      <div className="my-4">
-                        <span className="font-mono-tech ltr-embed block text-2xl tracking-[0.08em] text-foreground transition-colors group-hover:text-brand-highlight md:text-3xl">
+                      <div className="my-3">
+                        <span className="font-mono-tech ltr-embed block text-xl tracking-[0.08em] text-foreground transition-colors group-hover:text-brand-highlight md:text-2xl">
                           {link.short}
                         </span>
-                        <span className="mt-2 block text-[10px] tracking-[0.22em] text-foreground-muted uppercase">
+                        <span className="mt-2 block text-[10px] tracking-[0.18em] text-foreground-muted uppercase">
                           {link.label}
                         </span>
                       </div>
 
                       <Icon className="h-3.5 w-3.5 text-brand/30 transition-colors group-hover:text-brand-highlight/70" />
-
-                      <span
-                        className="absolute inset-y-4 start-0 w-px bg-gradient-to-b from-transparent via-brand/0 to-transparent transition-[background] duration-500 group-hover:via-brand/45"
-                        aria-hidden
-                      />
                     </a>
                   </li>
                 );
@@ -143,19 +122,12 @@ export function SiteFooter() {
             </motion.ul>
           </div>
 
-          <motion.div
-            {...fadeUp(0.18, reduced)}
-            className="relative z-0 mt-16 md:mt-24 lg:mt-28"
+          <motion.p
+            {...fadeUp(0.16, reduced)}
+            className="mt-12 text-center font-mono text-[10px] tracking-[0.24em] text-foreground-muted md:mt-16 md:text-[11px]"
           >
-            <div className="mb-5 flex items-center gap-4" aria-hidden>
-              <span className="section-rule-node" />
-              <span className="section-rule-track min-w-0 flex-1" />
-              <span className="section-rule-end" />
-            </div>
-            <p className="text-center font-mono text-[10px] tracking-[0.28em] text-foreground-muted md:text-[11px]">
-              {footer.copyright}
-            </p>
-          </motion.div>
+            {footer.copyright}
+          </motion.p>
 
           <div className="quote-dock-spacer md:hidden" aria-hidden />
         </motion.div>

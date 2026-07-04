@@ -1,14 +1,14 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 
-import { BrandsBand } from "@/components/catalog/BrandsBand";
-import { CatalogHero } from "@/components/catalog/CatalogHero";
-import { CatalogSection } from "@/components/catalog/CatalogSection";
-import { QuoteDock } from "@/components/catalog/QuoteDock";
-import { SiteFooter } from "@/components/catalog/SiteFooter";
-import { WarrantyBand } from "@/components/catalog/WarrantyBand";
-import { SiteHeader, HeaderSpacer } from "@/components/catalog/SiteHeader";
-import { SiteShell } from "@/components/catalog/SiteShell";
+import { BrandsBand } from "@/components/catalog/brands/BrandsBand";
+import { CatalogHero } from "@/components/catalog/hero/CatalogHero";
+import { SiteFooter } from "@/components/catalog/layout/SiteFooter";
+import { SiteHeader, HeaderSpacer } from "@/components/catalog/layout/SiteHeader";
+import { SiteShell } from "@/components/catalog/layout/SiteShell";
+import { QuoteDock } from "@/components/catalog/quote/QuoteDock";
+import { CatalogSection } from "@/components/catalog/section/CatalogSection";
+import { WarrantyBand } from "@/components/catalog/warranty/WarrantyBand";
 import type { FinishKey, ProductCategory } from "@/data/products";
 import { useLocale } from "@/lib/i18n";
 import { buildWhatsAppMessage } from "@/locales";

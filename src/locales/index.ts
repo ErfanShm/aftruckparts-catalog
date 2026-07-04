@@ -74,7 +74,7 @@ export function buildWhatsAppMessage(
   const t = getMessages(locale).whatsapp;
   const lines = items.map(([id, qty]) => {
     const p = products.find((x) => x.id === id)!;
-    return t.line(p.code, p.name, qty);
+    return t.line(p.code, p.name, p.finish, qty);
   });
   return `${t.header}\n\n${lines.join("\n")}\n\n${t.footer}`;
 }

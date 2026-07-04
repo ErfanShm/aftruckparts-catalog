@@ -9,6 +9,8 @@ type PageSectionProps = {
   /** Subtle top rule between major page blocks */
   borderTop?: boolean;
   clipX?: boolean;
+  /** Vertical editorial line on the column edge (desktop) */
+  spine?: boolean;
   as?: "section" | "footer";
 };
 
@@ -18,18 +20,25 @@ export function PageSection({
   className,
   borderTop = false,
   clipX = false,
+  spine = false,
   as: Tag = "section",
 }: PageSectionProps) {
   return (
     <Tag
       id={id}
       className={cn(
-        "scroll-mt-header site-column py-16 md:py-24",
+        "scroll-mt-header site-column relative py-16 md:py-24",
         borderTop && "border-t border-brand/15",
         clipX && "overflow-x-clip",
         className,
       )}
     >
+      {spine && (
+        <div
+          className="editorial-spine pointer-events-none absolute inset-y-[8%] start-0 hidden w-px lg:block"
+          aria-hidden
+        />
+      )}
       {children}
     </Tag>
   );

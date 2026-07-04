@@ -18,69 +18,66 @@ type ProductCardProps = {
 };
 
 function variantStyles(variant: GalleryLayout["variant"]) {
+  const base = { showFinish: true, showBrandRail: false, showMarks: false };
   switch (variant) {
     case "hero":
       return {
+        ...base,
         title: "text-[15px] md:text-[16px]",
         strip: "px-4 pb-4 pt-20",
-        showCategory: true,
-        showBrandRail: false,
-        showMarks: true,
+        showCategory: false,
         hoverScale: "group-hover:scale-[1.03]",
         addButton: "gap-1.5 px-3 py-2",
         showAddLabel: true,
       };
     case "banner":
       return {
+        ...base,
         title: "text-[14px]",
         strip: "px-5 pb-3 pt-12",
-        showCategory: true,
-        showBrandRail: false,
-        showMarks: true,
+        showCategory: false,
         hoverScale: "group-hover:scale-[1.02]",
         addButton: "gap-1 px-2.5 py-1.5",
         showAddLabel: true,
       };
     case "sky":
       return {
+        ...base,
         title: "text-[13px]",
         strip: "px-3 pb-3 pt-16",
         showCategory: false,
         showBrandRail: true,
-        showMarks: false,
         hoverScale: "group-hover:scale-[1.04]",
         addButton: "h-7 w-7",
         showAddLabel: false,
       };
     case "tall":
       return {
+        ...base,
         title: "text-[13px]",
         strip: "px-3 pb-3 pt-14",
         showCategory: false,
         showBrandRail: true,
-        showMarks: false,
         hoverScale: "group-hover:scale-[1.04]",
         addButton: "h-7 w-7",
         showAddLabel: false,
       };
     case "wide":
       return {
+        ...base,
         title: "text-[14px]",
         strip: "px-4 pb-3 pt-12",
-        showCategory: true,
-        showBrandRail: false,
-        showMarks: false,
+        showCategory: false,
         hoverScale: "group-hover:scale-[1.035]",
         addButton: "h-7 w-7",
         showAddLabel: false,
       };
     default:
       return {
+        ...base,
         title: "text-[12px]",
         strip: "px-3 pb-2.5 pt-12",
         showCategory: false,
-        showBrandRail: false,
-        showMarks: false,
         hoverScale: "group-hover:scale-[1.04]",
         addButton: "h-7 w-7",
         showAddLabel: false,
@@ -130,7 +127,7 @@ export function ProductCard({
       <button
         type="button"
         onClick={onOpen}
-        aria-label={product.name}
+        aria-label={`${product.name}, ${product.finish}`}
         className="absolute inset-0 z-10 cursor-pointer focus-visible:outline-none"
       />
 
@@ -144,19 +141,16 @@ export function ProductCard({
         </span>
       )}
 
+      {styles.showFinish && (
+        <span className="finish-specimen-tag pointer-events-none absolute end-3 top-3 z-30">
+          {product.finish}
+        </span>
+      )}
+
       {styles.showBrandRail && (
         <span className="pointer-events-none absolute start-3 top-1/2 z-30 -translate-y-1/2 font-mono text-[8px] uppercase tracking-[0.35em] text-foreground/12 [writing-mode:vertical-lr]">
           {product.brand}
         </span>
-      )}
-
-      {styles.showMarks && (
-        <div className="registration-marks absolute inset-0 z-30 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
-          <span />
-          <span />
-          <span />
-          <span />
-        </div>
       )}
 
       <div className="absolute inset-0 overflow-hidden bg-brand-panel">
