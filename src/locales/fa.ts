@@ -29,7 +29,7 @@ export const fa: LocaleMessages = {
     ctaPdf: "دانلود PDF",
     stats: {
       skus: { label: "کد کالا", value: "۲۶+" },
-      brands: { label: "برند", value: "۱۲" },
+      brands: { label: "برند", value: "۳" },
       warranty: { label: "گارانتی", value: "۲۴ ماه" },
     },
   },
@@ -39,9 +39,10 @@ export const fa: LocaleMessages = {
     heading: "فیلتر کاتالوگ",
     results: (count, total) =>
       `${String(count).padStart(3, "0")} / ${String(total).padStart(3, "0")} نتیجه`,
-    searchPlaceholder: "جستجو برند / کد / روکش…",
+    searchPlaceholder: "جستجو برند / دسته / کد / روکش…",
     clearSearch: "پاک کردن جستجو",
     brandLabel: "برند",
+    categoryLabel: "دسته",
     finishLabel: "روکش",
     clearFilters: "پاک کردن",
     noResults: "نتیجه‌ای یافت نشد — فیلترها را پاک کنید.",
@@ -53,9 +54,19 @@ export const fa: LocaleMessages = {
     curatedUnits: "واحد منتخب",
   },
 
+  categories: [
+    { key: "model-badge", label: "نشان مدل" },
+    { key: "horsepower", label: "قدرت موتور" },
+    { key: "emissions", label: "استاندارد آلایندگی" },
+    { key: "technology", label: "تکنولوژی" },
+    { key: "installation", label: "راهنمای نصب" },
+    { key: "accessory", label: "اکسسوری" },
+  ],
+
   finishes: [
     { key: "matte", label: "مات" },
-    { key: "glossy", label: "براق" },
+    { key: "matte-glossy", label: "مات و براق" },
+    { key: "glossy", label: "مشکی براق" },
     { key: "steel", label: "استیل" },
   ],
 
@@ -68,8 +79,12 @@ export const fa: LocaleMessages = {
     detail: {
       close: "بستن",
       spec: "مشخصات فنی",
+      category: "دسته",
+      compat: "سازگاری",
       euroNorm: "استاندارد اروپایی",
       finish: "پرداخت سطح",
+      description: "توضیحات",
+      variantLabel: "روکش",
       position: (current, total) => `${current} از ${total}`,
       prev: "قطعه قبلی",
       next: "قطعه بعدی",

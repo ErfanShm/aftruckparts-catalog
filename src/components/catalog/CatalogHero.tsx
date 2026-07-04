@@ -87,7 +87,7 @@ export function CatalogHero({ productCount, brandCount }: CatalogHeroProps) {
   const watermark = formatCount(productCount, locale);
 
   return (
-    <section className="relative mx-auto flex min-h-[calc(100svh-var(--header-offset))] max-w-6xl flex-col justify-center overflow-x-clip px-5 pb-20 pt-6 md:px-6 md:pb-28 md:pt-10">
+    <section className="site-column relative flex min-h-[calc(100svh-var(--header-offset))] flex-col justify-center overflow-x-clip pb-20 pt-6 md:pb-28 md:pt-10">
       <div
         className="editorial-spine pointer-events-none absolute inset-y-[10%] start-0 hidden w-px lg:block"
         aria-hidden

@@ -1,4 +1,4 @@
-import type { FinishKey } from "@/data/products";
+import type { FinishKey, ProductCategory } from "@/data/products";
 
 export type Locale = "fa" | "en";
 
@@ -37,6 +37,7 @@ export type LocaleMessages = {
     searchPlaceholder: string;
     clearSearch: string;
     brandLabel: string;
+    categoryLabel: string;
     finishLabel: string;
     clearFilters: string;
     noResults: string;
@@ -47,9 +48,11 @@ export type LocaleMessages = {
     galleryHeading: string;
     curatedUnits: string;
   };
+  categories: { key: ProductCategory; label: string }[];
   finishes: { key: FinishKey; label: string }[];
   product: {
     warranty: string;
+    warrantyBadge: string;
     addToQuote: string;
     inQuote: string;
     increaseQty: string;
@@ -57,8 +60,12 @@ export type LocaleMessages = {
     detail: {
       close: string;
       spec: string;
+      category: string;
+      compat: string;
       euroNorm: string;
       finish: string;
+      description: string;
+      variantLabel: string;
       position: (current: number, total: number) => string;
       prev: string;
       next: string;
@@ -123,7 +130,14 @@ export type Product = {
   finish: string;
   finishKey: FinishKey;
   spec: string;
-  euro: string;
   image: string;
   span: "sm" | "md" | "lg" | "xl";
+  category: ProductCategory;
+  categoryLabel: string;
+  catalogPage: number;
+  description: string;
+  euroNorm?: string;
+  modelCompat?: string;
+  variantGroup?: string;
+  variantIds: string[];
 };

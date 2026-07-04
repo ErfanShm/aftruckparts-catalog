@@ -1,5 +1,7 @@
+import { useMemo } from "react";
 import { motion } from "framer-motion";
 
+import { galleryLayoutForProduct } from "@/lib/gallery-collage";
 import { useLocale } from "@/lib/i18n";
 import type { Product } from "@/locales";
 
@@ -24,6 +26,11 @@ export function ProductGrid({
 }: ProductGridProps) {
   const { messages } = useLocale();
 
+  const layouts = useMemo(
+    () => products.map((product, index) => galleryLayoutForProduct(product, index)),
+    [products],
+  );
+
   if (products.length === 0) {
     return (
       <div className="flex min-h-[30vh] items-center justify-center">
@@ -40,14 +47,14 @@ export function ProductGrid({
       initial={{ opacity: 0, y: 6 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.35, ease: [0.25, 1, 0.5, 1] }}
-      className="grid auto-rows-[minmax(0,1fr)] grid-cols-1 gap-3 md:grid-cols-2 md:gap-4 lg:grid-cols-12 lg:gap-5"
+      className="grid grid-flow-dense grid-cols-2 auto-rows-[220px] items-stretch gap-3 lg:grid-cols-6 lg:auto-rows-[minmax(190px,auto)] lg:gap-4"
     >
       {products.map((p, i) => (
         <ProductCard
           key={p.id}
           product={p}
           index={i}
-          span={p.span}
+          layout={layouts[i]!}
           quantity={quote[p.id] ?? 0}
           onAdd={() => onAdd(p.id)}
           onRemove={() => onRemove(p.id)}

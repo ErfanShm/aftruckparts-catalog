@@ -29,7 +29,7 @@ export const en: LocaleMessages = {
     ctaPdf: "Download PDF",
     stats: {
       skus: { label: "SKUs", value: "26+" },
-      brands: { label: "Brands", value: "12" },
+      brands: { label: "Brands", value: "3" },
       warranty: { label: "Warranty", value: "24 mo" },
     },
   },
@@ -39,9 +39,10 @@ export const en: LocaleMessages = {
     heading: "Filter the catalog",
     results: (count, total) =>
       `${String(count).padStart(3, "0")} / ${String(total).padStart(3, "0")} results`,
-    searchPlaceholder: "Search brand / code / finish…",
+    searchPlaceholder: "Search brand / category / code / finish…",
     clearSearch: "Clear search",
     brandLabel: "Brand",
+    categoryLabel: "Category",
     finishLabel: "Finish",
     clearFilters: "Clear",
     noResults: "No results — clear filters to try again.",
@@ -53,9 +54,19 @@ export const en: LocaleMessages = {
     curatedUnits: "Curated units",
   },
 
+  categories: [
+    { key: "model-badge", label: "Model badge" },
+    { key: "horsepower", label: "Horsepower" },
+    { key: "emissions", label: "Emissions" },
+    { key: "technology", label: "Technology" },
+    { key: "installation", label: "Installation" },
+    { key: "accessory", label: "Accessory" },
+  ],
+
   finishes: [
     { key: "matte", label: "Matte" },
-    { key: "glossy", label: "Glossy" },
+    { key: "matte-glossy", label: "Matte & Glossy" },
+    { key: "glossy", label: "Glossy Black" },
     { key: "steel", label: "Steel" },
   ],
 
@@ -68,8 +79,12 @@ export const en: LocaleMessages = {
     detail: {
       close: "Close",
       spec: "Specification",
+      category: "Category",
+      compat: "Compatibility",
       euroNorm: "Euro norm",
       finish: "Finish",
+      description: "About",
+      variantLabel: "Finish",
       position: (current, total) => `${current} of ${total}`,
       prev: "Previous part",
       next: "Next part",

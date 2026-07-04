@@ -1,15 +1,18 @@
 import { Search, X } from "lucide-react";
 
-import type { FinishKey } from "@/data/products";
-import { BRANDS } from "@/locales";
+import type { FinishKey, ProductCategory } from "@/data/products";
 import { useStickyActive } from "@/hooks/use-sticky-active";
 import { useLocale } from "@/lib/i18n";
+import type { Product } from "@/locales";
 
 import { FilterChips } from "./FilterChips";
 
 type FilterDockProps = {
+  products: Product[];
   activeBrand: string | null;
   setActiveBrand: (v: string | null) => void;
+  activeCategory: ProductCategory | null;
+  setActiveCategory: (v: ProductCategory | null) => void;
   activeFinish: FinishKey | null;
   setActiveFinish: (v: FinishKey | null) => void;
   query: string;
@@ -19,8 +22,11 @@ type FilterDockProps = {
 };
 
 export function FilterDock({
+  products,
   activeBrand,
   setActiveBrand,
+  activeCategory,
+  setActiveCategory,
   activeFinish,
   setActiveFinish,
   query,
@@ -31,8 +37,11 @@ export function FilterDock({
   const { messages } = useLocale();
   const { sentinelRef } = useStickyActive({ extraTop: 16 });
 
+  const catalogBrands = [...new Set(products.map((p) => p.brand))].sort();
+
   const clearAll = () => {
     setActiveBrand(null);
+    setActiveCategory(null);
     setActiveFinish(null);
   };
 
@@ -75,9 +84,23 @@ export function FilterDock({
             <FilterChips
               orientation="vertical"
               compact
-              items={BRANDS.map((b) => ({ key: b, label: b, mono: true }))}
+              items={catalogBrands.map((b) => ({ key: b, label: b, mono: true }))}
               active={activeBrand}
               onSelect={(key) => setActiveBrand(activeBrand === key ? null : key)}
+            />
+          </div>
+          <div>
+            <p className="mb-3 text-[10px] uppercase tracking-widest text-foreground-muted/35">
+              {messages.catalog.categoryLabel}
+            </p>
+            <FilterChips
+              orientation="vertical"
+              compact
+              items={messages.categories.map((c) => ({ key: c.key, label: c.label }))}
+              active={activeCategory}
+              onSelect={(key) =>
+                setActiveCategory(activeCategory === key ? null : (key as ProductCategory))
+              }
             />
           </div>
           <div>
@@ -92,7 +115,7 @@ export function FilterDock({
               onSelect={(key) => setActiveFinish(activeFinish === key ? null : (key as FinishKey))}
             />
           </div>
-          {(activeBrand || activeFinish) && (
+          {(activeBrand || activeCategory || activeFinish) && (
             <button
               type="button"
               onClick={clearAll}

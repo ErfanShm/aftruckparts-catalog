@@ -42,7 +42,7 @@ export function SiteHeader() {
     <header
       className={cn("header-fixed", scrolled ? "header-shell-scrolled" : "header-shell")}
     >
-      <div className="mx-auto flex h-[var(--header-bar)] max-w-6xl items-center justify-between gap-4 px-5 md:px-6">
+      <div className="site-column flex h-[var(--header-bar)] items-center justify-between gap-4">
         <a href="/" className="group flex items-center gap-3 transition-opacity hover:opacity-90">
           <span className="hidden h-3.5 w-px bg-brand/50 sm:block" aria-hidden />
           <BrandMark size={34} />

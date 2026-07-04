@@ -19,11 +19,28 @@ export function getMessages(locale: Locale): LocaleMessages {
   return messages[locale];
 }
 
+function buildVariantMap(): Map<string, string[]> {
+  const groups = new Map<string, string[]>();
+  for (const p of PRODUCT_CATALOG) {
+    if (!p.variantGroup) continue;
+    const ids = groups.get(p.variantGroup) ?? [];
+    ids.push(p.id);
+    groups.set(p.variantGroup, ids);
+  }
+  return groups;
+}
+
+const VARIANT_MAP = buildVariantMap();
+
 export function buildProducts(
   locale: Locale,
   msgs: LocaleMessages = getMessages(locale),
 ): Product[] {
   const finishMap = Object.fromEntries(msgs.finishes.map((f) => [f.key, f.label])) as Record<
+    string,
+    string
+  >;
+  const categoryMap = Object.fromEntries(msgs.categories.map((c) => [c.key, c.label])) as Record<
     string,
     string
   >;
@@ -36,9 +53,16 @@ export function buildProducts(
     finish: finishMap[p.finishKey],
     name: p.names[locale],
     spec: p.spec,
-    euro: p.euro,
     image: p.image,
     span: p.span,
+    category: p.category,
+    categoryLabel: categoryMap[p.category],
+    catalogPage: p.catalogPage,
+    description: p.description[locale],
+    euroNorm: p.euroNorm,
+    modelCompat: p.modelCompat,
+    variantGroup: p.variantGroup,
+    variantIds: p.variantGroup ? (VARIANT_MAP.get(p.variantGroup) ?? [p.id]) : [p.id],
   }));
 }
 

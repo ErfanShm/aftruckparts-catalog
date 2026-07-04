@@ -493,6 +493,29 @@
   line-height: 1;
 }
 
+@utility site-column {
+  margin-inline: auto;
+  width: 100%;
+  max-width: 80rem;
+  padding-inline: 1.5rem;
+}
+
+@utility ambient-pulse {
+  animation: ambient-pulse 14s ease-in-out infinite;
+}
+
+@keyframes ambient-pulse {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: translateX(-50%) scale(1);
+  }
+  50% {
+    opacity: 0.85;
+    transform: translateX(-50%) scale(1.06);
+  }
+}
+
 @utility ambient-base {
   background:
     radial-gradient(

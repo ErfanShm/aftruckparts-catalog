@@ -17,6 +17,11 @@ const BRAND_ASSETS: Record<string, BrandAsset> = {
     heroImage: catalogImagePath(18),
     accent: "from-brand-highlight/15 via-transparent to-transparent",
   },
+  Universal: {
+    logo: "",
+    heroImage: catalogImagePath(25),
+    accent: "from-foreground/10 via-transparent to-transparent",
+  },
 };
 
 export function getBrandAsset(brand: string, fallbackHero?: string): BrandAsset {

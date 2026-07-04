@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 
-import type { FinishKey } from "@/data/products";
+import type { FinishKey, ProductCategory } from "@/data/products";
 import { useLocale } from "@/lib/i18n";
 import type { Product } from "@/locales";
 
@@ -13,11 +13,14 @@ import { SectionIntro } from "./SectionIntro";
 
 type CatalogSectionProps = {
   filtered: Product[];
+  allProducts: Product[];
   quote: Record<string, number>;
   onAdd: (id: string) => void;
   onRemove: (id: string) => void;
   activeBrand: string | null;
   setActiveBrand: (v: string | null) => void;
+  activeCategory: ProductCategory | null;
+  setActiveCategory: (v: ProductCategory | null) => void;
   activeFinish: FinishKey | null;
   setActiveFinish: (v: FinishKey | null) => void;
   query: string;
@@ -27,11 +30,14 @@ type CatalogSectionProps = {
 
 export function CatalogSection({
   filtered,
+  allProducts,
   quote,
   onAdd,
   onRemove,
   activeBrand,
   setActiveBrand,
+  activeCategory,
+  setActiveCategory,
   activeFinish,
   setActiveFinish,
   query,
@@ -49,11 +55,14 @@ export function CatalogSection({
   const detailOpen = detailIndex >= 0;
   const activeProduct = detailOpen ? filtered[detailIndex] : null;
 
-  const filterKey = `${activeBrand ?? ""}-${activeFinish ?? ""}-${query}`;
+  const filterKey = `${activeBrand ?? ""}-${activeCategory ?? ""}-${activeFinish ?? ""}-${query}`;
 
   const filterProps = {
+    products: allProducts,
     activeBrand,
     setActiveBrand,
+    activeCategory,
+    setActiveCategory,
     activeFinish,
     setActiveFinish,
     query,
@@ -92,8 +101,10 @@ export function CatalogSection({
           open={detailOpen}
           onOpenChange={(open) => !open && setDetailId(null)}
           products={filtered}
+          allProducts={allProducts}
           activeIndex={detailIndex}
           onNavigate={(index) => setDetailId(filtered[index]?.id ?? null)}
+          onSelectProduct={(id) => setDetailId(id)}
           quantity={quote[activeProduct.id] ?? 0}
           onAdd={() => onAdd(activeProduct.id)}
           onRemove={() => onRemove(activeProduct.id)}
