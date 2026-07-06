@@ -26,9 +26,7 @@ type FilterDockProps = {
 function FilterGroup({ label, children }: { label: string; children: ReactNode }) {
   return (
     <div>
-      <p className="mb-1.5 text-[9px] uppercase tracking-[0.2em] text-foreground-muted/35">
-        {label}
-      </p>
+      <p className="filter-index-label mb-2.5">{label}</p>
       {children}
     </div>
   );
@@ -51,19 +49,21 @@ export function FilterDock({
   const { sentinelRef } = useStickyActive({ extraTop: 16 });
 
   const catalogBrands = [...new Set(products.map((p) => p.brand))].sort();
+  const hasActiveConstraints = Boolean(activeBrand || activeCategory || activeFinish || query);
 
   const clearAll = () => {
     setActiveBrand(null);
     setActiveCategory(null);
     setActiveFinish(null);
+    setQuery("");
   };
 
   return (
-    <div className="relative hidden min-h-full lg:block">
+    <div className="relative hidden lg:block lg:self-stretch">
       <div ref={sentinelRef} className="pointer-events-none absolute start-0 top-0 h-px w-full" aria-hidden />
-      <aside className="filter-sticky-dock w-full px-1" aria-label={messages.catalog.heading}>
-        <div className="flex items-center gap-2 pb-3">
-          <Search className="h-3.5 w-3.5 shrink-0 text-muted-foreground" />
+      <aside className="filter-sticky-dock w-full pe-1" aria-label={messages.catalog.heading}>
+        <div className="filter-index-search">
+          <Search className="h-3.5 w-3.5 shrink-0 text-brand/45" />
           <input
             value={query}
             onChange={(e) => setQuery(e.target.value)}
@@ -74,7 +74,7 @@ export function FilterDock({
             <button
               type="button"
               onClick={() => setQuery("")}
-              className="text-muted-foreground hover:text-accent"
+              className="text-muted-foreground transition-colors hover:text-brand-readable"
               aria-label={messages.catalog.clearSearch}
             >
               <X className="h-3.5 w-3.5" />
@@ -82,26 +82,29 @@ export function FilterDock({
           )}
         </div>
 
-        <p className="font-mono-tech ltr-embed text-[10px] text-foreground-muted/40">
-          {messages.catalog.results(resultCount, productCount)}
-        </p>
+        <div className="mt-2 flex items-baseline justify-between gap-3">
+          <span className="filter-index-label">{messages.catalog.heading}</span>
+          <span className="filter-index-count ltr-embed">
+            {messages.catalog.results(resultCount, productCount)}
+          </span>
+        </div>
 
-        <div className="mt-4 space-y-4">
+        <div className="filter-index-rule" aria-hidden />
+
+        <div className="space-y-6">
           <FilterGroup label={messages.catalog.finishLabel}>
             <FinishFilterPills
-              compact
               items={messages.finishes.map((f) => ({ key: f.key, label: f.label }))}
               active={activeFinish}
               onSelect={(key) => setActiveFinish(activeFinish === key ? null : (key as FinishKey))}
             />
           </FilterGroup>
 
-          <div className="grid grid-cols-2 gap-x-3">
+          <div className="space-y-6">
             <FilterGroup label={messages.catalog.brandLabel}>
               <FilterChips
                 orientation="vertical"
-                compact
-                dense
+                showIndex
                 items={catalogBrands.map((b) => ({ key: b, label: b, mono: true }))}
                 active={activeBrand}
                 onSelect={(key) => setActiveBrand(activeBrand === key ? null : key)}
@@ -111,8 +114,7 @@ export function FilterDock({
             <FilterGroup label={messages.catalog.categoryLabel}>
               <FilterChips
                 orientation="vertical"
-                compact
-                dense
+                showIndex
                 items={messages.categories.map((c) => ({ key: c.key, label: c.label }))}
                 active={activeCategory}
                 onSelect={(key) =>
@@ -122,12 +124,8 @@ export function FilterDock({
             </FilterGroup>
           </div>
 
-          {(activeBrand || activeCategory || activeFinish) && (
-            <button
-              type="button"
-              onClick={clearAll}
-              className="text-[10px] text-muted-foreground transition-colors hover:text-accent"
-            >
+          {hasActiveConstraints && (
+            <button type="button" onClick={clearAll} className="filter-index-clear">
               {messages.catalog.clearFilters}
             </button>
           )}

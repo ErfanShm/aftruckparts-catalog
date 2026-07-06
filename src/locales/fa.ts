@@ -23,8 +23,7 @@ export const fa: LocaleMessages = {
     titleLine1: "سخت‌افزار",
     titleLine2: "مهندسی‌شده برای",
     titleAccent: "مسیرهای طولانی.",
-    subtitle:
-      "مجموعه‌ای منتخب از نشان‌ها و یراق‌آلات کامیون با روکش کروم، مات و استیل. مناسب ناوگان‌ها. پشتیبانی با گارانتی دو ساله.",
+    subtitle: "نشان‌های درجه ناوگان. سه روکش. گارانتی دو ساله.",
     cta: "ورود به کاتالوگ",
     ctaPdf: "دانلود PDF",
     dragHint: "بکشید و بررسی کنید",
@@ -97,7 +96,13 @@ export const fa: LocaleMessages = {
       position: (current, total) => `${current} از ${total}`,
       prev: "قطعه قبلی",
       next: "قطعه بعدی",
-      swipeHint: "برای مرور قطعات بکشید",
+      swipeHint: "از فهرست برای مرور قطعات استفاده کنید",
+      prevPhoto: "عکس قبلی",
+      nextPhoto: "عکس بعدی",
+      photoPosition: (current, total) => `${current} / ${total}`,
+      swipePhotosHint: "برای نمای بیشتر بکشید",
+      viewsLabel: "نماها",
+      browsePartsLabel: "مرور قطعات",
     },
   },
 
@@ -107,6 +112,10 @@ export const fa: LocaleMessages = {
     title: "لیست پیش‌فاکتور شما",
     close: "بستن",
     empty: "لیست خالی است — قطعات را اضافه کنید.",
+    customerLabel: "نام / نام مجموعه",
+    customerPlaceholder: "نام شرکت یا تماس",
+    detailsLabel: "جزئیات بیشتر",
+    detailsPlaceholder: "شهر، اندازه ناوگان، فوریت، توضیحات…",
     sendWhatsApp: "ارسال از طریق واتساپ",
     sendWhatsAppArrow: "←",
     footerNote: "بدون پرداخت آنلاین · خط مستقیم B2B",
@@ -132,6 +141,7 @@ export const fa: LocaleMessages = {
     subline:
       "برای فیلتر کاتالوگ یک برند را انتخاب کنید — همه واحدها تحت همان پروتکل گارانتی ارسال می‌شوند.",
     units: (count) => `${count.toLocaleString("fa-IR")} کد کالا`,
+    unitsLabel: "کد کالا",
     browse: "مشاهده در کاتالوگ ←",
   },
 
@@ -161,8 +171,12 @@ export const fa: LocaleMessages = {
   },
 
   whatsapp: {
-    header: "درخواست پیش‌فاکتور Aftruckparts",
-    line: (code, name, finish, qty) => `• ${code} — ${name} · ${finish} × ${qty}`,
-    footer: "لطفاً قیمت و زمان تحویل را اعلام کنید.",
+    header: "📦 Aftruckparts — درخواست پیش‌فاکتور جدید",
+    customer: (name) => `👤 مشتری: ${name}`,
+    details: (text) => `📝 جزئیات بیشتر: ${text}`,
+    itemsHeading: "اقلام:",
+    line: (code, name, finish, qty) => `• ${qty.toLocaleString("fa-IR")} عدد | ${code} (${name} - ${finish})`,
+    footer: "لطفاً قیمت، موجودی و زمان تحویل را اعلام کنید.",
+    leadSource: "[Lead Source: Web-Catalog-26]",
   },
 };

@@ -1,7 +1,7 @@
-import { motion, useReducedMotion } from "framer-motion";
 import type { CSSProperties } from "react";
 import { Minus, Plus } from "lucide-react";
 
+import { CatalogImage, CATALOG_IMAGE_SIZES } from "@/components/catalog/CatalogImage";
 import { type GalleryLayout } from "@/lib/gallery-collage";
 import { cn } from "@/lib/utils";
 import { useLocale } from "@/lib/i18n";
@@ -85,6 +85,19 @@ function variantStyles(variant: GalleryLayout["variant"]) {
   }
 }
 
+function finishTagClass(finishKey: Product["finishKey"]) {
+  switch (finishKey) {
+    case "matte":
+      return "finish-specimen-tag-matte";
+    case "matte-glossy":
+      return "finish-specimen-tag-matte-glossy";
+    case "glossy":
+      return "finish-specimen-tag-glossy";
+    case "steel":
+      return "finish-specimen-tag-steel";
+  }
+}
+
 export function ProductCard({
   product,
   index,
@@ -95,25 +108,14 @@ export function ProductCard({
   onOpen,
 }: ProductCardProps) {
   const { messages, dir } = useLocale();
-  const reduced = useReducedMotion() ?? false;
   const inQuote = quantity > 0;
   const indexLabel = String(index + 1).padStart(2, "0");
   const styles = variantStyles(layout.variant);
-  const organicY = reduced ? 0 : layout.organicY;
+  const organicY = layout.organicY;
 
   return (
-    <motion.article
-      initial={{ opacity: 0, y: 14 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-4%" }}
-      transition={{
-        delay: Math.min(index * 0.03, 0.18),
-        duration: 0.5,
-        ease: [0.25, 1, 0.5, 1],
-      }}
-      style={
-        organicY ? ({ "--gallery-y": `${organicY}px` } as CSSProperties) : undefined
-      }
+    <article
+      style={organicY ? ({ "--gallery-y": `${organicY}px` } as CSSProperties) : undefined}
       className={cn(
         "specimen-frame specimen-corner group relative h-full overflow-hidden transition-all duration-500",
         layout.mobileClassName,
@@ -131,39 +133,46 @@ export function ProductCard({
         className="absolute inset-0 z-10 cursor-pointer focus-visible:outline-none"
       />
 
-      <span className="pointer-events-none absolute start-3 top-3 z-30 font-mono text-[10px] tabular-nums text-brand/25 transition-colors duration-500 group-hover:text-brand/50">
+      <span className="pointer-events-none absolute start-3 top-3 z-[2] font-mono text-[10px] tabular-nums text-foreground/40 transition-colors duration-500 group-hover:text-foreground/60">
         {indexLabel}
       </span>
 
       {styles.showCategory && (
-        <span className="pointer-events-none absolute end-3 top-3 z-30 font-mono text-[9px] uppercase tracking-widest text-foreground/20">
+        <span className="pointer-events-none absolute end-3 top-3 z-[2] font-mono text-[9px] uppercase tracking-widest text-foreground/20">
           {product.categoryLabel}
         </span>
       )}
 
       {styles.showFinish && (
-        <span className="finish-specimen-tag pointer-events-none absolute end-3 top-3 z-30">
+        <span
+          className={cn(
+            "finish-specimen-tag pointer-events-none absolute end-3 top-3 z-[2]",
+            finishTagClass(product.finishKey),
+          )}
+        >
           {product.finish}
         </span>
       )}
 
       {styles.showBrandRail && (
-        <span className="pointer-events-none absolute start-3 top-1/2 z-30 -translate-y-1/2 font-mono text-[8px] uppercase tracking-[0.35em] text-foreground/12 [writing-mode:vertical-lr]">
+        <span className="pointer-events-none absolute start-3 top-1/2 z-[2] -translate-y-1/2 font-mono text-[8px] uppercase tracking-[0.35em] text-foreground/12 [writing-mode:vertical-lr]">
           {product.brand}
         </span>
       )}
 
       <div className="absolute inset-0 overflow-hidden bg-brand-panel">
-        <img
-          src={product.image}
+        <CatalogImage
+          manifest={product.imageManifest.hero}
           alt=""
-          loading="lazy"
-          aria-hidden
-          style={{ objectPosition: layout.imagePosition }}
+          priority={index < 4}
+          placeholder={false}
+          fill
+          objectPosition={layout.imagePosition}
+          sizes={CATALOG_IMAGE_SIZES.grid}
           className={cn(
-            "brand-specimen-photo absolute inset-0 h-full w-full object-cover transition-all duration-500",
+            "brand-specimen-photo transition-all duration-500",
             styles.hoverScale,
-            "group-hover:opacity-100 group-hover:saturate-100 group-hover:brightness-100",
+            "group-hover:saturate-100 group-hover:brightness-100",
           )}
         />
         <div className="brand-specimen-scrim pointer-events-none absolute inset-0" aria-hidden />
@@ -192,7 +201,7 @@ export function ProductCard({
           </p>
         </div>
 
-        <div className="relative z-30 shrink-0 pb-0.5">
+        <div className="relative z-[3] shrink-0 pb-0.5">
           {inQuote ? (
             <div
               className={cn(
@@ -247,6 +256,6 @@ export function ProductCard({
           )}
         </div>
       </div>
-    </motion.article>
+    </article>
   );
 }

@@ -5,8 +5,7 @@ type FilterChipsProps = {
   active: string | null;
   onSelect: (key: string) => void;
   orientation?: "horizontal" | "vertical";
-  compact?: boolean;
-  dense?: boolean;
+  showIndex?: boolean;
 };
 
 export function FilterChips({
@@ -14,20 +13,13 @@ export function FilterChips({
   active,
   onSelect,
   orientation = "horizontal",
-  compact = false,
-  dense = false,
+  showIndex = false,
 }: FilterChipsProps) {
   const vertical = orientation === "vertical";
 
   return (
-    <div
-      className={
-        vertical
-          ? "flex flex-col gap-0.5"
-          : "flex flex-wrap gap-x-4 gap-y-1"
-      }
-    >
-      {items.map((item) => {
+    <div className={vertical ? "flex flex-col" : "flex flex-wrap gap-x-4 gap-y-1"}>
+      {items.map((item, index) => {
         const isActive = active === item.key;
 
         return (
@@ -38,26 +30,30 @@ export function FilterChips({
             className={cn(
               "touch-manipulation transition-colors duration-200",
               vertical
-                ? cn(
-                    dense
-                      ? "py-0.5 text-xs leading-snug"
-                      : compact
-                        ? "py-1 text-sm"
-                        : "py-1.5 text-sm",
-                    "w-full text-start",
-                    isActive &&
-                      "relative ps-3 before:absolute before:inset-y-1.5 before:start-0 before:w-px before:bg-accent/70",
-                  )
+                ? cn("filter-index-row", isActive && "filter-index-row-active")
                 : cn(
-                    compact ? "px-0 py-1 text-xs" : "px-0 py-1.5 text-sm",
-                    "rounded-md",
+                    "rounded-md px-0 py-1 text-xs",
+                    isActive ? "filter-index-toggle-active" : "filter-index-toggle",
                   ),
-              isActive
-                ? "font-medium text-accent"
-                : "text-muted-foreground hover:text-foreground",
             )}
           >
-            <span className={item.mono ? "font-mono-tech ltr-embed" : undefined}>{item.label}</span>
+            {vertical && showIndex && (
+              <span className="filter-index-num ltr-embed flex items-center justify-center">
+                {isActive ? (
+                  <span className="h-[3px] w-[3px] rotate-45 bg-brand-highlight" aria-hidden />
+                ) : (
+                  String(index + 1).padStart(2, "0")
+                )}
+              </span>
+            )}
+            <span
+              className={cn(
+                "min-w-0 text-start",
+                item.mono ? "font-mono-tech ltr-embed whitespace-nowrap text-[11px]" : "leading-snug",
+              )}
+            >
+              {item.label}
+            </span>
           </button>
         );
       })}

@@ -10,15 +10,15 @@ type BrandLogoProps = {
 export function BrandLogo({ brand, className, markClassName }: BrandLogoProps) {
   const asset = getBrandAsset(brand);
 
-  if (asset.logo) {
+  if (asset.mark) {
     return (
       <img
-        src={asset.logo}
+        src={asset.mark}
         alt=""
         aria-hidden
+        draggable={false}
         className={cn(
-          "w-auto max-w-full object-contain",
-          "drop-shadow-[0_4px_20px_rgba(0,0,0,0.45)]",
+          "brand-mark h-full w-full max-h-full max-w-full object-contain object-center",
           className,
         )}
       />

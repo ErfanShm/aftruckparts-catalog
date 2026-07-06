@@ -7,6 +7,8 @@ import { useGLTF } from "@react-three/drei";
 import { useMemo } from "react";
 import type { BufferGeometry, Mesh } from "three";
 
+import { useIsMobile } from "@/hooks/use-mobile";
+
 import { getFinishMaterialProps, type HeroFinish } from "./hero-finishes";
 
 type BadgeGltf = {
@@ -18,11 +20,12 @@ type BadgeGltf = {
 useGLTF.preload("/models/badge.glb");
 
 export function BadgeModel({ finish }: { finish: HeroFinish }) {
+  const isMobile = useIsMobile();
   const { nodes } = useGLTF("/models/badge.glb") as unknown as BadgeGltf;
   const material = useMemo(() => getFinishMaterialProps(finish), [finish]);
 
   return (
-    <mesh geometry={nodes.model.geometry} castShadow receiveShadow>
+    <mesh geometry={nodes.model.geometry} castShadow={!isMobile} receiveShadow={!isMobile}>
       <meshPhysicalMaterial {...material} />
     </mesh>
   );

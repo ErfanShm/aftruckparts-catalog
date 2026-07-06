@@ -11,7 +11,7 @@ type PageSectionProps = {
   clipX?: boolean;
   /** Vertical editorial line on the column edge (desktop) */
   spine?: boolean;
-  as?: "section" | "footer";
+  as?: "section" | "footer" | "div";
 };
 
 export function PageSection({

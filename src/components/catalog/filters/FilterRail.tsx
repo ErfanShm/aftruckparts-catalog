@@ -176,47 +176,25 @@ export function FilterRail({
 
 
 
-        {(activeBrand || activeCategory || activeFinish) && (
-
-          <div className="mt-2 flex flex-wrap items-center gap-2">
-
-            {activeBrand && (
-
-              <ActivePill label={activeBrand} onRemove={() => setActiveBrand(null)} mono />
-
-            )}
-
-            {activeCategory && (
-
-              <ActivePill
-
-                label={
-
-                  messages.categories.find((c) => c.key === activeCategory)?.label ?? activeCategory
-
-                }
-
-                onRemove={() => setActiveCategory(null)}
-
-              />
-
-            )}
-
-            {activeFinish && (
-
-              <ActivePill
-
-                label={messages.finishes.find((f) => f.key === activeFinish)?.label ?? activeFinish}
-
-                onRemove={() => setActiveFinish(null)}
-
-              />
-
-            )}
-
-          </div>
-
-        )}
+        <div className="mt-2 flex min-h-10 flex-wrap items-center gap-2">
+          {activeBrand && (
+            <ActivePill label={activeBrand} onRemove={() => setActiveBrand(null)} mono />
+          )}
+          {activeCategory && (
+            <ActivePill
+              label={
+                messages.categories.find((c) => c.key === activeCategory)?.label ?? activeCategory
+              }
+              onRemove={() => setActiveCategory(null)}
+            />
+          )}
+          {activeFinish && (
+            <ActivePill
+              label={messages.finishes.find((f) => f.key === activeFinish)?.label ?? activeFinish}
+              onRemove={() => setActiveFinish(null)}
+            />
+          )}
+        </div>
 
       </div>
 
@@ -241,6 +219,10 @@ export function FilterRail({
         activeFinish={activeFinish}
 
         setActiveFinish={setActiveFinish}
+
+        query={query}
+
+        setQuery={setQuery}
 
         resultCount={resultCount}
 

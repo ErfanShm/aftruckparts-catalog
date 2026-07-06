@@ -16,6 +16,8 @@ type MobileFilterSheetProps = {
   setActiveCategory: (v: ProductCategory | null) => void;
   activeFinish: FinishKey | null;
   setActiveFinish: (v: FinishKey | null) => void;
+  query: string;
+  setQuery: (v: string) => void;
   resultCount: number;
   productCount: number;
 };
@@ -30,6 +32,8 @@ export function MobileFilterSheet({
   setActiveCategory,
   activeFinish,
   setActiveFinish,
+  query,
+  setQuery,
   resultCount,
   productCount,
 }: MobileFilterSheetProps) {
@@ -41,7 +45,10 @@ export function MobileFilterSheet({
     setActiveBrand(null);
     setActiveCategory(null);
     setActiveFinish(null);
+    setQuery("");
   };
+
+  const hasActiveConstraints = Boolean(activeBrand || activeCategory || activeFinish || query);
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
@@ -51,16 +58,16 @@ export function MobileFilterSheet({
       >
         <SheetHeader className="text-start">
           <SheetTitle className="font-light">{messages.catalog.heading}</SheetTitle>
-          <p className="text-xs text-muted-foreground">
+          <p className="filter-index-count ltr-embed mt-1">
             {messages.catalog.results(resultCount, productCount)}
           </p>
         </SheetHeader>
 
-        <div className="mt-6 space-y-6 overflow-y-auto pb-4">
+        <div className="filter-index-rule" aria-hidden />
+
+        <div className="mt-6 space-y-7 overflow-y-auto pb-4">
           <div>
-            <p className="mb-2 text-[10px] uppercase tracking-widest text-foreground-muted/35">
-              {messages.catalog.finishLabel}
-            </p>
+            <p className="filter-index-label mb-2.5">{messages.catalog.finishLabel}</p>
             <FinishFilterPills
               items={messages.finishes.map((f) => ({ key: f.key, label: f.label }))}
               active={activeFinish}
@@ -68,20 +75,20 @@ export function MobileFilterSheet({
             />
           </div>
           <div>
-            <p className="mb-2 text-[10px] uppercase tracking-widest text-foreground-muted/35">
-              {messages.catalog.brandLabel}
-            </p>
+            <p className="filter-index-label mb-2.5">{messages.catalog.brandLabel}</p>
             <FilterChips
+              orientation="vertical"
+              showIndex
               items={catalogBrands.map((b) => ({ key: b, label: b, mono: true }))}
               active={activeBrand}
               onSelect={(key) => setActiveBrand(activeBrand === key ? null : key)}
             />
           </div>
           <div>
-            <p className="mb-2 text-[10px] uppercase tracking-widest text-foreground-muted/35">
-              {messages.catalog.categoryLabel}
-            </p>
+            <p className="filter-index-label mb-2.5">{messages.catalog.categoryLabel}</p>
             <FilterChips
+              orientation="vertical"
+              showIndex
               items={messages.categories.map((c) => ({ key: c.key, label: c.label }))}
               active={activeCategory}
               onSelect={(key) =>
@@ -92,12 +99,8 @@ export function MobileFilterSheet({
         </div>
 
         <SheetFooter className="mt-4 flex-row gap-2 sm:justify-between">
-          {(activeBrand || activeCategory || activeFinish) && (
-            <button
-              type="button"
-              onClick={clearAll}
-              className="flex-1 rounded-full hair-border px-4 py-3 text-sm text-muted-foreground"
-            >
+          {hasActiveConstraints && (
+            <button type="button" onClick={clearAll} className="filter-index-clear flex-1 py-3">
               {messages.catalog.clearFilters}
             </button>
           )}

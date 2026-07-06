@@ -1,6 +1,7 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 import type { FinishKey, ProductCategory } from "@/data/products";
+import { usePreserveScrollOnChange } from "@/hooks/use-preserve-scroll";
 import { useLocale } from "@/lib/i18n";
 import type { Product } from "@/locales";
 
@@ -48,6 +49,18 @@ export function CatalogSection({
   const { messages } = useLocale();
   const [detailId, setDetailId] = useState<string | null>(null);
 
+  const isFiltered =
+    filtered.length < productCount ||
+    Boolean(activeBrand || activeCategory || activeFinish || query.trim());
+
+  const filterSignature = `${filtered.length}-${activeBrand ?? ""}-${activeCategory ?? ""}-${activeFinish ?? ""}-${query.trim()}`;
+
+  /** Structural changes only — avoids per-keystroke scroll fights on mobile. */
+  const scrollSignature = `${filtered.length}-${activeBrand ?? ""}-${activeCategory ?? ""}-${activeFinish ?? ""}`;
+
+  const resultsRef = useRef<HTMLDivElement>(null);
+  usePreserveScrollOnChange(resultsRef, scrollSignature);
+
   const detailIndex = useMemo(
     () => (detailId ? filtered.findIndex((p) => p.id === detailId) : -1),
     [detailId, filtered],
@@ -56,7 +69,11 @@ export function CatalogSection({
   const detailOpen = detailIndex >= 0;
   const activeProduct = detailOpen ? filtered[detailIndex] : null;
 
-  const filterKey = `${activeBrand ?? ""}-${activeCategory ?? ""}-${activeFinish ?? ""}-${query}`;
+  useEffect(() => {
+    if (detailId && !filtered.some((p) => p.id === detailId)) {
+      setDetailId(null);
+    }
+  }, [detailId, filtered]);
 
   const filterProps = {
     products: allProducts,
@@ -73,7 +90,7 @@ export function CatalogSection({
   };
 
   return (
-    <PageSection id="catalog" spine>
+    <PageSection id="catalog" spine className="[overflow-anchor:none]">
       <div className="mb-8 md:mb-10">
         <SectionRule index="02" className="mb-6 md:mb-8" />
         <SectionIntro
@@ -86,15 +103,16 @@ export function CatalogSection({
       <div className="lg:grid lg:grid-cols-[minmax(220px,260px)_1fr] lg:gap-10">
         <FilterDock {...filterProps} />
 
-        <div className="min-w-0">
+        <div ref={resultsRef} className="min-w-0 [overflow-anchor:none]">
           <FilterRail {...filterProps} />
           <ProductGrid
             products={filtered}
             quote={quote}
+            isFiltered={isFiltered}
+            filterSignature={filterSignature}
             onAdd={onAdd}
             onRemove={onRemove}
             onSelect={(id) => setDetailId(id)}
-            filterKey={filterKey}
           />
         </div>
       </div>

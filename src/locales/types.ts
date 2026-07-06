@@ -1,4 +1,5 @@
 import type { FinishKey, ProductCategory } from "@/data/products";
+import type { ImageManifestEntry } from "@/data/catalog-image-types";
 
 export type Locale = "fa" | "en";
 
@@ -78,6 +79,12 @@ export type LocaleMessages = {
       prev: string;
       next: string;
       swipeHint: string;
+      prevPhoto: string;
+      nextPhoto: string;
+      photoPosition: (current: number, total: number) => string;
+      swipePhotosHint: string;
+      viewsLabel: string;
+      browsePartsLabel: string;
     };
   };
   quote: {
@@ -86,6 +93,10 @@ export type LocaleMessages = {
     title: string;
     close: string;
     empty: string;
+    customerLabel: string;
+    customerPlaceholder: string;
+    detailsLabel: string;
+    detailsPlaceholder: string;
     sendWhatsApp: string;
     sendWhatsAppArrow: string;
     footerNote: string;
@@ -103,6 +114,7 @@ export type LocaleMessages = {
     headline: string;
     subline: string;
     units: (count: number) => string;
+    unitsLabel: string;
     browse: string;
   };
   footer: {
@@ -125,8 +137,12 @@ export type LocaleMessages = {
   };
   whatsapp: {
     header: string;
+    customer: (name: string) => string;
+    details: (text: string) => string;
+    itemsHeading: string;
     line: (code: string, name: string, finish: string, qty: number) => string;
     footer: string;
+    leadSource: string;
   };
 };
 
@@ -139,6 +155,11 @@ export type Product = {
   finishKey: FinishKey;
   spec: string;
   image: string;
+  images: string[];
+  imageManifest: {
+    hero: ImageManifestEntry;
+    gallery: ImageManifestEntry[];
+  };
   span: "sm" | "md" | "lg" | "xl";
   category: ProductCategory;
   categoryLabel: string;

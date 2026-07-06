@@ -1,7 +1,10 @@
-import { ContactShadows, Environment, OrbitControls } from "@react-three/drei";
+import { Environment, Lightformer, OrbitControls } from "@react-three/drei";
+import { TOUCH } from "three";
+
+import { useIsMobile } from "@/hooks/use-mobile";
 
 import { HeroAssembly } from "./HeroAssembly";
-import type { HeroFinish } from "./hero-finishes";
+import { getFinishAtmosphere, type HeroFinish } from "./hero-finishes";
 
 type Pointer = { x: number; y: number };
 
@@ -11,39 +14,96 @@ type HeroVaultSceneProps = {
   onReady?: () => void;
 };
 
-const VOID = "#020812";
+/** Lightweight procedural env for mobile — physical materials need reflections to read as metal. */
+function HeroEnvironment({ mobile }: { mobile: boolean }) {
+  if (mobile) {
+    return (
+      <Environment resolution={128} frames={1}>
+        <Lightformer intensity={2.8} color="#e8f0fa" position={[0, 4, 5]} scale={[12, 12, 1]} />
+        <Lightformer
+          intensity={1.4}
+          color="#b8c8dc"
+          rotation={[0, Math.PI / 2, 0]}
+          position={[-5, 2, 3]}
+          scale={[10, 4, 1]}
+        />
+        <Lightformer
+          intensity={0.65}
+          color="#8a8f98"
+          rotation={[0, -Math.PI / 2, 0]}
+          position={[5, 1, -2]}
+          scale={[8, 3, 1]}
+        />
+      </Environment>
+    );
+  }
+
+  return <Environment preset="studio" />;
+}
 
 export function HeroVaultScene({ finish, pointer, onReady }: HeroVaultSceneProps) {
-  const keyX = pointer.x * 1.8 + 4;
-  const keyY = pointer.y * 1.4 + 3;
-  const fillX = pointer.x * -1.2 - 3;
-  const fillY = pointer.y * -0.8 + 2;
+  const isMobile = useIsMobile();
+  const atmosphere = getFinishAtmosphere(finish);
+  const ambientIntensity = isMobile ? atmosphere.ambient.intensity * 1.35 : atmosphere.ambient.intensity;
+
+  const keyX = pointer.x * 1.6 + 2.5;
+  const keyY = pointer.y * 1.2 + 4.5;
+  const fillX = pointer.x * -1.1 - 2.5;
+  const fillY = pointer.y * -0.7 + 1.5;
 
   return (
     <>
-      <color attach="background" args={[VOID]} />
-      <fog attach="fog" args={[VOID, 6, 16]} />
+      <color attach="background" args={[atmosphere.void]} />
+      <fog attach="fog" args={[atmosphere.fogColor, atmosphere.fogNear, atmosphere.fogFar]} />
 
-      <ambientLight intensity={0.42} color="#c4c4cc" />
-      <directionalLight position={[4, 6, 5]} intensity={1.05} color="#fafafa" castShadow />
+      <ambientLight intensity={ambientIntensity} color={atmosphere.ambient.color} />
+
+      <directionalLight
+        position={[2, 5, 4]}
+        intensity={isMobile ? 1.1 : 0}
+        color={atmosphere.key.color}
+      />
+
       <spotLight
-        position={[keyX, keyY, 8]}
-        angle={0.22}
+        position={[0, 6.5, 1.8]}
+        angle={0.16}
         penumbra={0.9}
-        intensity={1.8}
-        color="#e8eef5"
-      />
-      <spotLight
-        position={[fillX, fillY, -3]}
-        angle={0.28}
-        penumbra={1}
-        intensity={0.55}
-        color="#003d81"
+        intensity={atmosphere.key.intensity * 0.7}
+        color={atmosphere.key.color}
+        castShadow={!isMobile}
       />
 
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -1.02, 0]} receiveShadow>
-        <circleGeometry args={[5.5, 64]} />
-        <meshStandardMaterial color="#050810" roughness={0.95} metalness={0.05} />
+      <spotLight
+        position={[keyX, keyY, 6]}
+        angle={0.2}
+        penumbra={0.95}
+        intensity={atmosphere.key.intensity}
+        color={atmosphere.key.color}
+      />
+
+      <spotLight
+        position={[fillX, fillY, -2.5]}
+        angle={0.32}
+        penumbra={1}
+        intensity={atmosphere.fill.intensity}
+        color={atmosphere.fill.color}
+      />
+
+      <spotLight
+        position={[0, 0.4, -3.8]}
+        angle={0.42}
+        penumbra={0.85}
+        intensity={atmosphere.rim.intensity}
+        color={atmosphere.rim.color}
+      />
+
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.95, 0]} receiveShadow>
+        <circleGeometry args={[3.2, isMobile ? 32 : 48]} />
+        <meshStandardMaterial
+          color={atmosphere.floor.color}
+          roughness={atmosphere.floor.roughness}
+          metalness={atmosphere.floor.metalness}
+        />
       </mesh>
 
       <HeroAssembly finish={finish} onReady={onReady} />
@@ -51,20 +111,22 @@ export function HeroVaultScene({ finish, pointer, onReady }: HeroVaultSceneProps
       <OrbitControls
         enablePan={false}
         enableZoom
-        minDistance={2.8}
-        maxDistance={7}
-        minPolarAngle={0.82}
-        maxPolarAngle={1.48}
-        minAzimuthAngle={-0.65}
-        maxAzimuthAngle={0.65}
-        dampingFactor={0.07}
-        rotateSpeed={0.7}
-        zoomSpeed={0.8}
+        touches={{
+          ONE: TOUCH.ROTATE,
+          TWO: TOUCH.DOLLY,
+        }}
+        minDistance={2.2}
+        maxDistance={6.5}
+        minPolarAngle={0.62}
+        maxPolarAngle={1.58}
+        minAzimuthAngle={-1.35}
+        maxAzimuthAngle={1.35}
+        dampingFactor={0.08}
+        rotateSpeed={0.85}
+        zoomSpeed={0.75}
       />
 
-      <Environment preset="studio" />
+      <HeroEnvironment mobile={isMobile} />
     </>
   );
 }
-
-export { VOID as HERO_VAULT_VOID };

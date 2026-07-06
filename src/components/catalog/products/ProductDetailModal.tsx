@@ -1,12 +1,17 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { ChevronLeft, ChevronRight, Minus, Plus, X } from "lucide-react";
-import { useCallback, useEffect, useRef, type TouchEvent } from "react";
+import { Minus, Plus, X } from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
 
 import { useIsMobile } from "@/hooks/use-mobile";
+import { useBodyScrollLock } from "@/hooks/use-body-scroll-lock";
 import { useLocale } from "@/lib/i18n";
+import { gallerySlidesForProduct } from "@/lib/product-gallery";
 import { cn } from "@/lib/utils";
 import type { Product } from "@/locales";
 import { Sheet, SheetContent } from "@/components/ui/sheet";
+
+import { ProductImageGallery, usePhotoNavigation } from "./ProductImageGallery";
+import { ProductIndexStrip } from "./ProductIndexStrip";
 
 type ProductDetailModalProps = {
   open: boolean;
@@ -187,61 +192,6 @@ function QuoteStepper({
   );
 }
 
-function ThumbnailFilmstrip({
-  products,
-  activeIndex,
-  onNavigate,
-  compact = false,
-  className,
-}: {
-  products: Product[];
-  activeIndex: number;
-  onNavigate: (index: number) => void;
-  compact?: boolean;
-  className?: string;
-}) {
-  const stripRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const el = stripRef.current?.children[activeIndex] as HTMLElement | undefined;
-    el?.scrollIntoView({ inline: "center", block: "nearest", behavior: "smooth" });
-  }, [activeIndex]);
-
-  if (products.length <= 1) return null;
-
-  return (
-    <div
-      ref={stripRef}
-      className={cn(
-        "flex snap-x snap-mandatory gap-2 overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
-        compact ? "px-4 pb-1 pt-2.5" : "px-1 pb-1 pt-3",
-        className,
-      )}
-    >
-      {products.map((p, i) => (
-        <button
-          key={p.id}
-          type="button"
-          onClick={() => onNavigate(i)}
-          aria-current={i === activeIndex ? "true" : undefined}
-          className={cn(
-            "snap-center shrink-0 overflow-hidden rounded-lg border transition-all duration-300 touch-manipulation",
-            compact
-              ? i === activeIndex
-                ? "h-12 w-12 border-accent/40 ring-1 ring-accent/25"
-                : "h-10 w-10 border-foreground/[0.06] opacity-50 active:opacity-80"
-              : i === activeIndex
-                ? "h-14 w-14 border-accent/40 ring-1 ring-accent/25"
-                : "h-12 w-12 border-foreground/[0.06] opacity-50 hover:opacity-80",
-          )}
-        >
-          <img src={p.image} alt="" className="h-full w-full object-cover" />
-        </button>
-      ))}
-    </div>
-  );
-}
-
 function ProductDetailBody({
   product,
   products,
@@ -268,265 +218,184 @@ function ProductDetailBody({
   isMobile: boolean;
 }) {
   const { messages, dir } = useLocale();
-  const touchStart = useRef<number | null>(null);
-  const canPrev = activeIndex > 0;
-  const canNext = activeIndex < products.length - 1;
+  const [photoIndex, setPhotoIndex] = useState(0);
 
-  const goPrev = useCallback(() => {
-    if (canPrev) onNavigate(activeIndex - 1);
-  }, [activeIndex, canPrev, onNavigate]);
+  const slides = useMemo(
+    () => gallerySlidesForProduct(product.imageManifest.gallery),
+    [product.imageManifest.gallery],
+  );
 
-  const goNext = useCallback(() => {
-    if (canNext) onNavigate(activeIndex + 1);
-  }, [activeIndex, canNext, onNavigate]);
+  useEffect(() => {
+    setPhotoIndex(0);
+  }, [product.id]);
+
+  useEffect(() => {
+    if (photoIndex >= slides.length) setPhotoIndex(0);
+  }, [photoIndex, slides.length]);
+
+  const { handlePhotoKey } = usePhotoNavigation(slides.length, photoIndex, setPhotoIndex, dir);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
-      if (e.key === "ArrowLeft") (dir === "rtl" ? goNext : goPrev)();
-      if (e.key === "ArrowRight") (dir === "rtl" ? goPrev : goNext)();
+      handlePhotoKey(e.key);
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [dir, goNext, goPrev, onClose]);
+  }, [handlePhotoKey, onClose]);
 
-  const onTouchStart = (e: TouchEvent) => {
-    touchStart.current = e.touches[0]?.clientX ?? null;
-  };
+  const specPanel = (
+    <>
+      {!isMobile && (
+        <>
+          <p className="font-mono text-[10px] tracking-wide text-foreground/30">
+            {product.code}
+            <span className="mx-2 text-foreground/15">·</span>
+            {product.brand}
+          </p>
+          <h2 className="mt-2 text-[1.35rem] font-light leading-snug text-foreground md:text-3xl">
+            {product.name}
+          </h2>
+        </>
+      )}
 
-  const onTouchEnd = (e: TouchEvent) => {
-    if (touchStart.current === null) return;
-    const delta = touchStart.current - (e.changedTouches[0]?.clientX ?? touchStart.current);
-    touchStart.current = null;
-    if (Math.abs(delta) < 48) return;
-    if (dir === "rtl") {
-      delta > 0 ? goPrev() : goNext();
-    } else {
-      delta > 0 ? goNext() : goPrev();
-    }
-  };
+      <p className={cn("text-sm leading-relaxed text-muted-foreground", !isMobile && "mt-3 md:mt-4")}>
+        {product.description}
+      </p>
 
-  const PrevIcon = dir === "rtl" ? ChevronRight : ChevronLeft;
-  const NextIcon = dir === "rtl" ? ChevronLeft : ChevronRight;
-  const positionLabel = messages.product.detail.position(activeIndex + 1, products.length);
-  const showNav = products.length > 1;
-  const navBtnClass =
-    "absolute top-1/2 z-30 flex -translate-y-1/2 touch-manipulation items-center justify-center rounded-full bg-void/70 p-2.5 text-foreground/50 backdrop-blur-sm transition-colors active:scale-95 active:text-foreground/80 md:bg-void/50 md:p-2 md:hover:text-foreground/80";
+      <VariantSwitcher
+        product={product}
+        allProducts={allProducts}
+        variantLabel={messages.product.detail.variantLabel}
+        onSelect={onSelectProduct}
+      />
 
-  return (
-    <div className="relative flex min-h-0 flex-1 flex-col md:flex-row">
-      <div className="relative flex min-h-0 shrink-0 flex-col md:w-[52%]">
-        <div className="pointer-events-none absolute start-0 top-1/2 z-20 hidden -translate-y-1/2 md:block">
-          <div className="rounded-e-sm border border-s-0 border-foreground/[0.06] bg-void/80 px-1.5 py-2.5">
-            <span className="font-mono text-[9px] tracking-[0.2em] text-foreground/30 [writing-mode:vertical-lr]">
-              {positionLabel}
-            </span>
-          </div>
+      <SpecList
+        product={product}
+        labels={{
+          spec: messages.product.detail.spec,
+          category: messages.product.detail.category,
+          compat: messages.product.detail.compat,
+          euroNorm: messages.product.detail.euroNorm,
+          finish: messages.product.detail.finish,
+          warranty: messages.product.warranty,
+        }}
+        warrantyValue={messages.hero.stats.warranty.value}
+        className={isMobile ? "mb-2" : undefined}
+      />
+
+      {!isMobile && (
+        <div className="mt-auto pt-6">
+          <QuoteStepper
+            quantity={quantity}
+            onAdd={onAdd}
+            onRemove={onRemove}
+            dir={dir}
+            addLabel={messages.product.addToQuote}
+            decreaseLabel={messages.product.decreaseQty}
+            increaseLabel={messages.product.increaseQty}
+          />
         </div>
+      )}
+    </>
+  );
 
-        <div
-          className={cn(
-            "relative flex flex-1 flex-col",
-            isMobile ? "min-h-0 shrink-0" : "p-5 pb-2 md:p-6 md:pb-2",
-          )}
-        >
-          {isMobile ? (
-            <>
-              <div
-                className="relative min-h-[34vh] max-h-[42vh] flex-1 overflow-hidden"
-                onTouchStart={onTouchStart}
-                onTouchEnd={onTouchEnd}
-              >
-                {showNav && canPrev && (
-                  <button
-                    type="button"
-                    onClick={goPrev}
-                    aria-label={messages.product.detail.prev}
-                    className={cn(navBtnClass, "start-2")}
-                  >
-                    <PrevIcon className="h-4 w-4" />
-                  </button>
-                )}
-                {showNav && canNext && (
-                  <button
-                    type="button"
-                    onClick={goNext}
-                    aria-label={messages.product.detail.next}
-                    className={cn(navBtnClass, "end-2")}
-                  >
-                    <NextIcon className="h-4 w-4" />
-                  </button>
-                )}
-                <AnimatePresence mode="wait">
-                  <motion.img
-                    key={product.id}
-                    src={product.image}
-                    alt={product.name}
-                    initial={false}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.2 }}
-                    className="absolute inset-0 h-full w-full object-cover object-center"
-                  />
-                </AnimatePresence>
-                <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-void/60 to-transparent" />
-                <div className="absolute inset-x-0 top-0 flex items-center justify-between p-4">
-                  <span className="font-mono text-[10px] text-foreground/50">{positionLabel}</span>
-                  <button
-                    type="button"
-                    onClick={onClose}
-                    aria-label={messages.product.detail.close}
-                    className="rounded-full bg-void/50 p-2 text-foreground/40 transition-colors hover:text-foreground/80"
-                  >
-                    <X className="h-4 w-4" />
-                  </button>
-                </div>
-              </div>
-              <ThumbnailFilmstrip
-                products={products}
-                activeIndex={activeIndex}
-                onNavigate={onNavigate}
-                compact
-              />
-            </>
-          ) : (
-            <div className="vault-glass relative flex min-h-[280px] flex-1 flex-col overflow-hidden rounded-2xl p-2.5 md:min-h-0 md:p-3">
-              {showNav && canPrev && (
-                <button
-                  type="button"
-                  onClick={goPrev}
-                  aria-label={messages.product.detail.prev}
-                  className={cn(navBtnClass, "start-3")}
-                >
-                  <PrevIcon className="h-4 w-4" />
-                </button>
-              )}
-              {showNav && canNext && (
-                <button
-                  type="button"
-                  onClick={goNext}
-                  aria-label={messages.product.detail.next}
-                  className={cn(navBtnClass, "end-3")}
-                >
-                  <NextIcon className="h-4 w-4" />
-                </button>
-              )}
-              <div className="relative min-h-[240px] flex-1 overflow-hidden rounded-xl md:min-h-0">
-                <AnimatePresence mode="wait">
-                  <motion.img
-                    key={product.id}
-                    src={product.image}
-                    alt={product.name}
-                    initial={{ opacity: 0, scale: 0.98 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.3 }}
-                    className="absolute inset-0 h-full w-full object-cover object-center"
-                  />
-                </AnimatePresence>
-              </div>
-              <ThumbnailFilmstrip
-                products={products}
-                activeIndex={activeIndex}
-                onNavigate={onNavigate}
-              />
-            </div>
-          )}
-        </div>
-      </div>
-
-      <div
-        className={cn(
-          "flex min-h-0 flex-1 flex-col",
-          !isMobile && "overflow-y-auto p-5 md:p-8 md:ps-6",
-        )}
-      >
-        <div className="mb-4 hidden items-start justify-end md:flex">
+  if (isMobile) {
+    return (
+      <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
+        <div className="relative shrink-0">
+          <ProductImageGallery
+            slides={slides}
+            photoIndex={photoIndex}
+            onPhotoChange={setPhotoIndex}
+            alt={product.name}
+            isMobile
+          />
           <button
             type="button"
             onClick={onClose}
             aria-label={messages.product.detail.close}
-            className="rounded-full bg-foreground/[0.04] p-2 text-foreground/30 transition-colors hover:text-foreground/70"
+            className="absolute end-3 top-3 z-40 rounded-full bg-void/60 p-2 text-foreground/50 backdrop-blur-sm transition-colors active:text-foreground/80"
           >
             <X className="h-4 w-4" />
           </button>
         </div>
 
+        <div className="shrink-0 border-b border-foreground/[0.05] px-5 py-3">
+          <p className="font-mono text-[10px] tracking-wide text-foreground/35">
+            {product.code}
+            <span className="mx-2 text-foreground/15">·</span>
+            {product.brand}
+          </p>
+          <h2 className="mt-1 text-lg font-light leading-snug text-foreground">{product.name}</h2>
+        </div>
+
         <div
           key={product.id}
-          className={cn(
-            "flex min-h-0 flex-1 flex-col",
-            isMobile && "overflow-hidden",
-          )}
+          className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-5 py-3"
         >
-          <div
-            className={cn(
-              "flex flex-1 flex-col",
-              isMobile && "min-h-0 overflow-y-auto overscroll-contain px-5 pt-5 pb-6",
-            )}
-          >
-            <p className="font-mono text-[10px] tracking-wide text-foreground/30">
-              {product.code}
-              <span className="mx-2 text-foreground/15">·</span>
-              {product.brand}
-            </p>
-            <h2 className="mt-2 text-[1.35rem] font-light leading-snug text-foreground md:text-3xl">
-              {product.name}
-            </h2>
+          {specPanel}
 
-            <p className="mt-3 text-sm leading-relaxed text-muted-foreground md:mt-4">
-              {product.description}
-            </p>
-
-            <VariantSwitcher
-              product={product}
-              allProducts={allProducts}
-              variantLabel={messages.product.detail.variantLabel}
-              onSelect={onSelectProduct}
+          {products.length > 1 && (
+            <ProductIndexStrip
+              products={products}
+              activeIndex={activeIndex}
+              onNavigate={onNavigate}
+              minimal
+              className="mt-5 border-t border-foreground/[0.05] pt-4"
             />
-
-            <SpecList
-              product={product}
-              labels={{
-                spec: messages.product.detail.spec,
-                category: messages.product.detail.category,
-                compat: messages.product.detail.compat,
-                euroNorm: messages.product.detail.euroNorm,
-                finish: messages.product.detail.finish,
-                warranty: messages.product.warranty,
-              }}
-              warrantyValue={messages.hero.stats.warranty.value}
-              className={isMobile ? "mb-2" : undefined}
-            />
-
-            {!isMobile && (
-              <div className="mt-auto pt-6">
-                <QuoteStepper
-                  quantity={quantity}
-                  onAdd={onAdd}
-                  onRemove={onRemove}
-                  dir={dir}
-                  addLabel={messages.product.addToQuote}
-                  decreaseLabel={messages.product.decreaseQty}
-                  increaseLabel={messages.product.increaseQty}
-                />
-              </div>
-            )}
-          </div>
-
-          {isMobile && (
-            <div className="shrink-0 border-t border-foreground/[0.06] vault-glass px-5 pt-4 backdrop-blur-md safe-bottom">
-              <QuoteStepper
-                quantity={quantity}
-                onAdd={onAdd}
-                onRemove={onRemove}
-                dir={dir}
-                addLabel={messages.product.addToQuote}
-                decreaseLabel={messages.product.decreaseQty}
-                increaseLabel={messages.product.increaseQty}
-              />
-            </div>
           )}
+        </div>
+
+        <div className="shrink-0 border-t border-foreground/[0.06] vault-glass px-5 pt-3 backdrop-blur-md safe-bottom">
+          <QuoteStepper
+            quantity={quantity}
+            onAdd={onAdd}
+            onRemove={onRemove}
+            dir={dir}
+            addLabel={messages.product.addToQuote}
+            decreaseLabel={messages.product.decreaseQty}
+            increaseLabel={messages.product.increaseQty}
+          />
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="relative flex min-h-0 flex-1 overflow-hidden md:flex-row">
+      <div className="flex min-h-0 w-full min-w-0 flex-col justify-center bg-brand-panel/20 md:w-[min(100%,38rem)] md:shrink-0 md:border-e md:border-foreground/[0.05] md:px-6 md:py-6">
+        <ProductImageGallery
+          slides={slides}
+          photoIndex={photoIndex}
+          onPhotoChange={setPhotoIndex}
+          alt={product.name}
+          isMobile={false}
+          className="min-h-0"
+        />
+
+        <ProductIndexStrip
+          products={products}
+          activeIndex={activeIndex}
+          onNavigate={onNavigate}
+          className="mt-5 w-full min-w-0"
+        />
+      </div>
+
+      <div className="relative flex min-h-0 min-w-0 flex-1 flex-col overflow-y-auto md:p-8 md:ps-6">
+        <div className="mb-2 flex items-start justify-end md:absolute md:end-6 md:top-6">
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label={messages.product.detail.close}
+            className="rounded-full p-2 text-foreground/25 transition-colors hover:bg-foreground/[0.04] hover:text-foreground/60"
+          >
+            <X className="h-4 w-4" />
+          </button>
+        </div>
+
+        <div key={product.id} className="flex min-h-0 flex-1 flex-col px-5 pt-2 md:px-0 md:pt-0">
+          {specPanel}
         </div>
       </div>
     </div>
@@ -547,6 +416,9 @@ export function ProductDetailModal({
 }: ProductDetailModalProps) {
   const isMobile = useIsMobile();
   const product = products[activeIndex];
+
+  // Desktop uses a custom modal — lock page scroll. Mobile Sheet (Radix) handles this itself.
+  useBodyScrollLock(open && !isMobile);
 
   if (!product) return null;
 
@@ -594,7 +466,7 @@ export function ProductDetailModal({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
-            className="fixed inset-4 z-50 mx-auto flex max-h-[calc(100vh-2rem)] max-w-5xl flex-col overflow-hidden rounded-2xl border border-foreground/[0.06] bg-void md:inset-8 md:max-h-[calc(100vh-4rem)]"
+            className="fixed inset-4 z-50 mx-auto flex max-h-[calc(100vh-2rem)] max-w-5xl flex-col overflow-hidden rounded-2xl border border-foreground/[0.06] bg-void shadow-[0_32px_80px_-24px_rgba(0,0,0,0.65)] md:inset-8 md:max-h-[calc(100vh-4rem)]"
             role="dialog"
             aria-modal="true"
           >

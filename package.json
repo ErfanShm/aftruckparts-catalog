@@ -10,7 +10,11 @@
     "build:dev": "vite build --mode development",
     "preview": "vite preview",
     "lint": "eslint .",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "images:optimize": "tsx scripts/optimize-catalog-images.ts",
+    "brands:fix-logos": "tsx scripts/fix-brand-logo-holes.ts",
+    "brands:generate-daf": "tsx scripts/generate-daf-mark.ts",
+    "prebuild": "pnpm images:optimize"
   },
   "dependencies": {
     "@fontsource-variable/vazirmatn": "^5.2.8",
@@ -86,6 +90,8 @@
     "globals": "^15.15.0",
     "nitro": "3.0.260603-beta",
     "prettier": "^3.7.3",
+    "sharp": "^0.35.3",
+    "tsx": "^4.23.0",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.56.1",
     "vite": "^8.0.16"

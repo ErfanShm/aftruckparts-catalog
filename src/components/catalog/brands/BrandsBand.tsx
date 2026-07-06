@@ -17,8 +17,8 @@ type BrandsBandProps = {
   onSelectBrand: (brand: string) => void;
 };
 
-function formatCount(n: number, locale: string) {
-  return n.toLocaleString(locale === "fa" ? "fa-IR" : "en-US");
+function formatBrandCount(count: number, locale: string) {
+  return count.toLocaleString(locale === "fa" ? "fa-IR" : "en-US");
 }
 
 export function BrandsBand({ products, onSelectBrand }: BrandsBandProps) {
@@ -32,7 +32,6 @@ export function BrandsBand({ products, onSelectBrand }: BrandsBandProps) {
   }, {});
 
   const sortedBrands = Object.entries(brandCounts).sort(([, a], [, b]) => b - a || 0);
-  const leader = sortedBrands[0]?.[0];
 
   const handleBrand = (brand: string) => {
     onSelectBrand(brand);
@@ -40,113 +39,71 @@ export function BrandsBand({ products, onSelectBrand }: BrandsBandProps) {
   };
 
   return (
-    <PageSection id="brands" borderTop clipX spine className="relative !py-16 md:!py-24 lg:!py-28">
+    <PageSection id="brands" borderTop clipX className="relative !py-20 md:!py-28">
+      <SectionRule index="03" className="mb-8 md:mb-10" />
       <motion.div
-        initial={reduced ? false : { opacity: 0 }}
-        whileInView={reduced ? undefined : { opacity: 1 }}
+        initial={reduced ? false : { opacity: 0, y: 8 }}
+        whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-40px" }}
-        transition={{ duration: 0.55, ease }}
+        transition={{ duration: 0.6, ease }}
+        className="flex flex-col items-center text-center"
       >
-        <SectionRule index="03" className="mb-10 md:mb-12" />
-
-        <div className="mb-10 max-w-xl md:mb-12">
-          <p className="section-tag">{brands.tag}</p>
-          <h2 className="mt-3 text-2xl font-extralight tracking-tight md:text-3xl lg:text-4xl">
-            {brands.headline}
-          </h2>
-          <p className="mt-4 text-sm leading-relaxed text-muted-foreground md:text-base">
-            {brands.subline}
-          </p>
-        </div>
+        <p className="section-tag">{brands.tag}</p>
+        <h2 className="mt-3 max-w-lg text-2xl font-extralight tracking-tight md:text-3xl">
+          {brands.headline}
+        </h2>
+        <p className="mt-3 max-w-md text-xs leading-relaxed text-muted-foreground md:text-sm">
+          {brands.subline}
+        </p>
 
         <ul
           className={cn(
-            "grid gap-3 sm:gap-4",
-            sortedBrands.length === 1 && "max-w-lg",
-            sortedBrands.length >= 2 && "md:grid-cols-12",
+            "mt-14 flex w-full max-w-5xl flex-col items-stretch gap-14 md:mt-20",
+            sortedBrands.length >= 2 && "md:flex-row md:items-start md:justify-center md:gap-8 lg:gap-12",
           )}
         >
           {sortedBrands.map(([brand, count], i) => {
             const asset = getBrandAsset(brand);
-            const isLeader = brand === leader;
-            const indexLabel = String(i + 1).padStart(2, "0");
-            const skuLabel = locale === "fa" ? "کد کالا" : count === 1 ? "SKU" : "SKUs";
 
             return (
               <motion.li
                 key={brand}
-                initial={reduced ? false : { opacity: 0, y: 16 }}
+                initial={reduced ? false : { opacity: 0, y: 12 }}
                 whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-30px" }}
-                transition={{ delay: Math.min(i * 0.08, 0.2), duration: 0.55, ease }}
+                viewport={{ once: true }}
+                transition={{ delay: Math.min(i * 0.08, 0.24), duration: 0.5, ease }}
                 className={cn(
-                  sortedBrands.length >= 2 && (isLeader ? "md:col-span-7" : "md:col-span-5"),
+                  "flex flex-1 flex-col items-center",
+                  sortedBrands.length >= 2 && "md:min-w-0 md:max-w-[320px] md:flex-1",
                 )}
               >
                 <button
                   type="button"
                   onClick={() => handleBrand(brand)}
+                  aria-label={`${brand}, ${brands.units(count)}`}
                   className={cn(
-                    "brand-specimen group relative flex h-full w-full overflow-hidden rounded-2xl text-start",
-                    "min-h-[220px] sm:min-h-[260px]",
-                    isLeader && "sm:min-h-[280px] md:min-h-[300px]",
-                    "border border-brand/15 transition-[border-color,box-shadow] duration-500",
-                    "hover:border-brand/30 hover:shadow-[0_16px_48px_-28px_color-mix(in_oklch,var(--brand)_35%,transparent)]",
-                    "active:scale-[0.99]",
-                    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/40 focus-visible:ring-offset-2 focus-visible:ring-offset-void",
+                    "brand-marque group flex w-full flex-col items-center gap-5",
+                    "transition-transform duration-500 ease-out active:scale-[0.98]",
+                    "focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brand/35 focus-visible:ring-offset-4 focus-visible:ring-offset-void",
                   )}
                 >
-                  <img
-                    src={asset.heroImage}
-                    alt=""
-                    aria-hidden
-                    className="brand-specimen-photo absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
-                  />
-
-                  <div className="brand-specimen-scrim pointer-events-none absolute inset-0" />
-
-                  <span className="absolute start-4 top-4 z-10 font-mono text-[9px] tracking-[0.35em] text-foreground/30">
-                    {indexLabel}
-                  </span>
-
-                  <div className="stat-chip absolute end-3 top-3 z-10 min-w-[4.5rem] px-2 py-1.5">
-                    <div className="display-stat text-sm leading-none">
-                      {formatCount(count, locale)}
-                    </div>
-                    <div className="mt-0.5 text-[8px] tracking-wide text-foreground-muted">
-                      {skuLabel}
-                    </div>
-                  </div>
-
-                  <div className="relative z-10 flex h-full w-full flex-col items-center justify-center px-6 py-14 sm:px-8">
-                    <div
-                      className={cn(
-                        "flex items-center justify-center transition-transform duration-500 group-hover:scale-[1.03]",
-                        isLeader ? "px-4 py-2" : "px-3 py-2",
-                      )}
-                    >
+                  <div className="brand-marque-slot flex h-20 w-full max-w-[280px] items-center justify-center sm:h-24 md:h-28 lg:h-32">
+                    {asset.mark ? (
                       <BrandLogo
                         brand={brand}
-                        className={cn(
-                          isLeader
-                            ? "h-16 w-16 sm:h-20 sm:w-20"
-                            : "h-10 w-28 sm:h-12 sm:w-36",
-                          brand === "DAF" && "h-11 w-32 sm:h-12 sm:w-40",
-                        )}
-                        markClassName={cn(isLeader ? "h-16 w-16 text-xl" : "h-12 w-12 text-base")}
+                        className="max-h-full max-w-full opacity-75 transition-all duration-500 group-hover:opacity-100 group-hover:scale-[1.03]"
                       />
-                    </div>
+                    ) : (
+                      <span className="font-mono text-lg tracking-wide text-foreground/50">{brand}</span>
+                    )}
                   </div>
 
                   <span
-                    className={cn(
-                      "specimen-strip absolute inset-x-0 bottom-0 z-10 flex items-center justify-center gap-1.5",
-                      "px-4 pb-3 pt-10 text-[10px] tracking-wide",
-                      "text-foreground/55 transition-colors duration-300",
-                      "group-hover:text-brand-highlight",
-                    )}
+                    className="flex items-center gap-2 font-mono text-[10px] tracking-[0.12em] text-foreground/30 transition-colors duration-300 group-hover:text-foreground/50"
+                    dir={locale === "fa" ? "rtl" : "ltr"}
                   >
-                    {brands.browse}
+                    <span className="tabular-nums text-foreground/45">{formatBrandCount(count, locale)}</span>
+                    <span className="opacity-70">{brands.unitsLabel}</span>
                   </span>
                 </button>
               </motion.li>

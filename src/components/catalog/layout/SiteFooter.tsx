@@ -99,7 +99,7 @@ export function SiteFooter() {
                       )}
                     >
                       <span
-                        className="font-mono-tech ltr-embed text-[9px] tracking-[0.42em] text-brand/35"
+                        className="font-mono-tech ltr-embed text-[9px] tracking-[0.42em] text-brand-highlight/55"
                         aria-hidden
                       >
                         {String(i + 1).padStart(2, "0")}
@@ -114,7 +114,7 @@ export function SiteFooter() {
                         </span>
                       </div>
 
-                      <Icon className="h-3.5 w-3.5 text-brand/30 transition-colors group-hover:text-brand-highlight/70" />
+                      <Icon className="h-3.5 w-3.5 text-brand-highlight/65 transition-colors group-hover:text-brand-highlight" />
                     </a>
                   </li>
                 );

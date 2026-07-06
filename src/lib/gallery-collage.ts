@@ -197,9 +197,43 @@ function imagePosition(seed: number): string {
   return `${x}% ${y}%`;
 }
 
-export function galleryLayoutForProduct(product: Product, index: number): GalleryLayout {
+function compactLayout(product: Product): GalleryLayout {
   const layoutSeed = hashString(`${product.id}:${product.code}`);
-  const motionSeed = hashString(`${product.id}:${index}`);
+  return {
+    mobileClassName: [MAX_LG_COL[1], MAX_LG_ROW[1]].join(" "),
+    desktopClassName: [LG_COL[2], LG_ROW[1]].join(" "),
+    variant: "unit",
+    organicY: 0,
+    imagePosition: imagePosition(layoutSeed),
+  };
+}
+
+/** Keep the final row uniform so the grid does not end with orphan banners or tall tiles. */
+function tailLayout(product: Product, index: number, resultCount: number): GalleryLayout | null {
+  if (resultCount <= 6) return null;
+
+  const tailCount = Math.min(3, resultCount);
+  if (index < resultCount - tailCount) return null;
+
+  return compactLayout(product);
+}
+
+export function galleryLayoutForProduct(
+  product: Product,
+  index: number,
+  resultCount?: number,
+): GalleryLayout {
+  if (resultCount !== undefined && resultCount > 0 && resultCount <= 6) {
+    return compactLayout(product);
+  }
+
+  if (resultCount !== undefined) {
+    const tail = tailLayout(product, index, resultCount);
+    if (tail) return tail;
+  }
+
+  const layoutSeed = hashString(`${product.id}:${product.code}`);
+  const motionSeed = hashString(`${product.id}:${product.catalogPage}`);
   const shape = pickShape(product);
   const classes = layoutClasses(shape);
 

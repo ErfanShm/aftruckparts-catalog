@@ -20,6 +20,7 @@
   --color-blue-deep: var(--blue-deep);
   --color-brand: var(--brand);
   --color-brand-highlight: var(--brand-highlight);
+  --color-brand-readable: var(--brand-readable);
   --color-void: var(--void);
   --color-foreground-muted: var(--foreground-muted);
   --color-primary: var(--accent);
@@ -46,30 +47,36 @@
 }
 
 :root {
-  /* Brand anchor — #003d81; surfaces mix with void (never white) for a dark vault */
-  --brand: #003d81;
-  --brand-void: color-mix(in oklch, var(--brand) 14%, black);
-  --brand-deep: var(--brand);
-  --brand-panel: color-mix(in oklch, var(--brand) 28%, var(--brand-void));
-  --brand-panel-elevated: color-mix(in oklch, var(--brand) 40%, var(--brand-void));
-  --brand-line: color-mix(in oklch, var(--brand) 55%, var(--brand-void));
-  --brand-highlight: color-mix(in oklch, var(--brand) 22%, white);
-  --brand-glow: color-mix(in oklch, var(--brand) 34%, white);
-  --void: var(--brand-void);
+  /* Logo navy on zinc vault — #003d81 identity, surfaces stay dark/neutral */
+  --logo-navy: #003d81;
+  --zinc-950: #09090b;
+  --zinc-900: #18181b;
+  --zinc-800: #27272a;
+  --zinc-700: #3f3f46;
+  --brand: var(--logo-navy);
+  --brand-void: var(--zinc-950);
+  --brand-deep: color-mix(in oklch, var(--logo-navy) 22%, var(--zinc-950));
+  --brand-panel: var(--zinc-900);
+  --brand-panel-elevated: var(--zinc-800);
+  --brand-line: var(--zinc-700);
+  --brand-highlight: color-mix(in oklch, var(--logo-navy) 28%, #84bce8);
+  --brand-glow: color-mix(in oklch, var(--logo-navy) 34%, #9ccdef);
+  --brand-readable: color-mix(in oklch, var(--logo-navy) 22%, #9ccdef);
+  --void: var(--zinc-950);
   --blue-deep: var(--brand-deep);
-  --blue-mid: color-mix(in oklch, var(--brand) 48%, var(--brand-void));
-  --blue-surface: var(--brand-panel);
-  --blue-elevated: var(--brand-panel-elevated);
+  --blue-mid: color-mix(in oklch, var(--logo-navy) 35%, var(--zinc-800));
+  --blue-surface: var(--zinc-900);
+  --blue-elevated: var(--zinc-800);
   --background: var(--void);
-  --foreground: oklch(0.96 0.006 230);
-  --foreground-muted: oklch(0.96 0.006 230 / 34%);
+  --foreground: oklch(0.94 0.008 250);
+  --foreground-muted: oklch(0.72 0.012 250);
   --surface: var(--brand-panel);
   --surface-2: var(--brand-panel-elevated);
-  --border-hair: color-mix(in oklch, var(--brand) 20%, transparent);
+  --border-hair: color-mix(in oklch, var(--zinc-700) 50%, var(--logo-navy) 12%);
   --muted: var(--brand-panel);
-  --muted-foreground: color-mix(in oklch, var(--brand-highlight) 48%, transparent);
-  --accent: var(--brand-highlight);
-  --accent-glow: color-mix(in oklch, var(--brand) 28%, transparent);
+  --muted-foreground: oklch(0.76 0.014 250);
+  --accent: color-mix(in oklch, var(--logo-navy) 20%, #9ccdef);
+  --accent-glow: color-mix(in oklch, var(--logo-navy) 22%, transparent);
   --warranty: #e4572e;
   --radius: 12px;
   --safe-top: env(safe-area-inset-top, 0px);
@@ -181,7 +188,7 @@
   position: fixed;
   inset-inline: 0;
   top: 0;
-  z-index: 30;
+  z-index: 40;
   padding-top: max(0px, env(safe-area-inset-top));
 }
 
@@ -243,6 +250,122 @@
   padding-bottom: 0.5rem;
 }
 
+@utility filter-index-search {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  border-bottom: 1px solid color-mix(in oklch, var(--brand) 18%, transparent);
+  padding-bottom: 0.75rem;
+  transition: border-color 0.25s ease;
+  &:focus-within {
+    border-bottom-color: color-mix(in oklch, var(--brand-highlight) 45%, transparent);
+  }
+}
+
+@utility filter-index-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: color-mix(in oklch, var(--brand-highlight) 50%, transparent);
+}
+
+@utility filter-index-count {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-feature-settings: "tnum", "zero";
+  letter-spacing: 0.06em;
+  color: color-mix(in oklch, var(--brand-readable) 70%, var(--foreground-muted));
+}
+
+@utility filter-index-rule {
+  margin-block: 1.25rem;
+  height: 1px;
+  background: linear-gradient(
+    to inline-end,
+    color-mix(in oklch, var(--brand) 22%, transparent),
+    transparent 72%
+  );
+}
+
+@utility filter-index-line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0;
+  line-height: 1.65;
+}
+
+@utility filter-index-sep {
+  margin-inline: 0.4rem;
+  font-size: 10px;
+  color: color-mix(in oklch, var(--brand) 28%, transparent);
+  user-select: none;
+}
+
+@utility filter-index-toggle {
+  font-size: 11px;
+  line-height: 1.65;
+  color: var(--muted-foreground);
+  transition: color 0.2s ease;
+  &:hover {
+    color: var(--brand-readable);
+  }
+}
+
+@utility filter-index-toggle-active {
+  color: var(--brand-readable);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in oklch, var(--brand-highlight) 40%, transparent);
+  text-underline-offset: 3px;
+}
+
+@utility filter-index-row {
+  display: flex;
+  width: 100%;
+  align-items: baseline;
+  justify-content: flex-start;
+  gap: 0.5rem;
+  padding-block: 0.15rem;
+  font-size: 12px;
+  line-height: 1.45;
+  text-align: start;
+  color: var(--muted-foreground);
+  transition: color 0.2s ease;
+  &:hover {
+    color: var(--brand-readable);
+  }
+}
+
+@utility filter-index-row-active {
+  color: var(--foreground);
+}
+
+@utility filter-index-num {
+  font-family: var(--font-mono);
+  width: 1.125rem;
+  flex-shrink: 0;
+  font-size: 9px;
+  font-feature-settings: "tnum", "zero";
+  letter-spacing: 0.04em;
+  color: color-mix(in oklch, var(--brand) 38%, transparent);
+}
+
+@utility filter-index-clear {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: color-mix(in oklch, var(--brand-readable) 55%, transparent);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in oklch, var(--brand) 25%, transparent);
+  text-underline-offset: 4px;
+  transition: color 0.2s ease;
+  &:hover {
+    color: var(--brand-highlight);
+  }
+}
+
 @utility glass-panel-scrolled {
   background: color-mix(in oklch, var(--void) 88%, var(--brand) 8%);
   backdrop-filter: blur(22px);
@@ -262,6 +385,7 @@
 
 @utility specimen-frame {
   position: relative;
+  isolation: isolate;
   border: 1px solid var(--color-border-hair);
   border-radius: 1rem;
   overflow: hidden;
@@ -299,14 +423,33 @@
   }
 }
 
+@utility gallery-photo-dot {
+  height: 0.375rem;
+  width: 0.375rem;
+  flex-shrink: 0;
+  border-radius: 9999px;
+  border: 1px solid color-mix(in oklch, var(--brand) 28%, transparent);
+  background: color-mix(in oklch, var(--void) 60%, transparent);
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+@utility gallery-photo-dot-active {
+  background: color-mix(in oklch, var(--brand-highlight) 85%, var(--void));
+  border-color: color-mix(in oklch, var(--brand-highlight) 55%, transparent);
+  transform: scale(1.15);
+}
+
 @utility finish-pill-group {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 0.125rem;
   border-radius: 9999px;
-  border: 1px solid color-mix(in oklch, var(--brand) 22%, transparent);
-  background: color-mix(in oklch, var(--void) 82%, transparent);
+  border: 1px solid color-mix(in oklch, var(--brand) 28%, transparent);
+  background: color-mix(in oklch, var(--void) 78%, var(--brand) 6%);
   padding: 0.25rem;
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
@@ -317,32 +460,54 @@
   padding: 0.375rem 0.875rem;
   font-size: 11px;
   font-weight: 500;
-  color: var(--muted-foreground);
+  color: color-mix(in oklch, var(--brand-readable) 55%, var(--muted-foreground));
   transition:
     color 0.2s ease,
     background 0.2s ease,
     box-shadow 0.2s ease;
   &:hover {
-    color: var(--foreground);
+    color: var(--brand-readable);
   }
 }
 
 @utility finish-pill-active {
-  background: var(--surface-2);
-  color: var(--foreground);
-  box-shadow: 0 1px 2px color-mix(in oklch, black 25%, transparent);
+  background: color-mix(in oklch, var(--brand) 24%, var(--void));
+  color: var(--brand-readable);
+  box-shadow:
+    inset 0 0 0 1px color-mix(in oklch, var(--brand-highlight) 32%, transparent),
+    0 0 14px -8px color-mix(in oklch, var(--brand) 28%, transparent);
 }
 
 @utility finish-specimen-tag {
   border-radius: 9999px;
-  border: 1px solid color-mix(in oklch, var(--brand) 20%, transparent);
-  background: color-mix(in oklch, var(--void) 72%, transparent);
+  border: 1px solid color-mix(in oklch, var(--foreground) 16%, transparent);
+  background: color-mix(in oklch, var(--void) 52%, var(--surface) 18%);
   padding: 0.2rem 0.55rem;
   font-size: 9px;
   letter-spacing: 0.06em;
-  color: color-mix(in oklch, var(--brand-highlight) 75%, var(--foreground-muted));
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  color: color-mix(in oklch, var(--foreground) 62%, var(--foreground-muted));
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+@utility finish-specimen-tag-matte {
+  border-color: color-mix(in oklch, oklch(0.76 0.008 250) 38%, transparent);
+  color: color-mix(in oklch, oklch(0.8 0.006 250) 88%, var(--foreground-muted));
+}
+
+@utility finish-specimen-tag-matte-glossy {
+  border-color: color-mix(in oklch, oklch(0.84 0.018 85) 36%, transparent);
+  color: color-mix(in oklch, oklch(0.9 0.012 85) 86%, var(--foreground));
+}
+
+@utility finish-specimen-tag-glossy {
+  border-color: color-mix(in oklch, oklch(0.88 0.02 250) 42%, transparent);
+  color: color-mix(in oklch, oklch(0.94 0.01 250) 92%, var(--foreground));
+}
+
+@utility finish-specimen-tag-steel {
+  border-color: color-mix(in oklch, oklch(0.7 0.038 240) 42%, transparent);
+  color: color-mix(in oklch, oklch(0.76 0.032 240) 88%, var(--foreground-muted));
 }
 
 @utility chip-active {
@@ -375,7 +540,7 @@
   font-size: 10px;
   letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: color-mix(in oklch, var(--brand-highlight) 62%, transparent);
+  color: color-mix(in oklch, var(--foreground-muted) 88%, transparent);
 }
 
 @utility section-rule-node {
@@ -421,7 +586,7 @@
     width: 11px;
     height: 11px;
     pointer-events: none;
-    z-index: 25;
+    z-index: 2;
     opacity: 0;
     transition: opacity 0.45s ease;
   }
@@ -663,9 +828,9 @@
 }
 @utility btn-primary {
   &:hover {
-    border-color: color-mix(in oklch, var(--brand-highlight) 55%, transparent);
-    box-shadow: 0 8px 36px -10px color-mix(in oklch, var(--brand) 55%, transparent);
-    background: color-mix(in oklch, var(--brand) 88%, white);
+    border-color: color-mix(in oklch, var(--brand-highlight) 45%, transparent);
+    box-shadow: 0 8px 36px -12px color-mix(in oklch, var(--brand) 40%, transparent);
+    background: color-mix(in oklch, var(--brand) 92%, var(--brand-highlight));
   }
   &:active {
     transform: scale(0.98);
@@ -785,15 +950,15 @@
 @utility hero-stage-glow {
   background: radial-gradient(
     circle at center,
-    color-mix(in oklch, var(--brand-highlight) 22%, transparent),
+    color-mix(in oklch, var(--brand) 14%, transparent),
     transparent 62%
   );
 }
 
 @utility hero-vault-atmosphere {
   background:
-    radial-gradient(ellipse 80% 60% at 70% 40%, color-mix(in oklch, #06b6d4 12%, transparent), transparent),
-    radial-gradient(ellipse 50% 40% at 20% 70%, color-mix(in oklch, #e23822 8%, transparent), transparent);
+    radial-gradient(ellipse 80% 60% at 70% 40%, color-mix(in oklch, var(--brand) 9%, transparent), transparent),
+    radial-gradient(ellipse 50% 40% at 20% 70%, color-mix(in oklch, #e23822 6%, transparent), transparent);
 }
 
 @utility hero-vault-frame {
@@ -806,29 +971,6 @@
 @utility hero-vault-grid-floor {
   background: linear-gradient(to top, color-mix(in oklch, #020812 92%, transparent), transparent);
   mask-image: linear-gradient(to top, black 30%, transparent);
-}
-
-@utility hero-hud-pill {
-  border-radius: 10px;
-  border: 1px solid color-mix(in oklch, var(--brand) 28%, transparent);
-  background: color-mix(in oklch, var(--void) 82%, transparent);
-  padding: 0.45rem 0.35rem;
-  text-align: center;
-  backdrop-filter: blur(10px);
-}
-
-@utility hero-hud-pill-value {
-  font-size: 0.875rem;
-  line-height: 1.1;
-  color: var(--foreground);
-}
-
-@utility hero-hud-pill-label {
-  margin-top: 0.2rem;
-  font-size: 8px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--foreground-muted);
 }
 
 @keyframes scroll-cue {
@@ -847,9 +989,89 @@
   animation: scroll-cue 2.4s ease-in-out infinite;
 }
 
+@keyframes hero-scan-sweep {
+  0% {
+    transform: translateY(-120%);
+    opacity: 0;
+  }
+  12% {
+    opacity: 1;
+  }
+  88% {
+    opacity: 0.85;
+  }
+  100% {
+    transform: translateY(120%);
+    opacity: 0;
+  }
+}
+
+@utility hero-scan-line {
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  height: 28%;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    color-mix(in oklch, var(--brand) 35%, white 65%) 42%,
+    color-mix(in oklch, white 80%, var(--brand) 20%) 50%,
+    color-mix(in oklch, var(--brand) 35%, white 65%) 58%,
+    transparent
+  );
+  opacity: 0.55;
+  mix-blend-mode: screen;
+  filter: blur(0.5px);
+  animation: hero-scan-sweep 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .ambient-drift,
-  .scroll-cue {
+  .scroll-cue,
+  .hero-scan-line {
     animation: none;
   }
+
+  .hero-scan-line {
+    display: none;
+  }
+}
+
+/* CatalogImage blur-up (detail gallery only — grid uses placeholder={false}) */
+.catalog-image-blur {
+  filter: blur(8px);
+  transform: scale(1.04);
+  transition: opacity 0.3s ease;
+}
+
+.catalog-image-blur-hidden {
+  opacity: 0;
+}
+
+.catalog-image-pending {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.catalog-image-loaded {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .catalog-image-blur {
+    display: none;
+  }
+}
+
+/* Detail modal gallery stage */
+.gallery-stage {
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 45%, color-mix(in oklch, var(--brand) 12%, transparent), transparent 70%),
+    color-mix(in oklch, var(--brand-panel) 40%, var(--void));
+}
+
+.gallery-thumb-active {
+  box-shadow:
+    0 0 0 1px color-mix(in oklch, var(--accent) 35%, transparent),
+    0 0 20px -4px color-mix(in oklch, var(--accent) 20%, transparent);
 }

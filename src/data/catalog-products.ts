@@ -1,3 +1,5 @@
+import { CATALOG_IMAGE_MANIFEST } from "./catalog-image-manifest";
+
 export type ProductCategory =
   | "model-badge"
   | "horsepower"
@@ -388,7 +390,7 @@ export const CATALOG_PAGES: CatalogPageProduct[] = [
   entry({
     page: 25,
     spec: "Hub Steel",
-    brand: "Universal",
+    brand: "AF Accessories",
     finishKey: "steel",
     category: "accessory",
     names: { fa: "درپوش هاب استیل", en: "Steel Hub Cap" },
@@ -401,7 +403,7 @@ export const CATALOG_PAGES: CatalogPageProduct[] = [
   entry({
     page: 26,
     spec: "Hub Black",
-    brand: "Universal",
+    brand: "AF Accessories",
     finishKey: "glossy",
     category: "accessory",
     names: { fa: "درپوش هاب مشکی براق", en: "Glossy Black Hub Cap" },
@@ -413,6 +415,66 @@ export const CATALOG_PAGES: CatalogPageProduct[] = [
   }),
 ];
 
+/** Folder slug per catalog page — images live in public/catalog/products/{slug}/ */
+export const PRODUCT_FOLDER_SLUGS: Record<number, string> = {
+  1: "01-nh-12",
+  2: "02-fm9",
+  3: "03-420",
+  4: "04-460",
+  5: "05-440",
+  6: "06-480",
+  7: "07-volvo-fh12",
+  8: "08-eev",
+  9: "09-i-shift",
+  10: "10-500",
+  11: "11-euro-4",
+  12: "12-euro-5",
+  13: "13-euro-6",
+  14: "14-460-mg",
+  15: "15-540",
+  16: "16-fh",
+  17: "17-volvo",
+  18: "18-xf-daf",
+  19: "19-i-save",
+  20: "20-750",
+  21: "21-install-l",
+  22: "22-install-v",
+  23: "23-install-iv",
+  24: "24-install-vi",
+  25: "25-hub-steel",
+  26: "26-hub-black",
+};
+
+export function productFolderSlug(page: number): string {
+  const slug = PRODUCT_FOLDER_SLUGS[page];
+  if (!slug) throw new Error(`Unknown catalog page: ${page}`);
+  return slug;
+}
+
+export function productFolderPath(page: number): string {
+  return `/catalog/products/${productFolderSlug(page)}`;
+}
+
+export function productHeroImagePath(page: number): string {
+  const slug = productFolderSlug(page);
+  return CATALOG_IMAGE_MANIFEST[slug]?.hero.src ?? "";
+}
+
+export function productGalleryImagePaths(page: number, category: ProductCategory): string[] {
+  const slug = productFolderSlug(page);
+  const manifest = CATALOG_IMAGE_MANIFEST[slug];
+  if (!manifest) return [];
+
+  if (category === "installation") {
+    return [manifest.hero, manifest.install].filter(Boolean).map((entry) => entry!.src);
+  }
+
+  return [manifest.hero, manifest.mounted, manifest.detail]
+    .filter(Boolean)
+    .map((entry) => entry!.src);
+}
+
+/** @deprecated Use productHeroImagePath */
 export function catalogImagePath(page: number) {
-  return `/catalog/page-${String(page).padStart(2, "0")}.jpeg`;
+  return productHeroImagePath(page);
 }

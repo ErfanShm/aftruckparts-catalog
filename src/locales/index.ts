@@ -54,6 +54,8 @@ export function buildProducts(
     name: p.names[locale],
     spec: p.spec,
     image: p.image,
+    images: p.images,
+    imageManifest: p.imageManifest,
     span: p.span,
     category: p.category,
     categoryLabel: categoryMap[p.category],
@@ -70,13 +72,18 @@ export function buildWhatsAppMessage(
   locale: Locale,
   items: [string, number][],
   products: Product[],
+  customer: string,
+  details: string,
 ): string {
   const t = getMessages(locale).whatsapp;
   const lines = items.map(([id, qty]) => {
     const p = products.find((x) => x.id === id)!;
     return t.line(p.code, p.name, p.finish, qty);
   });
-  return `${t.header}\n\n${lines.join("\n")}\n\n${t.footer}`;
+  const headerLines = [t.header, t.customer(customer)];
+  if (details) headerLines.push(t.details(details));
+
+  return [...headerLines, "", t.itemsHeading, ...lines, "", t.footer, "", t.leadSource].join("\n");
 }
 
 export { BRANDS, PRODUCT_CATALOG } from "@/data/products";

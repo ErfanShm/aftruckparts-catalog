@@ -23,8 +23,7 @@ export const en: LocaleMessages = {
     titleLine1: "Engineered",
     titleLine2: "hardware for the",
     titleAccent: "long haul.",
-    subtitle:
-      "A curated collection of truck badges and hardware in chrome, matte, and steel finishes. Built for fleets. Backed by a two-year warranty.",
+    subtitle: "Fleet-grade badges. Three finishes. Two-year warranty.",
     cta: "Browse catalog",
     ctaPdf: "Download PDF",
     dragHint: "Drag to inspect",
@@ -97,7 +96,13 @@ export const en: LocaleMessages = {
       position: (current, total) => `${current} of ${total}`,
       prev: "Previous part",
       next: "Next part",
-      swipeHint: "Swipe to browse parts",
+      swipeHint: "Use the index to browse parts",
+      prevPhoto: "Previous photo",
+      nextPhoto: "Next photo",
+      photoPosition: (current, total) => `${current} / ${total}`,
+      swipePhotosHint: "Swipe for more views",
+      viewsLabel: "Views",
+      browsePartsLabel: "Browse parts",
     },
   },
 
@@ -107,6 +112,10 @@ export const en: LocaleMessages = {
     title: "Your quote list",
     close: "Close",
     empty: "List is empty — add parts to build your quote.",
+    customerLabel: "Name / Company",
+    customerPlaceholder: "Fleet name or contact",
+    detailsLabel: "More details",
+    detailsPlaceholder: "City, fleet size, urgency, notes…",
     sendWhatsApp: "Send via WhatsApp",
     sendWhatsAppArrow: "→",
     footerNote: "No checkout · B2B direct line",
@@ -132,6 +141,7 @@ export const en: LocaleMessages = {
     subline:
       "Select a marque to filter the catalog — every unit ships under the same warranty protocol.",
     units: (count) => `${count} SKU${count === 1 ? "" : "s"}`,
+    unitsLabel: "SKUs",
     browse: "View in catalog →",
   },
 
@@ -161,8 +171,12 @@ export const en: LocaleMessages = {
   },
 
   whatsapp: {
-    header: "Aftruckparts — Quote Request",
-    line: (code, name, finish, qty) => `• ${code} — ${name} · ${finish} × ${qty}`,
-    footer: "Please confirm pricing and lead time.",
+    header: "📦 Aftruckparts — New Quote Request",
+    customer: (name) => `👤 Customer: ${name}`,
+    details: (text) => `📝 More details: ${text}`,
+    itemsHeading: "Items:",
+    line: (code, name, finish, qty) => `• ${qty}x | ${code} (${name} - ${finish})`,
+    footer: "Please confirm pricing, availability, and lead time.",
+    leadSource: "[Lead Source: Web-Catalog-26]",
   },
 };

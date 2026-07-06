@@ -1,6 +1,11 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { Minus, Plus, X } from "lucide-react";
+import { useState } from "react";
 
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { CatalogImage, CATALOG_IMAGE_SIZES } from "@/components/catalog/CatalogImage";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useLocale } from "@/lib/i18n";
 import type { Product } from "@/locales";
@@ -16,7 +21,7 @@ type QuoteDockProps = {
   products: Product[];
   onAdd: (id: string) => void;
   onRemove: (id: string) => void;
-  onSend: () => void;
+  onSend: (customer: string, details: string) => void;
 };
 
 function QuoteList({
@@ -48,7 +53,15 @@ function QuoteList({
           <li key={id}>
             {index > 0 && <SectionRule className="my-4" />}
             <div className="flex items-center gap-4 py-1">
-              <img src={p.image} alt="" className="h-16 w-16 shrink-0 rounded-xl object-cover" />
+              <CatalogImage
+                manifest={p.imageManifest.hero}
+                alt=""
+                placeholder={false}
+                fill
+                sizes={CATALOG_IMAGE_SIZES.quoteThumb}
+                wrapperClassName="relative h-16 w-16 shrink-0 overflow-hidden rounded-xl"
+                className="object-cover"
+              />
               <div className="min-w-0 flex-1">
                 <div className="font-mono-tech ltr-embed text-[10px] text-foreground-muted">
                   {p.code} · {p.brand}
@@ -88,8 +101,62 @@ function QuoteList({
   );
 }
 
-function QuoteFooter({ items, onSend }: { items: [string, number][]; onSend: () => void }) {
+function QuoteCustomerForm({
+  customer,
+  details,
+  onCustomerChange,
+  onDetailsChange,
+}: {
+  customer: string;
+  details: string;
+  onCustomerChange: (value: string) => void;
+  onDetailsChange: (value: string) => void;
+}) {
   const { messages } = useLocale();
+
+  return (
+    <div className="space-y-3 pb-4">
+      <div className="space-y-1.5">
+        <Label htmlFor="quote-customer" className="text-[10px] uppercase tracking-[0.18em] text-foreground-muted">
+          {messages.quote.customerLabel}
+        </Label>
+        <Input
+          id="quote-customer"
+          value={customer}
+          onChange={(e) => onCustomerChange(e.target.value)}
+          placeholder={messages.quote.customerPlaceholder}
+          className="glass-panel border-border-hair bg-transparent"
+          autoComplete="organization"
+        />
+      </div>
+      <div className="space-y-1.5">
+        <Label htmlFor="quote-details" className="text-[10px] uppercase tracking-[0.18em] text-foreground-muted">
+          {messages.quote.detailsLabel}
+        </Label>
+        <Textarea
+          id="quote-details"
+          value={details}
+          onChange={(e) => onDetailsChange(e.target.value)}
+          placeholder={messages.quote.detailsPlaceholder}
+          rows={3}
+          className="glass-panel resize-none border-border-hair bg-transparent"
+        />
+      </div>
+    </div>
+  );
+}
+
+function QuoteFooter({
+  items,
+  customer,
+  onSend,
+}: {
+  items: [string, number][];
+  customer: string;
+  onSend: () => void;
+}) {
+  const { messages } = useLocale();
+  const canSend = items.length > 0 && customer.trim().length > 0;
 
   return (
     <div className="pt-4 safe-bottom">
@@ -97,7 +164,7 @@ function QuoteFooter({ items, onSend }: { items: [string, number][]; onSend: () 
       <button
         type="button"
         onClick={onSend}
-        disabled={items.length === 0}
+        disabled={!canSend}
         className="w-full rounded-full btn-primary px-6 py-4 text-sm font-medium disabled:cursor-not-allowed disabled:opacity-30"
       >
         {messages.quote.sendWhatsApp} {messages.quote.sendWhatsAppArrow}
@@ -120,8 +187,14 @@ export function QuoteDock({
 }: QuoteDockProps) {
   const { messages, dir } = useLocale();
   const isMobile = useIsMobile();
+  const [customer, setCustomer] = useState("");
+  const [details, setDetails] = useState("");
   const count = items.reduce((s, [, q]) => s + q, 0);
   const slideOff = dir === "rtl" ? "100%" : "-100%";
+
+  const handleSend = () => {
+    onSend(customer.trim(), details.trim());
+  };
 
   return (
     <>
@@ -144,7 +217,13 @@ export function QuoteDock({
             <div className="mt-4 flex-1 overflow-y-auto">
               <QuoteList items={items} products={products} onAdd={onAdd} onRemove={onRemove} />
             </div>
-            <QuoteFooter items={items} onSend={onSend} />
+            <QuoteCustomerForm
+              customer={customer}
+              details={details}
+              onCustomerChange={setCustomer}
+              onDetailsChange={setDetails}
+            />
+            <QuoteFooter items={items} customer={customer} onSend={handleSend} />
           </SheetContent>
         </Sheet>
       ) : (
@@ -182,7 +261,13 @@ export function QuoteDock({
                 <div className="flex-1 overflow-y-auto">
                   <QuoteList items={items} products={products} onAdd={onAdd} onRemove={onRemove} />
                 </div>
-                <QuoteFooter items={items} onSend={onSend} />
+                <QuoteCustomerForm
+                  customer={customer}
+                  details={details}
+                  onCustomerChange={setCustomer}
+                  onDetailsChange={setDetails}
+                />
+                <QuoteFooter items={items} customer={customer} onSend={handleSend} />
               </motion.aside>
             </>
           )}

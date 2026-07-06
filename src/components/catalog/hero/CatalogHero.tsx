@@ -1,17 +1,15 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
-import { ArrowUpRight, Download } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 
 import type { HeroFinish } from "./hero-finishes";
 import { HeroBadgeStage } from "./HeroBadgeStage";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useLocale } from "@/lib/i18n";
-import type { Locale } from "@/locales";
 import { scrollToCatalog } from "@/lib/scrollToCatalog";
 import { cn } from "@/lib/utils";
 
 import { SectionRule } from "../layout/SectionRule";
-import type { HeroHudStat } from "./hero-hud-types";
 
 const PDF_CATALOG = "/af_catalog-5.pdf";
 
@@ -37,15 +35,6 @@ function stageEntrance(reduced: boolean) {
       };
 }
 
-function formatCount(n: number, locale: Locale) {
-  return n.toLocaleString(locale === "fa" ? "fa-IR" : "en-US");
-}
-
-type CatalogHeroProps = {
-  productCount: number;
-  brandCount: number;
-};
-
 function HeroCtas({
   cta,
   ctaPdf,
@@ -56,7 +45,7 @@ function HeroCtas({
   className?: string;
 }) {
   return (
-    <div className={cn("flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center", className)}>
+    <div className={cn("flex flex-col items-start gap-4", className)}>
       <a
         href="#catalog"
         onClick={(e) => {
@@ -72,17 +61,16 @@ function HeroCtas({
         href={PDF_CATALOG}
         target="_blank"
         rel="noopener noreferrer"
-        className="inline-flex w-fit items-center gap-2 rounded-full border border-border-hair/40 px-5 py-3 text-sm text-muted-foreground transition-colors hover:border-brand/30 hover:text-foreground"
+        className="text-sm text-muted-foreground underline-offset-4 transition-colors hover:text-foreground hover:underline"
       >
-        <Download className="h-3.5 w-3.5 opacity-70" />
-        <span>{ctaPdf}</span>
+        {ctaPdf}
       </a>
     </div>
   );
 }
 
-export function CatalogHero({ productCount, brandCount }: CatalogHeroProps) {
-  const { messages, locale } = useLocale();
+export function CatalogHero() {
+  const { messages } = useLocale();
   const reduced = useReducedMotion() ?? false;
   const isMobile = useIsMobile();
   const [showScrollCue, setShowScrollCue] = useState(true);
@@ -93,35 +81,12 @@ export function CatalogHero({ productCount, brandCount }: CatalogHeroProps) {
     ? `${messages.hero.dragHint} · ${messages.hero.zoomHint}`
     : `${messages.hero.dragHint} · ${messages.hero.scrollZoomHint}`;
 
-  const hudStats = useMemo<HeroHudStat[]>(
-    () => [
-      {
-        id: "warranty",
-        label: messages.hero.stats.warranty.label,
-        value: messages.hero.stats.warranty.value,
-      },
-      {
-        id: "brands",
-        label: messages.hero.stats.brands.label,
-        value: formatCount(brandCount, locale),
-      },
-      {
-        id: "skus",
-        label: messages.hero.stats.skus.label,
-        value: `${formatCount(productCount, locale)}+`,
-      },
-    ],
-    [brandCount, locale, messages.hero.stats, productCount],
-  );
-
   const stageProps = {
     finish: activeFinish,
     finishLabels,
     dragHint: interactionHint,
     reduced,
     onFinishChange: setActiveFinish,
-    stats: hudStats,
-    showHud: true,
     fillHeight: true,
   };
 
@@ -156,8 +121,7 @@ export function CatalogHero({ productCount, brandCount }: CatalogHeroProps) {
       />
 
       <div className="grid flex-1 items-center gap-8 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] lg:gap-10 xl:gap-14">
-        {/* Copy — first in DOM / reading order */}
-        <div className="relative z-20 flex flex-col justify-center lg:pe-2">
+        <div className="relative z-20 flex flex-col justify-center lg:max-w-sm lg:pe-2">
           <motion.div {...fadeUp(0, reduced)} className="mb-6 md:mb-8">
             <SectionRule index="01" />
           </motion.div>
@@ -176,18 +140,16 @@ export function CatalogHero({ productCount, brandCount }: CatalogHeroProps) {
 
           <motion.p
             {...fadeUp(0.12, reduced)}
-            className="mt-5 max-w-md text-[0.9375rem] leading-relaxed text-muted-foreground md:mt-6 md:text-base lg:text-[1.0625rem]"
+            className="mt-5 max-w-sm text-[0.9375rem] leading-relaxed text-muted-foreground md:mt-6 md:text-base"
           >
             {messages.hero.subtitle}
           </motion.p>
 
-          {/* Desktop: action sits with copy */}
           <motion.div {...fadeUp(0.18, reduced)} className="mt-7 hidden lg:block md:mt-8">
             <HeroCtas cta={messages.hero.cta} ctaPdf={messages.hero.ctaPdf} />
           </motion.div>
         </div>
 
-        {/* Specimen — large, but never before context */}
         <motion.div
           {...stageEntrance(reduced)}
           className="relative flex min-h-[min(76vw,24rem)] flex-col justify-center sm:min-h-[min(70vw,28rem)] lg:min-h-[min(calc(100svh-var(--header-offset)-6rem),38rem)] lg:h-[min(calc(100svh-var(--header-offset)-6rem),38rem)]"
@@ -195,7 +157,6 @@ export function CatalogHero({ productCount, brandCount }: CatalogHeroProps) {
           <HeroBadgeStage {...stageProps} />
         </motion.div>
 
-        {/* Mobile: action after specimen — explore, then commit */}
         <motion.div {...fadeUp(0.22, reduced)} className="lg:hidden">
           <HeroCtas cta={messages.hero.cta} ctaPdf={messages.hero.ctaPdf} />
         </motion.div>
