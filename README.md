@@ -37,9 +37,8 @@ Open [http://127.0.0.1:3000](http://127.0.0.1:3000).
 ```
 src/
   routes/       # Pages (file-based routing; see src/routes/README.md)
-  assets/       # Images and static assets
   components/   # Shared UI components
-public/         # Public static files
+public/         # Public static files (catalog images, brands, etc.)
 ```
 
 ## License
