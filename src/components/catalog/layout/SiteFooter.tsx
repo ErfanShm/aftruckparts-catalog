@@ -36,7 +36,7 @@ function fadeUp(delay: number, reduced: boolean) {
 }
 
 export function SiteFooter() {
-  const { messages } = useLocale();
+  const { messages, locale } = useLocale();
   const reduced = useReducedMotion() ?? false;
   const { footer } = messages;
 
@@ -46,31 +46,34 @@ export function SiteFooter() {
         as="div"
         borderTop
         spine
-        className="relative !pt-16 !pb-8 md:!pt-24 md:!pb-20 lg:!pt-28"
+        className="relative !pt-[var(--section-py)] !pb-10 md:!pb-20 lg:!pt-[calc(var(--section-py)+1rem)]"
       >
         <motion.div {...fadeUp(0, reduced)} className="relative">
-          <SectionRule index="05" className="mb-10 md:mb-12" />
+          <SectionRule index="5" className="mb-12 md:mb-14" />
 
-          <div className="grid gap-12 lg:grid-cols-[minmax(0,1.08fr)_minmax(0,0.92fr)] lg:gap-14 xl:gap-20">
+          <div className="grid gap-14 lg:grid-cols-[minmax(0,1.08fr)_minmax(0,0.92fr)] lg:gap-16 xl:gap-20">
             <div className="relative z-10 flex flex-col justify-between gap-10 md:gap-12">
               <div>
                 <p className="section-tag">{footer.socialLabel}</p>
 
-                <h2 className="mt-4 max-w-2xl text-[clamp(2rem,5.5vw,3.75rem)] font-extralight leading-[1.05] tracking-tight">
+                <h2 className={cn(
+                  "font-display type-billboard mt-4 max-w-2xl tracking-tight",
+                  locale === "fa" ? "leading-[1.18]" : "leading-[1.05]"
+                )}>
                   {footer.headlineLine1}
                   <br />
                   <span className="text-foreground/55">{footer.headlineLine2}</span>
                 </h2>
 
-                <p className="mt-6 max-w-md text-[0.9375rem] leading-relaxed text-muted-foreground md:mt-8 md:text-base">
+                <p className="type-ui mt-6 max-w-md text-[0.9375rem] leading-relaxed text-muted-foreground md:mt-8 md:text-base">
                   {footer.tagline}
                 </p>
               </div>
 
-              <div className="flex items-center gap-4 border-t border-brand/12 pt-8">
+              <div className="flex items-center gap-5 border-t border-brand/10 pt-10">
                 <BrandMark size={44} />
                 <div>
-                  <span className="font-mono-tech ltr-embed block text-lg tracking-[0.14em] text-foreground md:text-xl">
+                  <span className="font-mono-tech ltr-embed block text-lg tracking-[0.1em] text-foreground md:text-xl">
                     {BRAND_NAME}
                   </span>
                   <span className="mt-1.5 block text-xs leading-relaxed text-muted-foreground">
@@ -82,7 +85,7 @@ export function SiteFooter() {
 
             <motion.ul
               {...fadeUp(0.1, reduced)}
-              className="relative grid grid-cols-2 gap-px border border-brand/12 bg-brand/12"
+              className="relative grid grid-cols-2 gap-px overflow-hidden rounded-[1.125rem] border border-brand/10 bg-brand/8"
             >
               {footer.social.map((link, i) => {
                 const Icon = SOCIAL_ICONS[link.key];
@@ -94,8 +97,8 @@ export function SiteFooter() {
                       rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
                       aria-label={link.label}
                       className={cn(
-                        "group relative flex min-h-[9rem] flex-col justify-between p-5 transition-colors duration-300 md:min-h-[10.5rem] md:p-6",
-                        "hover:bg-brand/6 focus-visible:bg-brand/6 focus-visible:outline-none",
+                        "group relative flex min-h-[9.5rem] flex-col justify-between p-5 transition-colors duration-300 md:min-h-[11rem] md:p-6",
+                        "hover:bg-brand/5 focus-visible:bg-brand/5 focus-visible:outline-none",
                       )}
                     >
                       <span
@@ -109,7 +112,10 @@ export function SiteFooter() {
                         <span className="font-mono-tech ltr-embed block text-xl tracking-[0.08em] text-foreground transition-colors group-hover:text-brand-highlight md:text-2xl">
                           {link.short}
                         </span>
-                        <span className="mt-2 block text-[10px] tracking-[0.18em] text-foreground-muted uppercase">
+                        <span className={cn(
+                          "mt-2 block text-[10px] text-foreground-muted uppercase",
+                          locale === "en" ? "tracking-[0.18em]" : "tracking-normal"
+                        )}>
                           {link.label}
                         </span>
                       </div>

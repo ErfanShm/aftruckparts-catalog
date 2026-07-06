@@ -39,8 +39,9 @@ function QuoteList({
 
   if (items.length === 0) {
     return (
-      <div className="py-12 text-center">
-        <p className="text-sm text-muted-foreground">{messages.quote.empty}</p>
+      <div className="empty-state py-16">
+        <span className="empty-state-icon" aria-hidden />
+        <p className="empty-state-label">{messages.quote.empty}</p>
       </div>
     );
   }
@@ -66,7 +67,7 @@ function QuoteList({
                 <div className="font-mono-tech ltr-embed text-[10px] text-foreground-muted">
                   {p.code} · {p.brand}
                 </div>
-                <div className="truncate text-sm font-light">{p.name}</div>
+                <div className="type-ui truncate text-sm">{p.name}</div>
                 <div className="truncate text-[10px] text-muted-foreground">{p.finish}</div>
               </div>
               <div
@@ -115,9 +116,9 @@ function QuoteCustomerForm({
   const { messages } = useLocale();
 
   return (
-    <div className="space-y-3 pb-4">
-      <div className="space-y-1.5">
-        <Label htmlFor="quote-customer" className="text-[10px] uppercase tracking-[0.18em] text-foreground-muted">
+    <div className="space-y-4 pb-5">
+      <div className="space-y-2">
+        <Label htmlFor="quote-customer" className="section-tag">
           {messages.quote.customerLabel}
         </Label>
         <Input
@@ -125,12 +126,12 @@ function QuoteCustomerForm({
           value={customer}
           onChange={(e) => onCustomerChange(e.target.value)}
           placeholder={messages.quote.customerPlaceholder}
-          className="glass-panel border-border-hair bg-transparent"
+          className="glass-panel h-11 border-border-hair/50 bg-transparent px-4"
           autoComplete="organization"
         />
       </div>
-      <div className="space-y-1.5">
-        <Label htmlFor="quote-details" className="text-[10px] uppercase tracking-[0.18em] text-foreground-muted">
+      <div className="space-y-2">
+        <Label htmlFor="quote-details" className="section-tag">
           {messages.quote.detailsLabel}
         </Label>
         <Textarea
@@ -139,7 +140,7 @@ function QuoteCustomerForm({
           onChange={(e) => onDetailsChange(e.target.value)}
           placeholder={messages.quote.detailsPlaceholder}
           rows={3}
-          className="glass-panel resize-none border-border-hair bg-transparent"
+          className="glass-panel resize-none border-border-hair/50 bg-transparent px-4 py-3"
         />
       </div>
     </div>
@@ -165,7 +166,7 @@ function QuoteFooter({
         type="button"
         onClick={onSend}
         disabled={!canSend}
-        className="w-full rounded-full btn-primary px-6 py-4 text-sm font-medium disabled:cursor-not-allowed disabled:opacity-30"
+        className="w-full rounded-full btn-primary px-6 py-4 text-sm type-ui-strong disabled:cursor-not-allowed disabled:opacity-30"
       >
         {messages.quote.sendWhatsApp} {messages.quote.sendWhatsAppArrow}
       </button>
@@ -198,23 +199,19 @@ export function QuoteDock({
 
   return (
     <>
-      <QuoteDockFab
-        label={messages.quote.fab}
-        count={count}
-        onClick={() => onOpenChange(true)}
-      />
+      <QuoteDockFab label={messages.quote.fab} count={count} onClick={() => onOpenChange(true)} />
 
       {isMobile ? (
         <Sheet open={open} onOpenChange={onOpenChange}>
           <SheetContent
             side="bottom"
-            className="glass-panel flex max-h-[90vh] flex-col rounded-t-2xl border-border-hair [&>button]:end-4 [&>button]:start-auto"
+            className="glass-panel-strong flex max-h-[92dvh] flex-col rounded-t-[1.25rem] border-border-hair/40 [&>button]:end-4 [&>button]:start-auto"
           >
-            <SheetHeader className="text-start">
-              <SheetTitle className="font-light">{messages.quote.title}</SheetTitle>
+            <SheetHeader className="text-start pb-2">
+              <SheetTitle className="font-display tracking-tight">{messages.quote.title}</SheetTitle>
               <p className="section-tag">{messages.quote.sessionTag}</p>
             </SheetHeader>
-            <div className="mt-4 flex-1 overflow-y-auto">
+            <div className="mt-5 flex-1 overflow-y-auto">
               <QuoteList items={items} products={products} onAdd={onAdd} onRemove={onRemove} />
             </div>
             <QuoteCustomerForm
@@ -242,12 +239,12 @@ export function QuoteDock({
                 animate={{ x: 0 }}
                 exit={{ x: slideOff }}
                 transition={{ type: "tween", duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                className="glass-panel fixed inset-y-0 start-0 z-50 flex w-full max-w-md flex-col border-e border-border-hair p-6"
+                className="glass-panel-strong fixed inset-y-0 start-0 z-50 flex w-full max-w-md flex-col border-e border-border-hair/40 p-7"
               >
                 <div className="mb-6 flex items-start justify-between">
                   <div>
                     <p className="section-tag">{messages.quote.sessionTag}</p>
-                    <h3 className="mt-1 text-xl font-light">{messages.quote.title}</h3>
+                    <h3 className="font-display mt-1 text-xl">{messages.quote.title}</h3>
                   </div>
                   <button
                     type="button"

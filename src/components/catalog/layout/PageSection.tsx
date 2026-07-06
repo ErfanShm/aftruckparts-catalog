@@ -27,8 +27,8 @@ export function PageSection({
     <Tag
       id={id}
       className={cn(
-        "scroll-mt-header site-column relative py-16 md:py-24",
-        borderTop && "border-t border-brand/15",
+        "scroll-mt-header site-column relative py-[var(--section-py)] md:py-[calc(var(--section-py)+1rem)]",
+        borderTop && "border-t border-brand/10",
         clipX && "overflow-x-clip",
         className,
       )}

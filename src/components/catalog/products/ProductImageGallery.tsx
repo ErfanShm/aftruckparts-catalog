@@ -50,7 +50,7 @@ function PhotoThumbStrip({
             aria-current={i === photoIndex ? "true" : undefined}
             aria-label={`${viewsLabel} ${i + 1}`}
             className={cn(
-              "gallery-thumb relative snap-center shrink-0 touch-manipulation overflow-hidden rounded-xl bg-brand-panel/40 transition-all duration-300",
+              "gallery-thumb relative snap-center shrink-0 touch-manipulation overflow-hidden rounded-xl border border-border-hair/30 bg-brand-panel/30 transition-all duration-300",
               i === photoIndex
                 ? "gallery-thumb-active h-16 w-16"
                 : "h-14 w-14 opacity-50 hover:opacity-80",
@@ -153,13 +153,13 @@ export function ProductImageGallery({
   if (!slide) return null;
 
   const navBtnClass =
-    "absolute top-1/2 z-30 flex h-9 w-9 -translate-y-1/2 touch-manipulation items-center justify-center rounded-full border border-foreground/[0.08] bg-void/55 text-foreground/45 backdrop-blur-md transition-all hover:border-foreground/15 hover:bg-void/75 hover:text-foreground/75 active:scale-95";
+    "absolute top-1/2 z-30 flex h-9 w-9 -translate-y-1/2 touch-manipulation items-center justify-center rounded-full border border-border-hair/40 glass-panel text-foreground/50 transition-all hover:border-brand/25 hover:text-brand-readable active:scale-95";
 
   const stage = (
     <div
       className={cn(
         "gallery-stage relative flex w-full items-center justify-center overflow-hidden",
-        isMobile ? "absolute inset-0" : "min-h-[min(58vh,520px)] rounded-2xl",
+        isMobile ? "absolute inset-0" : "min-h-[min(58vh,520px)] rounded-[1.125rem]",
       )}
       onTouchStart={onTouchStart}
       onTouchEnd={onTouchEnd}

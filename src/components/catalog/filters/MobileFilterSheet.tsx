@@ -57,7 +57,7 @@ export function MobileFilterSheet({
         className="glass-panel max-h-[85vh] rounded-t-2xl border-border-hair safe-bottom [&>button]:end-4 [&>button]:start-auto"
       >
         <SheetHeader className="text-start">
-          <SheetTitle className="font-light">{messages.catalog.heading}</SheetTitle>
+          <SheetTitle className="font-display">{messages.catalog.heading}</SheetTitle>
           <p className="filter-index-count ltr-embed mt-1">
             {messages.catalog.results(resultCount, productCount)}
           </p>
@@ -107,7 +107,7 @@ export function MobileFilterSheet({
           <button
             type="button"
             onClick={() => onOpenChange(false)}
-            className="flex-1 rounded-full btn-primary px-4 py-3 text-sm font-medium"
+            className="flex-1 rounded-full btn-primary px-4 py-3 text-sm type-ui-strong"
           >
             {messages.catalog.applyFilters}
           </button>

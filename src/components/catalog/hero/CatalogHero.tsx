@@ -35,24 +35,16 @@ function stageEntrance(reduced: boolean) {
       };
 }
 
-function HeroCtas({
-  cta,
-  ctaPdf,
-  className,
-}: {
-  cta: string;
-  ctaPdf: string;
-  className?: string;
-}) {
+function HeroCtas({ cta, ctaPdf, className }: { cta: string; ctaPdf: string; className?: string }) {
   return (
-    <div className={cn("flex flex-col items-start gap-4", className)}>
+    <div className={cn("flex flex-col items-start gap-5", className)}>
       <a
         href="#catalog"
         onClick={(e) => {
           e.preventDefault();
           scrollToCatalog();
         }}
-        className="group inline-flex w-fit items-center gap-3 rounded-full btn-primary px-7 py-3.5 text-sm font-medium"
+        className="group inline-flex w-fit items-center gap-3 rounded-full btn-primary px-8 py-3.5 text-sm type-ui-strong"
       >
         <span>{cta}</span>
         <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 rtl:-scale-x-100 rtl:group-hover:-translate-x-0.5" />
@@ -61,7 +53,7 @@ function HeroCtas({
         href={PDF_CATALOG}
         target="_blank"
         rel="noopener noreferrer"
-        className="text-sm text-muted-foreground underline-offset-4 transition-colors hover:text-foreground hover:underline"
+        className="ps-1 text-[0.8125rem] text-muted-foreground underline-offset-[5px] transition-colors hover:text-brand-readable hover:underline"
       >
         {ctaPdf}
       </a>
@@ -70,7 +62,7 @@ function HeroCtas({
 }
 
 export function CatalogHero() {
-  const { messages } = useLocale();
+  const { messages, locale } = useLocale();
   const reduced = useReducedMotion() ?? false;
   const isMobile = useIsMobile();
   const [showScrollCue, setShowScrollCue] = useState(true);
@@ -114,38 +106,48 @@ export function CatalogHero() {
   }, []);
 
   return (
-    <section className="site-column relative flex min-h-[calc(100svh-var(--header-offset))] flex-col justify-center overflow-x-clip pb-16 pt-6 md:pb-20 md:pt-8">
+    <section className="site-column relative flex min-h-[calc(100svh-var(--header-offset))] flex-col justify-center overflow-x-clip pb-20 pt-8 md:pb-24 md:pt-10">
       <div
-        className="editorial-spine pointer-events-none absolute inset-y-[12%] start-0 hidden w-px lg:block"
+        className="editorial-spine pointer-events-none absolute inset-y-[14%] start-0 hidden w-px lg:block"
         aria-hidden
       />
 
-      <div className="grid flex-1 items-center gap-8 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] lg:gap-10 xl:gap-14">
-        <div className="relative z-20 flex flex-col justify-center lg:max-w-sm lg:pe-2">
-          <motion.div {...fadeUp(0, reduced)} className="mb-6 md:mb-8">
-            <SectionRule index="01" />
+      <div className="grid flex-1 items-center gap-10 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] lg:gap-12 xl:gap-16">
+        <div className="relative z-20 flex flex-col justify-center lg:max-w-xl lg:pe-4">
+          <motion.div {...fadeUp(0, reduced)} className="mb-7 md:mb-9">
+            <SectionRule index="1" />
           </motion.div>
 
           <motion.h1
             {...fadeUp(0.06, reduced)}
-            className="max-w-xl text-[2.35rem] font-extralight leading-[1.05] sm:text-5xl md:text-[3.25rem] lg:text-[3.5rem] xl:text-[3.75rem]"
+            className={cn(
+              "font-display type-billboard max-w-xl",
+              locale === "fa" ? "leading-[1.18]" : "leading-[1.05]"
+            )}
           >
             {messages.hero.titleLine1}
             <br />
             {messages.hero.titleLine2}{" "}
-            <span className="font-mono-tech font-normal gradient-text">
+            <span
+              className={cn(
+                "gradient-text",
+                locale === "en"
+                  ? "font-mono-tech font-normal tracking-[0.1em]"
+                  : "font-display font-light"
+              )}
+            >
               {messages.hero.titleAccent}
             </span>
           </motion.h1>
 
           <motion.p
             {...fadeUp(0.12, reduced)}
-            className="mt-5 max-w-sm text-[0.9375rem] leading-relaxed text-muted-foreground md:mt-6 md:text-base"
+            className="type-ui mt-6 max-w-sm text-[0.9375rem] leading-[1.65] text-muted-foreground md:mt-7 md:text-base"
           >
             {messages.hero.subtitle}
           </motion.p>
 
-          <motion.div {...fadeUp(0.18, reduced)} className="mt-7 hidden lg:block md:mt-8">
+          <motion.div {...fadeUp(0.18, reduced)} className="mt-8 hidden lg:block md:mt-10">
             <HeroCtas cta={messages.hero.cta} ctaPdf={messages.hero.ctaPdf} />
           </motion.div>
         </div>
@@ -157,19 +159,19 @@ export function CatalogHero() {
           <HeroBadgeStage {...stageProps} />
         </motion.div>
 
-        <motion.div {...fadeUp(0.22, reduced)} className="lg:hidden">
+        <motion.div {...fadeUp(0.22, reduced)} className="mt-2 lg:hidden">
           <HeroCtas cta={messages.hero.cta} ctaPdf={messages.hero.ctaPdf} />
         </motion.div>
       </div>
 
       <div
         className={cn(
-          "absolute bottom-6 start-1/2 flex -translate-x-1/2 flex-col items-center gap-2 transition-opacity duration-500 md:bottom-8",
+          "absolute bottom-8 start-1/2 flex -translate-x-1/2 flex-col items-center gap-2.5 transition-opacity duration-500 md:bottom-10",
           showScrollCue ? "opacity-100" : "pointer-events-none opacity-0",
         )}
       >
         <div className="scroll-cue-node scroll-cue" />
-        <div className="h-8 w-px origin-top bg-gradient-to-b from-brand/30 to-transparent scroll-cue" />
+        <div className="h-9 w-px origin-top bg-gradient-to-b from-brand/22 to-transparent scroll-cue" />
       </div>
     </section>
   );

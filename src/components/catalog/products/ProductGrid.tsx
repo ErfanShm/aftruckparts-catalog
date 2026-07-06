@@ -7,8 +7,11 @@ import type { Product } from "@/locales";
 
 import { ProductCard } from "./ProductCard";
 
+/** Stable shell when filtered — separate mobile/desktop floors to reduce collapse jumps. */
 const FILTERED_SHELL_MIN =
-  "min-h-[min(55vh,calc(100svh-var(--header-offset)-10rem))]";
+  "min-h-[min(48vh,calc(100svh-var(--header-offset)-11rem))] lg:min-h-[min(58vh,calc(100svh-var(--header-offset)-7rem))]";
+const FILTERED_EMPTY_MIN =
+  "min-h-[min(52vh,calc(100svh-var(--header-offset)-10rem))] lg:min-h-[min(62vh,calc(100svh-var(--header-offset)-6rem))]";
 
 type ProductGridProps = {
   products: Product[];
@@ -31,9 +34,11 @@ export function ProductGrid({
 }: ProductGridProps) {
   const { messages } = useLocale();
   const compact = products.length > 0 && products.length <= 6;
+  const isEmpty = products.length === 0;
 
   const layouts = useMemo(
-    () => products.map((product, index) => galleryLayoutForProduct(product, index, products.length)),
+    () =>
+      products.map((product, index) => galleryLayoutForProduct(product, index, products.length)),
     [products],
   );
 
@@ -41,22 +46,25 @@ export function ProductGrid({
     <div
       className={cn(
         "catalog-results-shell [overflow-anchor:none]",
-        isFiltered && FILTERED_SHELL_MIN,
+        isFiltered && (isEmpty ? FILTERED_EMPTY_MIN : FILTERED_SHELL_MIN),
       )}
     >
       {products.length === 0 ? (
-        <div className="flex h-full min-h-[inherit] items-center justify-center">
-          <p className="text-xs uppercase tracking-widest text-foreground/20">
-            {messages.catalog.noResults}
-          </p>
+        <div className="empty-state h-full min-h-[inherit]">
+          <span className="empty-state-icon" aria-hidden />
+          <p className="empty-state-label">{messages.catalog.noResults}</p>
+          <p className="empty-state-hint">{messages.catalog.clearFilters}</p>
         </div>
       ) : (
         <div
           className={cn(
-            "grid grid-cols-2 auto-rows-[220px] items-stretch gap-3 lg:gap-4",
+            "grid grid-cols-2 auto-rows-[228px] items-stretch gap-3.5 sm:gap-4 lg:gap-5",
             compact
-              ? "lg:grid-cols-6"
-              : "grid-flow-dense lg:grid-cols-6 lg:auto-rows-[minmax(190px,auto)]",
+              ? cn(
+                  "lg:grid-cols-6",
+                  isFiltered && "auto-rows-[248px] lg:auto-rows-[minmax(268px,32vh)]",
+                )
+              : "grid-flow-dense lg:grid-cols-6 lg:auto-rows-[minmax(196px,auto)]",
           )}
         >
           {products.map((p, i) => (

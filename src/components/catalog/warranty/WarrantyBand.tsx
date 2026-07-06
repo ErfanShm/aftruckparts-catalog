@@ -26,27 +26,24 @@ function fadeUp(delay: number, reduced: boolean) {
 }
 
 export function WarrantyBand() {
-  const { messages } = useLocale();
+  const { messages, locale } = useLocale();
   const reduced = useReducedMotion() ?? false;
   const { warranty } = messages;
   const [headlinePrimary, headlineSecondary] = splitHeadline(warranty.headline);
 
   return (
-    <PageSection
-      id="warranty"
-      borderTop
-      clipX
-      spine
-      className="relative !py-16 md:!py-24 lg:!py-28"
-    >
+    <PageSection id="warranty" borderTop clipX spine className="relative">
       <motion.div {...fadeUp(0, reduced)} className="relative">
-        <SectionRule index="04" className="mb-10 md:mb-12" />
+        <SectionRule index="4" className="mb-12 md:mb-14" />
 
-        <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.88fr)] lg:items-stretch lg:gap-14 xl:gap-20">
+        <div className="grid gap-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.88fr)] lg:items-stretch lg:gap-16 xl:gap-20">
           <div className="relative z-10 flex flex-col justify-center">
             <p className="section-tag">{warranty.tag}</p>
 
-            <h2 className="mt-4 max-w-xl text-[clamp(2rem,5.5vw,3.75rem)] font-extralight leading-[1.05] tracking-tight">
+            <h2 className={cn(
+              "font-display type-billboard mt-4 max-w-xl tracking-tight",
+              locale === "fa" ? "leading-[1.18]" : "leading-[1.05]"
+            )}>
               {headlinePrimary}
               {headlineSecondary && (
                 <>
@@ -56,27 +53,33 @@ export function WarrantyBand() {
               )}
             </h2>
 
-            <p className="mt-6 max-w-md text-[0.9375rem] leading-relaxed text-muted-foreground md:mt-8 md:text-base">
+            <p className="type-ui mt-6 max-w-md text-[0.9375rem] leading-relaxed text-muted-foreground md:mt-8 md:text-base">
               {warranty.subline}
             </p>
           </div>
 
           <motion.ul
             {...fadeUp(0.1, reduced)}
-            className="grid gap-2 sm:grid-cols-3 lg:grid-cols-1 lg:gap-0 lg:border-s lg:border-brand/12 lg:ps-10 xl:ps-12"
+            className="grid gap-3 sm:grid-cols-3 lg:grid-cols-1 lg:gap-0 lg:border-s lg:border-brand/10 lg:ps-12 xl:ps-14"
           >
             {warranty.pillars.map((pillar, i) => (
               <li
                 key={pillar.label}
                 className={cn(
                   "stat-chip text-start lg:rounded-none lg:border-0 lg:bg-transparent lg:px-0 lg:py-10 lg:shadow-none xl:py-12",
-                  i > 0 && "lg:border-t lg:border-brand/12",
+                  i > 0 && "lg:border-t lg:border-brand/10",
                 )}
               >
-                <div className="display-stat text-2xl leading-none md:text-3xl lg:text-4xl">
+                <div className={cn(
+                  "display-stat text-2xl leading-none md:text-3xl lg:text-4xl",
+                  locale === "en" ? "font-mono-tech ltr-embed" : "font-display font-light"
+                )}>
                   {pillar.value}
                 </div>
-                <div className="mt-2 text-[10px] tracking-wide text-foreground-muted">
+                <div className={cn(
+                  "mt-2 text-[10px] uppercase text-foreground-muted",
+                  locale === "en" ? "font-mono-tech tracking-[0.18em]" : "font-display font-light"
+                )}>
                   {pillar.label}
                 </div>
               </li>

@@ -71,7 +71,7 @@ function SpecList({
           )}
         >
           <span className="section-tag shrink-0">{row.label}</span>
-          <span className="text-end font-mono text-[13px] text-foreground/80">{row.value}</span>
+          <span className="text-end font-mono-tech ltr-embed text-[13px] text-foreground/80">{row.value}</span>
         </div>
       ))}
     </div>
@@ -105,10 +105,7 @@ function VariantSwitcher({
             type="button"
             onClick={() => onSelect(v.id)}
             aria-pressed={v.id === product.id}
-            className={cn(
-              "finish-pill",
-              v.id === product.id && "finish-pill-active",
-            )}
+            className={cn("finish-pill", v.id === product.id && "finish-pill-active")}
           >
             {v.finish}
           </button>
@@ -145,7 +142,7 @@ function QuoteStepper({
         type="button"
         onClick={onAdd}
         className={cn(
-          "w-full rounded-xl bg-foreground px-6 py-3.5 text-sm text-background active:scale-[0.98] transition-transform",
+          "w-full rounded-xl btn-primary px-6 py-3.5 text-sm type-ui-strong active:scale-[0.98] transition-transform",
           className,
         )}
       >
@@ -157,17 +154,12 @@ function QuoteStepper({
   return (
     <div
       className={cn(
-        "flex items-center justify-between gap-4 rounded-xl border border-foreground/[0.06] px-4 py-3",
+        "flex items-center justify-between gap-4 rounded-xl border border-border-hair/40 glass-panel px-4 py-3",
         className,
       )}
     >
       <span className="text-sm text-foreground/40">{addLabel}</span>
-      <div
-        className={cn(
-          "flex items-center gap-0.5",
-          dir === "rtl" && "flex-row-reverse",
-        )}
-      >
+      <div className={cn("flex items-center gap-0.5", dir === "rtl" && "flex-row-reverse")}>
         <button
           type="button"
           onClick={onRemove}
@@ -248,18 +240,20 @@ function ProductDetailBody({
     <>
       {!isMobile && (
         <>
-          <p className="font-mono text-[10px] tracking-wide text-foreground/30">
+          <p className="font-mono-tech ltr-embed text-[10px] tracking-[0.12em] text-foreground/30">
             {product.code}
             <span className="mx-2 text-foreground/15">·</span>
             {product.brand}
           </p>
-          <h2 className="mt-2 text-[1.35rem] font-light leading-snug text-foreground md:text-3xl">
+          <h2 className="font-display mt-2 text-[1.35rem] leading-snug text-foreground md:text-3xl">
             {product.name}
           </h2>
         </>
       )}
 
-      <p className={cn("text-sm leading-relaxed text-muted-foreground", !isMobile && "mt-3 md:mt-4")}>
+      <p
+        className={cn("text-sm leading-relaxed text-muted-foreground", !isMobile && "mt-3 md:mt-4")}
+      >
         {product.description}
       </p>
 
@@ -322,12 +316,12 @@ function ProductDetailBody({
         </div>
 
         <div className="shrink-0 border-b border-foreground/[0.05] px-5 py-3">
-          <p className="font-mono text-[10px] tracking-wide text-foreground/35">
+          <p className="font-mono-tech ltr-embed text-[10px] tracking-[0.12em] text-foreground/35">
             {product.code}
             <span className="mx-2 text-foreground/15">·</span>
             {product.brand}
           </p>
-          <h2 className="mt-1 text-lg font-light leading-snug text-foreground">{product.name}</h2>
+          <h2 className="type-ui mt-1 text-lg leading-snug text-foreground">{product.name}</h2>
         </div>
 
         <div

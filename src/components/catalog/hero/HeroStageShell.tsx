@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils";
 
 import { getFinishAtmosphere, type HeroFinish } from "./hero-finishes";
 
-const HERO_VAULT_VOID = "#020812";
+const HERO_VAULT_VOID = "#07070a";
 
 type HeroStageShellProps = {
   fillHeight?: boolean;
@@ -32,9 +32,9 @@ export function HeroStageShell({
       aria-hidden
     >
       <div
-        className="hero-stage-glow pointer-events-none absolute inset-[12%] rounded-full blur-[90px] transition-[background] duration-700"
+        className="hero-stage-glow pointer-events-none absolute inset-[14%] rounded-full blur-[100px] transition-[background] duration-700"
         style={{
-          background: `radial-gradient(circle at center, ${atmosphere.glow}, transparent 62%)`,
+          background: `radial-gradient(circle at center, ${atmosphere.glow}, transparent 68%)`,
         }}
       />
     </div>

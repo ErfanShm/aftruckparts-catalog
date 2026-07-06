@@ -17,17 +17,16 @@ function NotFoundComponent() {
   const { messages } = useLocale();
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4">
-      <div className="max-w-md text-center">
-        <h1 className="text-7xl font-bold text-foreground">۴۰۴</h1>
-        <h2 className="mt-4 text-xl font-semibold text-foreground">
-          {messages.errors.notFoundTitle}
-        </h2>
-        <p className="mt-2 text-sm text-muted-foreground">{messages.errors.notFoundBody}</p>
-        <div className="mt-6">
+    <div className="flex min-h-screen items-center justify-center bg-background px-6">
+      <div className="empty-state max-w-md">
+        <span className="empty-state-icon" aria-hidden />
+        <h1 className="font-mono-tech ltr-embed text-6xl font-extralight text-foreground/90">۴۰۴</h1>
+        <h2 className="type-ui text-lg text-foreground">{messages.errors.notFoundTitle}</h2>
+        <p className="empty-state-hint">{messages.errors.notFoundBody}</p>
+        <div className="mt-2">
           <Link
             to="/"
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+            className="inline-flex items-center justify-center rounded-full btn-primary px-6 py-3 text-sm type-ui-strong"
           >
             {messages.errors.goHome}
           </Link>
@@ -43,23 +42,24 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   const { messages } = useLocale();
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4">
-      <div className="max-w-md text-center">
-        <h1 className="text-xl font-semibold text-foreground">{messages.errors.errorTitle}</h1>
-        <p className="mt-2 text-sm text-muted-foreground">{messages.errors.errorBody}</p>
-        <div className="mt-6 flex flex-wrap justify-center gap-2">
+    <div className="flex min-h-screen items-center justify-center bg-background px-6">
+      <div className="empty-state max-w-md">
+        <span className="empty-state-icon" aria-hidden />
+        <h1 className="type-ui text-lg text-foreground">{messages.errors.errorTitle}</h1>
+        <p className="empty-state-hint">{messages.errors.errorBody}</p>
+        <div className="mt-2 flex flex-wrap justify-center gap-3">
           <button
             onClick={() => {
               router.invalidate();
               reset();
             }}
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+            className="inline-flex items-center justify-center rounded-full btn-primary px-6 py-3 text-sm type-ui-strong"
           >
             {messages.errors.tryAgain}
           </button>
           <a
             href="/"
-            className="inline-flex items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-accent"
+            className="inline-flex items-center justify-center rounded-full border border-border-hair/50 px-6 py-3 text-sm font-medium text-foreground transition-colors hover:border-brand/25 hover:text-brand-readable"
           >
             {messages.errors.goHome}
           </a>
@@ -85,7 +85,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { property: "og:image", content: "/android-chrome-512x512.png" },
-      { name: "theme-color", content: "#0a0e1a" },
+      { name: "theme-color", content: "#07070a" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
@@ -94,11 +94,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "icon", href: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
       { rel: "apple-touch-icon", href: "/apple-touch-icon.png", sizes: "180x180" },
       { rel: "manifest", href: "/site.webmanifest" },
-      { rel: "preconnect", href: "https://fonts.googleapis.com" },
-      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
+      { rel: "preconnect", href: "https://cdn.jsdelivr.net" },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap",
+        href: "https://cdn.jsdelivr.net/npm/@fontsource-variable/geist@5.2.8/index.min.css",
+      },
+      {
+        rel: "stylesheet",
+        href: "https://cdn.jsdelivr.net/npm/@fontsource-variable/geist-mono@5.2.8/index.min.css",
       },
     ],
   }),

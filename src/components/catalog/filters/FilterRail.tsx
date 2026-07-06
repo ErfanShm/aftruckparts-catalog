@@ -1,180 +1,90 @@
 import { useState } from "react";
-
 import { Search, SlidersHorizontal, X } from "lucide-react";
 
-
-
 import type { FinishKey, ProductCategory } from "@/data/products";
-
 import { useStickyActive } from "@/hooks/use-sticky-active";
-
 import { useLocale } from "@/lib/i18n";
-
 import type { Product } from "@/locales";
-
 import { cn } from "@/lib/utils";
-
-
 
 import { MobileFilterSheet } from "./MobileFilterSheet";
 
-
-
 type FilterRailProps = {
-
   products: Product[];
-
   activeBrand: string | null;
-
   setActiveBrand: (v: string | null) => void;
-
   activeCategory: ProductCategory | null;
-
   setActiveCategory: (v: ProductCategory | null) => void;
-
   activeFinish: FinishKey | null;
-
   setActiveFinish: (v: FinishKey | null) => void;
-
   query: string;
-
   setQuery: (v: string) => void;
-
   resultCount: number;
-
   productCount: number;
-
 };
 
-
-
 export function FilterRail({
-
   products,
-
   activeBrand,
-
   setActiveBrand,
-
   activeCategory,
-
   setActiveCategory,
-
   activeFinish,
-
   setActiveFinish,
-
   query,
-
   setQuery,
-
   resultCount,
-
   productCount,
-
 }: FilterRailProps) {
-
   const { messages } = useLocale();
-
   const [sheetOpen, setSheetOpen] = useState(false);
-
   const { sentinelRef, active: stuck } = useStickyActive();
 
-
-
-  const activeCount =
-
-    (activeBrand ? 1 : 0) + (activeCategory ? 1 : 0) + (activeFinish ? 1 : 0);
-
-
+  const activeCount = (activeBrand ? 1 : 0) + (activeCategory ? 1 : 0) + (activeFinish ? 1 : 0);
 
   return (
-
     <>
-
       <div ref={sentinelRef} className="pointer-events-none h-px w-full lg:hidden" aria-hidden />
-
       <div
-
         className={cn(
-
-          "filter-sticky-rail -mx-6 mb-6 px-6 py-3 lg:hidden",
-
+          "filter-sticky-rail -mx-[var(--column-px)] mb-7 px-[var(--column-px)] py-3.5 lg:hidden",
           stuck && "filter-sticky-rail-active",
-
         )}
-
       >
-
         <div className="flex gap-2">
-
           <div className="flex flex-1 items-center gap-2 pb-1">
-
             <Search className="h-3.5 w-3.5 shrink-0 text-muted-foreground" />
-
             <input
-
               value={query}
-
               onChange={(e) => setQuery(e.target.value)}
-
               placeholder={messages.catalog.searchPlaceholder}
-
               className="w-full bg-transparent text-sm text-foreground placeholder:text-muted-foreground focus:outline-none"
-
             />
-
             {query && (
-
               <button
-
                 type="button"
-
                 onClick={() => setQuery("")}
-
                 className="text-muted-foreground hover:text-accent"
-
                 aria-label={messages.catalog.clearSearch}
-
               >
-
                 <X className="h-3.5 w-3.5" />
-
               </button>
-
             )}
-
           </div>
-
           <button
-
             type="button"
-
             onClick={() => setSheetOpen(true)}
-
-            className="relative inline-flex h-10 shrink-0 items-center justify-center gap-1.5 px-2 text-xs text-muted-foreground touch-manipulation hover:text-foreground"
-
+            className="relative inline-flex h-10 shrink-0 items-center justify-center gap-2 rounded-full border border-border-hair/30 px-3 text-xs text-muted-foreground touch-manipulation transition-colors hover:border-brand/20 hover:text-foreground"
           >
-
             <SlidersHorizontal className="h-3.5 w-3.5" />
-
             <span>{messages.catalog.openFilters}</span>
-
             {activeCount > 0 && (
-
               <span className="absolute -top-1 end-0 flex h-4 w-4 items-center justify-center rounded-full bg-accent/20 text-[9px] text-accent">
-
                 {activeCount}
-
               </span>
-
             )}
-
           </button>
-
         </div>
-
-
 
         <div className="mt-2 flex min-h-10 flex-wrap items-center gap-2">
           {activeBrand && (
@@ -195,86 +105,44 @@ export function FilterRail({
             />
           )}
         </div>
-
       </div>
 
-
-
       <MobileFilterSheet
-
         open={sheetOpen}
-
         onOpenChange={setSheetOpen}
-
         products={products}
-
         activeBrand={activeBrand}
-
         setActiveBrand={setActiveBrand}
-
         activeCategory={activeCategory}
-
         setActiveCategory={setActiveCategory}
-
         activeFinish={activeFinish}
-
         setActiveFinish={setActiveFinish}
-
         query={query}
-
         setQuery={setQuery}
-
         resultCount={resultCount}
-
         productCount={productCount}
-
       />
-
     </>
-
   );
-
 }
-
-
 
 function ActivePill({
-
   label,
-
   onRemove,
-
   mono,
-
 }: {
-
   label: string;
-
   onRemove: () => void;
-
   mono?: boolean;
-
 }) {
-
   return (
-
     <button
-
       type="button"
-
       onClick={onRemove}
-
-      className="inline-flex min-h-8 items-center gap-1 text-xs text-accent touch-manipulation"
-
+      className="inline-flex min-h-8 items-center gap-1.5 rounded-full border border-terminal/25 bg-terminal/8 px-2.5 py-1 text-xs text-terminal touch-manipulation transition-colors hover:border-terminal/40"
     >
-
       <span className={mono ? "font-mono-tech ltr-embed" : undefined}>{label}</span>
-
       <X className="h-3 w-3 opacity-60" />
-
     </button>
-
   );
-
 }
-

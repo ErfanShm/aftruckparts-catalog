@@ -34,19 +34,17 @@ export function QuoteDockFab({ label, count, onClick }: QuoteDockFabProps) {
       >
         <div
           className={cn(
-            "flex max-w-full items-center gap-2 rounded-full border border-border-hair/40 bg-void/88 px-3.5 py-2.5 backdrop-blur-md sm:gap-2.5 sm:px-4",
-            hasItems && "border-brand/25",
+            "flex max-w-full items-center gap-2.5 rounded-full glass-panel px-4 py-3 sm:gap-3 sm:px-5",
+            hasItems && "border-brand/22",
           )}
         >
-          <span className="min-w-0 text-[0.8125rem] font-light leading-tight text-foreground/85 sm:text-sm">
+          <span className="type-ui-strong min-w-0 text-[0.8125rem] leading-tight text-foreground/90 sm:text-sm">
             {label}
           </span>
           <span
             className={cn(
               "font-mono-tech ltr-embed flex h-6 min-w-6 shrink-0 items-center justify-center rounded-full px-1.5 text-[11px]",
-              hasItems
-                ? "bg-brand/20 text-foreground"
-                : "bg-brand/10 text-brand-highlight/80",
+              hasItems ? "bg-brand/18 text-brand-highlight" : "bg-brand/8 text-brand-readable/70",
             )}
           >
             {String(count).padStart(2, "0")}

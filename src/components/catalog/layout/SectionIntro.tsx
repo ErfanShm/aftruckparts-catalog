@@ -18,15 +18,15 @@ export function SectionIntro({
 }: SectionIntroProps) {
   return (
     <div className={cn("max-w-xl", className)}>
-      <div className={cn("flex items-center gap-2.5", hideTagMarker && "gap-0")}>
-        {!hideTagMarker && (
-          <span className="h-1 w-1 shrink-0 rotate-45 bg-brand/45" aria-hidden />
-        )}
+      <div className={cn("flex items-center gap-3", hideTagMarker && "gap-0")}>
+        {!hideTagMarker && <span className="h-1 w-1 shrink-0 rotate-45 bg-brand/35" aria-hidden />}
         <p className="section-tag">{tag}</p>
       </div>
-      <h2 className="mt-3 text-2xl font-extralight tracking-tight md:text-3xl">{title}</h2>
+      <h2 className="font-display mt-4 text-[1.75rem] tracking-tight md:text-[2rem] lg:text-[2.125rem]">
+        {title}
+      </h2>
       {subtitle && (
-        <p className="mt-4 text-sm leading-relaxed text-muted-foreground md:mt-5 md:text-base">
+        <p className="type-ui mt-5 text-sm leading-relaxed text-muted-foreground md:mt-6 md:text-[0.9375rem]">
           {subtitle}
         </p>
       )}

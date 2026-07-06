@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 
 import type { FinishKey, ProductCategory } from "@/data/products";
-import { usePreserveScrollOnChange } from "@/hooks/use-preserve-scroll";
+import { useStableFilterScroll } from "@/hooks/use-stable-filter-scroll";
 import { useLocale } from "@/lib/i18n";
 import type { Product } from "@/locales";
 
@@ -59,7 +59,7 @@ export function CatalogSection({
   const scrollSignature = `${filtered.length}-${activeBrand ?? ""}-${activeCategory ?? ""}-${activeFinish ?? ""}`;
 
   const resultsRef = useRef<HTMLDivElement>(null);
-  usePreserveScrollOnChange(resultsRef, scrollSignature);
+  const { prepareForFilterChange } = useStableFilterScroll(resultsRef, scrollSignature);
 
   const detailIndex = useMemo(
     () => (detailId ? filtered.findIndex((p) => p.id === detailId) : -1),
@@ -78,11 +78,20 @@ export function CatalogSection({
   const filterProps = {
     products: allProducts,
     activeBrand,
-    setActiveBrand,
+    setActiveBrand: (value: string | null) => {
+      prepareForFilterChange();
+      setActiveBrand(value);
+    },
     activeCategory,
-    setActiveCategory,
+    setActiveCategory: (value: ProductCategory | null) => {
+      prepareForFilterChange();
+      setActiveCategory(value);
+    },
     activeFinish,
-    setActiveFinish,
+    setActiveFinish: (value: FinishKey | null) => {
+      prepareForFilterChange();
+      setActiveFinish(value);
+    },
     query,
     setQuery,
     resultCount: filtered.length,
@@ -91,8 +100,8 @@ export function CatalogSection({
 
   return (
     <PageSection id="catalog" spine className="[overflow-anchor:none]">
-      <div className="mb-8 md:mb-10">
-        <SectionRule index="02" className="mb-6 md:mb-8" />
+      <div className="mb-10 md:mb-12">
+        <SectionRule index="2" className="mb-7 md:mb-9" />
         <SectionIntro
           tag={messages.catalog.galleryTag}
           title={messages.catalog.galleryHeading}
@@ -100,7 +109,7 @@ export function CatalogSection({
         />
       </div>
 
-      <div className="lg:grid lg:grid-cols-[minmax(220px,260px)_1fr] lg:gap-10">
+      <div className="lg:grid lg:grid-cols-[minmax(220px,260px)_1fr] lg:gap-12">
         <FilterDock {...filterProps} />
 
         <div ref={resultsRef} className="min-w-0 [overflow-anchor:none]">

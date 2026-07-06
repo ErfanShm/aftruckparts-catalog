@@ -60,7 +60,11 @@ export function FilterDock({
 
   return (
     <div className="relative hidden lg:block lg:self-stretch">
-      <div ref={sentinelRef} className="pointer-events-none absolute start-0 top-0 h-px w-full" aria-hidden />
+      <div
+        ref={sentinelRef}
+        className="pointer-events-none absolute start-0 top-0 h-px w-full"
+        aria-hidden
+      />
       <aside className="filter-sticky-dock w-full pe-1" aria-label={messages.catalog.heading}>
         <div className="filter-index-search">
           <Search className="h-3.5 w-3.5 shrink-0 text-brand/45" />
@@ -91,7 +95,7 @@ export function FilterDock({
 
         <div className="filter-index-rule" aria-hidden />
 
-        <div className="space-y-6">
+        <div className="space-y-7">
           <FilterGroup label={messages.catalog.finishLabel}>
             <FinishFilterPills
               items={messages.finishes.map((f) => ({ key: f.key, label: f.label }))}
@@ -100,7 +104,7 @@ export function FilterDock({
             />
           </FilterGroup>
 
-          <div className="space-y-6">
+          <div className="space-y-7">
             <FilterGroup label={messages.catalog.brandLabel}>
               <FilterChips
                 orientation="vertical"

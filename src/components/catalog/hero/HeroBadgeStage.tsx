@@ -3,6 +3,7 @@ import { Canvas } from "@react-three/fiber";
 import { Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import { useIsMobile } from "@/hooks/use-mobile";
+import { useLocale } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 
 import { getFinishAtmosphere } from "./hero-finishes";
@@ -43,6 +44,7 @@ export function HeroBadgeStage({
   fillHeight = false,
   className,
 }: HeroBadgeStageProps) {
+  const { locale } = useLocale();
   const isMobile = useIsMobile();
   const frameRef = useRef<HTMLDivElement>(null);
   const [mounted, setMounted] = useState(false);
@@ -139,7 +141,10 @@ export function HeroBadgeStage({
 
         {canRender3d && sceneReady && (
           <div className="pointer-events-none absolute inset-x-0 top-3 z-20 flex justify-center px-3 md:top-4">
-            <div className="rounded-full border border-border-hair/25 bg-void/60 px-3 py-1 text-[9px] tracking-[0.16em] text-foreground-muted/80 backdrop-blur-sm">
+            <div className={cn(
+              "rounded-full border border-border-hair/25 bg-void/60 px-3 py-1 text-[9px] text-foreground-muted/80 backdrop-blur-sm",
+              locale === "en" ? "tracking-[0.16em]" : "tracking-normal"
+            )}>
               <span>{dragHint}</span>
             </div>
           </div>

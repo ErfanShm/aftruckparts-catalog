@@ -1,7 +1,33 @@
 @import "tailwindcss" source(none);
 @source "../src";
 @import "tw-animate-css";
-@import "@fontsource-variable/vazirmatn";
+
+/* ── Anjoman (Persian display + UI) ── */
+@font-face {
+  font-family: "Anjoman Variable";
+  src:
+    url("/fonts/anjoman/Anjoman-Variable.woff") format("woff-variations"),
+    url("/fonts/anjoman/Anjoman-Variable.woff") format("woff");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Anjoman";
+  src: url("/fonts/anjoman/Anjoman-Regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Anjoman";
+  src: url("/fonts/anjoman/Anjoman-Bold.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
 
 @custom-variant dark (&:is(.dark *));
 @custom-variant hover-capable (@media (hover: hover));
@@ -37,8 +63,11 @@
   --color-border: var(--border-hair);
   --color-input: var(--border-hair);
   --color-ring: var(--accent);
-  --font-sans: "Vazirmatn Variable", "Vazirmatn", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  --font-sans-fa: "Anjoman Variable", "Anjoman", ui-sans-serif, system-ui, sans-serif;
+  --font-sans-en: "Geist Variable", "Geist", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-sans-fa);
+  --font-mono: "Geist Mono Variable", "Geist Mono", ui-monospace, SFMono-Regular, monospace;
+  --color-terminal: var(--terminal-cyan);
   --radius-sm: 4px;
   --radius-md: 8px;
   --radius-lg: 12px;
@@ -49,43 +78,51 @@
 :root {
   /* Logo navy on zinc vault — #003d81 identity, surfaces stay dark/neutral */
   --logo-navy: #003d81;
-  --zinc-950: #09090b;
-  --zinc-900: #18181b;
-  --zinc-800: #27272a;
-  --zinc-700: #3f3f46;
+  --zinc-950: #07070a;
+  --zinc-900: #121216;
+  --zinc-800: #1e1e24;
+  --zinc-700: #34343c;
   --brand: var(--logo-navy);
   --brand-void: var(--zinc-950);
-  --brand-deep: color-mix(in oklch, var(--logo-navy) 22%, var(--zinc-950));
+  --brand-deep: color-mix(in oklch, var(--logo-navy) 18%, var(--zinc-950));
   --brand-panel: var(--zinc-900);
   --brand-panel-elevated: var(--zinc-800);
   --brand-line: var(--zinc-700);
-  --brand-highlight: color-mix(in oklch, var(--logo-navy) 28%, #84bce8);
-  --brand-glow: color-mix(in oklch, var(--logo-navy) 34%, #9ccdef);
-  --brand-readable: color-mix(in oklch, var(--logo-navy) 22%, #9ccdef);
+  --brand-highlight: color-mix(in oklch, var(--logo-navy) 24%, #7eb4e4);
+  --brand-glow: color-mix(in oklch, var(--logo-navy) 30%, #a8d4f5);
+  --brand-readable: color-mix(in oklch, var(--logo-navy) 18%, #8ec4ea);
   --void: var(--zinc-950);
   --blue-deep: var(--brand-deep);
-  --blue-mid: color-mix(in oklch, var(--logo-navy) 35%, var(--zinc-800));
+  --blue-mid: color-mix(in oklch, var(--logo-navy) 28%, var(--zinc-800));
   --blue-surface: var(--zinc-900);
   --blue-elevated: var(--zinc-800);
   --background: var(--void);
-  --foreground: oklch(0.94 0.008 250);
-  --foreground-muted: oklch(0.72 0.012 250);
+  --foreground: oklch(0.95 0.006 250);
+  --foreground-muted: oklch(0.68 0.01 250);
   --surface: var(--brand-panel);
   --surface-2: var(--brand-panel-elevated);
-  --border-hair: color-mix(in oklch, var(--zinc-700) 50%, var(--logo-navy) 12%);
+  --border-hair: color-mix(in oklch, var(--zinc-700) 38%, var(--logo-navy) 8%);
   --muted: var(--brand-panel);
-  --muted-foreground: oklch(0.76 0.014 250);
-  --accent: color-mix(in oklch, var(--logo-navy) 20%, #9ccdef);
-  --accent-glow: color-mix(in oklch, var(--logo-navy) 22%, transparent);
+  --muted-foreground: oklch(0.7 0.012 250);
+  --accent: color-mix(in oklch, var(--logo-navy) 16%, #8ec4ea);
+  --accent-glow: color-mix(in oklch, var(--logo-navy) 18%, transparent);
   --warranty: #e4572e;
-  --radius: 12px;
+  --terminal-cyan: #06b6d4;
+  --radius: 14px;
   --safe-top: env(safe-area-inset-top, 0px);
-  --header-bar: 4.5rem;
+  --header-bar: 4.25rem;
   --header-offset: calc(var(--header-bar) + var(--safe-top));
   --header-height: var(--header-bar);
-  --section-py: 5rem;
-  --section-gap: 2.5rem;
+  --section-py: 5.5rem;
+  --section-gap: 3rem;
+  --column-px: clamp(1.5rem, 5vw, 2.5rem);
   --quote-dock-offset: max(9.5rem, calc(8rem + env(safe-area-inset-bottom, 0px)));
+  /* Ambient art palette — muted navy whispers on near-black */
+  --ambient-void: #030407;
+  --ambient-deep: color-mix(in oklch, var(--logo-navy) 20%, #04060c);
+  --ambient-sky: color-mix(in oklch, var(--logo-navy) 14%, #4a8ab8);
+  --ambient-ice: color-mix(in oklch, var(--logo-navy) 6%, #8eb8d4);
+  --ambient-indigo: color-mix(in oklch, var(--logo-navy) 28%, #1a1838);
 }
 
 @layer base {
@@ -97,10 +134,19 @@
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-sans);
+    font-weight: 400;
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
   html {
     scroll-behavior: smooth;
+    --font-sans: var(--font-sans-fa);
+  }
+  html[lang="en"] {
+    --font-sans: var(--font-sans-en);
+  }
+  html[lang="fa"] {
+    --font-sans: var(--font-sans-fa);
   }
   @media (prefers-reduced-motion: reduce) {
     html {
@@ -116,7 +162,29 @@
 @utility font-mono-tech {
   font-family: var(--font-mono);
   font-feature-settings: "tnum", "zero";
-  letter-spacing: 0.02em;
+  letter-spacing: 0.1em;
+}
+
+@utility font-display {
+  font-family: var(--font-sans);
+  font-weight: 200;
+  font-variation-settings: "wght" 200;
+}
+
+@utility type-billboard {
+  font-size: clamp(2.25rem, 6.5vw, 4.5rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+@utility type-ui {
+  font-weight: 400;
+  font-variation-settings: "wght" 400;
+}
+
+@utility type-ui-strong {
+  font-weight: 500;
+  font-variation-settings: "wght" 500;
 }
 
 @utility ltr-embed {
@@ -140,37 +208,39 @@
 }
 
 @utility glass-panel {
-  background: color-mix(in oklch, var(--void) 78%, var(--brand) 6%);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
+  background: color-mix(in oklch, var(--void) 82%, var(--brand) 4%);
+  backdrop-filter: blur(20px) saturate(1.08);
+  -webkit-backdrop-filter: blur(20px) saturate(1.08);
+  border: 1px solid color-mix(in oklch, var(--brand) 8%, transparent);
 }
 
 @utility glass-panel-strong {
-  background: color-mix(in oklch, var(--void) 88%, var(--brand) 8%);
-  backdrop-filter: blur(22px);
-  -webkit-backdrop-filter: blur(22px);
-  box-shadow: 0 12px 40px -24px color-mix(in oklch, black 70%, var(--brand));
+  background: color-mix(in oklch, var(--void) 90%, var(--brand) 5%);
+  backdrop-filter: blur(24px) saturate(1.1);
+  -webkit-backdrop-filter: blur(24px) saturate(1.1);
+  border: 1px solid color-mix(in oklch, var(--brand) 10%, transparent);
+  box-shadow: 0 16px 48px -28px color-mix(in oklch, black 65%, var(--brand));
 }
 
 @utility header-shell {
-  background: color-mix(in oklch, var(--void) 97%, var(--brand) 3%);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+  background: color-mix(in oklch, var(--void) 94%, var(--brand) 2%);
+  backdrop-filter: blur(16px) saturate(1.05);
+  -webkit-backdrop-filter: blur(16px) saturate(1.05);
   transition:
-    background 0.25s ease,
-    box-shadow 0.25s ease;
+    background 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 @utility header-shell-scrolled {
-  background: color-mix(in oklch, var(--void) 99%, black);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
+  background: color-mix(in oklch, var(--void) 96%, var(--brand) 2%);
+  backdrop-filter: blur(20px) saturate(1.08);
+  -webkit-backdrop-filter: blur(20px) saturate(1.08);
   box-shadow:
-    0 1px 0 color-mix(in oklch, var(--brand) 18%, transparent),
-    0 20px 56px -32px color-mix(in oklch, black 85%, var(--brand));
+    0 1px 0 color-mix(in oklch, var(--brand) 12%, transparent),
+    0 24px 64px -36px color-mix(in oklch, black 80%, var(--brand));
   transition:
-    background 0.25s ease,
-    box-shadow 0.25s ease;
+    background 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 @utility header-brand-line {
@@ -203,25 +273,25 @@
 
 @utility stat-chip {
   position: relative;
-  border: 1px solid color-mix(in oklch, var(--brand) 22%, transparent);
-  border-radius: 1rem;
-  background: color-mix(in oklch, var(--void) 82%, var(--brand) 5%);
-  padding: 0.75rem 0.5rem;
+  border: 1px solid color-mix(in oklch, var(--brand) 16%, transparent);
+  border-radius: 1.125rem;
+  background: color-mix(in oklch, var(--void) 88%, var(--brand) 4%);
+  padding: 1rem 0.75rem;
   text-align: center;
   overflow: hidden;
   &::before {
     content: "";
     position: absolute;
-    inset-inline: 18%;
+    inset-inline: 22%;
     top: 0;
     height: 1px;
     background: linear-gradient(
       90deg,
       transparent,
-      color-mix(in oklch, var(--brand-highlight) 50%, transparent),
+      color-mix(in oklch, var(--brand-highlight) 40%, transparent),
       transparent
     );
-    opacity: 0.55;
+    opacity: 0.45;
   }
 }
 
@@ -229,18 +299,20 @@
   position: sticky;
   top: var(--header-offset);
   z-index: 25;
-  background: color-mix(in oklch, var(--void) 92%, var(--brand) 4%);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid color-mix(in oklch, var(--border-hair) 80%, transparent);
+  background: color-mix(in oklch, var(--void) 94%, var(--brand) 3%);
+  backdrop-filter: blur(22px) saturate(1.06);
+  -webkit-backdrop-filter: blur(22px) saturate(1.06);
+  border-bottom: 1px solid color-mix(in oklch, var(--border-hair) 60%, transparent);
   transition:
-    box-shadow 0.25s ease,
-    border-color 0.25s ease;
+    box-shadow 0.3s ease,
+    border-color 0.3s ease,
+    background 0.3s ease;
 }
 
 @utility filter-sticky-rail-active {
-  box-shadow: 0 16px 40px -20px color-mix(in oklch, black 75%, var(--brand));
-  border-bottom-color: color-mix(in oklch, var(--brand) 28%, transparent);
+  background: color-mix(in oklch, var(--void) 96%, var(--brand) 4%);
+  box-shadow: 0 12px 36px -18px color-mix(in oklch, black 70%, var(--brand));
+  border-bottom-color: color-mix(in oklch, var(--brand) 18%, transparent);
 }
 
 @utility filter-sticky-dock {
@@ -258,7 +330,7 @@
   padding-bottom: 0.75rem;
   transition: border-color 0.25s ease;
   &:focus-within {
-    border-bottom-color: color-mix(in oklch, var(--brand-highlight) 45%, transparent);
+    border-bottom-color: color-mix(in oklch, var(--terminal-cyan) 55%, transparent);
   }
 }
 
@@ -314,9 +386,9 @@
 }
 
 @utility filter-index-toggle-active {
-  color: var(--brand-readable);
+  color: var(--terminal-cyan);
   text-decoration: underline;
-  text-decoration-color: color-mix(in oklch, var(--brand-highlight) 40%, transparent);
+  text-decoration-color: color-mix(in oklch, var(--terminal-cyan) 50%, transparent);
   text-underline-offset: 3px;
 }
 
@@ -338,7 +410,7 @@
 }
 
 @utility filter-index-row-active {
-  color: var(--foreground);
+  color: var(--terminal-cyan);
 }
 
 @utility filter-index-num {
@@ -386,17 +458,23 @@
 @utility specimen-frame {
   position: relative;
   isolation: isolate;
-  border: 1px solid var(--color-border-hair);
-  border-radius: 1rem;
+  border: 1px solid color-mix(in oklch, var(--border-hair) 70%, transparent);
+  border-radius: 1.125rem;
   overflow: hidden;
-  box-shadow: inset 0 1px 0 oklch(1 0 0 / 3%);
+  box-shadow:
+    inset 0 1px 0 oklch(1 0 0 / 2.5%),
+    0 8px 32px -24px color-mix(in oklch, black 50%, var(--brand));
+  transition:
+    border-color 0.35s ease,
+    box-shadow 0.35s ease,
+    transform 0.35s ease;
 }
 
 @utility specimen-frame-active {
-  border-color: color-mix(in oklch, var(--brand) 45%, transparent);
+  border-color: color-mix(in oklch, var(--brand) 38%, transparent);
   box-shadow:
-    inset 0 1px 0 color-mix(in oklch, var(--brand-highlight) 6%, transparent),
-    0 0 28px -10px color-mix(in oklch, var(--brand) 35%, transparent);
+    inset 0 1px 0 color-mix(in oklch, var(--brand-highlight) 5%, transparent),
+    0 0 32px -12px color-mix(in oklch, var(--brand) 28%, transparent);
 }
 
 @utility specimen-strip {
@@ -458,6 +536,7 @@
 @utility finish-pill {
   border-radius: 9999px;
   padding: 0.375rem 0.875rem;
+  font-family: var(--font-mono);
   font-size: 11px;
   font-weight: 500;
   color: color-mix(in oklch, var(--brand-readable) 55%, var(--muted-foreground));
@@ -471,11 +550,11 @@
 }
 
 @utility finish-pill-active {
-  background: color-mix(in oklch, var(--brand) 24%, var(--void));
-  color: var(--brand-readable);
+  background: color-mix(in oklch, var(--terminal-cyan) 10%, var(--void));
+  color: var(--terminal-cyan);
   box-shadow:
-    inset 0 0 0 1px color-mix(in oklch, var(--brand-highlight) 32%, transparent),
-    0 0 14px -8px color-mix(in oklch, var(--brand) 28%, transparent);
+    inset 0 0 0 1px color-mix(in oklch, var(--terminal-cyan) 38%, transparent),
+    0 0 14px -8px color-mix(in oklch, var(--terminal-cyan) 28%, transparent);
 }
 
 @utility finish-specimen-tag {
@@ -511,11 +590,11 @@
 }
 
 @utility chip-active {
-  background: color-mix(in oklch, var(--void) 75%, var(--brand) 12%);
-  color: var(--brand-highlight);
+  background: color-mix(in oklch, var(--void) 75%, var(--terminal-cyan) 8%);
+  color: var(--terminal-cyan);
   box-shadow:
-    0 0 0 1px color-mix(in oklch, var(--brand) 50%, transparent),
-    0 0 18px -8px color-mix(in oklch, var(--brand) 25%, transparent);
+    0 0 0 1px color-mix(in oklch, var(--terminal-cyan) 45%, transparent),
+    0 0 18px -8px color-mix(in oklch, var(--terminal-cyan) 22%, transparent);
 }
 
 @utility wireframe-watermark {
@@ -529,7 +608,12 @@
 }
 
 @utility gradient-text {
-  background: linear-gradient(135deg, var(--brand-glow), var(--brand-highlight));
+  background: linear-gradient(
+    128deg,
+    color-mix(in oklch, var(--terminal-cyan) 88%, white) 0%,
+    var(--terminal-cyan) 45%,
+    color-mix(in oklch, var(--brand-readable) 70%, var(--terminal-cyan)) 100%
+  );
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -538,9 +622,18 @@
 @utility section-tag {
   font-family: var(--font-mono);
   font-size: 10px;
-  letter-spacing: 0.28em;
+  font-weight: 400;
+  letter-spacing: 0.32em;
   text-transform: uppercase;
-  color: color-mix(in oklch, var(--foreground-muted) 88%, transparent);
+  color: color-mix(in oklch, var(--foreground-muted) 75%, transparent);
+  transition:
+    color 0.2s ease,
+    text-shadow 0.2s ease;
+}
+
+@utility section-tag-active {
+  color: var(--terminal-cyan);
+  text-shadow: 0 0 22px color-mix(in oklch, var(--terminal-cyan) 32%, transparent);
 }
 
 @utility section-rule-node {
@@ -693,10 +786,46 @@
   }
 }
 
+@utility empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 3rem 1.5rem;
+  text-align: center;
+}
+
+@utility empty-state-icon {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  border: 1px solid color-mix(in oklch, var(--brand) 18%, transparent);
+  background: color-mix(in oklch, var(--void) 85%, var(--brand) 5%);
+  box-shadow: 0 0 24px -8px color-mix(in oklch, var(--brand) 20%, transparent);
+}
+
+@utility empty-state-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: color-mix(in oklch, var(--foreground-muted) 55%, transparent);
+}
+
+@utility empty-state-hint {
+  max-width: 16rem;
+  font-size: 0.8125rem;
+  line-height: 1.55;
+  color: color-mix(in oklch, var(--muted-foreground) 80%, transparent);
+}
+
 @utility display-stat {
+  font-family: var(--font-mono);
   font-size: 1.875rem;
-  font-weight: 200;
-  letter-spacing: -0.02em;
+  font-weight: 400;
+  font-feature-settings: "tnum", "zero";
+  letter-spacing: 0.04em;
   line-height: 1;
 }
 
@@ -704,79 +833,198 @@
   margin-inline: auto;
   width: 100%;
   max-width: 80rem;
-  padding-inline: 1.5rem;
+  padding-inline: var(--column-px);
+}
+
+@utility section-padding {
+  padding-block: var(--section-py);
 }
 
 @utility ambient-pulse {
-  animation: ambient-pulse 14s ease-in-out infinite;
+  animation: ambient-pulse 16s ease-in-out infinite;
 }
 
 @keyframes ambient-pulse {
   0%,
   100% {
-    opacity: 0.55;
+    opacity: 0.28;
     transform: translateX(-50%) scale(1);
   }
   50% {
-    opacity: 0.85;
-    transform: translateX(-50%) scale(1.06);
+    opacity: 0.45;
+    transform: translateX(-50%) scale(1.04);
+  }
+}
+
+@utility ambient-breathe {
+  animation: ambient-breathe 20s ease-in-out infinite;
+}
+
+@keyframes ambient-breathe {
+  0%,
+  100% {
+    opacity: 0.22;
+    transform: translateX(-50%) scale(1);
+  }
+  50% {
+    opacity: 0.38;
+    transform: translateX(-50%) scale(1.05);
+  }
+}
+
+@utility ambient-ribbon-shift {
+  animation: ambient-ribbon-shift 28s ease-in-out infinite;
+}
+
+@keyframes ambient-ribbon-shift {
+  0%,
+  100% {
+    opacity: 0.12;
+    transform: translate3d(-1%, 0, 0) skewY(-2deg) scale(1.01);
+  }
+  50% {
+    opacity: 0.22;
+    transform: translate3d(1%, 0.5%, 0) skewY(-1deg) scale(1.02);
   }
 }
 
 @utility ambient-base {
   background:
     radial-gradient(
-      ellipse 70% 45% at 50% -8%,
-      color-mix(in oklch, var(--brand) 38%, transparent) 0%,
+      ellipse 90% 55% at 50% -18%,
+      color-mix(in oklch, var(--ambient-ice) 7%, transparent) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      ellipse 65% 42% at 50% -4%,
+      color-mix(in oklch, var(--brand) 16%, transparent) 0%,
       transparent 55%
     ),
     radial-gradient(
-      ellipse 50% 40% at 12% 88%,
-      color-mix(in oklch, var(--brand) 12%, transparent) 0%,
-      transparent 65%
+      ellipse 50% 45% at -6% 42%,
+      color-mix(in oklch, var(--ambient-indigo) 10%, transparent) 0%,
+      transparent 70%
     ),
-    var(--void);
+    radial-gradient(
+      ellipse 45% 40% at 104% 50%,
+      color-mix(in oklch, var(--ambient-sky) 8%, transparent) 0%,
+      transparent 68%
+    ),
+    linear-gradient(
+      188deg,
+      var(--ambient-void) 0%,
+      var(--void) 55%,
+      color-mix(in oklch, var(--void) 94%, var(--ambient-indigo)) 100%
+    );
+}
+
+@utility ambient-horizon {
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    transparent 40%,
+    color-mix(in oklch, var(--brand-highlight) 3%, transparent) 48%,
+    color-mix(in oklch, var(--brand) 4%, transparent) 50%,
+    color-mix(in oklch, var(--brand-highlight) 2%, transparent) 52%,
+    transparent 62%,
+    transparent 100%
+  );
+}
+
+@utility ambient-ribbon {
+  background: linear-gradient(
+    112deg,
+    transparent 0%,
+    color-mix(in oklch, var(--ambient-indigo) 5%, transparent) 28%,
+    color-mix(in oklch, var(--brand-highlight) 6%, transparent) 42%,
+    color-mix(in oklch, var(--brand) 4%, transparent) 52%,
+    transparent 72%
+  );
+  mask-image: linear-gradient(to bottom, black 8%, black 48%, transparent 88%);
+}
+
+@utility ambient-depth {
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 140px,
+    color-mix(in oklch, var(--brand-highlight) 4%, transparent) 140px,
+    color-mix(in oklch, var(--brand-highlight) 4%, transparent) 141px
+  );
+  mask-image: radial-gradient(ellipse 95% 75% at 50% 42%, black 12%, transparent 78%);
 }
 
 @utility ambient-mesh {
-  background: linear-gradient(
-    162deg,
-    transparent 42%,
-    color-mix(in oklch, var(--brand) 6%, transparent) 50%,
-    transparent 58%
-  );
+  background:
+    conic-gradient(
+      from 210deg at 72% 18%,
+      transparent 0deg,
+      color-mix(in oklch, var(--ambient-sky) 8%, transparent) 40deg,
+      transparent 80deg
+    ),
+    conic-gradient(
+      from 30deg at 18% 72%,
+      transparent 0deg,
+      color-mix(in oklch, var(--ambient-indigo) 10%, transparent) 50deg,
+      transparent 95deg
+    );
 }
 
 @utility ambient-grid {
   background-image: radial-gradient(
     circle at center,
-    color-mix(in oklch, var(--brand) 14%, transparent) 0.5px,
+    color-mix(in oklch, var(--brand) 10%, transparent) 0.5px,
     transparent 0.5px
   );
-  background-size: 32px 32px;
-  mask-image: radial-gradient(ellipse 80% 70% at 50% 38%, black 10%, transparent 68%);
-}
-
-@utility ambient-aurora {
-  background: linear-gradient(
-    175deg,
-    color-mix(in oklch, var(--brand) 22%, transparent) 0%,
-    transparent 42%
-  );
+  background-size: 52px 52px;
+  mask-image: radial-gradient(ellipse 75% 65% at 50% 30%, black 4%, transparent 72%);
 }
 
 @utility ambient-vignette {
   background: radial-gradient(
-    ellipse 130% 110% at 50% 50%,
+    ellipse 110% 95% at 50% 48%,
     transparent 38%,
     color-mix(in oklch, var(--void) 88%, black) 100%
   );
 }
 
+@utility ambient-orb-well {
+  background: radial-gradient(
+    circle at 50% 42%,
+    color-mix(in oklch, var(--ambient-ice) 12%, transparent) 0%,
+    color-mix(in oklch, var(--brand-highlight) 7%, transparent) 30%,
+    color-mix(in oklch, var(--brand) 4%, transparent) 55%,
+    transparent 75%
+  );
+  filter: blur(90px);
+}
+
+@utility ambient-orb-sky {
+  background: radial-gradient(
+    circle at center,
+    color-mix(in oklch, var(--ambient-sky) 14%, transparent) 0%,
+    color-mix(in oklch, var(--brand) 5%, transparent) 48%,
+    transparent 72%
+  );
+  filter: blur(80px);
+}
+
+@utility ambient-orb-indigo {
+  background: radial-gradient(
+    circle at center,
+    color-mix(in oklch, var(--ambient-indigo) 40%, transparent) 0%,
+    color-mix(in oklch, var(--brand) 10%, transparent) 50%,
+    transparent 72%
+  );
+  filter: blur(88px);
+}
+
 @utility nav-link {
   position: relative;
+  font-weight: 500;
+  font-variation-settings: "wght" 500;
   letter-spacing: 0.04em;
-  color: var(--color-muted-foreground);
+  color: color-mix(in oklch, var(--foreground-muted) 88%, transparent);
   transition: color 0.2s ease;
   &::after {
     content: "";
@@ -784,7 +1032,7 @@
     inset-inline: 0;
     bottom: -4px;
     height: 1px;
-    background: linear-gradient(90deg, transparent, color-mix(in oklch, var(--brand) 45%, transparent), transparent);
+    background: linear-gradient(90deg, transparent, color-mix(in oklch, var(--terminal-cyan) 55%, transparent), transparent);
     opacity: 0;
     transform: scaleX(0.5);
     transition:
@@ -792,7 +1040,7 @@
       transform 0.2s ease;
   }
   &:hover {
-    color: var(--brand-highlight);
+    color: var(--terminal-cyan);
     &::after {
       opacity: 1;
       transform: scaleX(1);
@@ -802,6 +1050,7 @@
 
 @utility nav-link-active {
   color: var(--color-foreground);
+  font-weight: 500;
   letter-spacing: 0.04em;
   &::after {
     opacity: 1;
@@ -809,28 +1058,41 @@
     background: linear-gradient(
       90deg,
       transparent,
-      color-mix(in oklch, var(--brand) 65%, transparent),
+      color-mix(in oklch, var(--terminal-cyan) 70%, transparent),
       transparent
     );
   }
 }
 
 @utility btn-primary {
-  background: var(--brand);
+  background: linear-gradient(
+    165deg,
+    color-mix(in oklch, var(--brand) 96%, var(--brand-highlight)) 0%,
+    var(--brand) 100%
+  );
   color: oklch(0.98 0.004 230);
-  border: 1px solid color-mix(in oklch, var(--brand-highlight) 35%, transparent);
+  border: 1px solid color-mix(in oklch, var(--brand-highlight) 28%, transparent);
   border-radius: 9999px;
+  box-shadow:
+    inset 0 1px 0 color-mix(in oklch, white 12%, transparent),
+    0 4px 24px -8px color-mix(in oklch, var(--brand) 35%, transparent);
   transition:
-    border-color 0.25s ease,
-    box-shadow 0.25s ease,
-    background 0.25s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease,
+    background 0.3s ease,
     transform 0.2s ease;
 }
 @utility btn-primary {
   &:hover {
-    border-color: color-mix(in oklch, var(--brand-highlight) 45%, transparent);
-    box-shadow: 0 8px 36px -12px color-mix(in oklch, var(--brand) 40%, transparent);
-    background: color-mix(in oklch, var(--brand) 92%, var(--brand-highlight));
+    border-color: color-mix(in oklch, var(--brand-highlight) 38%, transparent);
+    box-shadow:
+      inset 0 1px 0 color-mix(in oklch, white 14%, transparent),
+      0 12px 40px -10px color-mix(in oklch, var(--brand) 42%, transparent);
+    background: linear-gradient(
+      165deg,
+      color-mix(in oklch, var(--brand) 88%, var(--brand-highlight)) 0%,
+      color-mix(in oklch, var(--brand) 94%, var(--brand-highlight)) 100%
+    );
   }
   &:active {
     transform: scale(0.98);
@@ -838,9 +1100,9 @@
 }
 
 @utility grain-overlay {
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
   background-repeat: repeat;
-  background-size: 180px 180px;
+  background-size: 200px 200px;
 }
 
 @utility safe-bottom {
@@ -914,17 +1176,33 @@
 @keyframes ambient-drift {
   0%,
   100% {
-    opacity: 0.4;
+    opacity: 0.18;
     transform: translate(0, 0) scale(1);
   }
   50% {
-    opacity: 0.65;
-    transform: translate(2%, 1%) scale(1.04);
+    opacity: 0.28;
+    transform: translate(2%, -1%) scale(1.02);
   }
 }
 
 @utility ambient-drift {
-  animation: ambient-drift 18s ease-in-out infinite;
+  animation: ambient-drift 22s ease-in-out infinite;
+}
+
+@utility ambient-drift-alt {
+  animation: ambient-drift-alt 26s ease-in-out infinite;
+}
+
+@keyframes ambient-drift-alt {
+  0%,
+  100% {
+    opacity: 0.15;
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    opacity: 0.24;
+    transform: translate(-2%, 1%) scale(1.02);
+  }
 }
 
 @utility hero-stage-bleed {
@@ -1027,6 +1305,9 @@
 
 @media (prefers-reduced-motion: reduce) {
   .ambient-drift,
+  .ambient-drift-alt,
+  .ambient-breathe,
+  .ambient-ribbon-shift,
   .scroll-cue,
   .hero-scan-line {
     animation: none;
@@ -1066,8 +1347,8 @@
 /* Detail modal gallery stage */
 .gallery-stage {
   background:
-    radial-gradient(ellipse 80% 60% at 50% 45%, color-mix(in oklch, var(--brand) 12%, transparent), transparent 70%),
-    color-mix(in oklch, var(--brand-panel) 40%, var(--void));
+    radial-gradient(ellipse 75% 55% at 50% 42%, color-mix(in oklch, var(--brand) 10%, transparent), transparent 72%),
+    color-mix(in oklch, var(--brand-panel) 35%, var(--void));
 }
 
 .gallery-thumb-active {

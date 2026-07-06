@@ -5,17 +5,20 @@ export function AmbientCanvas() {
   const isRtl = dir === "rtl";
 
   return (
-    <div className="pointer-events-none fixed inset-0 z-0" aria-hidden>
+    <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden" aria-hidden>
       <div className="absolute inset-0 ambient-base" />
-      <div className="absolute inset-0 ambient-grid opacity-40" />
-      <div className="absolute -top-40 left-1/2 h-[700px] w-[700px] -translate-x-1/2 rounded-full bg-brand/10 blur-[140px] ambient-pulse" />
+      <div className="absolute inset-0 ambient-horizon opacity-50" />
+      <div className="absolute inset-[-8%] ambient-ribbon ambient-ribbon-shift" />
+      <div className="absolute -top-40 left-1/2 h-[min(85vw,680px)] w-[min(85vw,680px)] -translate-x-1/2 ambient-orb-well ambient-breathe" />
+      <div className="absolute top-[20%] left-1/2 h-[400px] w-[400px] -translate-x-1/2 rounded-full bg-brand/5 blur-[130px] ambient-pulse" />
       <div
         className={[
-          "absolute bottom-0 h-[500px] w-[500px] rounded-full bg-brand/5 blur-[120px]",
-          isRtl ? "start-0" : "end-0",
+          "absolute top-[32%] h-[420px] w-[420px] ambient-orb-sky ambient-drift",
+          isRtl ? "start-[-16%]" : "end-[-16%]",
         ].join(" ")}
       />
-      <div className="absolute inset-0 grain-overlay opacity-20" />
+      <div className="absolute inset-0 ambient-grid opacity-18" />
+      <div className="absolute inset-0 grain-overlay opacity-10" />
       <div className="absolute inset-0 ambient-vignette" />
     </div>
   );

@@ -39,19 +39,17 @@ export function SiteHeader() {
   }, []);
 
   return (
-    <header
-      className={cn("header-fixed", scrolled ? "header-shell-scrolled" : "header-shell")}
-    >
+    <header className={cn("header-fixed", scrolled ? "header-shell-scrolled" : "header-shell")}>
       <div className="site-column flex h-[var(--header-bar)] items-center justify-between gap-4">
         <a href="/" className="group flex items-center gap-3 transition-opacity hover:opacity-90">
           <span className="hidden h-3.5 w-px bg-brand/50 sm:block" aria-hidden />
           <BrandMark size={34} />
-          <span className="font-mono-tech ltr-embed text-sm tracking-[0.12em] text-foreground/85">
+          <span className="font-mono-tech ltr-embed text-sm tracking-[0.1em] text-foreground/85">
             {BRAND_NAME}
           </span>
         </a>
 
-        <nav className="hidden items-center gap-8 md:flex">
+        <nav className="hidden items-center gap-9 md:flex">
           {messages.nav.links.map((l, i) => {
             const sectionId = navSectionId(i);
             const isActive = activeSection === sectionId;
@@ -63,7 +61,10 @@ export function SiteHeader() {
                   e.preventDefault();
                   scrollToSection(sectionId);
                 }}
-                className={cn("nav-link text-sm tracking-[0.04em]", isActive && "nav-link-active")}
+                className={cn(
+                  "nav-link type-ui-strong text-[0.8125rem] tracking-[0.06em]",
+                  isActive && "nav-link-active",
+                )}
               >
                 {l}
               </a>
@@ -71,13 +72,13 @@ export function SiteHeader() {
           })}
         </nav>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2.5">
           <LanguageSwitcher />
           <Sheet open={menuOpen} onOpenChange={setMenuOpen}>
             <SheetTrigger asChild>
               <button
                 type="button"
-                className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-border-hair/40 bg-void/80 text-foreground backdrop-blur-sm md:hidden"
+                className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-border-hair/30 glass-panel text-foreground/90 md:hidden"
                 aria-label={messages.nav.menuOpen}
               >
                 <Menu className="h-4 w-4" />
@@ -85,18 +86,18 @@ export function SiteHeader() {
             </SheetTrigger>
             <SheetContent
               side={dir === "rtl" ? "right" : "left"}
-              className="w-[min(100vw,20rem)] border-border-hair bg-void/95 backdrop-blur-xl [&>button]:end-4 [&>button]:start-auto"
+              className="w-[min(100vw,20rem)] border-border-hair/40 glass-panel-strong [&>button]:end-4 [&>button]:start-auto"
             >
               <SheetHeader className="text-start">
-                <SheetTitle className="font-light">{BRAND_NAME}</SheetTitle>
+                <SheetTitle className="font-mono-tech ltr-embed tracking-[0.1em]">{BRAND_NAME}</SheetTitle>
               </SheetHeader>
-              <nav className="mt-8 flex flex-col gap-1">
+              <nav className="mt-10 flex flex-col gap-0.5">
                 {messages.nav.links.map((l, i) => {
                   const sectionId = navSectionId(i);
                   const isActive = activeSection === sectionId;
                   return (
                     <div key={`${sectionId}-${i}`}>
-                      {i > 0 && <SectionRule className="my-3" />}
+                      {i > 0 && <SectionRule className="my-4" />}
                       <a
                         href={`#${sectionId}`}
                         onClick={(e) => {
@@ -105,8 +106,10 @@ export function SiteHeader() {
                           setMenuOpen(false);
                         }}
                         className={cn(
-                          "block rounded-lg px-3 py-3 text-base transition-colors",
-                          isActive ? "text-accent" : "text-foreground hover:text-accent",
+                          "type-ui-strong block rounded-xl px-3 py-3.5 text-[0.9375rem] transition-colors",
+                          isActive
+                            ? "text-terminal"
+                            : "text-foreground/55 hover:text-terminal",
                         )}
                       >
                         {l}

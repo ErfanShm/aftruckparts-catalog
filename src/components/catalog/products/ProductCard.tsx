@@ -107,7 +107,7 @@ export function ProductCard({
   onRemove,
   onOpen,
 }: ProductCardProps) {
-  const { messages, dir } = useLocale();
+  const { messages, dir, locale } = useLocale();
   const inQuote = quantity > 0;
   const indexLabel = String(index + 1).padStart(2, "0");
   const styles = variantStyles(layout.variant);
@@ -117,7 +117,7 @@ export function ProductCard({
     <article
       style={organicY ? ({ "--gallery-y": `${organicY}px` } as CSSProperties) : undefined}
       className={cn(
-        "specimen-frame specimen-corner group relative h-full overflow-hidden transition-all duration-500",
+        "specimen-frame specimen-corner group relative h-full overflow-hidden transition-all duration-500 hover-capable:group-hover:border-brand/20",
         layout.mobileClassName,
         layout.desktopClassName,
         inQuote && "specimen-frame-active",
@@ -133,7 +133,7 @@ export function ProductCard({
         className="absolute inset-0 z-10 cursor-pointer focus-visible:outline-none"
       />
 
-      <span className="pointer-events-none absolute start-3 top-3 z-[2] font-mono text-[10px] tabular-nums text-foreground/40 transition-colors duration-500 group-hover:text-foreground/60">
+      <span className="pointer-events-none absolute start-3.5 top-3.5 z-[2] font-mono-tech ltr-embed text-[10px] tabular-nums text-foreground/35 transition-colors duration-500 group-hover:text-terminal/70">
         {indexLabel}
       </span>
 
@@ -187,14 +187,14 @@ export function ProductCard({
         <div className="min-w-0">
           <h3
             className={cn(
-              "truncate leading-snug transition-colors duration-500",
+              "type-ui truncate leading-snug transition-colors duration-500",
               styles.title,
               inQuote ? "text-foreground" : "text-foreground/90",
             )}
           >
             {product.name}
           </h3>
-          <p className="mt-0.5 font-mono text-[10px] tracking-wider text-foreground/45">
+          <p className="mt-1 font-mono-tech ltr-embed text-[10px] tracking-wider text-foreground/40">
             {product.code}
             <span className="mx-1.5 opacity-40">·</span>
             {product.brand}
@@ -250,7 +250,9 @@ export function ProductCard({
             >
               <Plus className={styles.showAddLabel ? "h-3.5 w-3.5" : "h-3 w-3"} />
               {styles.showAddLabel && (
-                <span className="text-[10px] tracking-wide">{messages.product.addToQuote}</span>
+                <span className={cn("text-[10px]", locale === "en" ? "tracking-wide" : "tracking-normal")}>
+                  {messages.product.addToQuote}
+                </span>
               )}
             </button>
           )}

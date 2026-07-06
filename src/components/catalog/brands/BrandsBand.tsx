@@ -39,8 +39,8 @@ export function BrandsBand({ products, onSelectBrand }: BrandsBandProps) {
   };
 
   return (
-    <PageSection id="brands" borderTop clipX className="relative !py-20 md:!py-28">
-      <SectionRule index="03" className="mb-8 md:mb-10" />
+    <PageSection id="brands" borderTop clipX className="relative">
+      <SectionRule index="3" className="mb-10 md:mb-12" />
       <motion.div
         initial={reduced ? false : { opacity: 0, y: 8 }}
         whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
@@ -49,17 +49,18 @@ export function BrandsBand({ products, onSelectBrand }: BrandsBandProps) {
         className="flex flex-col items-center text-center"
       >
         <p className="section-tag">{brands.tag}</p>
-        <h2 className="mt-3 max-w-lg text-2xl font-extralight tracking-tight md:text-3xl">
+        <h2 className="font-display mt-4 max-w-lg text-[1.75rem] tracking-tight md:text-[2rem]">
           {brands.headline}
         </h2>
-        <p className="mt-3 max-w-md text-xs leading-relaxed text-muted-foreground md:text-sm">
+        <p className="mt-4 max-w-md text-xs leading-relaxed text-muted-foreground md:text-sm">
           {brands.subline}
         </p>
 
         <ul
           className={cn(
-            "mt-14 flex w-full max-w-5xl flex-col items-stretch gap-14 md:mt-20",
-            sortedBrands.length >= 2 && "md:flex-row md:items-start md:justify-center md:gap-8 lg:gap-12",
+            "mt-16 flex w-full max-w-5xl flex-col items-stretch gap-16 md:mt-20",
+            sortedBrands.length >= 2 &&
+              "md:flex-row md:items-start md:justify-center md:gap-8 lg:gap-12",
           )}
         >
           {sortedBrands.map(([brand, count], i) => {
@@ -82,27 +83,34 @@ export function BrandsBand({ products, onSelectBrand }: BrandsBandProps) {
                   onClick={() => handleBrand(brand)}
                   aria-label={`${brand}, ${brands.units(count)}`}
                   className={cn(
-                    "brand-marque group flex w-full flex-col items-center gap-5",
+                    "brand-marque group flex w-full flex-col items-center gap-6",
                     "transition-transform duration-500 ease-out active:scale-[0.98]",
-                    "focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brand/35 focus-visible:ring-offset-4 focus-visible:ring-offset-void",
+                    "focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brand/30 focus-visible:ring-offset-4 focus-visible:ring-offset-void",
                   )}
                 >
                   <div className="brand-marque-slot flex h-20 w-full max-w-[280px] items-center justify-center sm:h-24 md:h-28 lg:h-32">
                     {asset.mark ? (
                       <BrandLogo
                         brand={brand}
-                        className="max-h-full max-w-full opacity-75 transition-all duration-500 group-hover:opacity-100 group-hover:scale-[1.03]"
+                        className="max-h-full max-w-full opacity-70 transition-all duration-500 group-hover:opacity-95 group-hover:scale-[1.02]"
                       />
                     ) : (
-                      <span className="font-mono text-lg tracking-wide text-foreground/50">{brand}</span>
+                      <span className="font-mono text-lg tracking-wide text-foreground/50">
+                        {brand}
+                      </span>
                     )}
                   </div>
 
                   <span
-                    className="flex items-center gap-2 font-mono text-[10px] tracking-[0.12em] text-foreground/30 transition-colors duration-300 group-hover:text-foreground/50"
+                    className={cn(
+                      "flex items-center gap-2 text-[10px] text-foreground/30 transition-colors duration-300 group-hover:text-terminal/65",
+                      locale === "en" ? "font-mono-tech ltr-embed tracking-[0.12em]" : "font-display font-light"
+                    )}
                     dir={locale === "fa" ? "rtl" : "ltr"}
                   >
-                    <span className="tabular-nums text-foreground/45">{formatBrandCount(count, locale)}</span>
+                    <span className="tabular-nums text-foreground/45">
+                      {formatBrandCount(count, locale)}
+                    </span>
                     <span className="opacity-70">{brands.unitsLabel}</span>
                   </span>
                 </button>
