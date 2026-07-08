@@ -14,7 +14,7 @@ export function HeaderSpacer() {
 }
 
 export function SiteHeader() {
-  const { messages, dir } = useLocale();
+  const { messages } = useLocale();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<ActiveNavSection>(null);
@@ -41,37 +41,22 @@ export function SiteHeader() {
   return (
     <header className={cn("header-fixed", scrolled ? "header-shell-scrolled" : "header-shell")}>
       <div className="site-column h-[var(--header-bar)]">
-        <div className="grid h-full grid-cols-[1fr_auto_1fr] items-center gap-2 md:hidden">
-          <div className="flex justify-start">
-            {dir === "rtl" ? (
-              <a href="/" className="group transition-opacity hover:opacity-90">
-                <BrandMark height={46} />
-              </a>
-            ) : (
-              <MobileMenuButton
-                open={menuOpen}
-                onOpenChange={setMenuOpen}
-                activeSection={activeSection}
-                label={messages.nav.menuOpen}
-              />
-            )}
+        <div className="flex h-full items-center gap-2 md:hidden">
+          <div className="flex min-w-0 flex-1 items-center justify-start">
+            <MobileMenuButton
+              open={menuOpen}
+              onOpenChange={setMenuOpen}
+              activeSection={activeSection}
+              label={messages.nav.menuOpen}
+            />
           </div>
 
-          <LanguageSwitcher className="header-lang-touch" />
+          <LanguageSwitcher className="header-lang-touch shrink-0" />
 
-          <div className="flex justify-end">
-            {dir === "rtl" ? (
-              <MobileMenuButton
-                open={menuOpen}
-                onOpenChange={setMenuOpen}
-                activeSection={activeSection}
-                label={messages.nav.menuOpen}
-              />
-            ) : (
-              <a href="/" className="group transition-opacity hover:opacity-90">
-                <BrandMark height={46} />
-              </a>
-            )}
+          <div className="flex min-w-0 flex-1 items-center justify-end">
+            <a href="/" className="group shrink-0 transition-opacity hover:opacity-90">
+              <BrandMark height={46} />
+            </a>
           </div>
         </div>
 
