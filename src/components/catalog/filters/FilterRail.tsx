@@ -36,12 +36,12 @@ export function FilterRail({
       <div ref={sentinelRef} className="pointer-events-none h-px w-full lg:hidden" aria-hidden />
       <div
         className={cn(
-          "filter-sticky-rail -mx-[var(--column-px)] mb-7 px-[var(--column-px)] py-3.5 lg:hidden",
+          "filter-sticky-rail -mx-[var(--column-px)] mb-7 px-[var(--column-px)] py-2.5 lg:hidden",
           stuck && "filter-sticky-rail-active",
         )}
       >
         <div className="flex gap-2">
-          <div className="flex flex-1 items-center gap-2 pb-1">
+          <div className="flex flex-1 items-center gap-2">
             <Search className="h-3.5 w-3.5 shrink-0 text-muted-foreground" />
             <input
               value={query}
@@ -63,7 +63,7 @@ export function FilterRail({
           <button
             type="button"
             onClick={() => setSheetOpen(true)}
-            className="relative inline-flex h-10 shrink-0 items-center justify-center gap-2 rounded-full border border-border-hair/30 px-3 text-xs text-muted-foreground touch-manipulation transition-colors hover:border-brand/20 hover:text-foreground"
+            className="relative inline-flex h-9 shrink-0 items-center justify-center gap-2 rounded-full border border-border-hair/30 px-3 text-xs text-muted-foreground touch-manipulation transition-colors hover:border-brand/20 hover:text-foreground"
           >
             <SlidersHorizontal className="h-3.5 w-3.5" />
             <span>{messages.catalog.openFilters}</span>
@@ -75,16 +75,16 @@ export function FilterRail({
           </button>
         </div>
 
-        <div className="mt-2 flex min-h-10 flex-wrap items-center gap-2">
-          {activeDasteh && (
+        {activeDasteh && (
+          <div className="mt-2 flex flex-wrap items-center gap-2">
             <ActivePill
               label={
                 messages.dastehLines.find((d) => d.key === activeDasteh)?.label ?? activeDasteh
               }
               onRemove={() => setActiveDasteh(null)}
             />
-          )}
-        </div>
+          </div>
+        )}
       </div>
 
       <MobileFilterSheet
