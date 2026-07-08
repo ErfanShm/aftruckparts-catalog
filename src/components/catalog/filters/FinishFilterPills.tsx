@@ -26,7 +26,7 @@ export function FinishFilterPills({ items, active, onSelect, className }: Finish
               type="button"
               onClick={() => onSelect(item.key)}
               className={cn(
-                "filter-index-toggle touch-manipulation",
+                "filter-index-toggle type-label touch-manipulation",
                 isActive && "filter-index-toggle-active",
               )}
             >

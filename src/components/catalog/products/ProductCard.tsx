@@ -1,19 +1,24 @@
 import type { CSSProperties } from "react";
+import { useEffect, useState } from "react";
 import { Minus, Plus } from "lucide-react";
 
 import { CatalogImage, CATALOG_IMAGE_SIZES } from "@/components/catalog/CatalogImage";
 import { type GalleryLayout } from "@/lib/gallery-collage";
 import { cn } from "@/lib/utils";
 import { useLocale } from "@/lib/i18n";
+import type { FinishKey } from "@/data/products";
+import { productQuoteTotal } from "@/lib/quote-lines";
 import type { Product } from "@/locales";
+
+import { DualFinishQuoteActions } from "./FinishQtyStepper";
 
 type ProductCardProps = {
   product: Product;
   index: number;
   layout: GalleryLayout;
-  quantity: number;
-  onAdd: () => void;
-  onRemove: () => void;
+  quote: Record<string, number>;
+  onAdd: (id: string, finishKey?: FinishKey) => void;
+  onRemove: (id: string, finishKey?: FinishKey) => void;
   onOpen: () => void;
 };
 
@@ -85,7 +90,8 @@ function variantStyles(variant: GalleryLayout["variant"]) {
   }
 }
 
-function finishTagClass(finishKey: Product["finishKey"]) {
+function finishTagClass(finishKey: Product["finishKey"], dualFinish: boolean) {
+  if (dualFinish) return "finish-specimen-tag-matte-glossy";
   switch (finishKey) {
     case "matte":
       return "finish-specimen-tag-matte";
@@ -102,14 +108,29 @@ export function ProductCard({
   product,
   index,
   layout,
-  quantity,
+  quote,
   onAdd,
   onRemove,
   onOpen,
 }: ProductCardProps) {
-  const { messages, dir, locale } = useLocale();
+  const { messages, dir, locale, formatIndex, formatDigits } = useLocale();
+  const dualFinish = product.finishOffers.length > 1;
+  const finishMap = Object.fromEntries(messages.finishes.map((f) => [f.key, f.label]));
+  const quantity = productQuoteTotal(quote, product.id, product.finishOffers);
   const inQuote = quantity > 0;
-  const indexLabel = String(index + 1).padStart(2, "0");
+  const [dualActionsReady, setDualActionsReady] = useState(inQuote);
+  const [canHover, setCanHover] = useState(true);
+
+  useEffect(() => {
+    setCanHover(window.matchMedia("(hover: hover)").matches);
+  }, []);
+
+  useEffect(() => {
+    if (inQuote) setDualActionsReady(true);
+  }, [inQuote]);
+
+  const showDualActions = dualFinish && (inQuote || dualActionsReady || !canHover);
+  const indexLabel = formatIndex(index + 1);
   const styles = variantStyles(layout.variant);
   const organicY = layout.organicY;
 
@@ -125,6 +146,9 @@ export function ProductCard({
         organicY > 0 && "gallery-organic",
         "focus-within:ring-2 focus-within:ring-inset focus-within:ring-accent/40",
       )}
+      onPointerEnter={() => {
+        if (dualFinish) setDualActionsReady(true);
+      }}
     >
       <button
         type="button"
@@ -138,7 +162,7 @@ export function ProductCard({
       </span>
 
       {styles.showCategory && (
-        <span className="pointer-events-none absolute end-3 top-3 z-[2] font-mono text-[9px] uppercase tracking-widest text-foreground/20">
+        <span className="pointer-events-none absolute end-3 top-3 z-[2] type-meta text-foreground/28">
           {product.categoryLabel}
         </span>
       )}
@@ -147,7 +171,7 @@ export function ProductCard({
         <span
           className={cn(
             "finish-specimen-tag pointer-events-none absolute end-3 top-3 z-[2]",
-            finishTagClass(product.finishKey),
+            finishTagClass(product.finishKey, dualFinish),
           )}
         >
           {product.finish}
@@ -155,7 +179,7 @@ export function ProductCard({
       )}
 
       {styles.showBrandRail && (
-        <span className="pointer-events-none absolute start-3 top-1/2 z-[2] -translate-y-1/2 font-mono text-[8px] uppercase tracking-[0.35em] text-foreground/12 [writing-mode:vertical-lr]">
+        <span className="pointer-events-none absolute start-3 top-1/2 z-[2] -translate-y-1/2 type-code ltr-embed text-foreground/12 [writing-mode:vertical-lr]">
           {product.brand}
         </span>
       )}
@@ -194,7 +218,7 @@ export function ProductCard({
           >
             {product.name}
           </h3>
-          <p className="mt-1 font-mono-tech ltr-embed text-[10px] tracking-wider text-foreground/40">
+          <p className="type-code mt-1 ltr-embed text-foreground/40">
             {product.code}
             <span className="mx-1.5 opacity-40">·</span>
             {product.brand}
@@ -202,7 +226,35 @@ export function ProductCard({
         </div>
 
         <div className="relative z-[3] shrink-0 pb-0.5">
-          {inQuote ? (
+          {dualFinish ? (
+            showDualActions ? (
+              <DualFinishQuoteActions
+                productId={product.id}
+                finishOffers={product.finishOffers}
+                finishMap={finishMap}
+                quote={quote}
+                onAdd={onAdd}
+                onRemove={onRemove}
+                variant="grid"
+                revealOnHover={canHover && !inQuote}
+              />
+            ) : (
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onAdd(product.id, product.finishOffers[0]);
+                }}
+                aria-label={messages.product.addToQuote}
+                className={cn(
+                  "flex h-7 w-7 items-center justify-center rounded-full border border-foreground/10 bg-void/45 text-foreground/35 opacity-0 backdrop-blur-sm transition-all duration-300 group-hover:opacity-100 group-focus-within:opacity-100 hover:text-foreground/65 active:scale-95 [@media(hover:none)]:opacity-75",
+                  styles.addButton,
+                )}
+              >
+                <Plus className="h-3 w-3" />
+              </button>
+            )
+          ) : inQuote ? (
             <div
               className={cn(
                 "flex items-center rounded-full border border-foreground/10 bg-void/55 px-0.5 backdrop-blur-sm",
@@ -213,7 +265,7 @@ export function ProductCard({
                 type="button"
                 onClick={(e) => {
                   e.stopPropagation();
-                  onRemove();
+                  onRemove(product.id, product.finishOffers[0]);
                 }}
                 aria-label={messages.product.decreaseQty}
                 className="flex h-7 w-7 items-center justify-center rounded-full text-foreground/40 transition-colors hover:text-foreground/70 active:scale-95"
@@ -221,13 +273,13 @@ export function ProductCard({
                 <Minus className="h-3 w-3" />
               </button>
               <span className="w-5 text-center text-[11px] tabular-nums text-foreground/70">
-                {quantity}
+                {formatDigits(quantity)}
               </span>
               <button
                 type="button"
                 onClick={(e) => {
                   e.stopPropagation();
-                  onAdd();
+                  onAdd(product.id, product.finishOffers[0]);
                 }}
                 aria-label={messages.product.increaseQty}
                 className="flex h-7 w-7 items-center justify-center rounded-full text-foreground/40 transition-colors hover:text-foreground/70 active:scale-95"
@@ -240,7 +292,7 @@ export function ProductCard({
               type="button"
               onClick={(e) => {
                 e.stopPropagation();
-                onAdd();
+                onAdd(product.id, product.finishOffers[0]);
               }}
               aria-label={messages.product.addToQuote}
               className={cn(

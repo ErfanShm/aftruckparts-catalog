@@ -1,17 +1,18 @@
-import { AnimatePresence, motion } from "framer-motion";
 import { Minus, Plus, X } from "lucide-react";
-import { useState } from "react";
+import { memo, useMemo, useState } from "react";
 
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { CatalogImage, CATALOG_IMAGE_SIZES } from "@/components/catalog/CatalogImage";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { useBodyScrollLock } from "@/hooks/use-body-scroll-lock";
+import type { FinishKey } from "@/data/products";
 import { useLocale } from "@/lib/i18n";
+import { parseQuoteLineKey } from "@/lib/quote-lines";
+import { cn } from "@/lib/utils";
 import type { Product } from "@/locales";
-import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
+import { Sheet, SheetContent } from "@/components/ui/sheet";
 
-import { SectionRule } from "../layout/SectionRule";
 import { QuoteDockFab } from "./QuoteDockFab";
 
 type QuoteDockProps = {
@@ -19,160 +20,269 @@ type QuoteDockProps = {
   onOpenChange: (open: boolean) => void;
   items: [string, number][];
   products: Product[];
-  onAdd: (id: string) => void;
-  onRemove: (id: string) => void;
+  onAdd: (id: string, finishKey?: FinishKey) => void;
+  onRemove: (id: string, finishKey?: FinishKey) => void;
   onSend: (customer: string, details: string) => void;
 };
 
-function QuoteList({
+function QuoteListHeader({ count }: { count: number }) {
+  const { messages, formatDigits } = useLocale();
+  if (count === 0) return null;
+  return (
+    <p className="mb-3 text-xs text-foreground/40">
+      {formatDigits(messages.quote.itemsCount(count))}
+      <span className="mx-2 opacity-30">·</span>
+      {messages.quote.qtyHint}
+    </p>
+  );
+}
+
+function QuoteEmptyState() {
+  const { messages, formatDigits } = useLocale();
+
+  return (
+    <div className="flex flex-col items-center px-2 py-12 text-center">
+      <p className="text-sm text-foreground/55">{messages.quote.empty}</p>
+      <p className="mt-3 max-w-[16rem] text-xs leading-relaxed text-foreground/38">
+        {messages.quote.emptyHint}
+      </p>
+      <ol className="mt-8 w-full max-w-[15rem] space-y-2.5 text-start text-xs text-foreground/45">
+        {messages.orderGuide.steps.map((step, i) => (
+          <li key={step.title} className="flex gap-2.5">
+            <span className="type-code shrink-0 text-foreground/28">{formatDigits(i + 1)}.</span>
+            <span>{step.title}</span>
+          </li>
+        ))}
+      </ol>
+    </div>
+  );
+}
+
+function QuoteQtyStepper({
+  qty,
+  onAdd,
+  onRemove,
+}: {
+  qty: number;
+  onAdd: () => void;
+  onRemove: () => void;
+}) {
+  const { messages, dir, formatDigits } = useLocale();
+
+  return (
+    <div
+      className={cn(
+        "flex shrink-0 items-center rounded-full border border-foreground/[0.08] bg-void/50 px-0.5",
+        dir === "rtl" && "flex-row-reverse",
+      )}
+    >
+      <button
+        type="button"
+        onClick={onRemove}
+        aria-label={messages.product.decreaseQty}
+        className="flex h-8 w-8 touch-manipulation items-center justify-center rounded-full text-foreground/35 transition-colors hover:text-foreground/65 active:scale-95"
+      >
+        <Minus className="h-3.5 w-3.5" />
+      </button>
+      <span className="type-code w-9 text-center text-[12px] tabular-nums text-foreground/70">{formatDigits(qty)}</span>
+      <button
+        type="button"
+        onClick={onAdd}
+        aria-label={messages.product.increaseQty}
+        className="flex h-8 w-8 touch-manipulation items-center justify-center rounded-full text-foreground/35 transition-colors hover:text-foreground/65 active:scale-95"
+      >
+        <Plus className="h-3.5 w-3.5" />
+      </button>
+    </div>
+  );
+}
+
+const QuoteList = memo(function QuoteList({
   items,
-  products,
+  productMap,
+  finishMap,
   onAdd,
   onRemove,
 }: {
   items: [string, number][];
-  products: Product[];
-  onAdd: (id: string) => void;
-  onRemove: (id: string) => void;
+  productMap: Map<string, Product>;
+  finishMap: Record<string, string>;
+  onAdd: (id: string, finishKey?: FinishKey) => void;
+  onRemove: (id: string, finishKey?: FinishKey) => void;
 }) {
-  const { messages, dir } = useLocale();
+  const count = useMemo(() => items.reduce((sum, [, qty]) => sum + qty, 0), [items]);
 
-  if (items.length === 0) {
-    return (
-      <div className="empty-state py-16">
-        <span className="empty-state-icon" aria-hidden />
-        <p className="empty-state-label">{messages.quote.empty}</p>
-      </div>
-    );
-  }
+  if (items.length === 0) return <QuoteEmptyState />;
 
   return (
-    <ul>
-      {items.map(([id, qty], index) => {
-        const p = products.find((x) => x.id === id)!;
-        return (
-          <li key={id}>
-            {index > 0 && <SectionRule className="my-4" />}
-            <div className="flex items-center gap-4 py-1">
+    <>
+      <QuoteListHeader count={count} />
+      <ul className="divide-y divide-foreground/[0.06]">
+        {items.map(([key, qty]) => {
+          const { productId, finishKey } = parseQuoteLineKey(key);
+          const p = productMap.get(productId);
+          if (!p) return null;
+          const finish = finishKey ? (finishMap[finishKey] ?? finishKey) : p.finish;
+
+          return (
+            <li key={key} className="flex items-center gap-3 py-3 first:pt-0">
               <CatalogImage
                 manifest={p.imageManifest.hero}
                 alt=""
                 placeholder={false}
                 fill
                 sizes={CATALOG_IMAGE_SIZES.quoteThumb}
-                wrapperClassName="relative h-16 w-16 shrink-0 overflow-hidden rounded-xl"
+                wrapperClassName="relative h-11 w-11 shrink-0 overflow-hidden rounded-lg border border-foreground/[0.06]"
                 className="object-cover"
               />
               <div className="min-w-0 flex-1">
-                <div className="font-mono-tech ltr-embed text-[10px] text-foreground-muted">
-                  {p.code} · {p.brand}
-                </div>
-                <div className="type-ui truncate text-sm">{p.name}</div>
-                <div className="truncate text-[10px] text-muted-foreground">{p.finish}</div>
+                <p className="truncate text-[13px] text-foreground/88">{p.name}</p>
+                <p className="mt-0.5 truncate text-[11px] text-foreground/40">
+                  {finish}
+                  <span className="mx-1 opacity-30">·</span>
+                  <span className="type-code ltr-embed">{p.code}</span>
+                </p>
               </div>
-              <div
-                className={[
-                  "flex items-center gap-1 rounded-full glass-panel p-1",
-                  dir === "rtl" && "flex-row-reverse",
-                ]
-                  .filter(Boolean)
-                  .join(" ")}
-              >
-                <button
-                  type="button"
-                  onClick={() => onRemove(id)}
-                  className="flex h-10 w-10 items-center justify-center text-muted-foreground hover:text-accent touch-manipulation"
-                >
-                  <Minus className="h-4 w-4" />
-                </button>
-                <span className="font-mono-tech ltr-embed w-6 text-center text-sm">{qty}</span>
-                <button
-                  type="button"
-                  onClick={() => onAdd(id)}
-                  className="flex h-10 w-10 items-center justify-center text-muted-foreground hover:text-accent touch-manipulation"
-                >
-                  <Plus className="h-4 w-4" />
-                </button>
-              </div>
-            </div>
-          </li>
-        );
-      })}
-    </ul>
+              <QuoteQtyStepper
+                qty={qty}
+                onAdd={() => onAdd(productId, finishKey)}
+                onRemove={() => onRemove(productId, finishKey)}
+              />
+            </li>
+          );
+        })}
+      </ul>
+    </>
   );
-}
+});
 
-function QuoteCustomerForm({
+function QuoteCheckout({
   customer,
   details,
+  items,
   onCustomerChange,
   onDetailsChange,
+  onSend,
 }: {
   customer: string;
   details: string;
+  items: [string, number][];
   onCustomerChange: (value: string) => void;
   onDetailsChange: (value: string) => void;
+  onSend: () => void;
 }) {
   const { messages } = useLocale();
+  const hasItems = items.length > 0;
+  const canSend = hasItems && customer.trim().length > 0;
 
   return (
-    <div className="space-y-4 pb-5">
-      <div className="space-y-2">
-        <Label htmlFor="quote-customer" className="section-tag">
-          {messages.quote.customerLabel}
-        </Label>
+    <div className="shrink-0 border-t border-foreground/[0.06] pt-4 safe-bottom">
+      <div className="space-y-2.5">
         <Input
           id="quote-customer"
           value={customer}
           onChange={(e) => onCustomerChange(e.target.value)}
           placeholder={messages.quote.customerPlaceholder}
-          className="glass-panel h-11 border-border-hair/50 bg-transparent px-4"
+          aria-label={messages.quote.customerLabel}
+          className="h-11 rounded-xl border-foreground/[0.08] bg-foreground/[0.03] px-3.5 text-sm"
           autoComplete="organization"
         />
-      </div>
-      <div className="space-y-2">
-        <Label htmlFor="quote-details" className="section-tag">
-          {messages.quote.detailsLabel}
-        </Label>
         <Textarea
           id="quote-details"
           value={details}
           onChange={(e) => onDetailsChange(e.target.value)}
           placeholder={messages.quote.detailsPlaceholder}
-          rows={3}
-          className="glass-panel resize-none border-border-hair/50 bg-transparent px-4 py-3"
+          aria-label={messages.quote.detailsLabel}
+          rows={2}
+          className="resize-none rounded-xl border-foreground/[0.08] bg-foreground/[0.03] px-3.5 py-2.5 text-sm"
         />
       </div>
-    </div>
-  );
-}
 
-function QuoteFooter({
-  items,
-  customer,
-  onSend,
-}: {
-  items: [string, number][];
-  customer: string;
-  onSend: () => void;
-}) {
-  const { messages } = useLocale();
-  const canSend = items.length > 0 && customer.trim().length > 0;
-
-  return (
-    <div className="pt-4 safe-bottom">
-      <SectionRule className="mb-5" />
       <button
         type="button"
         onClick={onSend}
         disabled={!canSend}
-        className="w-full rounded-full btn-primary px-6 py-4 text-sm type-ui-strong disabled:cursor-not-allowed disabled:opacity-30"
+        className="mt-4 w-full rounded-xl btn-primary px-5 py-3.5 text-sm type-ui-strong disabled:cursor-not-allowed disabled:opacity-30"
       >
-        {messages.quote.sendWhatsApp} {messages.quote.sendWhatsAppArrow}
+        {messages.quote.sendWhatsApp}
       </button>
-      <p className="mt-3 text-center text-[10px] text-foreground-muted">
-        {messages.quote.footerNote}
-      </p>
+
+      {hasItems && !canSend && (
+        <p className="mt-2 text-center text-[11px] text-foreground/35">{messages.quote.nameRequired}</p>
+      )}
+
+      <p className="mt-2 text-center text-[10px] text-foreground/28">{messages.quote.footerNote}</p>
+    </div>
+  );
+}
+
+function QuotePanelHeader({ onClose }: { onClose: () => void }) {
+  const { messages } = useLocale();
+
+  return (
+    <div className="flex items-center justify-between gap-3 pb-4">
+      <h2 className="type-heading-display text-lg tracking-tight text-foreground">
+        {messages.quote.title}
+      </h2>
+      <button
+        type="button"
+        onClick={onClose}
+        className="rounded-full p-2 text-foreground/30 transition-colors hover:bg-foreground/[0.04] hover:text-foreground/60"
+        aria-label={messages.quote.close}
+      >
+        <X className="h-4 w-4" />
+      </button>
+    </div>
+  );
+}
+
+function QuotePanelBody({
+  items,
+  productMap,
+  finishMap,
+  customer,
+  details,
+  onClose,
+  onAdd,
+  onRemove,
+  onCustomerChange,
+  onDetailsChange,
+  onSend,
+  className,
+}: {
+  items: [string, number][];
+  productMap: Map<string, Product>;
+  finishMap: Record<string, string>;
+  customer: string;
+  details: string;
+  onClose: () => void;
+  onAdd: (id: string, finishKey?: FinishKey) => void;
+  onRemove: (id: string, finishKey?: FinishKey) => void;
+  onCustomerChange: (value: string) => void;
+  onDetailsChange: (value: string) => void;
+  onSend: () => void;
+  className?: string;
+}) {
+  return (
+    <div className={cn("flex min-h-0 flex-1 flex-col", className)}>
+      <QuotePanelHeader onClose={onClose} />
+      <div className="scrollbar-minimal min-h-0 flex-1 overflow-y-auto overscroll-contain pe-0.5">
+        <QuoteList
+          items={items}
+          productMap={productMap}
+          finishMap={finishMap}
+          onAdd={onAdd}
+          onRemove={onRemove}
+        />
+      </div>
+      <QuoteCheckout
+        customer={customer}
+        details={details}
+        items={items}
+        onCustomerChange={onCustomerChange}
+        onDetailsChange={onDetailsChange}
+        onSend={onSend}
+      />
     </div>
   );
 }
@@ -186,15 +296,38 @@ export function QuoteDock({
   onRemove,
   onSend,
 }: QuoteDockProps) {
-  const { messages, dir } = useLocale();
+  const { messages } = useLocale();
   const isMobile = useIsMobile();
   const [customer, setCustomer] = useState("");
   const [details, setDetails] = useState("");
-  const count = items.reduce((s, [, q]) => s + q, 0);
-  const slideOff = dir === "rtl" ? "100%" : "-100%";
+
+  const productMap = useMemo(() => new Map(products.map((p) => [p.id, p])), [products]);
+  const finishMap = useMemo(
+    () => Object.fromEntries(messages.finishes.map((f) => [f.key, f.label])) as Record<string, string>,
+    [messages.finishes],
+  );
+  const count = useMemo(() => items.reduce((s, [, q]) => s + q, 0), [items]);
 
   const handleSend = () => {
     onSend(customer.trim(), details.trim());
+  };
+
+  const close = () => onOpenChange(false);
+
+  useBodyScrollLock(open && !isMobile);
+
+  const panelProps = {
+    items,
+    productMap,
+    finishMap,
+    customer,
+    details,
+    onClose: close,
+    onAdd,
+    onRemove,
+    onCustomerChange: setCustomer,
+    onDetailsChange: setDetails,
+    onSend: handleSend,
   };
 
   return (
@@ -202,73 +335,30 @@ export function QuoteDock({
       <QuoteDockFab label={messages.quote.fab} count={count} onClick={() => onOpenChange(true)} />
 
       {isMobile ? (
-        <Sheet open={open} onOpenChange={onOpenChange}>
-          <SheetContent
-            side="bottom"
-            className="glass-panel-strong flex max-h-[92dvh] flex-col rounded-t-[1.25rem] border-border-hair/40 [&>button]:end-4 [&>button]:start-auto"
-          >
-            <SheetHeader className="text-start pb-2">
-              <SheetTitle className="font-display tracking-tight">{messages.quote.title}</SheetTitle>
-              <p className="section-tag">{messages.quote.sessionTag}</p>
-            </SheetHeader>
-            <div className="mt-5 flex-1 overflow-y-auto">
-              <QuoteList items={items} products={products} onAdd={onAdd} onRemove={onRemove} />
-            </div>
-            <QuoteCustomerForm
-              customer={customer}
-              details={details}
-              onCustomerChange={setCustomer}
-              onDetailsChange={setDetails}
-            />
-            <QuoteFooter items={items} customer={customer} onSend={handleSend} />
-          </SheetContent>
-        </Sheet>
+        open && (
+          <Sheet open onOpenChange={onOpenChange}>
+            <SheetContent
+              side="bottom"
+              className="flex max-h-[88dvh] flex-col rounded-t-2xl border-border-hair/40 bg-void p-5 [&>button]:hidden"
+            >
+              <div className="mx-auto mb-3 h-1 w-10 shrink-0 rounded-full bg-foreground/10" />
+              <QuotePanelBody {...panelProps} />
+            </SheetContent>
+          </Sheet>
+        )
       ) : (
-        <AnimatePresence>
-          {open && (
-            <>
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                onClick={() => onOpenChange(false)}
-                className="fixed inset-0 z-50 bg-background/70 backdrop-blur-sm"
-              />
-              <motion.aside
-                initial={{ x: slideOff }}
-                animate={{ x: 0 }}
-                exit={{ x: slideOff }}
-                transition={{ type: "tween", duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                className="glass-panel-strong fixed inset-y-0 start-0 z-50 flex w-full max-w-md flex-col border-e border-border-hair/40 p-7"
-              >
-                <div className="mb-6 flex items-start justify-between">
-                  <div>
-                    <p className="section-tag">{messages.quote.sessionTag}</p>
-                    <h3 className="font-display mt-1 text-xl">{messages.quote.title}</h3>
-                  </div>
-                  <button
-                    type="button"
-                    onClick={() => onOpenChange(false)}
-                    className="rounded-full p-2 glass-panel text-muted-foreground hover:text-accent"
-                    aria-label={messages.quote.close}
-                  >
-                    <X className="h-4 w-4" />
-                  </button>
-                </div>
-                <div className="flex-1 overflow-y-auto">
-                  <QuoteList items={items} products={products} onAdd={onAdd} onRemove={onRemove} />
-                </div>
-                <QuoteCustomerForm
-                  customer={customer}
-                  details={details}
-                  onCustomerChange={setCustomer}
-                  onDetailsChange={setDetails}
-                />
-                <QuoteFooter items={items} customer={customer} onSend={handleSend} />
-              </motion.aside>
-            </>
-          )}
-        </AnimatePresence>
+        open && (
+          <>
+            <div
+              role="presentation"
+              onClick={close}
+              className="quote-backdrop-enter fixed inset-0 z-50 bg-void/70"
+            />
+            <aside className="quote-sidebar-enter fixed inset-y-0 start-0 z-50 flex h-dvh w-full max-w-[22rem] flex-col overflow-hidden border-e border-foreground/[0.06] bg-void p-5 shadow-[24px_0_64px_-32px_rgba(0,0,0,0.5)]">
+              <QuotePanelBody {...panelProps} />
+            </aside>
+          </>
+        )
       )}
     </>
   );

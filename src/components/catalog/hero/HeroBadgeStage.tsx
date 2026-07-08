@@ -142,7 +142,7 @@ export function HeroBadgeStage({
         {canRender3d && sceneReady && (
           <div className="pointer-events-none absolute inset-x-0 top-3 z-20 flex justify-center px-3 md:top-4">
             <div className={cn(
-              "rounded-full border border-border-hair/25 bg-void/60 px-3 py-1 text-[9px] text-foreground-muted/80 backdrop-blur-sm",
+              "type-meta rounded-full border border-border-hair/25 bg-void/60 px-3 py-1 text-foreground-muted/80 backdrop-blur-sm",
               locale === "en" ? "tracking-[0.16em]" : "tracking-normal"
             )}>
               <span>{dragHint}</span>

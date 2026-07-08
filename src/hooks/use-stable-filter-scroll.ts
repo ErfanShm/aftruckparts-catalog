@@ -17,6 +17,12 @@ function getHeaderOffset() {
   );
 }
 
+function isViewingCatalog() {
+  const catalog = document.getElementById("catalog");
+  if (!catalog) return false;
+  return catalog.getBoundingClientRect().top < window.innerHeight * 0.6;
+}
+
 function stabilizeCatalogViewport(results: HTMLElement) {
   const catalog = document.getElementById("catalog");
   const headerOffset = getHeaderOffset();
@@ -33,6 +39,17 @@ function stabilizeCatalogViewport(results: HTMLElement) {
 
   if (pastCatalog || resultsFarBelow || resultsAboveView) {
     scrollToY(window.scrollY + resultsRect.top - targetTop);
+  }
+}
+
+function applyCatalogScroll(el: HTMLElement, prepared: boolean) {
+  if (prepared) {
+    alignResultsToViewport(el);
+    return;
+  }
+
+  if (isViewingCatalog()) {
+    stabilizeCatalogViewport(el);
   }
 }
 
@@ -79,19 +96,11 @@ export function useStableFilterScroll<T extends HTMLElement>(
       el.style.minHeight = `${prevHeight}px`;
     }
 
-    if (prepared) {
-      alignResultsToViewport(el);
-    } else {
-      stabilizeCatalogViewport(el);
-    }
+    applyCatalogScroll(el, prepared);
 
     let releaseTimer = 0;
     const frame1 = requestAnimationFrame(() => {
-      if (prepared) {
-        alignResultsToViewport(el);
-      } else {
-        stabilizeCatalogViewport(el);
-      }
+      applyCatalogScroll(el, prepared);
 
       releaseTimer = window.setTimeout(() => {
         if (prepared) {
@@ -101,7 +110,10 @@ export function useStableFilterScroll<T extends HTMLElement>(
         el.style.minHeight = "";
         preparedRef.current = false;
         prevHeightRef.current = el.offsetHeight;
-        stabilizeCatalogViewport(el);
+
+        if (isViewingCatalog()) {
+          stabilizeCatalogViewport(el);
+        }
       }, 320);
     });
 

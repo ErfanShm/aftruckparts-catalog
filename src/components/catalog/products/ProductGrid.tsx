@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 
+import type { FinishKey } from "@/data/products";
 import { galleryLayoutForProduct } from "@/lib/gallery-collage";
 import { cn } from "@/lib/utils";
 import { useLocale } from "@/lib/i18n";
@@ -18,8 +19,8 @@ type ProductGridProps = {
   quote: Record<string, number>;
   isFiltered: boolean;
   filterSignature: string;
-  onAdd: (id: string) => void;
-  onRemove: (id: string) => void;
+  onAdd: (id: string, finishKey?: FinishKey) => void;
+  onRemove: (id: string, finishKey?: FinishKey) => void;
   onSelect: (id: string) => void;
 };
 
@@ -33,7 +34,6 @@ export function ProductGrid({
   onSelect,
 }: ProductGridProps) {
   const { messages } = useLocale();
-  const compact = products.length > 0 && products.length <= 6;
   const isEmpty = products.length === 0;
 
   const layouts = useMemo(
@@ -59,12 +59,7 @@ export function ProductGrid({
         <div
           className={cn(
             "grid grid-cols-2 auto-rows-[228px] items-stretch gap-3.5 sm:gap-4 lg:gap-5",
-            compact
-              ? cn(
-                  "lg:grid-cols-6",
-                  isFiltered && "auto-rows-[248px] lg:auto-rows-[minmax(268px,32vh)]",
-                )
-              : "grid-flow-dense lg:grid-cols-6 lg:auto-rows-[minmax(196px,auto)]",
+            isFiltered && "auto-rows-[248px] lg:auto-rows-[268px]",
           )}
         >
           {products.map((p, i) => (
@@ -73,9 +68,9 @@ export function ProductGrid({
               product={p}
               index={i}
               layout={layouts[i]!}
-              quantity={quote[p.id] ?? 0}
-              onAdd={() => onAdd(p.id)}
-              onRemove={() => onRemove(p.id)}
+              quote={quote}
+              onAdd={onAdd}
+              onRemove={onRemove}
               onOpen={() => onSelect(p.id)}
             />
           ))}

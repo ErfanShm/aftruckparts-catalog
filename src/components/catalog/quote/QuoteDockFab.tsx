@@ -1,6 +1,4 @@
-import { motion } from "framer-motion";
-
-import { useDockMouseX } from "@/hooks/use-dock-mouse-x";
+import { useLocale } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 
 type QuoteDockFabProps = {
@@ -10,14 +8,11 @@ type QuoteDockFabProps = {
 };
 
 export function QuoteDockFab({ label, count, onClick }: QuoteDockFabProps) {
-  const { onPointerMove, onPointerLeave } = useDockMouseX();
-  const hasItems = count > 0;
+  const { formatDigits } = useLocale();
+  const showCount = count > 0;
 
   return (
-    <motion.div
-      initial={{ y: 16, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ delay: 0.35, duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+    <div
       className={cn(
         "pointer-events-none fixed z-40",
         "bottom-[max(1.5rem,env(safe-area-inset-bottom,0px))]",
@@ -29,28 +24,25 @@ export function QuoteDockFab({ label, count, onClick }: QuoteDockFabProps) {
         type="button"
         onClick={onClick}
         className="pointer-events-auto block max-w-full touch-manipulation"
-        onPointerMove={(e) => onPointerMove(e.clientX, false)}
-        onPointerLeave={() => onPointerLeave(false)}
       >
         <div
           className={cn(
-            "flex max-w-full items-center gap-2.5 rounded-full glass-panel px-4 py-3 sm:gap-3 sm:px-5",
-            hasItems && "border-brand/22",
+            "flex max-w-full items-center rounded-full border border-foreground/[0.08] bg-void/90 py-2.5 shadow-[0_8px_32px_-12px_rgba(0,0,0,0.55)]",
+            showCount ? "gap-2 px-3.5 sm:px-4" : "px-4",
+            showCount && "border-brand/25",
           )}
         >
-          <span className="type-ui-strong min-w-0 text-[0.8125rem] leading-tight text-foreground/90 sm:text-sm">
-            {label}
-          </span>
-          <span
-            className={cn(
-              "font-mono-tech ltr-embed flex h-6 min-w-6 shrink-0 items-center justify-center rounded-full px-1.5 text-[11px]",
-              hasItems ? "bg-brand/18 text-brand-highlight" : "bg-brand/8 text-brand-readable/70",
-            )}
-          >
-            {String(count).padStart(2, "0")}
-          </span>
+          <span className="min-w-0 truncate text-[13px] text-foreground/85">{label}</span>
+          {showCount && (
+            <span
+              className="shrink-0 rounded-full bg-brand/15 px-2 py-0.5 text-[11px] font-medium tabular-nums text-brand-highlight"
+              aria-label={formatDigits(count)}
+            >
+              {formatDigits(count)}
+            </span>
+          )}
         </div>
       </button>
-    </motion.div>
+    </div>
   );
 }

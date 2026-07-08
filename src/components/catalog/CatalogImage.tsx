@@ -5,7 +5,7 @@ import type { ImageManifestEntry } from "@/data/catalog-image-types";
 import { cn } from "@/lib/utils";
 
 export const CATALOG_IMAGE_SIZES = {
-  grid: "(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw",
+  grid: "(max-width: 1024px) 50vw, 50vw",
   detailMain: "(max-width: 768px) 100vw, 1200px",
   thumb: "56px",
   quoteThumb: "64px",

@@ -12,8 +12,6 @@
     "lint": "eslint .",
     "format": "prettier --write .",
     "images:optimize": "tsx scripts/optimize-catalog-images.ts",
-    "brands:fix-logos": "tsx scripts/fix-brand-logo-holes.ts",
-    "brands:generate-daf": "tsx scripts/generate-daf-mark.ts",
     "prebuild": "pnpm images:optimize"
   },
   "dependencies": {

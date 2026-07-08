@@ -1,22 +1,22 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 
-import { BrandsBand } from "@/components/catalog/brands/BrandsBand";
 import { CatalogHero } from "@/components/catalog/hero/CatalogHero";
+import { OrderGuide } from "@/components/catalog/guide/OrderGuide";
 import { SiteFooter } from "@/components/catalog/layout/SiteFooter";
 import { SiteHeader, HeaderSpacer } from "@/components/catalog/layout/SiteHeader";
 import { SiteShell } from "@/components/catalog/layout/SiteShell";
 import { QuoteDock } from "@/components/catalog/quote/QuoteDock";
 import { CatalogSection } from "@/components/catalog/section/CatalogSection";
-import { WarrantyBand } from "@/components/catalog/warranty/WarrantyBand";
-import type { FinishKey, ProductCategory } from "@/data/products";
+import type { FinishKey } from "@/data/products";
 import {
   parseCatalogSearch,
   patchCatalogSearch,
-  resolveBrand,
+  resolveDasteh,
   type CatalogSearch,
 } from "@/lib/catalog-search";
 import { useLocale } from "@/lib/i18n";
+import { addQuoteQty, quoteLineKey, removeQuoteQty } from "@/lib/quote-lines";
 import { buildWhatsAppMessage } from "@/locales";
 
 export const Route = createFileRoute("/")({
@@ -29,8 +29,7 @@ function CatalogPage() {
   const search = Route.useSearch();
   const navigate = useNavigate({ from: Route.fullPath });
 
-  const activeBrand = resolveBrand(search.brand);
-  const activeCategory = search.category ?? null;
+  const activeDasteh = resolveDasteh(search.dasteh);
   const activeFinish = search.finish ?? null;
   const [query, setQuery] = useState("");
   const [quote, setQuote] = useState<Record<string, number>>({});
@@ -44,12 +43,8 @@ function CatalogPage() {
     });
   };
 
-  const setActiveBrand = (brand: string | null) => {
-    updateFilters({ brand, category: null, finish: null });
-  };
-
-  const setActiveCategory = (category: ProductCategory | null) => {
-    updateFilters({ category });
+  const setActiveDasteh = (dasteh: typeof activeDasteh) => {
+    updateFilters({ dasteh });
   };
 
   const setActiveFinish = (finish: FinishKey | null) => {
@@ -59,25 +54,45 @@ function CatalogPage() {
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
     return products.filter((p) => {
-      if (activeBrand && p.brand !== activeBrand) return false;
-      if (activeCategory && p.category !== activeCategory) return false;
-      if (activeFinish && p.finishKey !== activeFinish) return false;
+      if (activeDasteh && p.dasteh !== activeDasteh) return false;
+      if (activeFinish && !p.finishOffers.includes(activeFinish)) return false;
       if (
         q &&
-        !`${p.name} ${p.code} ${p.brand} ${p.finish} ${p.categoryLabel} ${p.description}`
+        !`${p.name} ${p.code} ${p.dastehLabel} ${p.brand} ${p.finish} ${p.categoryLabel} ${p.description}`
           .toLowerCase()
           .includes(q)
       )
         return false;
       return true;
     });
-  }, [activeBrand, activeCategory, activeFinish, query, products]);
+  }, [activeDasteh, activeFinish, query, products]);
 
-  const quoteItems = Object.entries(quote).filter(([, qty]) => qty > 0) as [string, number][];
+  const quoteItems = useMemo(
+    () => Object.entries(quote).filter(([, qty]) => qty > 0) as [string, number][],
+    [quote],
+  );
 
-  const addToQuote = (id: string) => setQuote((q) => ({ ...q, [id]: (q[id] ?? 0) + 1 }));
-  const removeOne = (id: string) =>
-    setQuote((q) => ({ ...q, [id]: Math.max(0, (q[id] ?? 0) - 1) }));
+  const addToQuote = useCallback(
+    (id: string, finishKey?: FinishKey) => {
+      const product = products.find((p) => p.id === id);
+      if (!product) return;
+      const finish = finishKey ?? product.finishOffers[0]!;
+      const key = quoteLineKey(id, finish);
+      setQuote((q) => ({ ...q, [key]: addQuoteQty(q[key] ?? 0) }));
+    },
+    [products],
+  );
+
+  const removeOne = useCallback(
+    (id: string, finishKey?: FinishKey) => {
+      const product = products.find((p) => p.id === id);
+      if (!product) return;
+      const finish = finishKey ?? product.finishOffers[0]!;
+      const key = quoteLineKey(id, finish);
+      setQuote((q) => ({ ...q, [key]: removeQuoteQty(q[key] ?? 0) }));
+    },
+    [products],
+  );
 
   const sendWhatsApp = (customer: string, details: string) => {
     const text = encodeURIComponent(
@@ -91,17 +106,15 @@ function CatalogPage() {
       <SiteHeader />
       <HeaderSpacer />
       <CatalogHero />
+      <OrderGuide />
 
       <CatalogSection
         filtered={filtered}
-        allProducts={products}
         quote={quote}
         onAdd={addToQuote}
         onRemove={removeOne}
-        activeBrand={activeBrand}
-        setActiveBrand={setActiveBrand}
-        activeCategory={activeCategory}
-        setActiveCategory={setActiveCategory}
+        activeDasteh={activeDasteh}
+        setActiveDasteh={setActiveDasteh}
         activeFinish={activeFinish}
         setActiveFinish={setActiveFinish}
         query={query}
@@ -109,14 +122,6 @@ function CatalogPage() {
         productCount={products.length}
       />
 
-      <BrandsBand
-        products={products}
-        onSelectBrand={(brand) => {
-          setActiveBrand(brand);
-        }}
-      />
-
-      <WarrantyBand />
       <SiteFooter />
 
       <QuoteDock

@@ -4,12 +4,15 @@ import { useEffect, useMemo, useState } from "react";
 
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useBodyScrollLock } from "@/hooks/use-body-scroll-lock";
+import type { FinishKey } from "@/data/products";
 import { useLocale } from "@/lib/i18n";
 import { gallerySlidesForProduct } from "@/lib/product-gallery";
+import { quoteLineQty } from "@/lib/quote-lines";
 import { cn } from "@/lib/utils";
 import type { Product } from "@/locales";
 import { Sheet, SheetContent } from "@/components/ui/sheet";
 
+import { DualFinishQuoteActions } from "./FinishQtyStepper";
 import { ProductImageGallery, usePhotoNavigation } from "./ProductImageGallery";
 import { ProductIndexStrip } from "./ProductIndexStrip";
 
@@ -17,101 +20,163 @@ type ProductDetailModalProps = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   products: Product[];
-  allProducts: Product[];
   activeIndex: number;
   onNavigate: (index: number) => void;
-  onSelectProduct: (id: string) => void;
-  quantity: number;
-  onAdd: () => void;
-  onRemove: () => void;
+  quote: Record<string, number>;
+  onAdd: (id: string, finishKey?: FinishKey) => void;
+  onRemove: (id: string, finishKey?: FinishKey) => void;
 };
 
-function SpecList({
-  product,
-  labels,
-  warrantyValue,
-  className,
+function isCodeLikeValue(value: string) {
+  return !/[\u0600-\u06FF]/.test(value);
+}
+
+function finishTagClass(finishKey: Product["finishKey"]) {
+  switch (finishKey) {
+    case "matte":
+      return "finish-specimen-tag-matte";
+    case "matte-glossy":
+      return "finish-specimen-tag-matte-glossy";
+    case "glossy":
+      return "finish-specimen-tag-glossy";
+    case "steel":
+      return "finish-specimen-tag-steel";
+  }
+}
+
+function SpecRow({
+  label,
+  value,
+  codeLike,
+  finishKey,
 }: {
-  product: Product;
-  labels: {
-    spec: string;
-    category: string;
-    compat: string;
-    euroNorm: string;
-    finish: string;
-    warranty: string;
-  };
-  warrantyValue: string;
-  className?: string;
+  label: string;
+  value: string;
+  codeLike?: boolean;
+  finishKey?: Product["finishKey"];
 }) {
-  const rows: { label: string; value: string }[] = [
-    { label: labels.spec, value: product.spec },
-    { label: labels.category, value: product.categoryLabel },
-  ];
-
-  if (product.modelCompat) {
-    rows.push({ label: labels.compat, value: product.modelCompat });
-  }
-  if (product.euroNorm) {
-    rows.push({ label: labels.euroNorm, value: product.euroNorm });
-  }
-  if (product.category !== "installation") {
-    rows.push({ label: labels.finish, value: product.finish });
-  }
-  rows.push({ label: labels.warranty, value: warrantyValue });
-
   return (
-    <div className={cn("mt-5 border-t border-foreground/[0.06] md:mt-6", className)}>
-      {rows.map((row, i) => (
-        <div
-          key={row.label}
-          className={cn(
-            "spec-row max-md:gap-3 max-md:py-3.5",
-            i === rows.length - 1 && "border-b-0",
-          )}
-        >
-          <span className="section-tag shrink-0">{row.label}</span>
-          <span className="text-end font-mono-tech ltr-embed text-[13px] text-foreground/80">{row.value}</span>
-        </div>
-      ))}
+    <div className="flex items-center justify-between gap-4 py-2.5">
+      <dt className="shrink-0 text-xs text-foreground/42">{label}</dt>
+      <dd className="min-w-0 text-end">
+        {finishKey ? (
+          <span className={cn("finish-specimen-tag inline-flex", finishTagClass(finishKey))}>
+            {value}
+          </span>
+        ) : (
+          <span
+            className={cn(
+              "text-sm text-foreground/78",
+              codeLike && "type-code ltr-embed",
+            )}
+          >
+            {value}
+          </span>
+        )}
+      </dd>
     </div>
   );
 }
 
-function VariantSwitcher({
-  product,
-  allProducts,
-  variantLabel,
-  onSelect,
-}: {
-  product: Product;
-  allProducts: Product[];
-  variantLabel: string;
-  onSelect: (id: string) => void;
-}) {
-  if (product.variantIds.length <= 1) return null;
+function ProductSpecSheet({ product }: { product: Product }) {
+  const { messages } = useLocale();
+  const d = messages.product.detail;
 
-  const variants = product.variantIds
-    .map((id) => allProducts.find((p) => p.id === id))
-    .filter((p): p is Product => Boolean(p));
+  const rows: {
+    key: string;
+    label: string;
+    value: string;
+    codeLike?: boolean;
+    finishKey?: Product["finishKey"];
+  }[] = [
+    { key: "type", label: d.category, value: product.categoryLabel },
+    { key: "dasteh", label: d.dasteh, value: product.dastehLabel },
+    { key: "spec", label: d.specValue, value: product.spec, codeLike: true },
+    { key: "finish", label: d.finish, value: product.finish, finishKey: product.finishOffers.length > 1 ? undefined : product.finishKey },
+    { key: "brand", label: d.brand, value: product.brand, codeLike: true },
+  ];
+
+  if (product.modelCompat) {
+    rows.push({
+      key: "compat",
+      label: d.compat,
+      value: product.modelCompat,
+      codeLike: isCodeLikeValue(product.modelCompat),
+    });
+  }
+
+  if (product.euroNorm) {
+    rows.push({
+      key: "euro",
+      label: d.euroNorm,
+      value: product.euroNorm,
+      codeLike: true,
+    });
+  }
 
   return (
-    <div className="mt-4 md:mt-5">
-      <p className="section-tag mb-2.5">{variantLabel}</p>
-      <div className="finish-pill-group inline-flex max-w-full flex-wrap">
-        {variants.map((v) => (
-          <button
-            key={v.id}
-            type="button"
-            onClick={() => onSelect(v.id)}
-            aria-pressed={v.id === product.id}
-            className={cn("finish-pill", v.id === product.id && "finish-pill-active")}
-          >
-            {v.finish}
-          </button>
+    <section className="mt-4" aria-label={d.spec}>
+      <h3 className="text-[11px] uppercase tracking-[0.14em] text-foreground/32">{d.spec}</h3>
+      <dl className="mt-2 divide-y divide-foreground/[0.06] rounded-xl border border-foreground/[0.07] bg-foreground/[0.025] px-4">
+        {rows.map((row) => (
+          <SpecRow
+            key={row.key}
+            label={row.label}
+            value={row.value}
+            codeLike={row.codeLike}
+            finishKey={row.finishKey}
+          />
         ))}
-      </div>
-    </div>
+      </dl>
+    </section>
+  );
+}
+
+function ProductQuoteSection({
+  product,
+  quote,
+  onAdd,
+  onRemove,
+  className,
+}: {
+  product: Product;
+  quote: Record<string, number>;
+  onAdd: (id: string, finishKey?: FinishKey) => void;
+  onRemove: (id: string, finishKey?: FinishKey) => void;
+  className?: string;
+}) {
+  const { messages, dir } = useLocale();
+  const finishMap = Object.fromEntries(messages.finishes.map((f) => [f.key, f.label]));
+
+  if (product.finishOffers.length > 1) {
+    return (
+      <DualFinishQuoteActions
+        productId={product.id}
+        finishOffers={product.finishOffers}
+        finishMap={finishMap}
+        quote={quote}
+        onAdd={onAdd}
+        onRemove={onRemove}
+        variant="detail"
+        className={className}
+      />
+    );
+  }
+
+  const finishKey = product.finishOffers[0]!;
+  const quantity = quoteLineQty(quote, product.id, finishKey);
+
+  return (
+    <QuoteStepper
+      quantity={quantity}
+      onAdd={() => onAdd(product.id, finishKey)}
+      onRemove={() => onRemove(product.id, finishKey)}
+      dir={dir}
+      addLabel={messages.product.addToQuote}
+      decreaseLabel={messages.product.decreaseQty}
+      increaseLabel={messages.product.increaseQty}
+      className={className}
+    />
   );
 }
 
@@ -134,6 +199,7 @@ function QuoteStepper({
   increaseLabel: string;
   className?: string;
 }) {
+  const { formatDigits } = useLocale();
   const inQuote = quantity > 0;
 
   if (!inQuote) {
@@ -169,7 +235,7 @@ function QuoteStepper({
           <Minus className="h-3.5 w-3.5" />
         </button>
         <span className="w-6 text-center text-[13px] tabular-nums text-foreground/60">
-          {quantity}
+          {formatDigits(quantity)}
         </span>
         <button
           type="button"
@@ -187,25 +253,21 @@ function QuoteStepper({
 function ProductDetailBody({
   product,
   products,
-  allProducts,
   activeIndex,
-  quantity,
+  quote,
   onAdd,
   onRemove,
   onNavigate,
-  onSelectProduct,
   onClose,
   isMobile,
 }: {
   product: Product;
   products: Product[];
-  allProducts: Product[];
   activeIndex: number;
-  quantity: number;
-  onAdd: () => void;
-  onRemove: () => void;
+  quote: Record<string, number>;
+  onAdd: (id: string, finishKey?: FinishKey) => void;
+  onRemove: (id: string, finishKey?: FinishKey) => void;
   onNavigate: (index: number) => void;
-  onSelectProduct: (id: string) => void;
   onClose: () => void;
   isMobile: boolean;
 }) {
@@ -238,57 +300,39 @@ function ProductDetailBody({
 
   const specPanel = (
     <>
-      {!isMobile && (
-        <>
-          <p className="font-mono-tech ltr-embed text-[10px] tracking-[0.12em] text-foreground/30">
-            {product.code}
-            <span className="mx-2 text-foreground/15">·</span>
-            {product.brand}
-          </p>
-          <h2 className="font-display mt-2 text-[1.35rem] leading-snug text-foreground md:text-3xl">
-            {product.name}
-          </h2>
-        </>
-      )}
-
-      <p
-        className={cn("text-sm leading-relaxed text-muted-foreground", !isMobile && "mt-3 md:mt-4")}
+      <div className="flex items-center justify-between gap-3">
+        <p className="type-code ltr-embed text-[11px] text-foreground/35">{product.code}</p>
+        <span className="rounded-full border border-brand/20 bg-brand/10 px-2.5 py-0.5 text-[10px] text-brand/80">
+          {messages.product.warrantyBadge}
+        </span>
+      </div>
+      <h2
+        className={cn(
+          "type-heading-display leading-snug text-foreground",
+          isMobile ? "mt-2 text-lg" : "mt-2 text-[1.35rem] md:text-2xl",
+        )}
       >
-        {product.description}
-      </p>
+        {product.name}
+      </h2>
 
-      <VariantSwitcher
-        product={product}
-        allProducts={allProducts}
-        variantLabel={messages.product.detail.variantLabel}
-        onSelect={onSelectProduct}
-      />
+      <ProductSpecSheet product={product} />
 
-      <SpecList
-        product={product}
-        labels={{
-          spec: messages.product.detail.spec,
-          category: messages.product.detail.category,
-          compat: messages.product.detail.compat,
-          euroNorm: messages.product.detail.euroNorm,
-          finish: messages.product.detail.finish,
-          warranty: messages.product.warranty,
-        }}
-        warrantyValue={messages.hero.stats.warranty.value}
-        className={isMobile ? "mb-2" : undefined}
-      />
+      <section className="mt-5">
+        <h3 className="text-[11px] uppercase tracking-[0.14em] text-foreground/32">
+          {messages.product.detail.description}
+        </h3>
+        <p className="mt-2 text-sm leading-[1.75] text-muted-foreground">{product.description}</p>
+      </section>
 
       {!isMobile && (
-        <div className="mt-auto pt-6">
-          <QuoteStepper
-            quantity={quantity}
+        <div className="mt-auto space-y-3 pt-6">
+          <ProductQuoteSection
+            product={product}
+            quote={quote}
             onAdd={onAdd}
             onRemove={onRemove}
-            dir={dir}
-            addLabel={messages.product.addToQuote}
-            decreaseLabel={messages.product.decreaseQty}
-            increaseLabel={messages.product.increaseQty}
           />
+          <p className="text-center text-[11px] text-foreground/30">{messages.product.warranty}</p>
         </div>
       )}
     </>
@@ -315,18 +359,9 @@ function ProductDetailBody({
           </button>
         </div>
 
-        <div className="shrink-0 border-b border-foreground/[0.05] px-5 py-3">
-          <p className="font-mono-tech ltr-embed text-[10px] tracking-[0.12em] text-foreground/35">
-            {product.code}
-            <span className="mx-2 text-foreground/15">·</span>
-            {product.brand}
-          </p>
-          <h2 className="type-ui mt-1 text-lg leading-snug text-foreground">{product.name}</h2>
-        </div>
-
         <div
           key={product.id}
-          className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-5 py-3"
+          className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-5 py-4 scrollbar-minimal"
         >
           {specPanel}
 
@@ -335,22 +370,21 @@ function ProductDetailBody({
               products={products}
               activeIndex={activeIndex}
               onNavigate={onNavigate}
-              minimal
-              className="mt-5 border-t border-foreground/[0.05] pt-4"
+              className="mt-5"
             />
           )}
         </div>
 
         <div className="shrink-0 border-t border-foreground/[0.06] vault-glass px-5 pt-3 backdrop-blur-md safe-bottom">
-          <QuoteStepper
-            quantity={quantity}
+          <ProductQuoteSection
+            product={product}
+            quote={quote}
             onAdd={onAdd}
             onRemove={onRemove}
-            dir={dir}
-            addLabel={messages.product.addToQuote}
-            decreaseLabel={messages.product.decreaseQty}
-            increaseLabel={messages.product.increaseQty}
           />
+          <p className="pb-1 pt-2 text-center text-[11px] text-foreground/30">
+            {messages.product.warranty}
+          </p>
         </div>
       </div>
     );
@@ -358,25 +392,25 @@ function ProductDetailBody({
 
   return (
     <div className="relative flex min-h-0 flex-1 overflow-hidden md:flex-row">
-      <div className="flex min-h-0 w-full min-w-0 flex-col justify-center bg-brand-panel/20 md:w-[min(100%,38rem)] md:shrink-0 md:border-e md:border-foreground/[0.05] md:px-6 md:py-6">
+      <div className="flex min-h-0 w-full min-w-0 flex-col bg-brand-panel/20 md:w-[min(100%,38rem)] md:shrink-0 md:border-e md:border-foreground/[0.05] md:px-6 md:py-6">
         <ProductImageGallery
           slides={slides}
           photoIndex={photoIndex}
           onPhotoChange={setPhotoIndex}
           alt={product.name}
           isMobile={false}
-          className="min-h-0"
+          className="min-h-0 flex-1"
         />
 
         <ProductIndexStrip
           products={products}
           activeIndex={activeIndex}
           onNavigate={onNavigate}
-          className="mt-5 w-full min-w-0"
+          className="mt-5 w-full min-w-0 shrink-0"
         />
       </div>
 
-      <div className="relative flex min-h-0 min-w-0 flex-1 flex-col overflow-y-auto md:p-8 md:ps-6">
+      <div className="relative flex min-h-0 min-w-0 flex-1 flex-col overflow-y-auto scrollbar-minimal md:p-8 md:ps-6">
         <div className="mb-2 flex items-start justify-end md:absolute md:end-6 md:top-6">
           <button
             type="button"
@@ -400,11 +434,9 @@ export function ProductDetailModal({
   open,
   onOpenChange,
   products,
-  allProducts,
   activeIndex,
   onNavigate,
-  onSelectProduct,
-  quantity,
+  quote,
   onAdd,
   onRemove,
 }: ProductDetailModalProps) {
@@ -429,13 +461,11 @@ export function ProductDetailModal({
           <ProductDetailBody
             product={product}
             products={products}
-            allProducts={allProducts}
             activeIndex={activeIndex}
-            quantity={quantity}
+            quote={quote}
             onAdd={onAdd}
             onRemove={onRemove}
             onNavigate={onNavigate}
-            onSelectProduct={onSelectProduct}
             onClose={close}
             isMobile
           />
@@ -467,13 +497,11 @@ export function ProductDetailModal({
             <ProductDetailBody
               product={product}
               products={products}
-              allProducts={allProducts}
               activeIndex={activeIndex}
-              quantity={quantity}
+              quote={quote}
               onAdd={onAdd}
               onRemove={onRemove}
               onNavigate={onNavigate}
-              onSelectProduct={onSelectProduct}
               onClose={close}
               isMobile={false}
             />

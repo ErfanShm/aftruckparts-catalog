@@ -15,6 +15,7 @@ import {
   type LocaleMessages,
   type Product,
 } from "@/locales";
+import { formatPaddedIndex, toLocaleDigits } from "@/lib/locale-digits";
 
 const STORAGE_KEY = "aftruckparts-locale";
 
@@ -25,6 +26,10 @@ type LocaleContextValue = {
   products: Product[];
   dir: "rtl" | "ltr";
   lang: Locale;
+  /** Localize digits in any string or number (fa → ۰۱۲۳). */
+  formatDigits: (value: string | number) => string;
+  /** Zero-padded two-digit index (01 / ۰۱). */
+  formatIndex: (index: number) => string;
 };
 
 const LocaleContext = createContext<LocaleContextValue | null>(null);
@@ -56,6 +61,8 @@ export function LocaleProvider({ children }: { children: ReactNode }) {
       products: buildProducts(locale, messages),
       dir: locale === "fa" ? "rtl" : "ltr",
       lang: locale,
+      formatDigits: (value) => toLocaleDigits(value, locale),
+      formatIndex: (index) => formatPaddedIndex(index, locale),
     };
   }, [locale, setLocale]);
 

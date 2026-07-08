@@ -1,4 +1,4 @@
-import type { FinishKey, ProductCategory } from "@/data/products";
+import type { FinishKey, ProductCategory, ProductDasteh } from "@/data/products";
 import type { ImageManifestEntry } from "@/data/catalog-image-types";
 
 export type Locale = "fa" | "en";
@@ -22,7 +22,9 @@ export type LocaleMessages = {
     titleLine1: string;
     titleLine2: string;
     titleAccent: string;
-    subtitle: string;
+    subtitleLead: string;
+    subtitleWarranty: string;
+    subtitleWarrantyHighlight: string;
     cta: string;
     ctaPdf: string;
     dragHint: string;
@@ -39,6 +41,11 @@ export type LocaleMessages = {
       warranty: { label: string; value: string };
     };
   };
+  orderGuide: {
+    tag: string;
+    title: string;
+    steps: readonly { title: string; body: string }[];
+  };
   catalog: {
     sectionTag: string;
     heading: string;
@@ -46,6 +53,7 @@ export type LocaleMessages = {
     searchPlaceholder: string;
     clearSearch: string;
     brandLabel: string;
+    dastehLabel: string;
     categoryLabel: string;
     finishLabel: string;
     clearFilters: string;
@@ -58,10 +66,12 @@ export type LocaleMessages = {
     curatedUnits: string;
   };
   categories: { key: ProductCategory; label: string }[];
+  dastehLines: { key: ProductDasteh; label: string }[];
   finishes: { key: FinishKey; label: string }[];
   product: {
     warranty: string;
     warrantyBadge: string;
+    finishBoth: string;
     addToQuote: string;
     inQuote: string;
     increaseQty: string;
@@ -69,12 +79,14 @@ export type LocaleMessages = {
     detail: {
       close: string;
       spec: string;
+      specValue: string;
       category: string;
+      dasteh: string;
+      brand: string;
       compat: string;
       euroNorm: string;
       finish: string;
       description: string;
-      variantLabel: string;
       position: (current: number, total: number) => string;
       prev: string;
       next: string;
@@ -93,29 +105,17 @@ export type LocaleMessages = {
     title: string;
     close: string;
     empty: string;
+    emptyHint: string;
+    itemsCount: (count: number) => string;
     customerLabel: string;
     customerPlaceholder: string;
     detailsLabel: string;
     detailsPlaceholder: string;
+    nameRequired: string;
+    qtyHint: string;
     sendWhatsApp: string;
     sendWhatsAppArrow: string;
     footerNote: string;
-  };
-  warranty: {
-    tag: string;
-    headline: string;
-    subline: string;
-    watermark: string;
-    pillars: { label: string; value: string }[];
-    note: string;
-  };
-  brands: {
-    tag: string;
-    headline: string;
-    subline: string;
-    units: (count: number) => string;
-    unitsLabel: string;
-    browse: string;
   };
   footer: {
     headline: string;
@@ -151,6 +151,8 @@ export type Product = {
   code: string;
   name: string;
   brand: string;
+  dasteh: ProductDasteh;
+  dastehLabel: string;
   finish: string;
   finishKey: FinishKey;
   spec: string;
@@ -167,6 +169,5 @@ export type Product = {
   description: string;
   euroNorm?: string;
   modelCompat?: string;
-  variantGroup?: string;
-  variantIds: string[];
+  finishOffers: FinishKey[];
 };

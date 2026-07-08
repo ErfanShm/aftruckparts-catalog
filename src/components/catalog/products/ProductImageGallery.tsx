@@ -17,60 +17,6 @@ type ProductImageGalleryProps = {
   showSwipeHint?: boolean;
 };
 
-function PhotoThumbStrip({
-  slides,
-  photoIndex,
-  onPhotoChange,
-  viewsLabel,
-}: {
-  slides: GallerySlide[];
-  photoIndex: number;
-  onPhotoChange: (index: number) => void;
-  viewsLabel: string;
-}) {
-  const stripRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const el = stripRef.current?.children[photoIndex] as HTMLElement | undefined;
-    el?.scrollIntoView({ inline: "center", block: "nearest", behavior: "smooth" });
-  }, [photoIndex]);
-
-  return (
-    <div className="shrink-0 px-4 pb-4 pt-3">
-      <p className="section-tag mb-3 text-center">{viewsLabel}</p>
-      <div
-        ref={stripRef}
-        className="flex snap-x snap-mandatory justify-center gap-2.5 overflow-x-auto pb-0.5 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-      >
-        {slides.map((slide, i) => (
-          <button
-            key={i}
-            type="button"
-            onClick={() => onPhotoChange(i)}
-            aria-current={i === photoIndex ? "true" : undefined}
-            aria-label={`${viewsLabel} ${i + 1}`}
-            className={cn(
-              "gallery-thumb relative snap-center shrink-0 touch-manipulation overflow-hidden rounded-xl border border-border-hair/30 bg-brand-panel/30 transition-all duration-300",
-              i === photoIndex
-                ? "gallery-thumb-active h-16 w-16"
-                : "h-14 w-14 opacity-50 hover:opacity-80",
-            )}
-          >
-            <CatalogImage
-              manifest={slide.manifest}
-              alt=""
-              placeholder={false}
-              fill
-              objectFit="contain"
-              sizes={CATALOG_IMAGE_SIZES.thumb}
-            />
-          </button>
-        ))}
-      </div>
-    </div>
-  );
-}
-
 function PhotoDotStrip({
   slides,
   photoIndex,
@@ -86,7 +32,7 @@ function PhotoDotStrip({
     <div
       className={cn(
         "flex items-center justify-center gap-1.5",
-        overlay ? "absolute bottom-3 inset-x-0 z-20" : "px-4 pb-3 pt-1",
+        overlay ? "absolute bottom-3 inset-x-0 z-20" : "shrink-0 px-4 pb-3 pt-2",
       )}
     >
       {slides.map((_, i) => (
@@ -148,7 +94,6 @@ export function ProductImageGallery({
 
   const PrevIcon = dir === "rtl" ? ChevronRight : ChevronLeft;
   const NextIcon = dir === "rtl" ? ChevronLeft : ChevronRight;
-  const photoLabel = messages.product.detail.photoPosition(photoIndex + 1, slides.length);
 
   if (!slide) return null;
 
@@ -159,7 +104,7 @@ export function ProductImageGallery({
     <div
       className={cn(
         "gallery-stage relative flex w-full items-center justify-center overflow-hidden",
-        isMobile ? "absolute inset-0" : "min-h-[min(58vh,520px)] rounded-[1.125rem]",
+        isMobile ? "absolute inset-0" : "min-h-0 flex-1 rounded-[1.125rem]",
       )}
       onTouchStart={onTouchStart}
       onTouchEnd={onTouchEnd}
@@ -208,15 +153,6 @@ export function ProductImageGallery({
         </motion.div>
       </AnimatePresence>
 
-      {showPhotoNav && !isMobile && (
-        <div
-          className="pointer-events-none absolute bottom-3 inset-x-0 z-20 mx-auto w-fit rounded-full border border-foreground/[0.06] bg-void/50 px-2.5 py-0.5 font-mono text-[10px] tabular-nums text-foreground/45 backdrop-blur-sm"
-          dir="ltr"
-        >
-          {photoLabel}
-        </div>
-      )}
-
       {showPhotoNav && isMobile && (
         <PhotoDotStrip
           slides={slides}
@@ -237,14 +173,13 @@ export function ProductImageGallery({
   }
 
   return (
-    <div className={cn("relative flex w-full min-h-0 flex-col", className)}>
+    <div className={cn("relative flex h-full w-full min-h-0 flex-col", className)}>
       {stage}
       {showPhotoNav && (
-        <PhotoThumbStrip
+        <PhotoDotStrip
           slides={slides}
           photoIndex={photoIndex}
           onPhotoChange={onPhotoChange}
-          viewsLabel={messages.product.detail.viewsLabel}
         />
       )}
     </div>

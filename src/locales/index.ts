@@ -1,4 +1,5 @@
-import { PRODUCT_CATALOG } from "@/data/products";
+import { PRODUCT_CATALOG, resolveFinishOffers, type FinishKey } from "@/data/products";
+import { parseQuoteLineKey } from "@/lib/quote-lines";
 
 import { en } from "./en";
 import { fa } from "./fa";
@@ -19,18 +20,16 @@ export function getMessages(locale: Locale): LocaleMessages {
   return messages[locale];
 }
 
-function buildVariantMap(): Map<string, string[]> {
-  const groups = new Map<string, string[]>();
-  for (const p of PRODUCT_CATALOG) {
-    if (!p.variantGroup) continue;
-    const ids = groups.get(p.variantGroup) ?? [];
-    ids.push(p.id);
-    groups.set(p.variantGroup, ids);
-  }
-  return groups;
+function productFinishLabel(
+  finishKey: FinishKey,
+  finishOffers: readonly FinishKey[],
+  finishMap: Record<string, string>,
+  finishBoth: string,
+) {
+  const offers = finishOffers.length ? finishOffers : resolveFinishOffers(finishKey);
+  if (offers.includes("matte") && offers.includes("glossy")) return finishBoth;
+  return finishMap[finishKey];
 }
-
-const VARIANT_MAP = buildVariantMap();
 
 export function buildProducts(
   locale: Locale,
@@ -44,28 +43,41 @@ export function buildProducts(
     string,
     string
   >;
+  const dastehMap = Object.fromEntries(msgs.dastehLines.map((d) => [d.key, d.label])) as Record<
+    string,
+    string
+  >;
 
-  return PRODUCT_CATALOG.map((p) => ({
-    id: p.id,
-    code: p.code,
-    brand: p.brand,
-    finishKey: p.finishKey,
-    finish: finishMap[p.finishKey],
-    name: p.names[locale],
-    spec: p.spec,
-    image: p.image,
-    images: p.images,
-    imageManifest: p.imageManifest,
-    span: p.span,
-    category: p.category,
-    categoryLabel: categoryMap[p.category],
-    catalogPage: p.catalogPage,
-    description: p.description[locale],
-    euroNorm: p.euroNorm,
-    modelCompat: p.modelCompat,
-    variantGroup: p.variantGroup,
-    variantIds: p.variantGroup ? (VARIANT_MAP.get(p.variantGroup) ?? [p.id]) : [p.id],
-  }));
+  return PRODUCT_CATALOG.map((p) => {
+    const finishOffers = [...p.finishOffers];
+    return {
+      id: p.id,
+      code: p.code,
+      brand: p.brand,
+      dasteh: p.dasteh,
+      dastehLabel: dastehMap[p.dasteh],
+      finishKey: p.finishKey,
+      finish: productFinishLabel(
+        p.finishKey,
+        finishOffers,
+        finishMap,
+        msgs.product.finishBoth,
+      ),
+      finishOffers,
+      name: p.names[locale],
+      spec: p.spec,
+      image: p.image,
+      images: p.images,
+      imageManifest: p.imageManifest,
+      span: p.span,
+      category: p.category,
+      categoryLabel: categoryMap[p.category],
+      catalogPage: p.catalogPage,
+      description: p.description[locale],
+      euroNorm: p.euroNorm,
+      modelCompat: p.modelCompat,
+    };
+  });
 }
 
 export function buildWhatsAppMessage(
@@ -75,10 +87,17 @@ export function buildWhatsAppMessage(
   customer: string,
   details: string,
 ): string {
-  const t = getMessages(locale).whatsapp;
-  const lines = items.map(([id, qty]) => {
-    const p = products.find((x) => x.id === id)!;
-    return t.line(p.code, p.name, p.finish, qty);
+  const msgs = getMessages(locale);
+  const finishMap = Object.fromEntries(msgs.finishes.map((f) => [f.key, f.label])) as Record<
+    string,
+    string
+  >;
+  const t = msgs.whatsapp;
+  const lines = items.map(([key, qty]) => {
+    const { productId, finishKey } = parseQuoteLineKey(key);
+    const p = products.find((x) => x.id === productId)!;
+    const finish = finishKey ? finishMap[finishKey] : p.finish;
+    return t.line(p.code, p.name, finish, qty);
   });
   const headerLines = [t.header, t.customer(customer)];
   if (details) headerLines.push(t.details(details));
@@ -86,4 +105,4 @@ export function buildWhatsAppMessage(
   return [...headerLines, "", t.itemsHeading, ...lines, "", t.footer, "", t.leadSource].join("\n");
 }
 
-export { BRANDS, PRODUCT_CATALOG } from "@/data/products";
+export { DASTEH_KEYS, PRODUCT_CATALOG } from "@/data/products";

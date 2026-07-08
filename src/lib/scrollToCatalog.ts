@@ -1,6 +1,13 @@
-export const NAV_SECTION_IDS = ["catalog", "brands", "warranty", "contact"] as const;
+export const NAV_SECTION_IDS = ["catalog", "how-to-order", "contact"] as const;
 
 export type NavSectionId = (typeof NAV_SECTION_IDS)[number];
+
+/** Top-to-bottom on the page — used for scroll-spy only */
+const SCROLL_SPY_SECTION_IDS: readonly NavSectionId[] = [
+  "how-to-order",
+  "catalog",
+  "contact",
+];
 
 export function scrollToCatalog() {
   document.getElementById("catalog")?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -23,9 +30,9 @@ export function getActiveNavSection(): NavSectionId {
     72;
   const marker = window.scrollY + headerOffset + 64;
 
-  let active: NavSectionId = NAV_SECTION_IDS[0];
+  let active: NavSectionId = "catalog";
 
-  for (const id of NAV_SECTION_IDS) {
+  for (const id of SCROLL_SPY_SECTION_IDS) {
     const el = document.getElementById(id);
     if (!el) continue;
     const sectionTop = el.getBoundingClientRect().top + window.scrollY;

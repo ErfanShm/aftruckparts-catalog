@@ -8,6 +8,19 @@ export type ProductCategory =
   | "installation"
   | "accessory";
 
+export type ProductDasteh =
+  | "volvo-fh12-fh13"
+  | "volvo-fh500"
+  | "hub-caps"
+  | "daf";
+
+export const DASTEH_KEYS: readonly ProductDasteh[] = [
+  "volvo-fh12-fh13",
+  "volvo-fh500",
+  "hub-caps",
+  "daf",
+];
+
 export type FinishKey = "matte" | "matte-glossy" | "glossy" | "steel";
 
 export type CatalogPageProduct = {
@@ -15,6 +28,7 @@ export type CatalogPageProduct = {
   code: string;
   spec: string;
   brand: string;
+  dasteh: ProductDasteh;
   finishKey: FinishKey;
   span: "sm" | "md" | "lg" | "xl";
   names: { fa: string; en: string };
@@ -22,13 +36,14 @@ export type CatalogPageProduct = {
   description: { fa: string; en: string };
   euroNorm?: string;
   modelCompat?: string;
-  variantGroup?: string;
+  finishOffers?: readonly FinishKey[];
 };
 
 type EntryOpts = {
   page: number;
   spec: string;
   brand: string;
+  dasteh: ProductDasteh;
   finishKey: FinishKey;
   category: ProductCategory;
   names: { fa: string; en: string };
@@ -36,7 +51,7 @@ type EntryOpts = {
   span?: CatalogPageProduct["span"];
   euroNorm?: string;
   modelCompat?: string;
-  variantGroup?: string;
+  finishOffers?: readonly FinishKey[];
   code?: string;
 };
 
@@ -44,6 +59,7 @@ function entry({
   page,
   spec,
   brand,
+  dasteh,
   finishKey,
   category,
   names,
@@ -51,7 +67,7 @@ function entry({
   span = "md",
   euroNorm,
   modelCompat,
-  variantGroup,
+  finishOffers,
   code,
 }: EntryOpts): CatalogPageProduct {
   return {
@@ -59,6 +75,7 @@ function entry({
     code: code ?? `ATP-${spec.replace(/\s+/g, "-")}`,
     spec,
     brand,
+    dasteh,
     finishKey,
     span,
     names,
@@ -66,353 +83,47 @@ function entry({
     description,
     euroNorm,
     modelCompat,
-    variantGroup,
+    finishOffers,
   };
+}
+
+export function resolveFinishOffers(
+  finishKey: FinishKey,
+  finishOffers?: readonly FinishKey[],
+): readonly FinishKey[] {
+  if (finishOffers?.length) return finishOffers;
+  if (finishKey === "matte-glossy") return ["matte", "glossy"];
+  return [finishKey];
 }
 
 /** Sourced from public/af_catalog-5.pdf — images in public/catalog/. */
 export const CATALOG_PAGES: CatalogPageProduct[] = [
-  entry({
-    page: 1,
-    spec: "NH 12",
-    brand: "Volvo",
-    finishKey: "matte",
-    category: "model-badge",
-    names: { fa: "نشان NH 12", en: "NH 12 Model Badge" },
-    description: {
-      fa: "آرم مدل NH 12 ولوو برای کامیون‌های کلاسیک دماغ‌دار. این نشان با پوشش مات، اصالت ظاهری ناوگان‌های قدیمی‌تر را حفظ می‌کند و برای بازسازی و تعویض قطعات آسیب‌دیده بسیار پرتقاضاست.",
-      en: "Volvo NH 12 model badge for classic conventional trucks. The matte finish preserves the authentic look of older fleets and is in high demand for restoration and accident replacement.",
-    },
-    span: "lg",
-    modelCompat: "NH 12",
-  }),
-  entry({
-    page: 2,
-    spec: "FM9",
-    brand: "Volvo",
-    finishKey: "matte",
-    category: "model-badge",
-    names: { fa: "نشان FM9", en: "FM9 Model Badge" },
-    description: {
-      fa: "نشان سری FM9 ولوو برای کاربری‌های توزیع منطقه‌ای، خدمات شهری و راه‌سازی. موتور ۹ لیتری این سری آن را به گزینه‌ای اقتصادی و کارآمد برای مسافت‌های کوتاه و متوسط تبدیل کرده است.",
-      en: "Volvo FM9 series badge for regional distribution, urban services, and construction work. The 9-litre engine makes this series an efficient choice for short and medium haul routes.",
-    },
-    modelCompat: "FM9",
-  }),
-  entry({
-    page: 3,
-    spec: "420",
-    brand: "Volvo",
-    finishKey: "matte",
-    category: "horsepower",
-    names: { fa: "نشان قدرت 420", en: "420 HP Badge" },
-    description: {
-      fa: "نشان عددی 420 اسب بخار برای نصب روی درب‌های بغل کابین. یکی از رایج‌ترین توان‌های موتور برای حمل‌ونقل استاندارد جاده‌ای با طراحی آیرودینامیک مطابق استاندارد ولوو.",
-      en: "420 horsepower numeric badge for cab-side mounting. One of the most common power ratings for standard road transport, styled to match Volvo's aerodynamic cab design.",
-    },
-  }),
-  entry({
-    page: 4,
-    spec: "460",
-    brand: "Volvo",
-    finishKey: "matte",
-    category: "horsepower",
-    names: { fa: "نشان قدرت 460", en: "460 HP Badge" },
-    description: {
-      fa: "نشان 460 اسب بخار با پوشش مات — یکی از پرفروش‌ترین تیپ‌های موتور در ناوگان حمل‌ونقل. تعادل عالی بین قدرت کشندگی و مصرف سوخت برای مسیرهای متنوع جاده‌ای.",
-      en: "460 horsepower badge in matte finish — one of the best-selling engine ratings in road freight. Excellent balance of pulling power and fuel economy for varied routes.",
-    },
-    variantGroup: "hp-460",
-  }),
-  entry({
-    page: 5,
-    spec: "440",
-    brand: "Volvo",
-    finishKey: "matte",
-    category: "horsepower",
-    names: { fa: "نشان قدرت 440", en: "440 HP Badge" },
-    description: {
-      fa: "نشان 440 اسب بخار یک پله بالاتر از مدل پایه قرار می‌گیرد و برای کاربری‌های متنوع جاده‌ای ایده‌آل است. فونت و انحنا دقیقاً مطابق استاندارد کابین‌های ولوو طراحی شده‌اند.",
-      en: "440 horsepower badge sits one step above the base model and is ideal for diverse road applications. Font and curvature match Volvo cab standards precisely.",
-    },
-  }),
-  entry({
-    page: 6,
-    spec: "480",
-    brand: "Volvo",
-    finishKey: "matte",
-    category: "horsepower",
-    names: { fa: "نشان قدرت 480", en: "480 HP Badge" },
-    description: {
-      fa: "نشان 480 اسب بخار برای کامیون‌هایی که به قدرت بیشتر برای حمل بارهای سنگین‌تر در مسیرهای کوهستانی یا ترانزیت نیاز دارند. پوشش مات ظاهری اسپرت و صنعتی ایجاد می‌کند.",
-      en: "480 horsepower badge for trucks needing extra power for heavier loads on mountain routes or transit corridors. Matte finish delivers a sporty, industrial look.",
-    },
-    span: "xl",
-  }),
-  entry({
-    page: 7,
-    spec: "VOLVO",
-    brand: "Volvo",
-    finishKey: "matte",
-    category: "model-badge",
-    names: { fa: "نشان VOLVO (FH12)", en: "VOLVO Grille Badge (FH12)" },
-    description: {
-      fa: "آرم اصلی حروف VOLVO برای جلوپنجره کامیون. این نسخه مات مخصوص مدل FH12 کالیبره شده — ابعاد، انحنا و پایه‌های نصب دقیقاً برای قرارگیری روی جلوپنجره این مدل افسانه‌ای طراحی شده‌اند.",
-      en: "Primary VOLVO lettering badge for the truck grille. This matte version is calibrated for the FH12 — dimensions, curvature, and mounting points match the legendary model's front grille exactly.",
-    },
-    span: "lg",
-    modelCompat: "FH12",
-    variantGroup: "volvo-grille",
-  }),
-  entry({
-    page: 8,
-    spec: "EEV",
-    brand: "Volvo",
-    finishKey: "matte-glossy",
-    category: "emissions",
-    names: { fa: "نشان EEV", en: "EEV Emissions Badge" },
-    description: {
-      fa: "نشان EEV (خودروی سازگار با محیط زیست پیشرفته) — استانداردی بین یورو ۵ و یورو ۶. موتورهای بسیار کم‌دود که برای مجوز تردد در مناطق سبز اروپایی اهمیت داشتند.",
-      en: "EEV (Enhanced Environmentally friendly Vehicle) badge — a stepping-stone standard between Euro 5 and Euro 6. Marks very clean-running engines important for low-emission zone access in Europe.",
-    },
-    euroNorm: "EEV",
-  }),
-  entry({
-    page: 9,
-    spec: "I-Shift",
-    brand: "Volvo",
-    finishKey: "matte-glossy",
-    category: "technology",
-    names: { fa: "نشان I-Shift", en: "I-Shift Badge" },
-    description: {
-      fa: "نشان گیربکس اتوماتیک I-Shift ولوو — انقلابی در رانندگی ماشین‌های سنگین. تعویض دنده‌ها بر اساس شیب جاده و وزن بار تنظیم می‌شود و ارزش کامیون در بازار دست‌دوم را بالا می‌برد.",
-      en: "Volvo I-Shift automated transmission badge — a revolution in heavy truck driving. Gear changes adapt to road grade and load weight, boosting resale value.",
-    },
-    span: "lg",
-  }),
-  entry({
-    page: 10,
-    spec: "500",
-    brand: "Volvo",
-    finishKey: "matte-glossy",
-    category: "horsepower",
-    names: { fa: "نشان قدرت 500", en: "500 HP Badge" },
-    description: {
-      fa: "نشان 500 اسب بخار — نقطه عطف در ماشین‌های سنگین (به‌ویژه Volvo FH 500). طراحی شده برای ترانزیت‌های بین‌المللی سنگین با ظرفیت کامل بار. پوشش دوگانه جلوه‌ای درخشان روی درب کابین ایجاد می‌کند.",
-      en: "500 horsepower badge — a milestone in heavy trucks, especially the Volvo FH 500. Built for full-load international transit. Dual matte-glossy finish creates a striking cab-side presence.",
-    },
-    span: "xl",
-  }),
-  entry({
-    page: 11,
-    spec: "EURO 4",
-    brand: "Volvo",
-    finishKey: "matte",
-    category: "emissions",
-    names: { fa: "نشان EURO 4", en: "EURO 4 Emissions Badge" },
-    description: {
-      fa: "نشان استاندارد آلایندگی یورو ۴ برای نسل‌های قبلی کامیون‌ها. تامین قطعات یدکی برای ناوگان‌های قدیمی‌تر که نیاز دارند ظاهر فابریک کامیون خود را در تصادفات یا بازسازی حفظ کنند.",
-      en: "Euro 4 emissions standard badge for earlier-generation trucks. Replacement supply for older fleets maintaining factory appearance after accidents or rebuilds.",
-    },
-    euroNorm: "EURO 4",
-  }),
-  entry({
-    page: 12,
-    spec: "EURO 5",
-    brand: "Volvo",
-    finishKey: "matte",
-    category: "emissions",
-    names: { fa: "نشان EURO 5", en: "EURO 5 Emissions Badge" },
-    description: {
-      fa: "نشان یورو ۵ — کامیون‌های یورو ۵ هنوز بخش عظیمی از ناوگان حمل‌ونقل در خاورمیانه و آسیا را تشکیل می‌دهند. حفظ این نشان برای عبور از مرزها و نمایش مشخصات فنی به ماموران راهداری کاربرد دارد.",
-      en: "Euro 5 badge — Euro 5 trucks still form a large share of fleets in the Middle East and Asia. Keeping this badge aids border crossings and technical inspections.",
-    },
-    euroNorm: "EURO 5",
-  }),
-  entry({
-    page: 13,
-    spec: "EURO 6",
-    brand: "Volvo",
-    finishKey: "matte-glossy",
-    category: "emissions",
-    names: { fa: "نشان EURO 6", en: "EURO 6 Emissions Badge" },
-    description: {
-      fa: "جدیدترین و پاک‌ترین استاندارد آلایندگی دیزل در اروپا. طراحی مدرن‌تر نسبت به یورو ۴ و ۵ — نشان‌دهنده تکنولوژی روز و مجوز تردد در تمام شهرهای بزرگ اروپایی.",
-      en: "The latest and cleanest diesel emissions standard in Europe. Modern design versus Euro 4/5 badges — signals current technology and access to all major European cities.",
-    },
-    euroNorm: "EURO 6",
-  }),
-  entry({
-    page: 14,
-    spec: "460",
-    brand: "Volvo",
-    finishKey: "matte-glossy",
-    category: "horsepower",
-    names: { fa: "نشان قدرت 460", en: "460 HP Badge" },
-    description: {
-      fa: "همان نشان 460 اسب بخار پرفروش با پوشش لوکس‌تر مات و براق. به رانندگان و شرکت‌های حمل‌ونقل اجازه می‌دهد ظاهر کامیون‌هایشان را شخصی‌سازی کنند در حالی که قدرت موتور یکسان باقی می‌ماند.",
-      en: "The same best-selling 460 HP badge in a premium matte-glossy finish. Lets fleets personalize truck appearance while keeping the same engine rating.",
-    },
-    variantGroup: "hp-460",
-    code: "ATP-460-MG",
-  }),
-  entry({
-    page: 15,
-    spec: "540",
-    brand: "Volvo",
-    finishKey: "matte-glossy",
-    category: "horsepower",
-    names: { fa: "نشان قدرت 540", en: "540 HP Badge" },
-    description: {
-      fa: "موتور 540 اسب بخاری برای کشیدن بارهای سنگین در مسیرهای کوهستانی و ترانزیت‌های پرفشار. پوشش دوگانه برای رانندگانی که ظاهر اسپرت و لوکس می‌خواهند بسیار جذاب است.",
-      en: "540 horsepower for heavy loads on mountain routes and high-pressure transit. Dual finish appeals to drivers wanting a sporty yet premium look.",
-    },
-  }),
-  entry({
-    page: 16,
-    spec: "FH",
-    brand: "Volvo",
-    finishKey: "matte-glossy",
-    category: "model-badge",
-    names: { fa: "نشان FH", en: "FH Model Badge" },
-    description: {
-      fa: "نشان سری FH — پرچمدار ماشین‌های سنگین ولوو (Forward control High cab). معمولاً در نمای جلوی کامیون نصب می‌شود. نسخه مات و براق برای فیس‌لیفت و بازسازی کامیون تا ظاهری نزدیک به مدل‌های روز.",
-      en: "FH series badge — flagship of Volvo heavy trucks (Forward control High cab). Usually mounted on the truck front. Matte-glossy version for facelifts bringing trucks closer to current models.",
-    },
-    modelCompat: "FH",
-  }),
-  entry({
-    page: 17,
-    spec: "VOLVO",
-    brand: "Volvo",
-    finishKey: "matte-glossy",
-    category: "model-badge",
-    names: { fa: "نشان VOLVO", en: "VOLVO Grille Badge" },
-    description: {
-      fa: "مهم‌ترین هویت بصری یک کامیون ولوو. نسخه مات و براق با بازتاب نور زیبا ظاهر جلوی کابین را به‌شدت مدرن می‌کند — مناسب جلوپنجره تمام مدل‌های FH.",
-      en: "The primary visual identity of a Volvo truck. Matte-glossy finish with beautiful light reflection modernizes the cab front — fits FH series grilles.",
-    },
-    span: "xl",
-    modelCompat: "FH",
-    variantGroup: "volvo-grille",
-    code: "ATP-VOLVO-MG",
-  }),
-  entry({
-    page: 18,
-    spec: "XF",
-    brand: "DAF",
-    finishKey: "matte",
-    category: "model-badge",
-    names: { fa: "نشان XF (DAF)", en: "XF Model Badge (DAF)" },
-    description: {
-      fa: "نشان مدل XF داف — یکی از محبوب‌ترین کشنده‌های اروپایی در مصرف بهینه سوخت و کابین جادار. طراحی انحصاری برای قالب بدنه DAF XF با ظاهری قدرتمند و صنعتی.",
-      en: "DAF XF model badge — one of Europe's most popular tractors for fuel efficiency and spacious cabs. Exclusively designed for the DAF XF body with a powerful industrial look.",
-    },
-    modelCompat: "DAF XF",
-  }),
-  entry({
-    page: 19,
-    spec: "I-SAVE",
-    brand: "Volvo",
-    finishKey: "matte-glossy",
-    category: "technology",
-    names: { fa: "نشان I-SAVE", en: "I-SAVE Badge" },
-    description: {
-      fa: "تکنولوژی I-Save — پکیج موتوری پیشرفته ولوو که مصرف سوخت را در مسافت‌های طولانی تا حدود ۱۰٪ کاهش می‌دهد. نصب این آرم ارزش ذاتی ماشین و صرفه‌جویی سوخت را نشان می‌دهد.",
-      en: "I-Save engine technology package that cuts fuel consumption on long hauls by up to 10%. This badge signals fuel-saving equipment and boosts intrinsic truck value.",
-    },
-  }),
-  entry({
-    page: 20,
-    spec: "750",
-    brand: "Volvo",
-    finishKey: "matte-glossy",
-    category: "horsepower",
-    names: { fa: "نشان قدرت 750", en: "750 HP Badge" },
-    description: {
-      fa: "نشان 750 اسب بخار — متعلق به Volvo FH16، یکی از قوی‌ترین کشنده‌های تولید انبوه جهان. برای حمل بارهای فوق‌سنگین و ترافیکی. نهایت پرستیژ با طراحی لوکس مات و براق.",
-      en: "750 horsepower badge for the Volvo FH16 — one of the world's most powerful production tractors. For extreme heavy haulage. Ultimate prestige in matte-glossy finish.",
-    },
-    span: "lg",
-  }),
-  entry({
-    page: 21,
-    spec: "Installation L",
-    brand: "Volvo",
-    finishKey: "matte",
-    category: "installation",
-    names: { fa: "راهنمای نصب L (کم‌صدا)", en: "Installation Badge L (Low Noise)" },
-    description: {
-      fa: "برچسب دایره‌ای سبز با حرف L (Lärmarm / کم‌صدا) همراه با راهنمای نصب FH/FM Pc.24. تاییدیه تولید صدای کم موتور و اگزوز — در اتریش و برخی کشورهای اروپایی برای تردد شبانه الزامی است.",
-      en: "Green circular L badge (Lärmarm / Low Noise) with FH/FM Pc.24 installation guide. Certifies low engine and exhaust noise — required for night driving in Austria and parts of Europe.",
-    },
-    modelCompat: "FH / FM",
-  }),
-  entry({
-    page: 22,
-    spec: "Installation V",
-    brand: "Volvo",
-    finishKey: "matte",
-    category: "installation",
-    names: { fa: "راهنمای نصب V", en: "Installation Badge V" },
-    description: {
-      fa: "نشان دایره‌ای سبز V با راهنمای نصب FH/FM Pc.24. در سیستم جاده‌ای اروپا، این نشانگرها به ماموران راهداری اجازه می‌دهند کلاس فنی و محدودیت‌های کامیون را در یک نگاه تشخیص دهند.",
-      en: "Green circular V badge with FH/FM Pc.24 installation guide. In Europe's road system, these markers let inspectors identify technical class and restrictions at a glance.",
-    },
-    modelCompat: "FH / FM",
-  }),
-  entry({
-    page: 23,
-    spec: "Installation IV",
-    brand: "Volvo",
-    finishKey: "matte",
-    category: "installation",
-    names: { fa: "راهنمای نصب IV", en: "Installation Badge IV" },
-    description: {
-      fa: "نشان دایره‌ای سبز با عدد رومی IV (چهار) و راهنمای نصب FH/FM Pc.24. نصب دقیق طبق الگوی کارخانه پرستیژ و قانونی بودن ناوگان را در جاده‌های ترانزیتی نشان می‌دهد.",
-      en: "Green circular badge with Roman numeral IV and FH/FM Pc.24 installation guide. Factory-pattern placement signals fleet compliance on international transit routes.",
-    },
-    modelCompat: "FH / FM",
-  }),
-  entry({
-    page: 24,
-    spec: "Installation VI",
-    brand: "Volvo",
-    finishKey: "matte",
-    category: "installation",
-    names: { fa: "راهنمای نصب VI", en: "Installation Badge VI" },
-    description: {
-      fa: "نشان دایره‌ای سبز VI (شش) مرتبط با استاندارد آلایندگی EURO 6. اعلام می‌کند ماشین مجهز به بالاترین سطح فیلتراسیون دود است و شامل معافیت‌های تردد در مناطق حفاظت‌شده زیست‌محیطی می‌شود.",
-      en: "Green circular VI badge linked to EURO 6 emissions. Declares highest-level exhaust filtration and eligibility for access in protected environmental zones.",
-    },
-    modelCompat: "FH / FM",
-  }),
-  entry({
-    page: 25,
-    spec: "Hub Steel",
-    brand: "AF Accessories",
-    finishKey: "steel",
-    category: "accessory",
-    names: { fa: "درپوش هاب استیل", en: "Steel Hub Cap" },
-    description: {
-      fa: "کاور استیل براق برای توپی چرخ — محافظت از مهره‌ها و محور در برابر زنگ‌زدگی، گل و نمک جاده. محبوب‌ترین آپشن برای استایل کلاسیک با انعکاس نور فوق‌العاده در شب.",
-      en: "Polished steel hub cap protecting wheel nuts and axles from rust, mud, and road salt. The most popular option for classic styling with striking night-time reflection.",
-    },
-    modelCompat: "Universal",
-  }),
-  entry({
-    page: 26,
-    spec: "Hub Black",
-    brand: "AF Accessories",
-    finishKey: "glossy",
-    category: "accessory",
-    names: { fa: "درپوش هاب مشکی براق", en: "Glossy Black Hub Cap" },
-    description: {
-      fa: "درپوش پیانو بلک (مشکی براق) برای تم‌های مدرن و Dark Edition. در ترکیب با رینگ‌های دودی ظاهر خشن و اسپرتی به چرخ‌های کامیون‌های ولوو و داف می‌بخشد.",
-      en: "Piano black (glossy black) hub cap for modern and Dark Edition themes. Pairs with smoked wheels for a bold, sporty look on Volvo and DAF trucks.",
-    },
-    modelCompat: "Universal",
-  }),
+  entry({ page: 1, spec: "NH 12", brand: "Volvo", dasteh: "volvo-fh12-fh13", finishKey: "matte", category: "model-badge", code: "ATP-NH-12", names: { fa: "آرم NH 12", en: "NH 12" }, description: { fa: "آرم مدل NH 12 ولوو با روکش مات، برای کامیون‌های دماغ‌دار.", en: "Volvo NH 12 model badge with matte finish for conventional cabs." }, modelCompat: "NH 12" }),
+  entry({ page: 2, spec: "FM9", brand: "Volvo", dasteh: "volvo-fh12-fh13", finishKey: "matte", category: "model-badge", code: "ATP-FM9", names: { fa: "آرم FM9", en: "FM9" }, description: { fa: "آرم مدل FM9 ولوو با روکش مات.", en: "Volvo FM9 model badge with matte finish." }, modelCompat: "FM9" }),
+  entry({ page: 3, spec: "420", brand: "Volvo", dasteh: "volvo-fh12-fh13", finishKey: "matte", category: "horsepower", code: "ATP-420", names: { fa: "آرم 420", en: "420" }, description: { fa: "آرم توان 420 اسب برای درب کناری کابین، روکش مات.", en: "420 HP cab-side badge with matte finish." }, modelCompat: "FH12 / FM" }),
+  entry({ page: 4, spec: "460", brand: "Volvo", dasteh: "volvo-fh12-fh13", finishKey: "matte", category: "horsepower", code: "ATP-460-M", names: { fa: "آرم 460", en: "460" }, description: { fa: "آرم توان 460 اسب برای درب کناری کابین، روکش مات.", en: "460 HP cab-side badge with matte finish." }, modelCompat: "FH12 / FM" }),
+  entry({ page: 5, spec: "440", brand: "Volvo", dasteh: "volvo-fh12-fh13", finishKey: "matte", category: "horsepower", code: "ATP-440", names: { fa: "آرم 440", en: "440" }, description: { fa: "آرم توان 440 اسب برای درب کناری کابین، روکش مات.", en: "440 HP cab-side badge with matte finish." }, modelCompat: "FH12 / FM" }),
+  entry({ page: 6, spec: "480", brand: "Volvo", dasteh: "volvo-fh12-fh13", finishKey: "matte", category: "horsepower", code: "ATP-480", names: { fa: "آرم 480", en: "480" }, description: { fa: "آرم توان 480 اسب برای درب کناری کابین، روکش مات.", en: "480 HP cab-side badge with matte finish." }, modelCompat: "FH12 / FM" }),
+  entry({ page: 7, spec: "VOLVO FH12", brand: "Volvo", dasteh: "volvo-fh12-fh13", finishKey: "matte", category: "model-badge", code: "ATP-VOLVO-FH12", names: { fa: "آرم VOLVO · FH12", en: "VOLVO · FH12" }, description: { fa: "آرم حروف VOLVO برای جلوپنجره FH12، روکش مات.", en: "VOLVO grille lettering for FH12 with matte finish." }, modelCompat: "FH12" }),
+  entry({ page: 8, spec: "EEV", brand: "Volvo", dasteh: "volvo-fh500", finishKey: "matte-glossy", category: "emissions", code: "ATP-EEV", names: { fa: "آرم EEV", en: "EEV" }, description: { fa: "آرم استاندارد EEV (بین Euro 5 و Euro 6)، روکش مات‌براق.", en: "EEV emissions badge with matte-glossy finish." }, euroNorm: "EEV", modelCompat: "FH / FM" }),
+  entry({ page: 9, spec: "I-Shift", brand: "Volvo", dasteh: "volvo-fh500", finishKey: "matte-glossy", category: "technology", code: "ATP-I-SHIFT", names: { fa: "آرم I-Shift", en: "I-Shift" }, description: { fa: "آرم گیربکس اتوماتیک I-Shift، روکش مات‌براق.", en: "I-Shift transmission badge with matte-glossy finish." }, modelCompat: "FH / FM" }),
+  entry({ page: 10, spec: "500", brand: "Volvo", dasteh: "volvo-fh500", finishKey: "matte-glossy", category: "horsepower", code: "ATP-500", names: { fa: "آرم 500", en: "500" }, description: { fa: "آرم توان 500 اسب برای سری FH500، روکش مات‌براق.", en: "500 HP badge for FH500 series with matte-glossy finish." }, modelCompat: "FH 500" }),
+  entry({ page: 11, spec: "Euro 4", brand: "Volvo", dasteh: "volvo-fh500", finishKey: "matte", category: "emissions", code: "ATP-EURO-4", names: { fa: "آرم Euro 4", en: "Euro 4" }, description: { fa: "آرم استاندارد آلایندگی Euro 4، روکش مات.", en: "Euro 4 emissions badge with matte finish." }, euroNorm: "Euro 4", modelCompat: "FH / FM" }),
+  entry({ page: 12, spec: "Euro 5", brand: "Volvo", dasteh: "volvo-fh500", finishKey: "matte", category: "emissions", code: "ATP-EURO-5", names: { fa: "آرم Euro 5", en: "Euro 5" }, description: { fa: "آرم استاندارد آلایندگی Euro 5، روکش مات.", en: "Euro 5 emissions badge with matte finish." }, euroNorm: "Euro 5", modelCompat: "FH / FM" }),
+  entry({ page: 13, spec: "Euro 6", brand: "Volvo", dasteh: "volvo-fh500", finishKey: "matte-glossy", category: "emissions", code: "ATP-EURO-6", names: { fa: "آرم Euro 6", en: "Euro 6" }, description: { fa: "آرم استاندارد آلایندگی Euro 6، روکش مات‌براق.", en: "Euro 6 emissions badge with matte-glossy finish." }, euroNorm: "Euro 6", modelCompat: "FH / FM" }),
+  entry({ page: 14, spec: "460", brand: "Volvo", dasteh: "volvo-fh500", finishKey: "matte-glossy", category: "horsepower", code: "ATP-460-MG", names: { fa: "آرم 460", en: "460" }, description: { fa: "آرم توان 460 اسب برای درب کناری کابین، مات و براق.", en: "460 HP cab-side badge, available in matte and gloss." }, modelCompat: "FH / FM" }),
+  entry({ page: 15, spec: "540", brand: "Volvo", dasteh: "volvo-fh500", finishKey: "matte-glossy", category: "horsepower", code: "ATP-540", names: { fa: "آرم 540", en: "540" }, description: { fa: "آرم توان 540 اسب برای درب کناری کابین، روکش مات‌براق.", en: "540 HP cab-side badge with matte-glossy finish." }, modelCompat: "FH / FM" }),
+  entry({ page: 16, spec: "FH", brand: "Volvo", dasteh: "volvo-fh500", finishKey: "matte-glossy", category: "model-badge", code: "ATP-FH", names: { fa: "آرم FH", en: "FH" }, description: { fa: "آرم مدل FH برای نمای جلوی کابین، روکش مات‌براق.", en: "FH front badge with matte-glossy finish." }, modelCompat: "FH" }),
+  entry({ page: 17, spec: "VOLVO", brand: "Volvo", dasteh: "volvo-fh500", finishKey: "matte-glossy", category: "model-badge", code: "ATP-VOLVO", names: { fa: "آرم VOLVO", en: "VOLVO" }, description: { fa: "آرم حروف VOLVO برای جلوپنجره سری FH، مات و براق.", en: "VOLVO grille lettering for FH series, available in matte and gloss." }, modelCompat: "FH" }),
+  entry({ page: 18, spec: "XF", brand: "DAF", dasteh: "daf", finishKey: "matte", category: "model-badge", code: "ATP-XF-DAF", names: { fa: "آرم XF", en: "DAF XF" }, description: { fa: "آرم مدل XF برای کامیون‌های DAF، روکش مات.", en: "DAF XF model badge with matte finish." }, modelCompat: "DAF XF" }),
+  entry({ page: 19, spec: "I-Save", brand: "Volvo", dasteh: "volvo-fh500", finishKey: "matte-glossy", category: "technology", code: "ATP-I-SAVE", names: { fa: "آرم I-Save", en: "I-Save" }, description: { fa: "آرم پکیج موتوری I-Save، روکش مات‌براق.", en: "I-Save engine package badge with matte-glossy finish." }, modelCompat: "FH / FM" }),
+  entry({ page: 20, spec: "750", brand: "Volvo", dasteh: "volvo-fh500", finishKey: "matte-glossy", category: "horsepower", code: "ATP-750", names: { fa: "آرم 750", en: "750" }, description: { fa: "آرم توان 750 اسب برای FH16، روکش مات‌براق.", en: "750 HP badge for FH16 with matte-glossy finish." }, modelCompat: "FH16" }),
+  entry({ page: 21, spec: "L", brand: "Volvo", dasteh: "volvo-fh500", finishKey: "matte", category: "installation", code: "ATP-INST-L", names: { fa: "آرم L", en: "L" }, description: { fa: "آرم دایره‌ای L (کم‌صدا) با راهنمای نصب FH/FM.", en: "Low-noise L installation badge with FH/FM fitting guide." }, modelCompat: "FH / FM" }),
+  entry({ page: 22, spec: "V", brand: "Volvo", dasteh: "volvo-fh500", finishKey: "matte", category: "installation", code: "ATP-INST-V", names: { fa: "آرم V", en: "V" }, description: { fa: "آرم دایره‌ای V با راهنمای نصب FH/FM.", en: "V installation badge with FH/FM fitting guide." }, modelCompat: "FH / FM" }),
+  entry({ page: 23, spec: "IV", brand: "Volvo", dasteh: "volvo-fh500", finishKey: "matte", category: "installation", code: "ATP-INST-IV", names: { fa: "آرم IV", en: "IV" }, description: { fa: "آرم دایره‌ای IV با راهنمای نصب FH/FM.", en: "IV installation badge with FH/FM fitting guide." }, modelCompat: "FH / FM" }),
+  entry({ page: 24, spec: "VI", brand: "Volvo", dasteh: "volvo-fh500", finishKey: "matte", category: "installation", code: "ATP-INST-VI", names: { fa: "آرم VI", en: "VI" }, description: { fa: "آرم دایره‌ای VI (Euro 6) با راهنمای نصب FH/FM.", en: "VI (Euro 6) installation badge with FH/FM fitting guide." }, modelCompat: "FH / FM" }),
+  entry({ page: 25, spec: "Steel", brand: "AF Accessories", dasteh: "hub-caps", finishKey: "steel", category: "accessory", code: "ATP-HUB-STEEL", names: { fa: "قالپاق استیل", en: "Steel hub cap" }, description: { fa: "قالپاق وسط توپی استیل براق، مناسب ولوو، رنو و C&C.", en: "Polished steel center hub cap for Volvo, Renault and C&C." }, modelCompat: "Volvo / Renault / C&C" }),
+  entry({ page: 26, spec: "Black", brand: "AF Accessories", dasteh: "hub-caps", finishKey: "glossy", category: "accessory", code: "ATP-HUB-BLACK", names: { fa: "قالپاق مشکی", en: "Black hub cap" }, description: { fa: "قالپاق وسط توپی مشکی براق، مناسب ولوو، رنو و C&C.", en: "Glossy black center hub cap for Volvo, Renault and C&C." }, modelCompat: "Volvo / Renault / C&C" }),
 ];
 
 /** Folder slug per catalog page — images live in public/catalog/products/{slug}/ */

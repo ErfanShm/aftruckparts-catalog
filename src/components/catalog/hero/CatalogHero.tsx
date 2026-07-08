@@ -4,10 +4,13 @@ import { ArrowUpRight } from "lucide-react";
 
 import type { HeroFinish } from "./hero-finishes";
 import { HeroBadgeStage } from "./HeroBadgeStage";
+import { HeroMobileLogo } from "./HeroMobileLogo";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useLocale } from "@/lib/i18n";
 import { scrollToCatalog } from "@/lib/scrollToCatalog";
 import { cn } from "@/lib/utils";
+
+import { PAGE_SECTION_INDEX } from "@/lib/page-sections";
 
 import { SectionRule } from "../layout/SectionRule";
 
@@ -35,6 +38,16 @@ function stageEntrance(reduced: boolean) {
       };
 }
 
+function splitWarrantyHighlight(text: string, highlight: string) {
+  const index = text.indexOf(highlight);
+  if (index === -1) return { before: text, highlight: "", after: "" };
+  return {
+    before: text.slice(0, index),
+    highlight,
+    after: text.slice(index + highlight.length),
+  };
+}
+
 function HeroCtas({ cta, ctaPdf, className }: { cta: string; ctaPdf: string; className?: string }) {
   return (
     <div className={cn("flex flex-col items-start gap-5", className)}>
@@ -44,7 +57,7 @@ function HeroCtas({ cta, ctaPdf, className }: { cta: string; ctaPdf: string; cla
           e.preventDefault();
           scrollToCatalog();
         }}
-        className="group inline-flex w-fit items-center gap-3 rounded-full btn-primary px-8 py-3.5 text-sm type-ui-strong"
+        className="group inline-flex w-fit items-center gap-3 rounded-full btn-primary px-10 py-4 text-base type-ui-strong md:px-12 md:py-5 md:text-lg"
       >
         <span>{cta}</span>
         <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 rtl:-scale-x-100 rtl:group-hover:-translate-x-0.5" />
@@ -69,6 +82,10 @@ export function CatalogHero() {
   const [activeFinish, setActiveFinish] = useState<HeroFinish>("steel");
 
   const finishLabels = messages.hero.showcaseFinishes;
+  const warrantyLine = splitWarrantyHighlight(
+    messages.hero.subtitleWarranty,
+    messages.hero.subtitleWarrantyHighlight,
+  );
   const interactionHint = isMobile
     ? `${messages.hero.dragHint} · ${messages.hero.zoomHint}`
     : `${messages.hero.dragHint} · ${messages.hero.scrollZoomHint}`;
@@ -106,46 +123,98 @@ export function CatalogHero() {
   }, []);
 
   return (
-    <section className="site-column relative flex min-h-[calc(100svh-var(--header-offset))] flex-col justify-center overflow-x-clip pb-20 pt-8 md:pb-24 md:pt-10">
+    <section className="site-column relative flex min-h-0 flex-col justify-center overflow-x-clip pb-16 pt-8 lg:min-h-[calc(100svh-var(--header-offset))] lg:pb-24 lg:pt-10">
       <div
         className="editorial-spine pointer-events-none absolute inset-y-[14%] start-0 hidden w-px lg:block"
         aria-hidden
       />
 
-      <div className="grid flex-1 items-center gap-10 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] lg:gap-12 xl:gap-16">
+      <div className="grid flex-1 items-center gap-6 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] lg:gap-12 xl:gap-16">
         <div className="relative z-20 flex flex-col justify-center lg:max-w-xl lg:pe-4">
           <motion.div {...fadeUp(0, reduced)} className="mb-7 md:mb-9">
-            <SectionRule index="1" />
+            <SectionRule index={PAGE_SECTION_INDEX.hero} />
           </motion.div>
 
-          <motion.h1
-            {...fadeUp(0.06, reduced)}
-            className={cn(
-              "font-display type-billboard max-w-xl",
-              locale === "fa" ? "leading-[1.18]" : "leading-[1.05]"
-            )}
-          >
-            {messages.hero.titleLine1}
-            <br />
-            {messages.hero.titleLine2}{" "}
-            <span
+          <div className="relative lg:max-w-xl">
+            <motion.div
+              {...fadeUp(0.06, reduced)}
               className={cn(
-                "gradient-text",
-                locale === "en"
-                  ? "font-mono-tech font-normal tracking-[0.1em]"
-                  : "font-display font-light"
+                "relative z-10 flex items-start gap-4 lg:hidden",
+                locale === "fa" ? "flex-row-reverse" : "flex-row",
               )}
             >
-              {messages.hero.titleAccent}
-            </span>
-          </motion.h1>
+              <HeroMobileLogo className="mt-1 shrink-0" />
+              <h1
+                className={cn(
+                  "font-display type-billboard flex-1",
+                  locale === "fa" ? "text-right leading-[1.18]" : "text-left leading-[1.05]",
+                )}
+              >
+                {messages.hero.titleLine1}
+                {(messages.hero.titleLine2 || messages.hero.titleAccent) && (
+                  <>
+                    <br />
+                    {messages.hero.titleLine2}{" "}
+                    {messages.hero.titleAccent && (
+                      <span
+                        className={cn(
+                          "gradient-text",
+                          locale === "en"
+                            ? "font-mono-tech font-normal tracking-[0.1em]"
+                            : "type-heading-display",
+                        )}
+                      >
+                        {messages.hero.titleAccent}
+                      </span>
+                    )}
+                  </>
+                )}
+              </h1>
+            </motion.div>
+
+            <motion.h1
+              {...fadeUp(0.06, reduced)}
+              className={cn(
+                "relative z-10 hidden font-display type-billboard max-w-xl lg:block",
+                locale === "fa" ? "leading-[1.18]" : "leading-[1.05]",
+              )}
+            >
+              {messages.hero.titleLine1}
+              {(messages.hero.titleLine2 || messages.hero.titleAccent) && (
+                <>
+                  <br />
+                  {messages.hero.titleLine2}{" "}
+                  {messages.hero.titleAccent && (
+                    <span
+                      className={cn(
+                        "gradient-text",
+                          locale === "en"
+                            ? "font-mono-tech font-normal tracking-[0.1em]"
+                            : "type-heading-display",
+                      )}
+                    >
+                      {messages.hero.titleAccent}
+                    </span>
+                  )}
+                </>
+              )}
+            </motion.h1>
 
           <motion.p
             {...fadeUp(0.12, reduced)}
-            className="type-ui mt-6 max-w-sm text-[0.9375rem] leading-[1.65] text-muted-foreground md:mt-7 md:text-base"
+            className="type-ui relative z-10 mt-6 max-w-sm text-[0.9375rem] leading-[1.65] text-muted-foreground md:mt-7 md:text-base"
           >
-            {messages.hero.subtitle}
+            {messages.hero.subtitleLead}
+            <br />
+            <span className="text-foreground/68">
+              {warrantyLine.before}
+              {warrantyLine.highlight && (
+                <span className="text-foreground/88">{warrantyLine.highlight}</span>
+              )}
+              {warrantyLine.after}
+            </span>
           </motion.p>
+          </div>
 
           <motion.div {...fadeUp(0.18, reduced)} className="mt-8 hidden lg:block md:mt-10">
             <HeroCtas cta={messages.hero.cta} ctaPdf={messages.hero.ctaPdf} />
@@ -154,7 +223,7 @@ export function CatalogHero() {
 
         <motion.div
           {...stageEntrance(reduced)}
-          className="relative flex min-h-[min(76vw,24rem)] flex-col justify-center sm:min-h-[min(70vw,28rem)] lg:min-h-[min(calc(100svh-var(--header-offset)-6rem),38rem)] lg:h-[min(calc(100svh-var(--header-offset)-6rem),38rem)]"
+          className="relative hidden min-h-0 flex-col justify-center lg:flex lg:min-h-[min(calc(100svh-var(--header-offset)-6rem),38rem)] lg:h-[min(calc(100svh-var(--header-offset)-6rem),38rem)]"
         >
           <HeroBadgeStage {...stageProps} />
         </motion.div>

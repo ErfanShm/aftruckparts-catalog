@@ -41,12 +41,8 @@ export function SiteHeader() {
   return (
     <header className={cn("header-fixed", scrolled ? "header-shell-scrolled" : "header-shell")}>
       <div className="site-column flex h-[var(--header-bar)] items-center justify-between gap-4">
-        <a href="/" className="group flex items-center gap-3 transition-opacity hover:opacity-90">
-          <span className="hidden h-3.5 w-px bg-brand/50 sm:block" aria-hidden />
-          <BrandMark size={34} />
-          <span className="font-mono-tech ltr-embed text-sm tracking-[0.1em] text-foreground/85">
-            {BRAND_NAME}
-          </span>
+        <a href="/" className="group transition-opacity hover:opacity-90">
+          <BrandMark height={46} />
         </a>
 
         <nav className="hidden items-center gap-9 md:flex">
@@ -62,7 +58,7 @@ export function SiteHeader() {
                   scrollToSection(sectionId);
                 }}
                 className={cn(
-                  "nav-link type-ui-strong text-[0.8125rem] tracking-[0.06em]",
+                  "nav-link type-label-strong text-[0.8125rem] tracking-[0.06em]",
                   isActive && "nav-link-active",
                 )}
               >
@@ -89,7 +85,7 @@ export function SiteHeader() {
               className="w-[min(100vw,20rem)] border-border-hair/40 glass-panel-strong [&>button]:end-4 [&>button]:start-auto"
             >
               <SheetHeader className="text-start">
-                <SheetTitle className="font-mono-tech ltr-embed tracking-[0.1em]">{BRAND_NAME}</SheetTitle>
+                <SheetTitle className="type-code ltr-embed tracking-[0.1em]">{BRAND_NAME}</SheetTitle>
               </SheetHeader>
               <nav className="mt-10 flex flex-col gap-0.5">
                 {messages.nav.links.map((l, i) => {

@@ -94,10 +94,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "icon", href: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
       { rel: "apple-touch-icon", href: "/apple-touch-icon.png", sizes: "180x180" },
       { rel: "manifest", href: "/site.webmanifest" },
-      { rel: "preconnect", href: "https://cdn.jsdelivr.net" },
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: "https://cdn.jsdelivr.net/npm/@fontsource-variable/geist@5.2.8/index.min.css",
+        href: "https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Vazirmatn:wght@100..900&display=swap",
       },
       {
         rel: "stylesheet",

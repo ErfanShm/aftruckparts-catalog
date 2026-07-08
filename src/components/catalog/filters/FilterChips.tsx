@@ -1,3 +1,4 @@
+import { useLocale } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 
 type FilterChipsProps = {
@@ -15,6 +16,7 @@ export function FilterChips({
   orientation = "horizontal",
   showIndex = false,
 }: FilterChipsProps) {
+  const { formatIndex } = useLocale();
   const vertical = orientation === "vertical";
 
   return (
@@ -42,14 +44,18 @@ export function FilterChips({
                 {isActive ? (
                   <span className="h-[3px] w-[3px] rotate-45 bg-brand-highlight" aria-hidden />
                 ) : (
-                  String(index + 1).padStart(2, "0")
+                  formatIndex(index + 1)
                 )}
               </span>
             )}
             <span
               className={cn(
                 "min-w-0 text-start",
-                item.mono ? "font-mono-tech ltr-embed whitespace-nowrap text-[11px]" : "leading-snug",
+                item.mono
+                  ? "type-code ltr-embed whitespace-nowrap"
+                  : vertical
+                    ? "type-label-strong leading-snug"
+                    : "type-label leading-snug",
               )}
             >
               {item.label}

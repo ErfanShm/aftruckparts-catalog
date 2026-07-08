@@ -1,17 +1,24 @@
+import { sectionIndexDigits } from "@/lib/page-sections";
+import { useLocale } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 
 type SectionRuleProps = {
   className?: string;
-  /** Section index — e.g. "1", "2" */
-  index?: string;
+  /** Section index — 1, 2, 3… */
+  index?: number;
 };
 
 export function SectionRule({ className, index }: SectionRuleProps) {
+  const { locale } = useLocale();
+  const digits = index != null ? sectionIndexDigits(index, locale) : null;
+
   return (
     <div className={cn("flex items-center gap-3", className)} aria-hidden>
-      {index && (
-        <span className="font-mono-tech ltr-embed shrink-0 text-[9px] tracking-[0.42em] text-brand/32">
-          {index}
+      {digits && (
+        <span className="type-code ltr-embed flex shrink-0 gap-px tabular-nums text-brand/32">
+          {digits.map((digit, i) => (
+            <span key={`${digit}-${i}`}>{digit}</span>
+          ))}
         </span>
       )}
       <span className="section-rule-node" />

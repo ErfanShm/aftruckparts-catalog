@@ -1,20 +1,17 @@
 import type { ReactNode } from "react";
 import { Search, X } from "lucide-react";
 
-import type { FinishKey, ProductCategory } from "@/data/products";
+import type { FinishKey, ProductDasteh } from "@/data/products";
 import { useStickyActive } from "@/hooks/use-sticky-active";
 import { useLocale } from "@/lib/i18n";
-import type { Product } from "@/locales";
 
 import { FilterChips } from "./FilterChips";
+import { FilterResultCount } from "./FilterResultCount";
 import { FinishFilterPills } from "./FinishFilterPills";
 
 type FilterDockProps = {
-  products: Product[];
-  activeBrand: string | null;
-  setActiveBrand: (v: string | null) => void;
-  activeCategory: ProductCategory | null;
-  setActiveCategory: (v: ProductCategory | null) => void;
+  activeDasteh: ProductDasteh | null;
+  setActiveDasteh: (v: ProductDasteh | null) => void;
   activeFinish: FinishKey | null;
   setActiveFinish: (v: FinishKey | null) => void;
   query: string;
@@ -26,18 +23,15 @@ type FilterDockProps = {
 function FilterGroup({ label, children }: { label: string; children: ReactNode }) {
   return (
     <div>
-      <p className="filter-index-label mb-2.5">{label}</p>
+      <p className="filter-index-label mb-2.5 type-label-strong">{label}</p>
       {children}
     </div>
   );
 }
 
 export function FilterDock({
-  products,
-  activeBrand,
-  setActiveBrand,
-  activeCategory,
-  setActiveCategory,
+  activeDasteh,
+  setActiveDasteh,
   activeFinish,
   setActiveFinish,
   query,
@@ -48,12 +42,10 @@ export function FilterDock({
   const { messages } = useLocale();
   const { sentinelRef } = useStickyActive({ extraTop: 16 });
 
-  const catalogBrands = [...new Set(products.map((p) => p.brand))].sort();
-  const hasActiveConstraints = Boolean(activeBrand || activeCategory || activeFinish || query);
+  const hasActiveConstraints = Boolean(activeDasteh || activeFinish || query);
 
   const clearAll = () => {
-    setActiveBrand(null);
-    setActiveCategory(null);
+    setActiveDasteh(null);
     setActiveFinish(null);
     setQuery("");
   };
@@ -87,15 +79,25 @@ export function FilterDock({
         </div>
 
         <div className="mt-2 flex items-baseline justify-between gap-3">
-          <span className="filter-index-label">{messages.catalog.heading}</span>
-          <span className="filter-index-count ltr-embed">
-            {messages.catalog.results(resultCount, productCount)}
-          </span>
+          <span className="filter-index-label type-label-strong">{messages.catalog.heading}</span>
+          <FilterResultCount count={resultCount} total={productCount} />
         </div>
 
         <div className="filter-index-rule" aria-hidden />
 
         <div className="space-y-7">
+          <FilterGroup label={messages.catalog.dastehLabel}>
+            <FilterChips
+              orientation="vertical"
+              showIndex
+              items={messages.dastehLines.map((d) => ({ key: d.key, label: d.label }))}
+              active={activeDasteh}
+              onSelect={(key) =>
+                setActiveDasteh(activeDasteh === key ? null : (key as ProductDasteh))
+              }
+            />
+          </FilterGroup>
+
           <FilterGroup label={messages.catalog.finishLabel}>
             <FinishFilterPills
               items={messages.finishes.map((f) => ({ key: f.key, label: f.label }))}
@@ -103,30 +105,6 @@ export function FilterDock({
               onSelect={(key) => setActiveFinish(activeFinish === key ? null : (key as FinishKey))}
             />
           </FilterGroup>
-
-          <div className="space-y-7">
-            <FilterGroup label={messages.catalog.brandLabel}>
-              <FilterChips
-                orientation="vertical"
-                showIndex
-                items={catalogBrands.map((b) => ({ key: b, label: b, mono: true }))}
-                active={activeBrand}
-                onSelect={(key) => setActiveBrand(activeBrand === key ? null : key)}
-              />
-            </FilterGroup>
-
-            <FilterGroup label={messages.catalog.categoryLabel}>
-              <FilterChips
-                orientation="vertical"
-                showIndex
-                items={messages.categories.map((c) => ({ key: c.key, label: c.label }))}
-                active={activeCategory}
-                onSelect={(key) =>
-                  setActiveCategory(activeCategory === key ? null : (key as ProductCategory))
-                }
-              />
-            </FilterGroup>
-          </div>
 
           {hasActiveConstraints && (
             <button type="button" onClick={clearAll} className="filter-index-clear">

@@ -1,15 +1,15 @@
 import { BRAND_NAME } from "@/locales";
 
-const BRAND_LOGO = "/apple-touch-icon.png";
+const BRAND_LOGO = "/brand/hero/af-header-mark.png";
 
-export function BrandMark({ size = 32 }: { size?: number }) {
+export function BrandMark({ height = 40 }: { height?: number }) {
   return (
     <img
       src={BRAND_LOGO}
       alt={BRAND_NAME}
-      width={size}
-      height={size}
-      className="shrink-0 rounded-md"
+      height={height}
+      className="brand-logo-lockup w-auto shrink-0 object-contain"
+      style={{ height }}
     />
   );
 }

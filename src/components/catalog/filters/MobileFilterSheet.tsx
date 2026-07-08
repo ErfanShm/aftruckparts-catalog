@@ -1,19 +1,16 @@
-import type { FinishKey, ProductCategory } from "@/data/products";
+import type { FinishKey, ProductDasteh } from "@/data/products";
 import { useLocale } from "@/lib/i18n";
-import type { Product } from "@/locales";
 import { Sheet, SheetContent, SheetFooter, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 
 import { FilterChips } from "./FilterChips";
+import { FilterResultCount } from "./FilterResultCount";
 import { FinishFilterPills } from "./FinishFilterPills";
 
 type MobileFilterSheetProps = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  products: Product[];
-  activeBrand: string | null;
-  setActiveBrand: (v: string | null) => void;
-  activeCategory: ProductCategory | null;
-  setActiveCategory: (v: ProductCategory | null) => void;
+  activeDasteh: ProductDasteh | null;
+  setActiveDasteh: (v: ProductDasteh | null) => void;
   activeFinish: FinishKey | null;
   setActiveFinish: (v: FinishKey | null) => void;
   query: string;
@@ -25,11 +22,8 @@ type MobileFilterSheetProps = {
 export function MobileFilterSheet({
   open,
   onOpenChange,
-  products,
-  activeBrand,
-  setActiveBrand,
-  activeCategory,
-  setActiveCategory,
+  activeDasteh,
+  setActiveDasteh,
   activeFinish,
   setActiveFinish,
   query,
@@ -39,16 +33,13 @@ export function MobileFilterSheet({
 }: MobileFilterSheetProps) {
   const { messages } = useLocale();
 
-  const catalogBrands = [...new Set(products.map((p) => p.brand))].sort();
-
   const clearAll = () => {
-    setActiveBrand(null);
-    setActiveCategory(null);
+    setActiveDasteh(null);
     setActiveFinish(null);
     setQuery("");
   };
 
-  const hasActiveConstraints = Boolean(activeBrand || activeCategory || activeFinish || query);
+  const hasActiveConstraints = Boolean(activeDasteh || activeFinish || query);
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
@@ -57,43 +48,31 @@ export function MobileFilterSheet({
         className="glass-panel max-h-[85vh] rounded-t-2xl border-border-hair safe-bottom [&>button]:end-4 [&>button]:start-auto"
       >
         <SheetHeader className="text-start">
-          <SheetTitle className="font-display">{messages.catalog.heading}</SheetTitle>
-          <p className="filter-index-count ltr-embed mt-1">
-            {messages.catalog.results(resultCount, productCount)}
-          </p>
+          <SheetTitle className="type-heading-display text-lg">{messages.catalog.heading}</SheetTitle>
+          <FilterResultCount count={resultCount} total={productCount} className="mt-1" />
         </SheetHeader>
 
         <div className="filter-index-rule" aria-hidden />
 
-        <div className="mt-6 space-y-7 overflow-y-auto pb-4">
+        <div className="mt-6 space-y-7 overflow-y-auto pb-4 scrollbar-minimal">
           <div>
-            <p className="filter-index-label mb-2.5">{messages.catalog.finishLabel}</p>
+            <p className="filter-index-label mb-2.5 type-label-strong">{messages.catalog.dastehLabel}</p>
+            <FilterChips
+              orientation="vertical"
+              showIndex
+              items={messages.dastehLines.map((d) => ({ key: d.key, label: d.label }))}
+              active={activeDasteh}
+              onSelect={(key) =>
+                setActiveDasteh(activeDasteh === key ? null : (key as ProductDasteh))
+              }
+            />
+          </div>
+          <div>
+            <p className="filter-index-label mb-2.5 type-label-strong">{messages.catalog.finishLabel}</p>
             <FinishFilterPills
               items={messages.finishes.map((f) => ({ key: f.key, label: f.label }))}
               active={activeFinish}
               onSelect={(key) => setActiveFinish(activeFinish === key ? null : (key as FinishKey))}
-            />
-          </div>
-          <div>
-            <p className="filter-index-label mb-2.5">{messages.catalog.brandLabel}</p>
-            <FilterChips
-              orientation="vertical"
-              showIndex
-              items={catalogBrands.map((b) => ({ key: b, label: b, mono: true }))}
-              active={activeBrand}
-              onSelect={(key) => setActiveBrand(activeBrand === key ? null : key)}
-            />
-          </div>
-          <div>
-            <p className="filter-index-label mb-2.5">{messages.catalog.categoryLabel}</p>
-            <FilterChips
-              orientation="vertical"
-              showIndex
-              items={messages.categories.map((c) => ({ key: c.key, label: c.label }))}
-              active={activeCategory}
-              onSelect={(key) =>
-                setActiveCategory(activeCategory === key ? null : (key as ProductCategory))
-              }
             />
           </div>
         </div>

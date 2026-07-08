@@ -1,10 +1,11 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { Instagram, Mail, Send } from "lucide-react";
 
+import { PAGE_SECTION_INDEX } from "@/lib/page-sections";
 import { useLocale } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 
-import { BrandMark, BRAND_NAME } from "./BrandMark";
+import { BrandMark } from "./BrandMark";
 import { PageSection } from "./PageSection";
 import { SectionRule } from "./SectionRule";
 
@@ -36,7 +37,7 @@ function fadeUp(delay: number, reduced: boolean) {
 }
 
 export function SiteFooter() {
-  const { messages, locale } = useLocale();
+  const { messages, locale, formatIndex } = useLocale();
   const reduced = useReducedMotion() ?? false;
   const { footer } = messages;
 
@@ -49,7 +50,7 @@ export function SiteFooter() {
         className="relative !pt-[var(--section-py)] !pb-10 md:!pb-20 lg:!pt-[calc(var(--section-py)+1rem)]"
       >
         <motion.div {...fadeUp(0, reduced)} className="relative">
-          <SectionRule index="5" className="mb-12 md:mb-14" />
+          <SectionRule index={PAGE_SECTION_INDEX.contact} className="mb-12 md:mb-14" />
 
           <div className="grid gap-14 lg:grid-cols-[minmax(0,1.08fr)_minmax(0,0.92fr)] lg:gap-16 xl:gap-20">
             <div className="relative z-10 flex flex-col justify-between gap-10 md:gap-12">
@@ -57,7 +58,7 @@ export function SiteFooter() {
                 <p className="section-tag">{footer.socialLabel}</p>
 
                 <h2 className={cn(
-                  "font-display type-billboard mt-4 max-w-2xl tracking-tight",
+                  "type-heading-display type-billboard mt-4 max-w-2xl tracking-tight",
                   locale === "fa" ? "leading-[1.18]" : "leading-[1.05]"
                 )}>
                   {footer.headlineLine1}
@@ -71,12 +72,9 @@ export function SiteFooter() {
               </div>
 
               <div className="flex items-center gap-5 border-t border-brand/10 pt-10">
-                <BrandMark size={44} />
+                <BrandMark height={52} />
                 <div>
-                  <span className="font-mono-tech ltr-embed block text-lg tracking-[0.1em] text-foreground md:text-xl">
-                    {BRAND_NAME}
-                  </span>
-                  <span className="mt-1.5 block text-xs leading-relaxed text-muted-foreground">
+                  <span className="type-meta-soft block text-muted-foreground">
                     {footer.tagline.split("·")[0]?.trim() ?? footer.socialLabel}
                   </span>
                 </div>
@@ -102,19 +100,19 @@ export function SiteFooter() {
                       )}
                     >
                       <span
-                        className="font-mono-tech ltr-embed text-[9px] tracking-[0.42em] text-brand-highlight/55"
+                        className="type-code ltr-embed text-brand-highlight/55"
                         aria-hidden
                       >
-                        {String(i + 1).padStart(2, "0")}
+                        {formatIndex(i + 1)}
                       </span>
 
                       <div className="my-3">
-                        <span className="font-mono-tech ltr-embed block text-xl tracking-[0.08em] text-foreground transition-colors group-hover:text-brand-highlight md:text-2xl">
+                        <span className="type-code ltr-embed block text-xl tracking-[0.08em] text-foreground transition-colors group-hover:text-brand-highlight md:text-2xl">
                           {link.short}
                         </span>
                         <span className={cn(
-                          "mt-2 block text-[10px] text-foreground-muted uppercase",
-                          locale === "en" ? "tracking-[0.18em]" : "tracking-normal"
+                          "type-meta mt-2 block text-foreground-muted",
+                          locale === "en" ? "uppercase tracking-[0.18em]" : "tracking-normal"
                         )}>
                           {link.label}
                         </span>
@@ -130,7 +128,7 @@ export function SiteFooter() {
 
           <motion.p
             {...fadeUp(0.16, reduced)}
-            className="mt-12 text-center font-mono text-[10px] tracking-[0.24em] text-foreground-muted md:mt-16 md:text-[11px]"
+            className="type-meta mt-12 text-center text-foreground-muted md:mt-16"
           >
             {footer.copyright}
           </motion.p>

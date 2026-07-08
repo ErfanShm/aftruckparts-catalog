@@ -1,17 +1,20 @@
 import {
   CATALOG_PAGES,
+  resolveFinishOffers,
   type FinishKey,
   type ProductCategory,
+  type ProductDasteh,
 } from "./catalog-products";
 import type { ImageManifestEntry } from "./catalog-image-types";
 import { productImageManifestForPage } from "./catalog-images";
 
-export type { FinishKey, ProductCategory } from "./catalog-products";
+export type { FinishKey, ProductCategory, ProductDasteh } from "./catalog-products";
 
 export type ProductBase = {
   id: string;
   code: string;
   brand: string;
+  dasteh: ProductDasteh;
   finishKey: FinishKey;
   spec: string;
   image: string;
@@ -27,7 +30,7 @@ export type ProductBase = {
   description: { fa: string; en: string };
   euroNorm?: string;
   modelCompat?: string;
-  variantGroup?: string;
+  finishOffers: readonly FinishKey[];
 };
 
 export const PRODUCT_CATALOG: ProductBase[] = CATALOG_PAGES.map((p) => {
@@ -36,6 +39,7 @@ export const PRODUCT_CATALOG: ProductBase[] = CATALOG_PAGES.map((p) => {
     id: `cat-${p.page}`,
     code: p.code,
     brand: p.brand,
+    dasteh: p.dasteh,
     finishKey: p.finishKey,
     spec: p.spec,
     image: imageManifest.hero.src,
@@ -48,8 +52,8 @@ export const PRODUCT_CATALOG: ProductBase[] = CATALOG_PAGES.map((p) => {
     description: p.description,
     euroNorm: p.euroNorm,
     modelCompat: p.modelCompat,
-    variantGroup: p.variantGroup,
+    finishOffers: resolveFinishOffers(p.finishKey, p.finishOffers),
   };
 });
 
-export const BRANDS = [...new Set(PRODUCT_CATALOG.map((p) => p.brand))].sort();
+export { DASTEH_KEYS, resolveFinishOffers } from "./catalog-products";

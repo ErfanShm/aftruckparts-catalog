@@ -22,7 +22,7 @@ export function SectionIntro({
         {!hideTagMarker && <span className="h-1 w-1 shrink-0 rotate-45 bg-brand/35" aria-hidden />}
         <p className="section-tag">{tag}</p>
       </div>
-      <h2 className="font-display mt-4 text-[1.75rem] tracking-tight md:text-[2rem] lg:text-[2.125rem]">
+      <h2 className="type-heading-display mt-4 text-[1.75rem] tracking-tight md:text-[2rem] lg:text-[2.125rem]">
         {title}
       </h2>
       {subtitle && (

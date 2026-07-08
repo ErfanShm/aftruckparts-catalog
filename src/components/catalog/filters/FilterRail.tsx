@@ -1,20 +1,16 @@
 import { useState } from "react";
 import { Search, SlidersHorizontal, X } from "lucide-react";
 
-import type { FinishKey, ProductCategory } from "@/data/products";
+import type { FinishKey, ProductDasteh } from "@/data/products";
 import { useStickyActive } from "@/hooks/use-sticky-active";
 import { useLocale } from "@/lib/i18n";
-import type { Product } from "@/locales";
 import { cn } from "@/lib/utils";
 
 import { MobileFilterSheet } from "./MobileFilterSheet";
 
 type FilterRailProps = {
-  products: Product[];
-  activeBrand: string | null;
-  setActiveBrand: (v: string | null) => void;
-  activeCategory: ProductCategory | null;
-  setActiveCategory: (v: ProductCategory | null) => void;
+  activeDasteh: ProductDasteh | null;
+  setActiveDasteh: (v: ProductDasteh | null) => void;
   activeFinish: FinishKey | null;
   setActiveFinish: (v: FinishKey | null) => void;
   query: string;
@@ -24,11 +20,8 @@ type FilterRailProps = {
 };
 
 export function FilterRail({
-  products,
-  activeBrand,
-  setActiveBrand,
-  activeCategory,
-  setActiveCategory,
+  activeDasteh,
+  setActiveDasteh,
   activeFinish,
   setActiveFinish,
   query,
@@ -36,11 +29,11 @@ export function FilterRail({
   resultCount,
   productCount,
 }: FilterRailProps) {
-  const { messages } = useLocale();
+  const { messages, formatDigits } = useLocale();
   const [sheetOpen, setSheetOpen] = useState(false);
   const { sentinelRef, active: stuck } = useStickyActive();
 
-  const activeCount = (activeBrand ? 1 : 0) + (activeCategory ? 1 : 0) + (activeFinish ? 1 : 0);
+  const activeCount = (activeDasteh ? 1 : 0) + (activeFinish ? 1 : 0);
 
   return (
     <>
@@ -80,22 +73,19 @@ export function FilterRail({
             <span>{messages.catalog.openFilters}</span>
             {activeCount > 0 && (
               <span className="absolute -top-1 end-0 flex h-4 w-4 items-center justify-center rounded-full bg-accent/20 text-[9px] text-accent">
-                {activeCount}
+                {formatDigits(activeCount)}
               </span>
             )}
           </button>
         </div>
 
         <div className="mt-2 flex min-h-10 flex-wrap items-center gap-2">
-          {activeBrand && (
-            <ActivePill label={activeBrand} onRemove={() => setActiveBrand(null)} mono />
-          )}
-          {activeCategory && (
+          {activeDasteh && (
             <ActivePill
               label={
-                messages.categories.find((c) => c.key === activeCategory)?.label ?? activeCategory
+                messages.dastehLines.find((d) => d.key === activeDasteh)?.label ?? activeDasteh
               }
-              onRemove={() => setActiveCategory(null)}
+              onRemove={() => setActiveDasteh(null)}
             />
           )}
           {activeFinish && (
@@ -110,11 +100,8 @@ export function FilterRail({
       <MobileFilterSheet
         open={sheetOpen}
         onOpenChange={setSheetOpen}
-        products={products}
-        activeBrand={activeBrand}
-        setActiveBrand={setActiveBrand}
-        activeCategory={activeCategory}
-        setActiveCategory={setActiveCategory}
+        activeDasteh={activeDasteh}
+        setActiveDasteh={setActiveDasteh}
         activeFinish={activeFinish}
         setActiveFinish={setActiveFinish}
         query={query}
@@ -129,19 +116,17 @@ export function FilterRail({
 function ActivePill({
   label,
   onRemove,
-  mono,
 }: {
   label: string;
   onRemove: () => void;
-  mono?: boolean;
 }) {
   return (
     <button
       type="button"
       onClick={onRemove}
-      className="inline-flex min-h-8 items-center gap-1.5 rounded-full border border-terminal/25 bg-terminal/8 px-2.5 py-1 text-xs text-terminal touch-manipulation transition-colors hover:border-terminal/40"
+      className="inline-flex min-h-8 items-center gap-1.5 rounded-full border border-terminal/25 bg-terminal/8 px-2.5 py-1 type-label text-terminal touch-manipulation transition-colors hover:border-terminal/40"
     >
-      <span className={mono ? "font-mono-tech ltr-embed" : undefined}>{label}</span>
+      <span className="type-label">{label}</span>
       <X className="h-3 w-3 opacity-60" />
     </button>
   );
