@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 
-import { getFinishAtmosphere, type HeroFinish } from "./hero-finishes";
+import { HERO_VAULT_ATMOSPHERE } from "./hero-finishes";
 
 const HERO_VAULT_VOID = "#07070a";
 
@@ -8,7 +8,6 @@ type HeroStageShellProps = {
   fillHeight?: boolean;
   className?: string;
   overlay?: boolean;
-  finish?: HeroFinish;
 };
 
 /** Empty vault surface — matches the WebGL scene while the model loads. */
@@ -16,9 +15,8 @@ export function HeroStageShell({
   fillHeight = false,
   className,
   overlay = false,
-  finish = "steel",
 }: HeroStageShellProps) {
-  const atmosphere = getFinishAtmosphere(finish);
+  const atmosphere = HERO_VAULT_ATMOSPHERE;
 
   return (
     <div

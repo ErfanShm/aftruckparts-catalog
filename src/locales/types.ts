@@ -30,11 +30,6 @@ export type LocaleMessages = {
     dragHint: string;
     zoomHint: string;
     scrollZoomHint: string;
-    showcaseFinishes: {
-      matte: string;
-      steel: string;
-      glossy: string;
-    };
     stats: {
       skus: { label: string; value: string };
       brands: { label: string; value: string };

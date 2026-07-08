@@ -31,11 +31,6 @@ export const fa: LocaleMessages = {
     dragHint: "بکشید و بررسی کنید",
     zoomHint: "نیشگون برای بزرگ‌نمایی",
     scrollZoomHint: "اسکرول برای بزرگ‌نمایی",
-    showcaseFinishes: {
-      matte: "مات",
-      steel: "استیل کروم",
-      glossy: "پیانو بلک",
-    },
     stats: {
       skus: { label: "کد کالا", value: "۲۶+" },
       brands: { label: "برند", value: "۳" },

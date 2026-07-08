@@ -31,11 +31,6 @@ export const en: LocaleMessages = {
     dragHint: "Drag to inspect",
     zoomHint: "Pinch to zoom",
     scrollZoomHint: "Scroll to zoom",
-    showcaseFinishes: {
-      matte: "Matte",
-      steel: "Chrome Steel",
-      glossy: "Piano Black",
-    },
     stats: {
       skus: { label: "SKUs", value: "26+" },
       brands: { label: "Brands", value: "3" },

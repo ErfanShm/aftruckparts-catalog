@@ -1,26 +1,18 @@
-import { useGLTF } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
-import { Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { Suspense, useCallback, useEffect, useRef, useState } from "react";
 
 import { useIsMobile } from "@/hooks/use-mobile";
-import { useLocale } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 
-import { getFinishAtmosphere } from "./hero-finishes";
-import { HeroFinishSwitcher } from "./HeroFinishSwitcher";
+import { HERO_VAULT_ATMOSPHERE } from "./hero-finishes";
 import { HeroScanReveal } from "./HeroScanReveal";
 import { HeroStageShell } from "./HeroStageShell";
 import { HeroVaultScene } from "./HeroVaultScene";
-import type { HeroFinish } from "./hero-finishes";
 
 type Pointer = { x: number; y: number };
 
 type HeroBadgeStageProps = {
-  finish: HeroFinish;
-  finishLabels: Record<HeroFinish, string>;
-  dragHint: string;
   reduced: boolean;
-  onFinishChange: (finish: HeroFinish) => void;
   fillHeight?: boolean;
   className?: string;
 };
@@ -36,15 +28,10 @@ function hasWebGL() {
 }
 
 export function HeroBadgeStage({
-  finish,
-  finishLabels,
-  dragHint,
   reduced,
-  onFinishChange,
   fillHeight = false,
   className,
 }: HeroBadgeStageProps) {
-  const { locale } = useLocale();
   const isMobile = useIsMobile();
   const frameRef = useRef<HTMLDivElement>(null);
   const [mounted, setMounted] = useState(false);
@@ -55,7 +42,6 @@ export function HeroBadgeStage({
   useEffect(() => {
     setMounted(true);
     setWebgl(hasWebGL());
-    useGLTF.preload("/models/badge.glb");
   }, []);
 
   const onPointerMove = useCallback((event: React.PointerEvent<HTMLDivElement>) => {
@@ -70,9 +56,9 @@ export function HeroBadgeStage({
   }, []);
 
   const canRender3d = mounted && !reduced && webgl;
-  const atmosphere = useMemo(() => getFinishAtmosphere(finish), [finish]);
+  const atmosphere = HERO_VAULT_ATMOSPHERE;
 
-  /** Block page scroll while dragging/zooming the 3D viewport (needs non-passive listeners). */
+  /** Block page scroll while dragging/zooming the 3D viewport. */
   useEffect(() => {
     const frame = frameRef.current;
     if (!frame || !canRender3d || !sceneReady) return;
@@ -108,7 +94,6 @@ export function HeroBadgeStage({
       <div ref={frameRef} className={frameClass} onPointerMove={onPointerMove}>
         <HeroStageShell
           fillHeight
-          finish={finish}
           overlay
           className={cn(
             "!rounded-none z-0 transition-opacity duration-500",
@@ -132,27 +117,12 @@ export function HeroBadgeStage({
             }}
           >
             <Suspense fallback={null}>
-              <HeroVaultScene finish={finish} pointer={pointer} onReady={onSceneReady} />
+              <HeroVaultScene pointer={pointer} onReady={onSceneReady} />
             </Suspense>
           </Canvas>
         )}
 
         <HeroScanReveal active={canRender3d && sceneReady} reduced={reduced} />
-
-        {canRender3d && sceneReady && (
-          <div className="pointer-events-none absolute inset-x-0 top-3 z-20 flex justify-center px-3 md:top-4">
-            <div className={cn(
-              "type-meta rounded-full border border-border-hair/25 bg-void/60 px-3 py-1 text-foreground-muted/80 backdrop-blur-sm",
-              locale === "en" ? "tracking-[0.16em]" : "tracking-normal"
-            )}>
-              <span>{dragHint}</span>
-            </div>
-          </div>
-        )}
-      </div>
-
-      <div className="pointer-events-auto mt-3 flex justify-center md:mt-4">
-        <HeroFinishSwitcher active={finish} labels={finishLabels} onChange={onFinishChange} />
       </div>
     </div>
   );

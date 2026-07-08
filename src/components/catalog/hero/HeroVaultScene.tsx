@@ -4,12 +4,11 @@ import { TOUCH } from "three";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 import { HeroAssembly } from "./HeroAssembly";
-import { getFinishAtmosphere, type HeroFinish } from "./hero-finishes";
+import { HERO_VAULT_ATMOSPHERE } from "./hero-finishes";
 
 type Pointer = { x: number; y: number };
 
 type HeroVaultSceneProps = {
-  finish: HeroFinish;
   pointer: Pointer;
   onReady?: () => void;
 };
@@ -41,9 +40,9 @@ function HeroEnvironment({ mobile }: { mobile: boolean }) {
   return <Environment preset="studio" />;
 }
 
-export function HeroVaultScene({ finish, pointer, onReady }: HeroVaultSceneProps) {
+export function HeroVaultScene({ pointer, onReady }: HeroVaultSceneProps) {
   const isMobile = useIsMobile();
-  const atmosphere = getFinishAtmosphere(finish);
+  const atmosphere = HERO_VAULT_ATMOSPHERE;
   const ambientIntensity = isMobile ? atmosphere.ambient.intensity * 1.35 : atmosphere.ambient.intensity;
 
   const keyX = pointer.x * 1.6 + 2.5;
@@ -70,7 +69,6 @@ export function HeroVaultScene({ finish, pointer, onReady }: HeroVaultSceneProps
         penumbra={0.9}
         intensity={atmosphere.key.intensity * 0.7}
         color={atmosphere.key.color}
-        castShadow={!isMobile}
       />
 
       <spotLight
@@ -97,16 +95,7 @@ export function HeroVaultScene({ finish, pointer, onReady }: HeroVaultSceneProps
         color={atmosphere.rim.color}
       />
 
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.95, 0]} receiveShadow>
-        <circleGeometry args={[3.2, isMobile ? 32 : 48]} />
-        <meshStandardMaterial
-          color={atmosphere.floor.color}
-          roughness={atmosphere.floor.roughness}
-          metalness={atmosphere.floor.metalness}
-        />
-      </mesh>
-
-      <HeroAssembly finish={finish} onReady={onReady} />
+      <HeroAssembly onReady={onReady} />
 
       <OrbitControls
         enablePan={false}

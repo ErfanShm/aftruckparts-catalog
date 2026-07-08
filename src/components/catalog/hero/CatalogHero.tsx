@@ -2,10 +2,8 @@ import { useEffect, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 
-import type { HeroFinish } from "./hero-finishes";
 import { HeroBadgeStage } from "./HeroBadgeStage";
 import { HeroMobileLogo } from "./HeroMobileLogo";
-import { useIsMobile } from "@/hooks/use-mobile";
 import { useLocale } from "@/lib/i18n";
 import { scrollToCatalog } from "@/lib/scrollToCatalog";
 import { cn } from "@/lib/utils";
@@ -77,25 +75,14 @@ function HeroCtas({ cta, ctaPdf, className }: { cta: string; ctaPdf: string; cla
 export function CatalogHero() {
   const { messages, locale } = useLocale();
   const reduced = useReducedMotion() ?? false;
-  const isMobile = useIsMobile();
   const [showScrollCue, setShowScrollCue] = useState(true);
-  const [activeFinish, setActiveFinish] = useState<HeroFinish>("steel");
-
-  const finishLabels = messages.hero.showcaseFinishes;
   const warrantyLine = splitWarrantyHighlight(
     messages.hero.subtitleWarranty,
     messages.hero.subtitleWarrantyHighlight,
   );
-  const interactionHint = isMobile
-    ? `${messages.hero.dragHint} · ${messages.hero.zoomHint}`
-    : `${messages.hero.dragHint} · ${messages.hero.scrollZoomHint}`;
 
   const stageProps = {
-    finish: activeFinish,
-    finishLabels,
-    dragHint: interactionHint,
     reduced,
-    onFinishChange: setActiveFinish,
     fillHeight: true,
   };
 
