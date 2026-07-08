@@ -67,7 +67,7 @@ export function QuoteDockFab({ label, count, onClick }: QuoteDockFabProps) {
                       <span className="text-brand-highlight/40" aria-hidden>
                         ·
                       </span>
-                      <span className="quote-dock-count-inline font-mono-tech ltr-embed tabular-nums">
+                      <span className="quote-dock-count-inline type-digits ltr-embed tabular-nums">
                         {formatDigits(count)}
                       </span>
                     </>

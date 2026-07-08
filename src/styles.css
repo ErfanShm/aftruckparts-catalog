@@ -274,6 +274,16 @@ html.locale-pending body {
   letter-spacing: 0.08em;
 }
 
+@utility type-digits {
+  font-family: var(--font-sans);
+  font-size: inherit;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+  line-height: 1.5;
+  letter-spacing: 0;
+}
+
 @utility type-value {
   font-family: var(--font-sans);
   font-size: 0.875rem;
@@ -292,6 +302,19 @@ html.locale-pending body {
 @utility ltr-embed {
   direction: ltr;
   unicode-bidi: isolate;
+}
+
+/* Opaque muted text — avoids alpha seams in Persian/Arabic glyph joins on dark backgrounds */
+@utility text-foreground-secondary {
+  color: color-mix(in oklch, var(--foreground) 62%, var(--background));
+}
+
+@utility text-foreground-tertiary {
+  color: color-mix(in oklch, var(--foreground) 58%, var(--background));
+}
+
+@utility text-foreground-soft {
+  color: color-mix(in oklch, var(--foreground) 78%, var(--background));
 }
 
 @utility hair-border {
@@ -1754,16 +1777,19 @@ html[dir="rtl"] .quote-sidebar-enter {
 }
 
 html[lang="fa"] .font-display {
-  font-family: var(--font-sans-fa);
+  font-family: "Anjoman", "Anjoman Variable", var(--font-sans-fa);
   font-weight: 700;
-  font-variation-settings: "wght" 700;
+  font-variation-settings: normal;
+  letter-spacing: -0.01em;
 }
 
 html[lang="fa"] .type-heading-display {
-  font-family: var(--font-sans-fa);
+  font-family: "Anjoman", "Anjoman Variable", var(--font-sans-fa);
   font-weight: 700;
-  font-variation-settings: "wght" 700;
+  font-variation-settings: normal;
   letter-spacing: -0.01em;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
 html[lang="fa"] .type-billboard {
@@ -1772,8 +1798,9 @@ html[lang="fa"] .type-billboard {
 }
 
 html[lang="fa"] .type-hero-subtitle {
-  font-family: "Anjoman Variable", "Anjoman", var(--font-sans-fa);
-  font-variation-settings: "wght" 420;
+  font-family: "Anjoman", "Anjoman Variable", var(--font-sans-fa);
+  font-weight: 400;
+  font-variation-settings: normal;
   letter-spacing: 0.005em;
 }
 
@@ -1834,6 +1861,35 @@ html[lang="fa"] .type-meta-soft {
 html[lang="fa"] .type-value {
   font-size: 0.9375rem;
   font-weight: 500;
+}
+
+/* Persian numerals — sans body fonts, not Geist Mono */
+html[lang="fa"] .type-digits,
+html[lang="fa"] .type-code,
+html[lang="fa"] .filter-index-count,
+html[lang="fa"] .filter-index-num,
+html[lang="fa"] .quote-dock-count-inline {
+  font-family: var(--font-sans-fa);
+  font-feature-settings: "tnum";
+  letter-spacing: 0;
+}
+
+html[lang="fa"] .type-digits {
+  font-weight: 600;
+}
+
+html[lang="fa"] .type-code {
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+html[lang="fa"] .filter-index-num {
+  font-size: 0.6875rem;
+  font-weight: 600;
+}
+
+html[lang="fa"] .filter-index-count {
+  font-weight: 600;
 }
 
 /* Detail modal gallery stage */

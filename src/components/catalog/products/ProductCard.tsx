@@ -155,7 +155,7 @@ export function ProductCard({
         className="absolute inset-0 z-10 cursor-pointer focus-visible:outline-none"
       />
 
-      <span className="pointer-events-none absolute start-3.5 top-3.5 z-[2] font-mono-tech ltr-embed text-[10px] tabular-nums text-foreground/35 transition-colors duration-500 group-hover:text-terminal/70">
+      <span className="pointer-events-none absolute start-3.5 top-3.5 z-[2] type-digits ltr-embed text-[10px] tabular-nums text-foreground/35 transition-colors duration-500 group-hover:text-terminal/70">
         {indexLabel}
       </span>
 
@@ -261,7 +261,7 @@ export function ProductCard({
               >
                 <Minus className="h-3 w-3" />
               </button>
-              <span className="w-5 text-center text-[11px] tabular-nums text-foreground/70">
+              <span className="type-digits w-5 text-center text-[11px] tabular-nums text-foreground/70">
                 {formatDigits(quantity)}
               </span>
               <button

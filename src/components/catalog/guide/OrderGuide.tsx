@@ -66,14 +66,14 @@ export function OrderGuide() {
                 <Icon className="h-5 w-5 text-brand-readable" strokeWidth={1.75} />
               </span>
 
-              <span className="type-code mt-4 text-brand-readable/80">
+              <span className="type-digits mt-4 text-brand-readable/80">
                 {stepNumber}
               </span>
 
               <h3 className="type-ui-strong mt-1.5 text-[0.9375rem] leading-snug text-foreground">
                 {step.title}
               </h3>
-              <p className="type-label mt-2 text-muted-foreground">
+              <p className="type-label mt-2 text-foreground/78">
                 {step.body}
               </p>
             </motion.li>

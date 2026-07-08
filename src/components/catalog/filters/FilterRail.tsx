@@ -68,7 +68,7 @@ export function FilterRail({
             <SlidersHorizontal className="h-3.5 w-3.5" />
             <span>{messages.catalog.openFilters}</span>
             {activeCount > 0 && (
-              <span className="absolute -top-1 end-0 flex h-4 w-4 items-center justify-center rounded-full bg-accent/20 text-[9px] text-accent">
+              <span className="type-digits absolute -top-1 end-0 flex h-4 w-4 items-center justify-center rounded-full bg-accent/20 text-[9px] text-accent">
                 {formatDigits(activeCount)}
               </span>
             )}

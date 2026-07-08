@@ -57,7 +57,7 @@ function SpecRow({
 }) {
   return (
     <div className="flex items-center justify-between gap-4 py-2.5">
-      <dt className="shrink-0 text-xs text-foreground/42">{label}</dt>
+      <dt className="shrink-0 text-xs text-foreground/68">{label}</dt>
       <dd className="min-w-0 text-end">
         {finishKey ? (
           <span className={cn("finish-specimen-tag inline-flex", finishTagClass(finishKey))}>
@@ -115,7 +115,7 @@ function ProductSpecSheet({ product }: { product: Product }) {
 
   return (
     <section className="mt-4" aria-label={d.spec}>
-      <h3 className="text-[11px] uppercase tracking-[0.14em] text-foreground/32">{d.spec}</h3>
+      <h3 className="text-[11px] uppercase tracking-[0.14em] text-foreground/58">{d.spec}</h3>
       <dl className="mt-2 divide-y divide-foreground/[0.06] rounded-xl border border-foreground/[0.07] bg-foreground/[0.025] px-4">
         {rows.map((row) => (
           <SpecRow
@@ -223,26 +223,26 @@ function QuoteStepper({
         className,
       )}
     >
-      <span className="text-sm text-foreground/40">{addLabel}</span>
-      <div className={cn("flex items-center gap-0.5", dir === "rtl" && "flex-row-reverse")}>
+      <span className="text-sm text-foreground/68">{addLabel}</span>
+      <div className={cn("flex items-center gap-1", dir === "rtl" && "flex-row-reverse")}>
         <button
           type="button"
           onClick={onRemove}
           aria-label={decreaseLabel}
-          className="flex h-8 w-8 touch-manipulation items-center justify-center rounded-lg text-foreground/25 transition-colors hover:text-foreground/60 active:scale-95"
+          className="flex h-11 w-11 touch-manipulation items-center justify-center rounded-lg border border-foreground/10 bg-foreground/[0.04] text-foreground/58 transition-colors hover:bg-foreground/[0.07] hover:text-foreground/88 active:scale-95"
         >
-          <Minus className="h-3.5 w-3.5" />
+          <Minus className="h-4 w-4" />
         </button>
-        <span className="w-6 text-center text-[13px] tabular-nums text-foreground/60">
+        <span className="type-digits w-8 text-center text-[13px] tabular-nums text-foreground/78">
           {formatDigits(quantity)}
         </span>
         <button
           type="button"
           onClick={onAdd}
           aria-label={increaseLabel}
-          className="flex h-8 w-8 touch-manipulation items-center justify-center rounded-lg text-foreground/25 transition-colors hover:text-foreground/60 active:scale-95"
+          className="flex h-11 w-11 touch-manipulation items-center justify-center rounded-lg border border-foreground/10 bg-foreground/[0.04] text-foreground/58 transition-colors hover:bg-foreground/[0.07] hover:text-foreground/88 active:scale-95"
         >
-          <Plus className="h-3.5 w-3.5" />
+          <Plus className="h-4 w-4" />
         </button>
       </div>
     </div>
@@ -300,7 +300,7 @@ function ProductDetailBody({
   const specPanel = (
     <>
       <div className="flex items-center justify-between gap-3">
-        <p className="type-code ltr-embed text-[11px] text-foreground/35">{product.code}</p>
+        <p className="type-code ltr-embed text-[11px] text-foreground/62">{product.code}</p>
         <span className="rounded-full border border-brand/20 bg-brand/10 px-2.5 py-0.5 text-[10px] text-brand/80">
           {messages.product.warrantyBadge}
         </span>
@@ -317,10 +317,10 @@ function ProductDetailBody({
       <ProductSpecSheet product={product} />
 
       <section className="mt-5">
-        <h3 className="text-[11px] uppercase tracking-[0.14em] text-foreground/32">
+        <h3 className="text-[11px] uppercase tracking-[0.14em] text-foreground/58">
           {messages.product.detail.description}
         </h3>
-        <p className="mt-2 text-sm leading-[1.75] text-muted-foreground">{product.description}</p>
+        <p className="mt-2 text-sm leading-[1.75] text-foreground/78">{product.description}</p>
       </section>
 
       {!isMobile && (
@@ -331,7 +331,7 @@ function ProductDetailBody({
             onAdd={onAdd}
             onRemove={onRemove}
           />
-          <p className="text-center text-[11px] text-foreground/30">{messages.product.warranty}</p>
+          <p className="text-center text-[11px] text-foreground/58">{messages.product.warranty}</p>
         </div>
       )}
     </>
@@ -352,7 +352,7 @@ function ProductDetailBody({
             type="button"
             onClick={onClose}
             aria-label={messages.product.detail.close}
-            className="absolute end-3 top-3 z-40 rounded-full bg-void/60 p-2 text-foreground/50 backdrop-blur-sm transition-colors active:text-foreground/80"
+            className="absolute end-3 top-3 z-40 flex h-11 w-11 touch-manipulation items-center justify-center rounded-full bg-void/60 text-foreground/62 backdrop-blur-sm transition-colors active:text-foreground/92"
           >
             <X className="h-4 w-4" />
           </button>
@@ -381,7 +381,7 @@ function ProductDetailBody({
             onAdd={onAdd}
             onRemove={onRemove}
           />
-          <p className="pb-1 pt-2 text-center text-[11px] text-foreground/30">
+          <p className="pb-1 pt-2 text-center text-[11px] text-foreground/58">
             {messages.product.warranty}
           </p>
         </div>
@@ -415,7 +415,7 @@ function ProductDetailBody({
             type="button"
             onClick={onClose}
             aria-label={messages.product.detail.close}
-            className="rounded-full p-2 text-foreground/25 transition-colors hover:bg-foreground/[0.04] hover:text-foreground/60"
+            className="flex h-11 w-11 touch-manipulation items-center justify-center rounded-full text-foreground/58 transition-colors hover:bg-foreground/[0.04] hover:text-foreground/88"
           >
             <X className="h-4 w-4" />
           </button>

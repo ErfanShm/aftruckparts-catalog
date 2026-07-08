@@ -28,7 +28,7 @@ function NotFoundComponent() {
     <div className="flex min-h-screen items-center justify-center bg-background px-6">
       <div className="empty-state max-w-md">
         <span className="empty-state-icon" aria-hidden />
-        <h1 className="font-mono-tech ltr-embed text-6xl font-extralight text-foreground/90">۴۰۴</h1>
+        <h1 className="type-digits ltr-embed text-6xl font-extralight text-foreground/90">۴۰۴</h1>
         <h2 className="type-ui text-lg text-foreground">{messages.errors.notFoundTitle}</h2>
         <p className="empty-state-hint">{messages.errors.notFoundBody}</p>
         <div className="mt-2">

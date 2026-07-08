@@ -1,6 +1,7 @@
 import type { MotionValue } from "framer-motion";
 
 import { useLocale } from "@/lib/i18n";
+import { cn } from "@/lib/utils";
 
 import { DockItem } from "./dock-item";
 
@@ -20,7 +21,10 @@ export function DockLocaleToggle({ mouseX, magnetic }: DockLocaleToggleProps) {
       mouseX={mouseX}
       magnetic={magnetic}
       onClick={() => setLocale(next)}
-      className="font-mono-tech ltr-embed text-[10px] font-semibold tracking-wide"
+      className={cn(
+        "text-[10px] font-semibold",
+        next === "en" ? "font-mono-tech ltr-embed tracking-wide" : "tracking-normal",
+      )}
     >
       <span>{label}</span>
     </DockItem>

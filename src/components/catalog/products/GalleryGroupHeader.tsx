@@ -34,7 +34,7 @@ export function GalleryGroupHeader({
         <h3 className="type-heading-display min-w-0 text-[1.125rem] leading-[1.15] tracking-tight text-foreground md:text-[1.3125rem]">
           {label}
         </h3>
-        <span className="type-code ltr-embed mb-0.5 shrink-0 tabular-nums text-muted-foreground/45">
+        <span className="type-digits ltr-embed mb-0.5 shrink-0 tabular-nums text-muted-foreground/45">
           {formatDigits(count)}
         </span>
       </header>

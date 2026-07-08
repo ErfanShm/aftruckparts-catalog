@@ -15,7 +15,7 @@ export function SectionRule({ className, index }: SectionRuleProps) {
   return (
     <div className={cn("flex items-center gap-3", className)} aria-hidden>
       {digits && (
-        <span className="type-code ltr-embed flex shrink-0 gap-px tabular-nums text-brand/32">
+        <span className="type-digits ltr-embed flex shrink-0 gap-0.5 tabular-nums text-brand/32">
           {digits.map((digit, i) => (
             <span key={`${digit}-${i}`}>{digit}</span>
           ))}

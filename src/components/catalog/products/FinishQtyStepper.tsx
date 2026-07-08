@@ -69,29 +69,29 @@ export function FinishQtyStepper({
           onClick={() => onAdd(productId, finishKey)}
           aria-label={`${messages.product.addToQuote} · ${finishLabel}`}
           className={cn(
-            "flex touch-manipulation items-center justify-center rounded-full text-foreground/40 transition-colors hover:text-foreground/70 active:scale-95",
-            isGrid ? "h-7 w-7" : "h-8 w-8",
+            "flex touch-manipulation items-center justify-center rounded-lg border border-foreground/10 bg-foreground/[0.04] text-foreground/58 transition-colors hover:bg-foreground/[0.07] hover:text-foreground/88 active:scale-95",
+            isGrid ? "h-7 w-7" : "h-11 w-11",
           )}
         >
-          <Plus className={isGrid ? "h-3 w-3" : "h-3.5 w-3.5"} />
+          <Plus className={isGrid ? "h-3 w-3" : "h-4 w-4"} />
         </button>
       ) : (
-        <div className={cn("flex items-center gap-0.5", dir === "rtl" && "flex-row-reverse")}>
+        <div className={cn("flex items-center gap-1", dir === "rtl" && "flex-row-reverse")}>
           <button
             type="button"
             onClick={() => onRemove(productId, finishKey)}
             aria-label={messages.product.decreaseQty}
             className={cn(
-              "flex touch-manipulation items-center justify-center rounded-full text-foreground/40 transition-colors hover:text-foreground/70 active:scale-95",
-              isGrid ? "h-7 w-7" : "h-8 w-8",
+              "flex touch-manipulation items-center justify-center rounded-lg border border-foreground/10 bg-foreground/[0.04] text-foreground/58 transition-colors hover:bg-foreground/[0.07] hover:text-foreground/88 active:scale-95",
+              isGrid ? "h-7 w-7" : "h-11 w-11",
             )}
           >
-            <Minus className={isGrid ? "h-3 w-3" : "h-3.5 w-3.5"} />
+            <Minus className={isGrid ? "h-3 w-3" : "h-4 w-4"} />
           </button>
           <span
             className={cn(
-              "text-center tabular-nums text-foreground/70",
-              isGrid ? "w-5 text-[11px]" : "w-6 text-[13px]",
+              "text-center tabular-nums type-digits text-foreground/78",
+              isGrid ? "w-5 text-[11px]" : "w-8 text-[13px]",
             )}
           >
             {formatDigits(qty)}
@@ -101,11 +101,11 @@ export function FinishQtyStepper({
             onClick={() => onAdd(productId, finishKey)}
             aria-label={messages.product.increaseQty}
             className={cn(
-              "flex touch-manipulation items-center justify-center rounded-full text-foreground/40 transition-colors hover:text-foreground/70 active:scale-95",
-              isGrid ? "h-7 w-7" : "h-8 w-8",
+              "flex touch-manipulation items-center justify-center rounded-lg border border-foreground/10 bg-foreground/[0.04] text-foreground/58 transition-colors hover:bg-foreground/[0.07] hover:text-foreground/88 active:scale-95",
+              isGrid ? "h-7 w-7" : "h-11 w-11",
             )}
           >
-            <Plus className={isGrid ? "h-3 w-3" : "h-3.5 w-3.5"} />
+            <Plus className={isGrid ? "h-3 w-3" : "h-4 w-4"} />
           </button>
         </div>
       )}

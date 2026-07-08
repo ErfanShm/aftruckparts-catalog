@@ -29,7 +29,7 @@ function QuoteListHeader({ count }: { count: number }) {
   const { messages, formatDigits } = useLocale();
   if (count === 0) return null;
   return (
-    <p className="mb-3 text-xs text-foreground/40">
+    <p className="mb-3 text-xs text-foreground/68">
       {formatDigits(messages.quote.itemsCount(count))}
       <span className="mx-2 opacity-30">·</span>
       {messages.quote.qtyHint}
@@ -42,14 +42,14 @@ function QuoteEmptyState() {
 
   return (
     <div className="flex flex-col items-center px-2 py-12 text-center">
-      <p className="text-sm text-foreground/55">{messages.quote.empty}</p>
-      <p className="mt-3 max-w-[16rem] text-xs leading-relaxed text-foreground/38">
+      <p className="text-sm text-foreground/78">{messages.quote.empty}</p>
+      <p className="mt-3 max-w-[16rem] text-xs leading-relaxed text-foreground/62">
         {messages.quote.emptyHint}
       </p>
-      <ol className="mt-8 w-full max-w-[15rem] space-y-2.5 text-start text-xs text-foreground/45">
+      <ol className="mt-8 w-full max-w-[15rem] space-y-2.5 text-start text-xs text-foreground/68">
         {messages.orderGuide.steps.map((step, i) => (
           <li key={step.title} className="flex gap-2.5">
-            <span className="type-code shrink-0 text-foreground/28">{formatDigits(i + 1)}.</span>
+            <span className="type-digits shrink-0 text-foreground/52">{formatDigits(i + 1)}.</span>
             <span>{step.title}</span>
           </li>
         ))}
@@ -80,18 +80,18 @@ function QuoteQtyStepper({
         type="button"
         onClick={onRemove}
         aria-label={messages.product.decreaseQty}
-        className="flex h-8 w-8 touch-manipulation items-center justify-center rounded-full text-foreground/35 transition-colors hover:text-foreground/65 active:scale-95"
+        className="flex h-11 w-11 touch-manipulation items-center justify-center rounded-full border border-foreground/10 bg-foreground/[0.04] text-foreground/58 transition-colors hover:bg-foreground/[0.07] hover:text-foreground/88 active:scale-95"
       >
-        <Minus className="h-3.5 w-3.5" />
+        <Minus className="h-4 w-4" />
       </button>
-      <span className="type-code w-9 text-center text-[12px] tabular-nums text-foreground/70">{formatDigits(qty)}</span>
+      <span className="type-digits w-9 text-center text-[12px] tabular-nums text-foreground/78">{formatDigits(qty)}</span>
       <button
         type="button"
         onClick={onAdd}
         aria-label={messages.product.increaseQty}
-        className="flex h-8 w-8 touch-manipulation items-center justify-center rounded-full text-foreground/35 transition-colors hover:text-foreground/65 active:scale-95"
+        className="flex h-11 w-11 touch-manipulation items-center justify-center rounded-full border border-foreground/10 bg-foreground/[0.04] text-foreground/58 transition-colors hover:bg-foreground/[0.07] hover:text-foreground/88 active:scale-95"
       >
-        <Plus className="h-3.5 w-3.5" />
+        <Plus className="h-4 w-4" />
       </button>
     </div>
   );
@@ -137,7 +137,7 @@ const QuoteList = memo(function QuoteList({
               />
               <div className="min-w-0 flex-1">
                 <p className="truncate text-[13px] text-foreground/88">{p.name}</p>
-                <p className="mt-0.5 truncate text-[11px] text-foreground/40">
+                <p className="mt-0.5 truncate text-[11px] text-foreground/62">
                   {finish}
                   <span className="mx-1 opacity-30">·</span>
                   <span className="type-code ltr-embed">{p.code}</span>
@@ -208,10 +208,10 @@ function QuoteCheckout({
       </button>
 
       {hasItems && !canSend && (
-        <p className="mt-2 text-center text-[11px] text-foreground/35">{messages.quote.nameRequired}</p>
+        <p className="mt-2 text-center text-[11px] text-foreground/58">{messages.quote.nameRequired}</p>
       )}
 
-      <p className="mt-2 text-center text-[10px] text-foreground/28">{messages.quote.footerNote}</p>
+      <p className="mt-2 text-center text-[10px] text-foreground/52">{messages.quote.footerNote}</p>
     </div>
   );
 }

@@ -49,7 +49,7 @@ export function ProductIndexStrip({
         <span className="type-code ltr-embed truncate">{prev ? partNavLabel(prev) : "—"}</span>
       </button>
 
-      <span className="type-code mx-auto shrink-0 tabular-nums text-foreground/30" dir="ltr">
+      <span className="type-digits mx-auto shrink-0 tabular-nums text-foreground/30" dir="ltr">
         {formatDigits(`${activeIndex + 1}/${products.length}`)}
       </span>
 

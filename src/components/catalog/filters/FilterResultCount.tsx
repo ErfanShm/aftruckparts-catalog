@@ -14,11 +14,11 @@ export function FilterResultCount({ count, total, className }: FilterResultCount
   if (locale === "fa") {
     return (
       <span className={cn("filter-index-count", className)}>
-        <span dir="ltr" className="tabular-nums">
+        <span dir="ltr" className="type-digits tabular-nums">
           {formatDigits(count)}
         </span>
         <span aria-hidden>{" از "}</span>
-        <span dir="ltr" className="tabular-nums">
+        <span dir="ltr" className="type-digits tabular-nums">
           {formatDigits(total)}
         </span>
       </span>

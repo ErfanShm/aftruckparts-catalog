@@ -12,6 +12,14 @@ import { SectionRule } from "./SectionRule";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
+const channelButtonClass = cn(
+  "group flex min-h-11 w-full items-center gap-2 rounded-xl border border-brand/14 bg-brand/[0.05] px-3 py-2.5",
+  "touch-manipulation transition-[color,background-color,border-color,transform] duration-200",
+  "hover:border-brand/28 hover:bg-brand/[0.09]",
+  "focus-visible:border-brand/28 focus-visible:bg-brand/[0.09] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/25",
+  "active:scale-[0.98]",
+);
+
 type ChannelLink = {
   key: string;
   label: string;
@@ -71,73 +79,47 @@ function iconFade(i: number, reduced: boolean, baseDelay = 0.14) {
       };
 }
 
-function ChannelOrbit({
+function ChannelGrid({
   links,
   ariaLabel,
   locale,
   reduced,
   baseDelay = 0.14,
-  compact = false,
 }: {
   links: ChannelLink[];
   ariaLabel: string;
   locale: string;
   reduced: boolean;
   baseDelay?: number;
-  compact?: boolean;
 }) {
   return (
     <nav aria-label={ariaLabel}>
-      <ul
-        className={cn(
-          "flex flex-wrap items-start",
-          compact ? "gap-x-7 gap-y-4 sm:gap-x-9" : "gap-x-6 gap-y-6 sm:gap-x-10 md:gap-x-12",
-        )}
-      >
+      <ul className="grid grid-cols-2 gap-x-8 gap-y-3 sm:gap-x-10">
         {links.map((link, i) => {
           const Icon = CHANNEL_ICONS[link.key];
           const isExternal = link.href.startsWith("http");
 
           return (
-            <motion.li key={link.key} {...iconFade(i, reduced, baseDelay)}>
+            <motion.li key={link.key} {...iconFade(i, reduced, baseDelay)} className="min-w-0">
               <a
                 href={link.href}
                 target={isExternal ? "_blank" : undefined}
                 rel={isExternal ? "noopener noreferrer" : undefined}
                 aria-label={link.label}
-                className={cn(
-                  "group flex items-center gap-2.5 rounded-full py-1 pe-3 ps-1",
-                  "transition-colors duration-300",
-                  "hover:bg-brand/[0.06] focus-visible:bg-brand/[0.06] focus-visible:outline-none",
-                )}
+                className={channelButtonClass}
               >
                 <span
-                  className={cn(
-                    "relative flex shrink-0 items-center justify-center rounded-full transition-transform duration-300",
-                    "group-hover:-translate-y-px group-focus-visible:-translate-y-px",
-                    compact ? "h-8 w-8" : "h-9 w-9 sm:h-10 sm:w-10",
-                  )}
+                  className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-brand/[0.08] transition-colors group-hover:bg-brand/14 group-focus-visible:bg-brand/14"
+                  aria-hidden
                 >
-                  <span
-                    className={cn(
-                      "absolute inset-0 rounded-full bg-brand/[0.05] transition-all duration-300",
-                      "group-hover:bg-brand/10 group-focus-visible:bg-brand/10",
-                    )}
-                    aria-hidden
-                  />
                   <Icon
-                    className={cn(
-                      "relative text-foreground/38 transition-colors duration-300",
-                      compact ? "h-[1.05rem] w-[1.05rem]" : "h-[1.15rem] w-[1.15rem] sm:h-[1.2rem] sm:w-[1.2rem]",
-                      "group-hover:text-brand-readable group-focus-visible:text-brand-readable",
-                    )}
+                    className="h-[1.125rem] w-[1.125rem] text-foreground/62 transition-colors group-hover:text-brand-readable group-focus-visible:text-brand-readable"
                     aria-hidden
                   />
                 </span>
-
                 <span
                   className={cn(
-                    "type-meta text-foreground-muted transition-colors duration-300",
+                    "type-meta min-w-0 truncate text-foreground/84 transition-colors duration-200",
                     "group-hover:text-brand-readable group-focus-visible:text-brand-readable",
                     locale === "en" && "uppercase tracking-[0.1em]",
                   )}
@@ -166,14 +148,14 @@ export function SiteFooter() {
         spine
         className="relative !pt-[var(--section-py)] !pb-8 md:!pb-14"
       >
-        <motion.div {...fadeUp(0, reduced)} className="relative">
+        <motion.div {...fadeUp(0, reduced)} className="relative flex flex-col">
           <SectionRule index={PAGE_SECTION_INDEX.contact} className="mb-10 md:mb-12" />
 
-          <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.88fr)] lg:items-end lg:gap-16 xl:gap-20">
-            <div className="max-w-xl">
+          <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.88fr)] lg:items-start lg:gap-16 xl:gap-20">
+            <div className="max-w-xl text-start">
               <div className="flex items-center gap-3">
                 <span className="h-1 w-1 shrink-0 rotate-45 bg-brand/35" aria-hidden />
-                <p className="section-tag">{footer.socialLabel}</p>
+                <p className="section-tag text-foreground/78">{footer.socialLabel}</p>
               </div>
 
               <h2
@@ -184,10 +166,10 @@ export function SiteFooter() {
               >
                 {footer.headlineLine1}
                 <br />
-                <span className="text-foreground/45">{footer.headlineLine2}</span>
+                <span className="text-foreground-secondary">{footer.headlineLine2}</span>
               </h2>
 
-              <p className="type-ui mt-5 text-[0.9375rem] leading-relaxed text-muted-foreground md:mt-6">
+              <p className="type-ui mt-5 text-[0.9375rem] leading-relaxed text-foreground/78 md:mt-6">
                 {footer.tagline}
               </p>
 
@@ -195,30 +177,30 @@ export function SiteFooter() {
                 {...fadeUp(0.16, reduced)}
                 href={footer.phone.href}
                 className={cn(
-                  "group mt-8 inline-flex items-center gap-3 transition-colors duration-300 md:mt-10",
-                  "text-muted-foreground hover:text-brand-readable focus-visible:text-brand-readable focus-visible:outline-none",
+                  channelButtonClass,
+                  "mt-8 w-full max-w-sm md:mt-10 lg:max-w-none",
                 )}
               >
-                <span className="flex h-9 w-9 items-center justify-center rounded-full bg-brand/[0.05] transition-colors group-hover:bg-brand/10">
+                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-brand/[0.08] transition-colors group-hover:bg-brand/14 group-focus-visible:bg-brand/14">
                   <Phone
-                    className="h-4 w-4 text-foreground/35 transition-colors group-hover:text-brand-readable"
+                    className="h-4 w-4 text-foreground/62 transition-colors group-hover:text-brand-readable"
                     strokeWidth={1.75}
                     aria-hidden
                   />
                 </span>
-                <span>
-                  <span className="type-code ltr-embed block text-[0.9375rem] tracking-wide text-foreground/82 transition-colors group-hover:text-brand-readable">
+                <span className="min-w-0 text-start">
+                  <span className="type-code ltr-embed block truncate text-[0.9375rem] tracking-wide text-foreground/92 transition-colors group-hover:text-brand-readable">
                     {footer.phone.display}
                   </span>
-                  <span className="type-meta mt-0.5 block text-foreground-muted/70">
+                  <span className="type-meta mt-0.5 block truncate text-foreground/72">
                     {footer.phone.label}
                   </span>
                 </span>
               </motion.a>
             </div>
 
-            <motion.div {...fadeUp(0.1, reduced)} className="lg:pb-1">
-              <ChannelOrbit
+            <motion.div {...fadeUp(0.1, reduced)} className="lg:pt-1">
+              <ChannelGrid
                 links={footer.social}
                 ariaLabel={footer.socialLabel}
                 locale={locale}
@@ -227,16 +209,15 @@ export function SiteFooter() {
 
               {footer.iranianMessengers && (
                 <div className="mt-8 border-t border-brand/10 pt-7 md:mt-9">
-                  <p className="type-meta mb-4 text-foreground-muted/80">
+                  <p className="type-meta mb-4 text-foreground/72">
                     {footer.iranianMessengers.label}
                   </p>
-                  <ChannelOrbit
+                  <ChannelGrid
                     links={footer.iranianMessengers.links}
                     ariaLabel={footer.iranianMessengers.label}
                     locale={locale}
                     reduced={reduced}
                     baseDelay={0.2}
-                    compact
                   />
                 </div>
               )}
@@ -248,7 +229,7 @@ export function SiteFooter() {
             className="mt-12 flex flex-col items-center gap-2 border-t border-brand/10 pt-7 text-center sm:mt-14"
           >
             <BrandMark height={34} />
-            <p className="type-meta text-foreground-muted">{footer.copyright}</p>
+            <p className="type-meta text-foreground/68">{footer.copyright}</p>
 
             {/* Designed-by credit — uncomment to show publicly
             <p className="type-meta text-foreground-muted">
