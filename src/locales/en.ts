@@ -2,17 +2,13 @@ import type { LocaleMessages } from "./types";
 
 export const en: LocaleMessages = {
   meta: {
-    title: "Aftruckparts — Truck Parts Catalog",
-    description:
-      "B2B catalog of premium truck badges and hardware. Engineered finishes, 2-year warranty.",
+    title: "Aftruckparts | Truck Badges",
+    description: "B2B truck badge and hardware catalog. 2-year warranty.",
     author: "Aftruckparts",
-    ogTitle: "Aftruckparts — Truck Parts Catalog",
-    ogDescription:
-      "B2B catalog of premium truck badges and hardware. Engineered finishes, 2-year warranty.",
   },
 
   nav: {
-    links: ["Catalog", "How to order", "Contact"],
+    links: ["How to order", "Catalog", "Contact"],
     langFa: "فا",
     langEn: "EN",
     menuOpen: "Open menu",
@@ -57,7 +53,6 @@ export const en: LocaleMessages = {
     brandLabel: "Brand",
     dastehLabel: "Category",
     categoryLabel: "Type",
-    finishLabel: "Finish",
     clearFilters: "Clear filters",
     noResults: "No matches.",
     openFilters: "Filter",
@@ -80,8 +75,8 @@ export const en: LocaleMessages = {
   dastehLines: [
     { key: "volvo-fh12-fh13", label: "Volvo FH12 / FH13" },
     { key: "volvo-fh500", label: "Volvo FH500" },
-    { key: "hub-caps", label: "Hub caps · Volvo / Renault / C&C" },
     { key: "daf", label: "DAF" },
+    { key: "hub-caps", label: "Hub caps · Volvo / Renault / C&C" },
   ],
 
   finishes: [
@@ -143,11 +138,12 @@ export const en: LocaleMessages = {
   },
 
   footer: {
-    headline: "Direct line to our team",
-    headlineLine1: "Direct line",
-    headlineLine2: "to our team",
-    tagline: "Premium truck hardware · B2B catalog · Fleet-ready finishes.",
-    socialLabel: "Connect",
+    headline: "Get in touch with us",
+    headlineLine1: "Get in touch",
+    headlineLine2: "with us",
+    tagline:
+      "For quotes, orders, or technical guidance — reach our team on whichever channel works best for you.",
+    socialLabel: "Contact channels",
     watermark: "B2B",
     social: [
       { key: "whatsapp", label: "WhatsApp", short: "WA", href: "https://wa.me/" },
@@ -155,7 +151,18 @@ export const en: LocaleMessages = {
       { key: "telegram", label: "Telegram", short: "TG", href: "https://t.me/" },
       { key: "email", label: "Email", short: "MAIL", href: "mailto:hello@aftruckparts.com" },
     ],
+    phone: {
+      label: "Phone",
+      display: "+98 912 000 0000",
+      href: "tel:+989120000000",
+    },
     copyright: "© 2026 Aftruckparts",
+    designedBy: {
+      prefix: "by",
+      name: "erfanshm",
+      href: "https://erfanshm.com/",
+      title: "Erfan Shafiee Moghaddam — AI Systems Architect",
+    },
   },
 
   errors: {

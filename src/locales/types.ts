@@ -8,8 +8,6 @@ export type LocaleMessages = {
     title: string;
     description: string;
     author: string;
-    ogTitle: string;
-    ogDescription: string;
   };
   nav: {
     links: readonly string[];
@@ -50,7 +48,6 @@ export type LocaleMessages = {
     brandLabel: string;
     dastehLabel: string;
     categoryLabel: string;
-    finishLabel: string;
     clearFilters: string;
     noResults: string;
     openFilters: string;
@@ -120,7 +117,18 @@ export type LocaleMessages = {
     socialLabel: string;
     watermark: string;
     social: { key: "whatsapp" | "instagram" | "telegram" | "email"; label: string; short: string; href: string }[];
+    phone: { label: string; display: string; href: string };
+    iranianMessengers?: {
+      label: string;
+      links: { key: "bale" | "rubika"; label: string; href: string }[];
+    };
     copyright: string;
+    designedBy: {
+      prefix: string;
+      name: string;
+      href: string;
+      title: string;
+    };
   };
   errors: {
     notFoundTitle: string;

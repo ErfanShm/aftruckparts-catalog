@@ -1,6 +1,8 @@
-export const NAV_SECTION_IDS = ["catalog", "how-to-order", "contact"] as const;
+export const NAV_SECTION_IDS = ["how-to-order", "catalog", "contact"] as const;
 
 export type NavSectionId = (typeof NAV_SECTION_IDS)[number];
+
+export type ActiveNavSection = NavSectionId | null;
 
 /** Top-to-bottom on the page — used for scroll-spy only */
 const SCROLL_SPY_SECTION_IDS: readonly NavSectionId[] = [
@@ -18,19 +20,25 @@ export function scrollToSection(id: string) {
 }
 
 export function navSectionId(linkIndex: number): NavSectionId {
-  return NAV_SECTION_IDS[linkIndex] ?? "catalog";
+  return NAV_SECTION_IDS[linkIndex] ?? NAV_SECTION_IDS[0];
 }
 
 /** Which nav section is active based on scroll position (last passed section wins). */
-export function getActiveNavSection(): NavSectionId {
-  if (typeof document === "undefined") return "catalog";
+export function getActiveNavSection(): ActiveNavSection {
+  if (typeof document === "undefined") return null;
 
   const headerOffset =
     parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--header-offset")) ||
     72;
   const marker = window.scrollY + headerOffset + 64;
 
-  let active: NavSectionId = "catalog";
+  const firstSection = document.getElementById(SCROLL_SPY_SECTION_IDS[0]!);
+  if (firstSection) {
+    const firstTop = firstSection.getBoundingClientRect().top + window.scrollY;
+    if (firstTop > marker) return null;
+  }
+
+  let active: NavSectionId = SCROLL_SPY_SECTION_IDS[0]!;
 
   for (const id of SCROLL_SPY_SECTION_IDS) {
     const el = document.getElementById(id);

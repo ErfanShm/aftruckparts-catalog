@@ -10,14 +10,21 @@ import {
 
 import {
   buildProducts,
+  DEFAULT_LOCALE,
   getMessages,
   type Locale,
   type LocaleMessages,
   type Product,
 } from "@/locales";
 import { formatPaddedIndex, toLocaleDigits } from "@/lib/locale-digits";
+import {
+  LOCALE_STORAGE_KEY,
+  localeDir,
+  writeLocaleCookie,
+} from "@/lib/locale-cookie";
+import { syncDocumentMeta } from "@/lib/seo";
 
-const STORAGE_KEY = "aftruckparts-locale";
+export { LOCALE_STORAGE_KEY };
 
 type LocaleContextValue = {
   locale: Locale;
@@ -26,6 +33,7 @@ type LocaleContextValue = {
   products: Product[];
   dir: "rtl" | "ltr";
   lang: Locale;
+  localeReady: boolean;
   /** Localize digits in any string or number (fa → ۰۱۲۳). */
   formatDigits: (value: string | number) => string;
   /** Zero-padded two-digit index (01 / ۰۱). */
@@ -35,21 +43,49 @@ type LocaleContextValue = {
 const LocaleContext = createContext<LocaleContextValue | null>(null);
 
 function readStoredLocale(): Locale {
-  if (typeof window === "undefined") return "fa";
-  const saved = localStorage.getItem(STORAGE_KEY);
-  return saved === "en" ? "en" : "fa";
+  if (typeof window === "undefined") return DEFAULT_LOCALE;
+  const saved = localStorage.getItem(LOCALE_STORAGE_KEY);
+  return saved === "en" ? "en" : DEFAULT_LOCALE;
 }
 
-export function LocaleProvider({ children }: { children: ReactNode }) {
-  const [locale, setLocaleState] = useState<Locale>("fa");
+function readDomLocale(): Locale {
+  if (typeof document === "undefined") return DEFAULT_LOCALE;
+  const fromDom = document.documentElement.dataset.locale;
+  if (fromDom === "en" || fromDom === "fa") return fromDom;
+  return readStoredLocale();
+}
+
+function applyDocumentLocale(locale: Locale) {
+  document.documentElement.lang = locale;
+  document.documentElement.dir = localeDir(locale);
+  document.documentElement.dataset.locale = locale;
+}
+
+type LocaleProviderProps = {
+  children: ReactNode;
+  initialLocale?: Locale;
+};
+
+export function LocaleProvider({ children, initialLocale = DEFAULT_LOCALE }: LocaleProviderProps) {
+  const [locale, setLocaleState] = useState<Locale>(() =>
+    typeof document !== "undefined" ? readDomLocale() : initialLocale,
+  );
+  const [localeReady, setLocaleReady] = useState(() => typeof window === "undefined");
 
   useEffect(() => {
-    setLocaleState(readStoredLocale());
+    const resolved = readDomLocale();
+    setLocaleState(resolved);
+    applyDocumentLocale(resolved);
+    document.documentElement.classList.remove("locale-pending");
+    setLocaleReady(true);
   }, []);
 
   const setLocale = useCallback((next: Locale) => {
     setLocaleState(next);
-    localStorage.setItem(STORAGE_KEY, next);
+    localStorage.setItem(LOCALE_STORAGE_KEY, next);
+    writeLocaleCookie(next);
+    applyDocumentLocale(next);
+    syncDocumentMeta(getMessages(next), next);
   }, []);
 
   const value = useMemo<LocaleContextValue>(() => {
@@ -59,12 +95,13 @@ export function LocaleProvider({ children }: { children: ReactNode }) {
       setLocale,
       messages,
       products: buildProducts(locale, messages),
-      dir: locale === "fa" ? "rtl" : "ltr",
+      dir: localeDir(locale),
       lang: locale,
+      localeReady,
       formatDigits: (value) => toLocaleDigits(value, locale),
       formatIndex: (index) => formatPaddedIndex(index, locale),
     };
-  }, [locale, setLocale]);
+  }, [locale, localeReady, setLocale]);
 
   return <LocaleContext.Provider value={value}>{children}</LocaleContext.Provider>;
 }
@@ -79,12 +116,8 @@ export function DocumentLocale() {
   const { lang, dir, messages } = useLocale();
 
   useEffect(() => {
-    document.documentElement.lang = lang;
-    document.documentElement.dir = dir;
-    document.title = messages.meta.title;
-
-    const description = document.querySelector('meta[name="description"]');
-    if (description) description.setAttribute("content", messages.meta.description);
+    applyDocumentLocale(lang);
+    syncDocumentMeta(messages, lang);
   }, [lang, dir, messages]);
 
   return null;

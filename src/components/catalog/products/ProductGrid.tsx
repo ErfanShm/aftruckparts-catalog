@@ -2,10 +2,12 @@ import { useMemo } from "react";
 
 import type { FinishKey } from "@/data/products";
 import { galleryLayoutForProduct } from "@/lib/gallery-collage";
+import { groupProductsByDasteh } from "@/lib/product-groups";
 import { cn } from "@/lib/utils";
 import { useLocale } from "@/lib/i18n";
 import type { Product } from "@/locales";
 
+import { GalleryGroupHeader } from "./GalleryGroupHeader";
 import { ProductCard } from "./ProductCard";
 
 /** Stable shell when filtered — separate mobile/desktop floors to reduce collapse jumps. */
@@ -36,10 +38,21 @@ export function ProductGrid({
   const { messages } = useLocale();
   const isEmpty = products.length === 0;
 
-  const layouts = useMemo(
-    () =>
-      products.map((product, index) => galleryLayoutForProduct(product, index, products.length)),
-    [products],
+  const groups = useMemo(() => groupProductsByDasteh(products), [products]);
+
+  const layouts = useMemo(() => {
+    const map = new Map<string, ReturnType<typeof galleryLayoutForProduct>>();
+    let index = 0;
+    for (const product of products) {
+      map.set(product.id, galleryLayoutForProduct(product, index, products.length));
+      index += 1;
+    }
+    return map;
+  }, [products]);
+
+  const gridClassName = cn(
+    "grid grid-cols-2 auto-rows-[228px] items-stretch gap-3.5 sm:gap-4 lg:gap-5",
+    isFiltered && "auto-rows-[248px] lg:auto-rows-[268px]",
   );
 
   return (
@@ -56,23 +69,29 @@ export function ProductGrid({
           <p className="empty-state-hint">{messages.catalog.clearFilters}</p>
         </div>
       ) : (
-        <div
-          className={cn(
-            "grid grid-cols-2 auto-rows-[228px] items-stretch gap-3.5 sm:gap-4 lg:gap-5",
-            isFiltered && "auto-rows-[248px] lg:auto-rows-[268px]",
-          )}
-        >
-          {products.map((p, i) => (
-            <ProductCard
-              key={p.id}
-              product={p}
-              index={i}
-              layout={layouts[i]!}
-              quote={quote}
-              onAdd={onAdd}
-              onRemove={onRemove}
-              onOpen={() => onSelect(p.id)}
-            />
+        <div className="flex flex-col">
+          {groups.map((group, groupIndex) => (
+            <section key={group.dasteh} aria-label={group.label}>
+              <GalleryGroupHeader
+                label={group.label}
+                count={group.products.length}
+                isFirst={groupIndex === 0}
+              />
+              <div className={gridClassName}>
+                {group.products.map((p, i) => (
+                  <ProductCard
+                    key={p.id}
+                    product={p}
+                    index={i}
+                    layout={layouts.get(p.id)!}
+                    quote={quote}
+                    onAdd={onAdd}
+                    onRemove={onRemove}
+                    onOpen={() => onSelect(p.id)}
+                  />
+                ))}
+              </div>
+            </section>
           ))}
         </div>
       )}

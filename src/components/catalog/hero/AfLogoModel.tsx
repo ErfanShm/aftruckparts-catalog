@@ -4,7 +4,9 @@ import { SVGLoader } from "three/examples/jsm/loaders/SVGLoader.js";
 import { mergeGeometries } from "three/examples/jsm/utils/BufferGeometryUtils.js";
 import { useLoader } from "@react-three/fiber";
 
-const LOGO_SVG = "/brand/hero/af-logo.svg";
+import { HERO_LOGO_SVG } from "./hero-assets";
+
+const LOGO_SVG = HERO_LOGO_SVG;
 const TARGET_XY = 1.55;
 const DEPTH_RATIO = 0.14;
 const BEVEL_RATIO = 0.08;

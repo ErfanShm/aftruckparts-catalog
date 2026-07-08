@@ -30,7 +30,6 @@ function CatalogPage() {
   const navigate = useNavigate({ from: Route.fullPath });
 
   const activeDasteh = resolveDasteh(search.dasteh);
-  const activeFinish = search.finish ?? null;
   const [query, setQuery] = useState("");
   const [quote, setQuote] = useState<Record<string, number>>({});
   const [quoteOpen, setQuoteOpen] = useState(false);
@@ -47,15 +46,10 @@ function CatalogPage() {
     updateFilters({ dasteh });
   };
 
-  const setActiveFinish = (finish: FinishKey | null) => {
-    updateFilters({ finish });
-  };
-
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
     return products.filter((p) => {
       if (activeDasteh && p.dasteh !== activeDasteh) return false;
-      if (activeFinish && !p.finishOffers.includes(activeFinish)) return false;
       if (
         q &&
         !`${p.name} ${p.code} ${p.dastehLabel} ${p.brand} ${p.finish} ${p.categoryLabel} ${p.description}`
@@ -65,7 +59,7 @@ function CatalogPage() {
         return false;
       return true;
     });
-  }, [activeDasteh, activeFinish, query, products]);
+  }, [activeDasteh, query, products]);
 
   const quoteItems = useMemo(
     () => Object.entries(quote).filter(([, qty]) => qty > 0) as [string, number][],
@@ -115,8 +109,6 @@ function CatalogPage() {
         onRemove={removeOne}
         activeDasteh={activeDasteh}
         setActiveDasteh={setActiveDasteh}
-        activeFinish={activeFinish}
-        setActiveFinish={setActiveFinish}
         query={query}
         setQuery={setQuery}
         productCount={products.length}

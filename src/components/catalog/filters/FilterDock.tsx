@@ -1,19 +1,16 @@
 import type { ReactNode } from "react";
 import { Search, X } from "lucide-react";
 
-import type { FinishKey, ProductDasteh } from "@/data/products";
+import type { ProductDasteh } from "@/data/products";
 import { useStickyActive } from "@/hooks/use-sticky-active";
 import { useLocale } from "@/lib/i18n";
 
 import { FilterChips } from "./FilterChips";
 import { FilterResultCount } from "./FilterResultCount";
-import { FinishFilterPills } from "./FinishFilterPills";
 
 type FilterDockProps = {
   activeDasteh: ProductDasteh | null;
   setActiveDasteh: (v: ProductDasteh | null) => void;
-  activeFinish: FinishKey | null;
-  setActiveFinish: (v: FinishKey | null) => void;
   query: string;
   setQuery: (v: string) => void;
   resultCount: number;
@@ -32,8 +29,6 @@ function FilterGroup({ label, children }: { label: string; children: ReactNode }
 export function FilterDock({
   activeDasteh,
   setActiveDasteh,
-  activeFinish,
-  setActiveFinish,
   query,
   setQuery,
   resultCount,
@@ -42,11 +37,10 @@ export function FilterDock({
   const { messages } = useLocale();
   const { sentinelRef } = useStickyActive({ extraTop: 16 });
 
-  const hasActiveConstraints = Boolean(activeDasteh || activeFinish || query);
+  const hasActiveConstraints = Boolean(activeDasteh || query);
 
   const clearAll = () => {
     setActiveDasteh(null);
-    setActiveFinish(null);
     setQuery("");
   };
 
@@ -95,14 +89,6 @@ export function FilterDock({
               onSelect={(key) =>
                 setActiveDasteh(activeDasteh === key ? null : (key as ProductDasteh))
               }
-            />
-          </FilterGroup>
-
-          <FilterGroup label={messages.catalog.finishLabel}>
-            <FinishFilterPills
-              items={messages.finishes.map((f) => ({ key: f.key, label: f.label }))}
-              active={activeFinish}
-              onSelect={(key) => setActiveFinish(activeFinish === key ? null : (key as FinishKey))}
             />
           </FilterGroup>
 

@@ -1,18 +1,15 @@
-import type { FinishKey, ProductDasteh } from "@/data/products";
+import type { ProductDasteh } from "@/data/products";
 import { useLocale } from "@/lib/i18n";
 import { Sheet, SheetContent, SheetFooter, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 
 import { FilterChips } from "./FilterChips";
 import { FilterResultCount } from "./FilterResultCount";
-import { FinishFilterPills } from "./FinishFilterPills";
 
 type MobileFilterSheetProps = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   activeDasteh: ProductDasteh | null;
   setActiveDasteh: (v: ProductDasteh | null) => void;
-  activeFinish: FinishKey | null;
-  setActiveFinish: (v: FinishKey | null) => void;
   query: string;
   setQuery: (v: string) => void;
   resultCount: number;
@@ -24,8 +21,6 @@ export function MobileFilterSheet({
   onOpenChange,
   activeDasteh,
   setActiveDasteh,
-  activeFinish,
-  setActiveFinish,
   query,
   setQuery,
   resultCount,
@@ -35,11 +30,10 @@ export function MobileFilterSheet({
 
   const clearAll = () => {
     setActiveDasteh(null);
-    setActiveFinish(null);
     setQuery("");
   };
 
-  const hasActiveConstraints = Boolean(activeDasteh || activeFinish || query);
+  const hasActiveConstraints = Boolean(activeDasteh || query);
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
@@ -65,14 +59,6 @@ export function MobileFilterSheet({
               onSelect={(key) =>
                 setActiveDasteh(activeDasteh === key ? null : (key as ProductDasteh))
               }
-            />
-          </div>
-          <div>
-            <p className="filter-index-label mb-2.5 type-label-strong">{messages.catalog.finishLabel}</p>
-            <FinishFilterPills
-              items={messages.finishes.map((f) => ({ key: f.key, label: f.label }))}
-              active={activeFinish}
-              onSelect={(key) => setActiveFinish(activeFinish === key ? null : (key as FinishKey))}
             />
           </div>
         </div>

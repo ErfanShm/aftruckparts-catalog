@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Menu } from "lucide-react";
 
 import { LanguageSwitcher, useLocale } from "@/lib/i18n";
-import { scrollToSection, navSectionId, getActiveNavSection } from "@/lib/scrollToCatalog";
+import { scrollToSection, navSectionId, getActiveNavSection, type ActiveNavSection } from "@/lib/scrollToCatalog";
 import { cn } from "@/lib/utils";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 
@@ -17,7 +17,7 @@ export function SiteHeader() {
   const { messages, dir } = useLocale();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState<string>("catalog");
+  const [activeSection, setActiveSection] = useState<ActiveNavSection>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -40,85 +40,136 @@ export function SiteHeader() {
 
   return (
     <header className={cn("header-fixed", scrolled ? "header-shell-scrolled" : "header-shell")}>
-      <div className="site-column flex h-[var(--header-bar)] items-center justify-between gap-4">
-        <a href="/" className="group transition-opacity hover:opacity-90">
-          <BrandMark height={46} />
-        </a>
-
-        <nav className="hidden items-center gap-9 md:flex">
-          {messages.nav.links.map((l, i) => {
-            const sectionId = navSectionId(i);
-            const isActive = activeSection === sectionId;
-            return (
-              <a
-                key={`${sectionId}-${i}`}
-                href={`#${sectionId}`}
-                onClick={(e) => {
-                  e.preventDefault();
-                  scrollToSection(sectionId);
-                }}
-                className={cn(
-                  "nav-link type-label-strong text-[0.8125rem] tracking-[0.06em]",
-                  isActive && "nav-link-active",
-                )}
-              >
-                {l}
+      <div className="site-column h-[var(--header-bar)]">
+        <div className="grid h-full grid-cols-[1fr_auto_1fr] items-center gap-2 md:hidden">
+          <div className="flex justify-start">
+            {dir === "rtl" ? (
+              <a href="/" className="group transition-opacity hover:opacity-90">
+                <BrandMark height={46} />
               </a>
-            );
-          })}
-        </nav>
+            ) : (
+              <MobileMenuButton
+                open={menuOpen}
+                onOpenChange={setMenuOpen}
+                activeSection={activeSection}
+                label={messages.nav.menuOpen}
+              />
+            )}
+          </div>
 
-        <div className="flex items-center gap-2.5">
+          <LanguageSwitcher className="header-lang-touch" />
+
+          <div className="flex justify-end">
+            {dir === "rtl" ? (
+              <MobileMenuButton
+                open={menuOpen}
+                onOpenChange={setMenuOpen}
+                activeSection={activeSection}
+                label={messages.nav.menuOpen}
+              />
+            ) : (
+              <a href="/" className="group transition-opacity hover:opacity-90">
+                <BrandMark height={46} />
+              </a>
+            )}
+          </div>
+        </div>
+
+        <div className="hidden h-full items-center gap-4 md:flex">
+          <a href="/" className="group shrink-0 transition-opacity hover:opacity-90">
+            <BrandMark height={46} />
+          </a>
+
+          <nav className="flex flex-1 items-center justify-center gap-9">
+            {messages.nav.links.map((l, i) => {
+              const sectionId = navSectionId(i);
+              const isActive = activeSection === sectionId;
+              return (
+                <a
+                  key={`${sectionId}-${i}`}
+                  href={`#${sectionId}`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    scrollToSection(sectionId);
+                  }}
+                  className={cn(
+                    "nav-link type-label-strong text-[0.8125rem] tracking-[0.06em]",
+                    isActive && "nav-link-active",
+                  )}
+                >
+                  {l}
+                </a>
+              );
+            })}
+          </nav>
+
           <LanguageSwitcher />
-          <Sheet open={menuOpen} onOpenChange={setMenuOpen}>
-            <SheetTrigger asChild>
-              <button
-                type="button"
-                className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-border-hair/30 glass-panel text-foreground/90 md:hidden"
-                aria-label={messages.nav.menuOpen}
-              >
-                <Menu className="h-4 w-4" />
-              </button>
-            </SheetTrigger>
-            <SheetContent
-              side={dir === "rtl" ? "right" : "left"}
-              className="w-[min(100vw,20rem)] border-border-hair/40 glass-panel-strong [&>button]:end-4 [&>button]:start-auto"
-            >
-              <SheetHeader className="text-start">
-                <SheetTitle className="type-code ltr-embed tracking-[0.1em]">{BRAND_NAME}</SheetTitle>
-              </SheetHeader>
-              <nav className="mt-10 flex flex-col gap-0.5">
-                {messages.nav.links.map((l, i) => {
-                  const sectionId = navSectionId(i);
-                  const isActive = activeSection === sectionId;
-                  return (
-                    <div key={`${sectionId}-${i}`}>
-                      {i > 0 && <SectionRule className="my-4" />}
-                      <a
-                        href={`#${sectionId}`}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          scrollToSection(sectionId);
-                          setMenuOpen(false);
-                        }}
-                        className={cn(
-                          "type-ui-strong block rounded-xl px-3 py-3.5 text-[0.9375rem] transition-colors",
-                          isActive
-                            ? "text-terminal"
-                            : "text-foreground/55 hover:text-terminal",
-                        )}
-                      >
-                        {l}
-                      </a>
-                    </div>
-                  );
-                })}
-              </nav>
-            </SheetContent>
-          </Sheet>
         </div>
       </div>
       <div className="header-brand-line absolute inset-x-0 bottom-0 h-px" aria-hidden />
     </header>
+  );
+}
+
+function MobileMenuButton({
+  open,
+  onOpenChange,
+  activeSection,
+  label,
+}: {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  activeSection: ActiveNavSection;
+  label: string;
+}) {
+  const { messages, dir } = useLocale();
+
+  return (
+    <Sheet open={open} onOpenChange={onOpenChange}>
+      <SheetTrigger asChild>
+        <button
+          type="button"
+          className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-border-hair/30 glass-panel text-foreground/90"
+          aria-label={label}
+        >
+          <Menu className="h-[1.125rem] w-[1.125rem]" />
+        </button>
+      </SheetTrigger>
+      <SheetContent
+        side={dir === "rtl" ? "right" : "left"}
+        className="w-[min(100vw,20rem)] border-border-hair/40 glass-panel-strong [&>button]:end-4 [&>button]:start-auto"
+      >
+        <SheetHeader className="text-start">
+          <SheetTitle className="type-code ltr-embed tracking-[0.1em]">{BRAND_NAME}</SheetTitle>
+        </SheetHeader>
+        <nav className="mt-10 flex flex-col gap-0.5">
+          {messages.nav.links.map((l, i) => {
+            const sectionId = navSectionId(i);
+            const isActive = activeSection === sectionId;
+            return (
+              <div key={`${sectionId}-${i}`}>
+                {i > 0 && <SectionRule className="my-4" />}
+                <a
+                  href={`#${sectionId}`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    scrollToSection(sectionId);
+                    onOpenChange(false);
+                  }}
+                  className={cn(
+                    "type-ui-strong block rounded-xl px-3 py-3.5 text-[0.9375rem] transition-colors",
+                    isActive
+                      ? "text-terminal"
+                      : "text-foreground/55 hover:text-terminal",
+                  )}
+                >
+                  {l}
+                </a>
+              </div>
+            );
+          })}
+        </nav>
+      </SheetContent>
+    </Sheet>
   );
 }

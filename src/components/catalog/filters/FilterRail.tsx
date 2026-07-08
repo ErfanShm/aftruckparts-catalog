@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Search, SlidersHorizontal, X } from "lucide-react";
 
-import type { FinishKey, ProductDasteh } from "@/data/products";
+import type { ProductDasteh } from "@/data/products";
 import { useStickyActive } from "@/hooks/use-sticky-active";
 import { useLocale } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
@@ -11,8 +11,6 @@ import { MobileFilterSheet } from "./MobileFilterSheet";
 type FilterRailProps = {
   activeDasteh: ProductDasteh | null;
   setActiveDasteh: (v: ProductDasteh | null) => void;
-  activeFinish: FinishKey | null;
-  setActiveFinish: (v: FinishKey | null) => void;
   query: string;
   setQuery: (v: string) => void;
   resultCount: number;
@@ -22,8 +20,6 @@ type FilterRailProps = {
 export function FilterRail({
   activeDasteh,
   setActiveDasteh,
-  activeFinish,
-  setActiveFinish,
   query,
   setQuery,
   resultCount,
@@ -33,7 +29,7 @@ export function FilterRail({
   const [sheetOpen, setSheetOpen] = useState(false);
   const { sentinelRef, active: stuck } = useStickyActive();
 
-  const activeCount = (activeDasteh ? 1 : 0) + (activeFinish ? 1 : 0);
+  const activeCount = activeDasteh ? 1 : 0;
 
   return (
     <>
@@ -88,12 +84,6 @@ export function FilterRail({
               onRemove={() => setActiveDasteh(null)}
             />
           )}
-          {activeFinish && (
-            <ActivePill
-              label={messages.finishes.find((f) => f.key === activeFinish)?.label ?? activeFinish}
-              onRemove={() => setActiveFinish(null)}
-            />
-          )}
         </div>
       </div>
 
@@ -102,8 +92,6 @@ export function FilterRail({
         onOpenChange={setSheetOpen}
         activeDasteh={activeDasteh}
         setActiveDasteh={setActiveDasteh}
-        activeFinish={activeFinish}
-        setActiveFinish={setActiveFinish}
         query={query}
         setQuery={setQuery}
         resultCount={resultCount}

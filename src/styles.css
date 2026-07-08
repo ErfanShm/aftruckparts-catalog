@@ -2,6 +2,11 @@
 @source "../src";
 @import "tw-animate-css";
 
+/* Hide body until locale is resolved (inline head script adds .locale-pending). */
+html.locale-pending body {
+  visibility: hidden;
+}
+
 /* ── Persian fallback fonts (used when web fonts fail) ── */
 @font-face {
   font-family: "Anjoman Variable";
@@ -683,9 +688,9 @@
 @utility gradient-text {
   background: linear-gradient(
     128deg,
-    color-mix(in oklch, var(--terminal-cyan) 88%, white) 0%,
-    var(--terminal-cyan) 45%,
-    color-mix(in oklch, var(--brand-readable) 70%, var(--terminal-cyan)) 100%
+    color-mix(in oklch, var(--brand-highlight) 88%, white) 0%,
+    var(--brand-highlight) 45%,
+    color-mix(in oklch, var(--brand-readable) 75%, var(--brand-highlight)) 100%
   );
   -webkit-background-clip: text;
   background-clip: text;
@@ -1174,6 +1179,32 @@
   }
 }
 
+@utility type-hero-subtitle {
+  font-size: clamp(1rem, 2.2vw, 1.125rem);
+  line-height: 1.7;
+  color: color-mix(in oklch, var(--foreground) 82%, transparent);
+  font-weight: 400;
+  font-variation-settings: "wght" 400;
+}
+
+@media (max-width: 1023px) {
+  .type-hero-subtitle {
+    font-size: clamp(1.0625rem, 3.8vw, 1.125rem);
+    color: color-mix(in oklch, var(--foreground) 90%, transparent);
+  }
+}
+
+@utility header-lang-touch {
+  padding: 0.1875rem;
+
+  & button {
+    min-height: 2.75rem;
+    min-width: 2.75rem;
+    padding-inline: 0.75rem;
+    padding-block: 0.5rem;
+  }
+}
+
 @utility grain-overlay {
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
   background-repeat: repeat;
@@ -1195,6 +1226,88 @@
   height: var(--quote-dock-offset);
   flex-shrink: 0;
   pointer-events: none;
+}
+
+@utility quote-dock-anchor {
+  position: relative;
+  display: inline-block;
+}
+
+@utility quote-dock-halo {
+  position: absolute;
+  inset: -6px;
+  border-radius: 999px;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse 100% 80% at 50% 100%,
+    color-mix(in oklch, var(--brand-glow) 55%, transparent) 0%,
+    color-mix(in oklch, var(--brand-highlight) 28%, transparent) 42%,
+    transparent 72%
+  );
+  filter: blur(10px);
+  opacity: 0.45;
+  animation: quote-dock-beacon 9s ease-in-out infinite;
+}
+
+@utility quote-dock-halo-active {
+  opacity: 0.55;
+  animation: quote-dock-beacon-active 6s ease-in-out infinite;
+}
+
+@utility quote-dock-glass {
+  position: relative;
+  overflow: hidden;
+  border-radius: 999px;
+  background: color-mix(in oklch, var(--void) 52%, var(--brand) 8%);
+  backdrop-filter: blur(24px) saturate(1.22);
+  -webkit-backdrop-filter: blur(24px) saturate(1.22);
+  border: 1px solid color-mix(in oklch, var(--brand-highlight) 32%, transparent);
+  box-shadow:
+    inset 0 1px 0 color-mix(in oklch, white 10%, transparent),
+    inset 0 -1px 0 color-mix(in oklch, var(--brand) 20%, transparent),
+    0 0 0 1px color-mix(in oklch, var(--brand-glow) 12%, transparent),
+    0 0 24px -4px color-mix(in oklch, var(--brand-highlight) 22%, transparent),
+    0 16px 40px -14px color-mix(in oklch, black 55%, var(--brand));
+  &::before {
+    content: "";
+    position: absolute;
+    inset-inline: 12%;
+    top: 0;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      color-mix(in oklch, var(--brand-glow) 70%, transparent),
+      transparent
+    );
+    opacity: 0.7;
+    pointer-events: none;
+  }
+}
+
+@utility quote-dock-glass-active {
+  border-color: color-mix(in oklch, var(--brand-highlight) 48%, transparent);
+  background: color-mix(in oklch, var(--void) 48%, var(--brand) 12%);
+  box-shadow:
+    inset 0 1px 0 color-mix(in oklch, white 12%, transparent),
+    inset 0 -1px 0 color-mix(in oklch, var(--brand) 28%, transparent),
+    0 0 0 1px color-mix(in oklch, var(--brand-glow) 22%, transparent),
+    0 0 32px -2px color-mix(in oklch, var(--brand-highlight) 35%, transparent),
+    0 18px 44px -12px color-mix(in oklch, black 50%, var(--brand));
+}
+
+@utility quote-dock-label {
+  font-size: 0.8125rem;
+  font-weight: 300;
+  letter-spacing: 0.02em;
+  color: color-mix(in oklch, var(--foreground) 92%, var(--brand-highlight));
+}
+
+@utility quote-dock-count-inline {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--brand-highlight);
+  text-shadow: 0 0 12px color-mix(in oklch, var(--brand-glow) 40%, transparent);
 }
 
 @utility scrollbar-minimal {
@@ -1342,6 +1455,17 @@ html[dir="rtl"] .quote-sidebar-enter {
   50% {
     opacity: 0.24;
     transform: translate(-2%, 1%) scale(1.02);
+  }
+}
+
+@utility hero-logo-stage {
+  overflow: visible;
+}
+
+@utility hero-logo-canvas {
+  & canvas {
+    display: block;
+    background: transparent !important;
   }
 }
 
@@ -1500,7 +1624,8 @@ html[dir="rtl"] .quote-sidebar-enter {
 
 @media (prefers-reduced-motion: reduce) {
   .hero-mobile-glow-pulse,
-  .hero-mobile-well-pulse {
+  .hero-mobile-well-pulse,
+  .quote-dock-halo {
     animation: none;
   }
 }
@@ -1514,6 +1639,36 @@ html[dir="rtl"] .quote-sidebar-enter {
   50% {
     opacity: 1;
     transform: scaleY(1);
+  }
+}
+
+@keyframes quote-dock-beacon {
+  0%,
+  72%,
+  100% {
+    opacity: 0.28;
+    transform: scale(1);
+  }
+  82% {
+    opacity: 0.72;
+    transform: scale(1.06);
+  }
+  90% {
+    opacity: 0.38;
+    transform: scale(1.02);
+  }
+}
+
+@keyframes quote-dock-beacon-active {
+  0%,
+  78%,
+  100% {
+    opacity: 0.42;
+    transform: scale(1);
+  }
+  86% {
+    opacity: 0.78;
+    transform: scale(1.05);
   }
 }
 
@@ -1614,6 +1769,12 @@ html[lang="fa"] .type-heading-display {
 html[lang="fa"] .type-billboard {
   line-height: 1.2;
   letter-spacing: -0.01em;
+}
+
+html[lang="fa"] .type-hero-subtitle {
+  font-family: "Anjoman Variable", "Anjoman", var(--font-sans-fa);
+  font-variation-settings: "wght" 420;
+  letter-spacing: 0.005em;
 }
 
 html[lang="fa"] .section-tag,

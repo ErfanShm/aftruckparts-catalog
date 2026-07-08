@@ -23,7 +23,7 @@ type ProductCardProps = {
 };
 
 function variantStyles(variant: GalleryLayout["variant"]) {
-  const base = { showFinish: true, showBrandRail: false, showMarks: false };
+  const base = { showFinish: true, showMarks: false };
   switch (variant) {
     case "hero":
       return {
@@ -51,7 +51,6 @@ function variantStyles(variant: GalleryLayout["variant"]) {
         title: "text-[13px]",
         strip: "px-3 pb-3 pt-16",
         showCategory: false,
-        showBrandRail: true,
         hoverScale: "group-hover:scale-[1.04]",
         addButton: "h-7 w-7",
         showAddLabel: false,
@@ -62,7 +61,6 @@ function variantStyles(variant: GalleryLayout["variant"]) {
         title: "text-[13px]",
         strip: "px-3 pb-3 pt-14",
         showCategory: false,
-        showBrandRail: true,
         hoverScale: "group-hover:scale-[1.04]",
         addButton: "h-7 w-7",
         showAddLabel: false,
@@ -178,16 +176,11 @@ export function ProductCard({
         </span>
       )}
 
-      {styles.showBrandRail && (
-        <span className="pointer-events-none absolute start-3 top-1/2 z-[2] -translate-y-1/2 type-code ltr-embed text-foreground/12 [writing-mode:vertical-lr]">
-          {product.brand}
-        </span>
-      )}
 
       <div className="absolute inset-0 overflow-hidden bg-brand-panel">
         <CatalogImage
           manifest={product.imageManifest.hero}
-          alt=""
+          alt={product.name}
           priority={index < 4}
           placeholder={false}
           fill
@@ -218,11 +211,7 @@ export function ProductCard({
           >
             {product.name}
           </h3>
-          <p className="type-code mt-1 ltr-embed text-foreground/40">
-            {product.code}
-            <span className="mx-1.5 opacity-40">·</span>
-            {product.brand}
-          </p>
+          <p className="type-code mt-1 ltr-embed text-foreground/40">{product.code}</p>
         </div>
 
         <div className="relative z-[3] shrink-0 pb-0.5">

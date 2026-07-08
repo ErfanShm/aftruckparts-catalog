@@ -4,8 +4,8 @@ import { Suspense, useCallback, useEffect, useRef, useState } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { cn } from "@/lib/utils";
 
+import { HERO_LOGO_SVG } from "./hero-assets";
 import { HERO_VAULT_ATMOSPHERE } from "./hero-finishes";
-import { HeroScanReveal } from "./HeroScanReveal";
 import { HeroStageShell } from "./HeroStageShell";
 import { HeroVaultScene } from "./HeroVaultScene";
 
@@ -27,6 +27,12 @@ function hasWebGL() {
   }
 }
 
+function preloadLogoSvg() {
+  return fetch(HERO_LOGO_SVG).then((response) => {
+    if (!response.ok) throw new Error("logo svg preload failed");
+  });
+}
+
 export function HeroBadgeStage({
   reduced,
   fillHeight = false,
@@ -36,13 +42,44 @@ export function HeroBadgeStage({
   const frameRef = useRef<HTMLDivElement>(null);
   const [mounted, setMounted] = useState(false);
   const [webgl, setWebgl] = useState(false);
+  const [logoReady, setLogoReady] = useState(false);
   const [sceneReady, setSceneReady] = useState(false);
+  const [displayReady, setDisplayReady] = useState(false);
   const [pointer, setPointer] = useState<Pointer>({ x: 0, y: 0 });
 
   useEffect(() => {
     setMounted(true);
     setWebgl(hasWebGL());
   }, []);
+
+  const canRender3d = mounted && !reduced && webgl && logoReady;
+  const showVaultMask = mounted && !reduced && webgl && !displayReady;
+  const atmosphere = HERO_VAULT_ATMOSPHERE;
+
+  useEffect(() => {
+    if (!mounted || reduced || !webgl) {
+      setLogoReady(false);
+      return;
+    }
+
+    let cancelled = false;
+    preloadLogoSvg()
+      .catch(() => undefined)
+      .finally(() => {
+        if (!cancelled) setLogoReady(true);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [mounted, reduced, webgl]);
+
+  useEffect(() => {
+    if (!canRender3d) {
+      setSceneReady(false);
+      setDisplayReady(false);
+    }
+  }, [canRender3d]);
 
   const onPointerMove = useCallback((event: React.PointerEvent<HTMLDivElement>) => {
     const rect = event.currentTarget.getBoundingClientRect();
@@ -55,13 +92,23 @@ export function HeroBadgeStage({
     setSceneReady(true);
   }, []);
 
-  const canRender3d = mounted && !reduced && webgl;
-  const atmosphere = HERO_VAULT_ATMOSPHERE;
+  useEffect(() => {
+    if (!sceneReady) return;
 
-  /** Block page scroll while dragging/zooming the 3D viewport. */
+    let frame2 = 0;
+    const frame1 = requestAnimationFrame(() => {
+      frame2 = requestAnimationFrame(() => setDisplayReady(true));
+    });
+
+    return () => {
+      cancelAnimationFrame(frame1);
+      cancelAnimationFrame(frame2);
+    };
+  }, [sceneReady]);
+
   useEffect(() => {
     const frame = frameRef.current;
-    if (!frame || !canRender3d || !sceneReady) return;
+    if (!frame || !canRender3d || !displayReady) return;
 
     const blockScroll = (event: WheelEvent | TouchEvent) => {
       event.preventDefault();
@@ -74,46 +121,47 @@ export function HeroBadgeStage({
       frame.removeEventListener("wheel", blockScroll);
       frame.removeEventListener("touchmove", blockScroll);
     };
-  }, [canRender3d, sceneReady]);
-
-  const frameClass = cn(
-    "hero-vault-frame hero-stage-vignette relative w-full flex-1 touch-none select-none overscroll-contain overflow-hidden rounded-2xl md:rounded-3xl",
-    fillHeight ? "min-h-0 h-full" : "h-[min(76vw,24rem)] sm:h-[min(70vw,28rem)]",
-  );
+  }, [canRender3d, displayReady]);
 
   return (
-    <div className={cn("relative flex h-full w-full min-h-0 flex-col", className)}>
+    <div
+      className={cn(
+        "hero-logo-stage pointer-events-none relative h-full w-full min-h-0",
+        fillHeight ? "min-h-0" : "min-h-[min(76vw,24rem)] sm:min-h-[min(70vw,28rem)]",
+        className,
+      )}
+    >
       <div
-        className="pointer-events-none absolute inset-[4%] -z-10 rounded-full blur-[100px] transition-[background] duration-700"
+        className="absolute inset-[-18%_-28%_-18%_-12%] -z-10 blur-[130px]"
         style={{
-          background: `radial-gradient(circle at center, ${atmosphere.glow}, transparent 62%)`,
+          background: `radial-gradient(ellipse 62% 54% at 44% 46%, ${atmosphere.glow}, transparent 74%)`,
         }}
         aria-hidden
       />
 
-      <div ref={frameRef} className={frameClass} onPointerMove={onPointerMove}>
-        <HeroStageShell
-          fillHeight
-          overlay
-          className={cn(
-            "!rounded-none z-0 transition-opacity duration-500",
-            canRender3d && sceneReady ? "pointer-events-none opacity-0" : "opacity-100",
-          )}
-        />
-
+      <div
+        ref={frameRef}
+        className="pointer-events-auto absolute inset-0 touch-none select-none overscroll-contain"
+        onPointerMove={onPointerMove}
+      >
         {canRender3d && (
           <Canvas
             className={cn(
-              "relative z-10 touch-none !h-full !w-full transition-opacity duration-500",
-              sceneReady ? "opacity-100" : "opacity-0",
+              "hero-logo-canvas absolute inset-0 z-0 !h-full !w-full touch-none transition-opacity duration-500",
+              displayReady ? "visible opacity-100" : "invisible opacity-0",
             )}
-            style={{ touchAction: "none" }}
+            style={{ touchAction: "none", background: "transparent" }}
             camera={{ position: [0, 0, 3.65], fov: 38 }}
             dpr={isMobile ? 1 : [1, 1.5]}
             gl={{
               antialias: !isMobile,
-              alpha: false,
+              alpha: true,
+              premultipliedAlpha: true,
               powerPreference: "high-performance",
+            }}
+            onCreated={({ gl }) => {
+              gl.setClearColor(0x000000, 0);
+              gl.domElement.style.background = "transparent";
             }}
           >
             <Suspense fallback={null}>
@@ -122,7 +170,13 @@ export function HeroBadgeStage({
           </Canvas>
         )}
 
-        <HeroScanReveal active={canRender3d && sceneReady} reduced={reduced} />
+        <HeroStageShell
+          overlay
+          className={cn(
+            "absolute inset-0 z-10 transition-opacity duration-500",
+            showVaultMask ? "opacity-100" : "pointer-events-none opacity-0",
+          )}
+        />
       </div>
     </div>
   );

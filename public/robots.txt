@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://aftruckparts.com/sitemap.xml

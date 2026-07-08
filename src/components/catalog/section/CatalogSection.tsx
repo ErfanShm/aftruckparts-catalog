@@ -21,8 +21,6 @@ type CatalogSectionProps = {
   onRemove: (id: string, finishKey?: FinishKey) => void;
   activeDasteh: ProductDasteh | null;
   setActiveDasteh: (v: ProductDasteh | null) => void;
-  activeFinish: FinishKey | null;
-  setActiveFinish: (v: FinishKey | null) => void;
   query: string;
   setQuery: (v: string) => void;
   productCount: number;
@@ -35,8 +33,6 @@ export function CatalogSection({
   onRemove,
   activeDasteh,
   setActiveDasteh,
-  activeFinish,
-  setActiveFinish,
   query,
   setQuery,
   productCount,
@@ -46,12 +42,12 @@ export function CatalogSection({
 
   const isFiltered =
     filtered.length < productCount ||
-    Boolean(activeDasteh || activeFinish || query.trim());
+    Boolean(activeDasteh || query.trim());
 
-  const filterSignature = `${filtered.length}-${activeDasteh ?? ""}-${activeFinish ?? ""}-${query.trim()}`;
+  const filterSignature = `${filtered.length}-${activeDasteh ?? ""}-${query.trim()}`;
 
   /** Structural changes only — avoids per-keystroke scroll fights on mobile. */
-  const scrollSignature = `${filtered.length}-${activeDasteh ?? ""}-${activeFinish ?? ""}`;
+  const scrollSignature = `${filtered.length}-${activeDasteh ?? ""}`;
 
   const resultsRef = useRef<HTMLDivElement>(null);
   const { prepareForFilterChange } = useStableFilterScroll(resultsRef, scrollSignature);
@@ -75,11 +71,6 @@ export function CatalogSection({
     setActiveDasteh: (value: ProductDasteh | null) => {
       prepareForFilterChange();
       setActiveDasteh(value);
-    },
-    activeFinish,
-    setActiveFinish: (value: FinishKey | null) => {
-      prepareForFilterChange();
-      setActiveFinish(value);
     },
     query,
     setQuery,

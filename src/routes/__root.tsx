@@ -10,8 +10,16 @@ import {
 import { type ReactNode } from "react";
 
 import { DocumentLocale, LocaleProvider, useLocale } from "@/lib/i18n";
-import { fa } from "@/locales/fa";
+import { LOCALE_BOOTSTRAP_SCRIPT, localeDir } from "@/lib/locale-cookie";
+import { resolveRequestLocale } from "@/lib/locale-request";
+import { buildHead } from "@/lib/seo";
+import { DEFAULT_LOCALE, getMessages, type Locale } from "@/locales";
 import appCss from "../styles.css?url";
+
+type RootContext = {
+  queryClient: QueryClient;
+  locale: Locale;
+};
 
 function NotFoundComponent() {
   const { messages } = useLocale();
@@ -69,43 +77,44 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   );
 }
 
-export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
-  head: () => ({
-    meta: [
-      { charSet: "utf-8" },
-      {
-        name: "viewport",
-        content: "width=device-width, initial-scale=1, viewport-fit=cover",
-      },
-      { title: fa.meta.title },
-      { name: "description", content: fa.meta.description },
-      { name: "author", content: fa.meta.author },
-      { property: "og:title", content: fa.meta.ogTitle },
-      { property: "og:description", content: fa.meta.ogDescription },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-      { property: "og:image", content: "/android-chrome-512x512.png" },
-      { name: "theme-color", content: "#07070a" },
-    ],
-    links: [
-      { rel: "stylesheet", href: appCss },
-      { rel: "icon", href: "/favicon.ico", sizes: "any" },
-      { rel: "icon", href: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
-      { rel: "icon", href: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
-      { rel: "apple-touch-icon", href: "/apple-touch-icon.png", sizes: "180x180" },
-      { rel: "manifest", href: "/site.webmanifest" },
-      { rel: "preconnect", href: "https://fonts.googleapis.com" },
-      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      {
-        rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Vazirmatn:wght@100..900&display=swap",
-      },
-      {
-        rel: "stylesheet",
-        href: "https://cdn.jsdelivr.net/npm/@fontsource-variable/geist-mono@5.2.8/index.min.css",
-      },
-    ],
-  }),
+export const Route = createRootRouteWithContext<Pick<RootContext, "queryClient">>()({
+  beforeLoad: async () => {
+    const locale = await resolveRequestLocale();
+    return { locale };
+  },
+  head: ({ match }) => {
+    const locale = (match.context as RootContext).locale ?? DEFAULT_LOCALE;
+    const head = buildHead(getMessages(locale), locale);
+
+    return {
+      meta: head.meta,
+      links: [
+        ...head.links,
+        { rel: "stylesheet", href: appCss },
+        { rel: "icon", href: "/favicon.ico", sizes: "any" },
+        { rel: "icon", href: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+        { rel: "icon", href: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+        { rel: "apple-touch-icon", href: "/apple-touch-icon.png", sizes: "180x180" },
+        { rel: "manifest", href: "/site.webmanifest" },
+        {
+          rel: "preload",
+          href: "/brand/hero/af-logo.svg",
+          as: "image",
+          type: "image/svg+xml",
+        },
+        { rel: "preconnect", href: "https://fonts.googleapis.com" },
+        { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
+        {
+          rel: "stylesheet",
+          href: "https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Vazirmatn:wght@100..900&display=swap",
+        },
+        {
+          rel: "stylesheet",
+          href: "https://cdn.jsdelivr.net/npm/@fontsource-variable/geist-mono@5.2.8/index.min.css",
+        },
+      ],
+    };
+  },
   shellComponent: RootShell,
   component: RootComponent,
   notFoundComponent: NotFoundComponent,
@@ -113,13 +122,21 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 });
 
 function RootShell({ children }: { children: ReactNode }) {
+  const { locale } = Route.useRouteContext();
+
   return (
-    <html lang="fa" dir="rtl" suppressHydrationWarning>
+    <html
+      lang={locale}
+      dir={localeDir(locale)}
+      className="locale-pending"
+      suppressHydrationWarning
+    >
       <head>
+        <script dangerouslySetInnerHTML={{ __html: LOCALE_BOOTSTRAP_SCRIPT }} />
         <HeadContent />
       </head>
       <body>
-        <LocaleProvider>
+        <LocaleProvider initialLocale={locale}>
           <DocumentLocale />
           {children}
         </LocaleProvider>

@@ -2,17 +2,13 @@ import type { LocaleMessages } from "./types";
 
 export const fa: LocaleMessages = {
   meta: {
-    title: "Aftruckparts — کاتالوگ قطعات کامیون",
-    description:
-      "کاتالوگ B2B آرم‌ها و یراق‌آلات درجه‌یک کامیون. روکش‌های مهندسی‌شده، گارانتی ۲ ساله.",
+    title: "Aftruckparts | آرم و یراق کامیون",
+    description: "کاتالوگ B2B آرم‌ها و یراق‌آلات کامیون. گارانتی ۲ ساله.",
     author: "Aftruckparts",
-    ogTitle: "Aftruckparts — کاتالوگ قطعات کامیون",
-    ogDescription:
-      "کاتالوگ B2B آرم‌ها و یراق‌آلات درجه‌یک کامیون. روکش‌های مهندسی‌شده، گارانتی ۲ ساله.",
   },
 
   nav: {
-    links: ["کاتالوگ", "راهنمای خرید", "تماس"],
+    links: ["راهنمای خرید", "کاتالوگ", "تماس"],
     langFa: "فا",
     langEn: "EN",
     menuOpen: "باز کردن منو",
@@ -57,7 +53,6 @@ export const fa: LocaleMessages = {
     brandLabel: "برند",
     dastehLabel: "دسته",
     categoryLabel: "نوع",
-    finishLabel: "روکش",
     clearFilters: "پاک کردن فیلتر",
     noResults: "موردی پیدا نشد.",
     openFilters: "فیلتر",
@@ -80,8 +75,8 @@ export const fa: LocaleMessages = {
   dastehLines: [
     { key: "volvo-fh12-fh13", label: "ولوو FH12 / FH13" },
     { key: "volvo-fh500", label: "ولوو FH500" },
-    { key: "hub-caps", label: "قالپاق توپی · ولوو / رنو / C&C" },
     { key: "daf", label: "داف" },
+    { key: "hub-caps", label: "قالپاق توپی · ولوو / رنو / C&C" },
   ],
 
   finishes: [
@@ -143,11 +138,12 @@ export const fa: LocaleMessages = {
   },
 
   footer: {
-    headline: "ارتباط مستقیم با تیم ما",
-    headlineLine1: "ارتباط مستقیم",
-    headlineLine2: "با تیم ما",
-    tagline: "یراق‌آلات درجه‌یک کامیون · کاتالوگ B2B · روکش‌های آماده ناوگان.",
-    socialLabel: "ارتباط",
+    headline: "با ما در تماس باشید",
+    headlineLine1: "با ما",
+    headlineLine2: "در تماس باشید",
+    tagline:
+      "برای استعلام قیمت، ثبت سفارش یا راهنمایی فنی — از هر کانالی که راحت‌تر است با تیم ما در ارتباط باشید.",
+    socialLabel: "راه‌های ارتباطی",
     watermark: "B2B",
     social: [
       { key: "whatsapp", label: "واتساپ", short: "WA", href: "https://wa.me/" },
@@ -155,7 +151,25 @@ export const fa: LocaleMessages = {
       { key: "telegram", label: "تلگرام", short: "TG", href: "https://t.me/" },
       { key: "email", label: "ایمیل", short: "MAIL", href: "mailto:hello@aftruckparts.com" },
     ],
+    phone: {
+      label: "تماس تلفنی",
+      display: "۰۹۱۲ ۰۰۰ ۰۰۰۰",
+      href: "tel:+989120000000",
+    },
+    iranianMessengers: {
+      label: "پیام‌رسان‌های ایرانی",
+      links: [
+        { key: "bale", label: "بله", href: "https://ble.ir/" },
+        { key: "rubika", label: "روبیکا", href: "https://rubika.ir/" },
+      ],
+    },
     copyright: "© ۱۴۰۵ Aftruckparts",
+    designedBy: {
+      prefix: "طراحی",
+      name: "erfanshm",
+      href: "https://erfanshm.com/",
+      title: "Erfan Shafiee Moghaddam",
+    },
   },
 
   errors: {

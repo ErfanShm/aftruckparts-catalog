@@ -48,7 +48,7 @@ function splitWarrantyHighlight(text: string, highlight: string) {
 
 function HeroCtas({ cta, ctaPdf, className }: { cta: string; ctaPdf: string; className?: string }) {
   return (
-    <div className={cn("flex flex-col items-start gap-5", className)}>
+    <div className={cn("flex flex-col items-center gap-7 lg:items-start", className)}>
       <a
         href="#catalog"
         onClick={(e) => {
@@ -57,14 +57,17 @@ function HeroCtas({ cta, ctaPdf, className }: { cta: string; ctaPdf: string; cla
         }}
         className="group inline-flex w-fit items-center gap-3 rounded-full btn-primary px-10 py-4 text-base type-ui-strong md:px-12 md:py-5 md:text-lg"
       >
-        <span>{cta}</span>
-        <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 rtl:-scale-x-100 rtl:group-hover:-translate-x-0.5" />
+        <span className="leading-none">{cta}</span>
+        <ArrowUpRight
+          strokeWidth={2.25}
+          className="size-[1.125rem] shrink-0 translate-y-px transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 rtl:-scale-x-100 rtl:group-hover:-translate-x-0.5"
+        />
       </a>
       <a
         href={PDF_CATALOG}
         target="_blank"
         rel="noopener noreferrer"
-        className="ps-1 text-[0.8125rem] text-muted-foreground underline-offset-[5px] transition-colors hover:text-brand-readable hover:underline"
+        className="text-center text-[0.875rem] text-foreground/62 underline-offset-[5px] transition-colors hover:text-brand-readable hover:underline lg:ps-3 lg:text-start"
       >
         {ctaPdf}
       </a>
@@ -110,59 +113,34 @@ export function CatalogHero() {
   }, []);
 
   return (
-    <section className="site-column relative flex min-h-0 flex-col justify-center overflow-x-clip pb-16 pt-8 lg:min-h-[calc(100svh-var(--header-offset))] lg:pb-24 lg:pt-10">
+    <section className="site-column relative flex min-h-0 flex-col justify-center overflow-visible pb-16 pt-8 lg:min-h-[calc(100svh-var(--header-offset))] lg:pb-24 lg:pt-10">
       <div
         className="editorial-spine pointer-events-none absolute inset-y-[14%] start-0 hidden w-px lg:block"
         aria-hidden
       />
 
-      <div className="grid flex-1 items-center gap-6 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] lg:gap-12 xl:gap-16">
-        <div className="relative z-20 flex flex-col justify-center lg:max-w-xl lg:pe-4">
-          <motion.div {...fadeUp(0, reduced)} className="mb-7 md:mb-9">
+      <div className="relative z-10 grid flex-1 items-center gap-6 lg:max-w-xl">
+        <div className="relative flex flex-col justify-center lg:pe-2 xl:pe-0">
+          <div
+            className="pointer-events-none absolute -end-6 top-1/2 hidden h-[55%] w-28 -translate-y-1/2 bg-gradient-to-r from-transparent via-brand/8 to-brand-highlight/12 blur-2xl lg:block"
+            aria-hidden
+          />
+          <motion.div {...fadeUp(0, reduced)} className="mb-7 self-center md:mb-9 lg:self-start">
             <SectionRule index={PAGE_SECTION_INDEX.hero} />
           </motion.div>
 
-          <div className="relative lg:max-w-xl">
-            <motion.div
-              {...fadeUp(0.06, reduced)}
-              className={cn(
-                "relative z-10 flex items-start gap-4 lg:hidden",
-                locale === "fa" ? "flex-row-reverse" : "flex-row",
-              )}
-            >
-              <HeroMobileLogo className="mt-1 shrink-0" />
-              <h1
-                className={cn(
-                  "font-display type-billboard flex-1",
-                  locale === "fa" ? "text-right leading-[1.18]" : "text-left leading-[1.05]",
-                )}
-              >
-                {messages.hero.titleLine1}
-                {(messages.hero.titleLine2 || messages.hero.titleAccent) && (
-                  <>
-                    <br />
-                    {messages.hero.titleLine2}{" "}
-                    {messages.hero.titleAccent && (
-                      <span
-                        className={cn(
-                          "gradient-text",
-                          locale === "en"
-                            ? "font-mono-tech font-normal tracking-[0.1em]"
-                            : "type-heading-display",
-                        )}
-                      >
-                        {messages.hero.titleAccent}
-                      </span>
-                    )}
-                  </>
-                )}
-              </h1>
-            </motion.div>
+          <motion.div
+            {...fadeUp(0.04, reduced)}
+            className="mb-6 flex justify-center lg:hidden"
+          >
+            <HeroMobileLogo className="scale-110 sm:scale-125" />
+          </motion.div>
 
+          <div className="relative lg:max-w-xl">
             <motion.h1
               {...fadeUp(0.06, reduced)}
               className={cn(
-                "relative z-10 hidden font-display type-billboard max-w-xl lg:block",
+                "relative z-10 mx-auto max-w-xl font-display type-billboard text-center lg:mx-0 lg:text-start",
                 locale === "fa" ? "leading-[1.18]" : "leading-[1.05]",
               )}
             >
@@ -175,9 +153,9 @@ export function CatalogHero() {
                     <span
                       className={cn(
                         "gradient-text",
-                          locale === "en"
-                            ? "font-mono-tech font-normal tracking-[0.1em]"
-                            : "type-heading-display",
+                        locale === "en"
+                          ? "font-mono-tech font-normal tracking-[0.1em]"
+                          : "type-heading-display",
                       )}
                     >
                       {messages.hero.titleAccent}
@@ -189,36 +167,33 @@ export function CatalogHero() {
 
           <motion.p
             {...fadeUp(0.12, reduced)}
-            className="type-ui relative z-10 mt-6 max-w-sm text-[0.9375rem] leading-[1.65] text-muted-foreground md:mt-7 md:text-base"
+            className="type-hero-subtitle relative z-10 mx-auto mt-6 max-w-md text-center md:mt-7 lg:mx-0 lg:text-start"
           >
             {messages.hero.subtitleLead}
             <br />
-            <span className="text-foreground/68">
+            <span className="text-foreground/76 max-lg:text-foreground/84">
               {warrantyLine.before}
               {warrantyLine.highlight && (
-                <span className="text-foreground/88">{warrantyLine.highlight}</span>
+                <span className="text-foreground/92 max-lg:text-foreground/96">{warrantyLine.highlight}</span>
               )}
               {warrantyLine.after}
             </span>
           </motion.p>
           </div>
 
-          <motion.div {...fadeUp(0.18, reduced)} className="mt-8 hidden lg:block md:mt-10">
+          <motion.div {...fadeUp(0.18, reduced)} className="mt-8 flex justify-center md:mt-10 lg:justify-start">
             <HeroCtas cta={messages.hero.cta} ctaPdf={messages.hero.ctaPdf} />
           </motion.div>
         </div>
-
-        <motion.div
-          {...stageEntrance(reduced)}
-          className="relative hidden min-h-0 flex-col justify-center lg:flex lg:min-h-[min(calc(100svh-var(--header-offset)-6rem),38rem)] lg:h-[min(calc(100svh-var(--header-offset)-6rem),38rem)]"
-        >
-          <HeroBadgeStage {...stageProps} />
-        </motion.div>
-
-        <motion.div {...fadeUp(0.22, reduced)} className="mt-2 lg:hidden">
-          <HeroCtas cta={messages.hero.cta} ctaPdf={messages.hero.ctaPdf} />
-        </motion.div>
       </div>
+
+      <motion.div
+        {...stageEntrance(reduced)}
+        className="pointer-events-none absolute inset-y-[4%] end-0 z-0 hidden w-[min(62vw,54rem)] lg:block"
+        style={{ marginInlineEnd: "calc(-1 * var(--column-px))" }}
+      >
+        <HeroBadgeStage {...stageProps} fillHeight />
+      </motion.div>
 
       <div
         className={cn(

@@ -93,7 +93,6 @@ function ProductSpecSheet({ product }: { product: Product }) {
     { key: "dasteh", label: d.dasteh, value: product.dastehLabel },
     { key: "spec", label: d.specValue, value: product.spec, codeLike: true },
     { key: "finish", label: d.finish, value: product.finish, finishKey: product.finishOffers.length > 1 ? undefined : product.finishKey },
-    { key: "brand", label: d.brand, value: product.brand, codeLike: true },
   ];
 
   if (product.modelCompat) {

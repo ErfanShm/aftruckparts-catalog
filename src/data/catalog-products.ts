@@ -17,8 +17,8 @@ export type ProductDasteh =
 export const DASTEH_KEYS: readonly ProductDasteh[] = [
   "volvo-fh12-fh13",
   "volvo-fh500",
-  "hub-caps",
   "daf",
+  "hub-caps",
 ];
 
 export type FinishKey = "matte" | "matte-glossy" | "glossy" | "steel";

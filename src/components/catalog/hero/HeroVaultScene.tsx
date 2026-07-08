@@ -1,5 +1,7 @@
 import { Environment, Lightformer, OrbitControls } from "@react-three/drei";
-import { TOUCH } from "three";
+import { useLayoutEffect, useEffect, useRef } from "react";
+import { useFrame, useThree } from "@react-three/fiber";
+import { TOUCH, type Mesh } from "three";
 
 import { useIsMobile } from "@/hooks/use-mobile";
 
@@ -13,31 +15,86 @@ type HeroVaultSceneProps = {
   onReady?: () => void;
 };
 
-/** Lightweight procedural env for mobile — physical materials need reflections to read as metal. */
-function HeroEnvironment({ mobile }: { mobile: boolean }) {
-  if (mobile) {
-    return (
-      <Environment resolution={128} frames={1}>
-        <Lightformer intensity={2.8} color="#e8f0fa" position={[0, 4, 5]} scale={[12, 12, 1]} />
-        <Lightformer
-          intensity={1.4}
-          color="#b8c8dc"
-          rotation={[0, Math.PI / 2, 0]}
-          position={[-5, 2, 3]}
-          scale={[10, 4, 1]}
-        />
-        <Lightformer
-          intensity={0.65}
-          color="#8a8f98"
-          rotation={[0, -Math.PI / 2, 0]}
-          position={[5, 1, -2]}
-          scale={[8, 3, 1]}
-        />
-      </Environment>
-    );
-  }
+/** Keep the canvas transparent and reveal only after env lighting + a clean frame. */
+function HeroSceneReadyGate({ onReady }: { onReady?: () => void }) {
+  const { gl, scene } = useThree();
+  const notifiedRef = useRef(false);
+  const stableFramesRef = useRef(0);
+  const cancelledRef = useRef(false);
+  const onReadyRef = useRef(onReady);
+  const sampleRef = useRef(new Uint8Array(4));
 
-  return <Environment preset="studio" />;
+  onReadyRef.current = onReady;
+
+  useLayoutEffect(() => {
+    scene.background = null;
+    gl.setClearColor(0x000000, 0);
+    gl.domElement.style.background = "transparent";
+  }, [gl, scene]);
+
+  useEffect(() => {
+    cancelledRef.current = false;
+    notifiedRef.current = false;
+    stableFramesRef.current = 0;
+
+    return () => {
+      cancelledRef.current = true;
+    };
+  }, []);
+
+  useFrame(() => {
+    if (cancelledRef.current || notifiedRef.current) return;
+
+    scene.background = null;
+    gl.setClearColor(0x000000, 0);
+
+    if (!scene.environment) return;
+
+    let hasLogoMesh = false;
+    scene.traverse((object) => {
+      if ((object as Mesh).isMesh) hasLogoMesh = true;
+    });
+    if (!hasLogoMesh) return;
+
+    stableFramesRef.current += 1;
+    if (stableFramesRef.current < 4) return;
+
+    // Opaque corners mean the canvas flashed white instead of clearing transparent.
+    const context = gl.getContext();
+    const sample = sampleRef.current;
+    context.readPixels(8, 8, 1, 1, context.RGBA, context.UNSIGNED_BYTE, sample);
+    if (sample[3] > 32) {
+      stableFramesRef.current = 2;
+      return;
+    }
+
+    notifiedRef.current = true;
+    onReadyRef.current?.();
+  });
+
+  return null;
+}
+
+function HeroEnvironment() {
+  return (
+    <Environment resolution={256} frames={2} background={false}>
+      <Lightformer intensity={2.6} color="#e8f0fa" position={[0, 4, 5]} scale={[12, 12, 1]} />
+      <Lightformer
+        intensity={1.35}
+        color="#b8c8dc"
+        rotation={[0, Math.PI / 2, 0]}
+        position={[-5, 2, 3]}
+        scale={[10, 4, 1]}
+      />
+      <Lightformer
+        intensity={0.85}
+        color="#06b6d4"
+        rotation={[0, -Math.PI / 2, 0]}
+        position={[5, 1, -2]}
+        scale={[8, 3, 1]}
+      />
+    </Environment>
+  );
 }
 
 export function HeroVaultScene({ pointer, onReady }: HeroVaultSceneProps) {
@@ -52,8 +109,9 @@ export function HeroVaultScene({ pointer, onReady }: HeroVaultSceneProps) {
 
   return (
     <>
-      <color attach="background" args={[atmosphere.void]} />
-      <fog attach="fog" args={[atmosphere.fogColor, atmosphere.fogNear, atmosphere.fogFar]} />
+      <HeroSceneReadyGate onReady={onReady} />
+
+      <HeroEnvironment />
 
       <ambientLight intensity={ambientIntensity} color={atmosphere.ambient.color} />
 
@@ -95,27 +153,21 @@ export function HeroVaultScene({ pointer, onReady }: HeroVaultSceneProps) {
         color={atmosphere.rim.color}
       />
 
-      <HeroAssembly onReady={onReady} />
+      <HeroAssembly />
 
       <OrbitControls
         enablePan={false}
         enableZoom
         touches={{
           ONE: TOUCH.ROTATE,
-          TWO: TOUCH.DOLLY,
+          TWO: TOUCH.DOLLY_PAN,
         }}
         minDistance={2.2}
         maxDistance={6.5}
-        minPolarAngle={0.62}
-        maxPolarAngle={1.58}
-        minAzimuthAngle={-1.35}
-        maxAzimuthAngle={1.35}
         dampingFactor={0.08}
         rotateSpeed={0.85}
         zoomSpeed={0.75}
       />
-
-      <HeroEnvironment mobile={isMobile} />
     </>
   );
 }
