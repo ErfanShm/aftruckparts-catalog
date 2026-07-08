@@ -145,7 +145,6 @@ export type LocaleMessages = {
     itemsHeading: string;
     line: (code: string, name: string, finish: string, qty: number) => string;
     footer: string;
-    leadSource: string;
   };
 };
 

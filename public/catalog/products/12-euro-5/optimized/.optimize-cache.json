@@ -1,12 +1,12 @@
 {
   "hero": {
     "configVersion": 1,
-    "sourceHash": "63b68c05bfec6badcc7c534649fc62977a45c500955414c41ec42917f9a51b08",
+    "sourceHash": "8388687dee6f72ae77a12fe173f322a53a451e6c8fffe12fd641cfd601e08e84",
     "entry": {
       "src": "/catalog/products/12-euro-5/optimized/hero-1200.webp",
       "width": 1200,
       "height": 1200,
-      "blurDataURL": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAKAAoDASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAwQFBv/EACAQAAEEAQQDAAAAAAAAAAAAAAEAAgMRIQQFE0ExUWH/xAAUAQEAAAAAAAAAAAAAAAAAAAAC/8QAGBEAAwEBAAAAAAAAAAAAAAAAAAEREjH/2gAMAwEAAhEDEQA/AMxpoGUySVxEZNZFX7ynHb3qGOLY+IMBpo424HXSmzk0BeB4+ISdgMp9P//Z",
+      "blurDataURL": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAKAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAABAb/xAAcEAEAAgIDAQAAAAAAAAAAAAABAhEAAxQhQaH/xAAUAQEAAAAAAAAAAAAAAAAAAAAC/8QAFREBAQAAAAAAAAAAAAAAAAAAAAH/2gAMAwEAAhEDEQA/AJWGiDTPYN01Ev75iOFqeywfMNF7MYLR3igV/9k=",
       "srcSetWebp": "/catalog/products/12-euro-5/optimized/hero-480.webp 480w, /catalog/products/12-euro-5/optimized/hero-800.webp 800w, /catalog/products/12-euro-5/optimized/hero-1200.webp 1200w",
       "srcSetAvif": "/catalog/products/12-euro-5/optimized/hero-800.avif 800w, /catalog/products/12-euro-5/optimized/hero-1200.avif 1200w"
     }

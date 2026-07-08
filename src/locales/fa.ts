@@ -1,3 +1,8 @@
+import {
+  CONTACT_INSTAGRAM_HREF,
+  CONTACT_PHONE_TEL,
+  CONTACT_WHATSAPP_HREF,
+} from "@/data/contact";
 import type { LocaleMessages } from "./types";
 
 export const fa: LocaleMessages = {
@@ -146,15 +151,15 @@ export const fa: LocaleMessages = {
     socialLabel: "راه‌های ارتباطی",
     watermark: "B2B",
     social: [
-      { key: "whatsapp", label: "واتساپ", short: "WA", href: "https://wa.me/" },
-      { key: "instagram", label: "اینستاگرام", short: "IG", href: "https://instagram.com/" },
+      { key: "whatsapp", label: "واتساپ", short: "WA", href: CONTACT_WHATSAPP_HREF },
+      { key: "instagram", label: "اینستاگرام", short: "IG", href: CONTACT_INSTAGRAM_HREF },
       { key: "telegram", label: "تلگرام", short: "TG", href: "https://t.me/" },
       { key: "email", label: "ایمیل", short: "MAIL", href: "mailto:hello@aftruckparts.com" },
     ],
     phone: {
       label: "تماس تلفنی",
-      display: "۰۹۱۲ ۰۰۰ ۰۰۰۰",
-      href: "tel:+989120000000",
+      display: "۰۹۰۳ ۴۹۱ ۳۲۹۱",
+      href: CONTACT_PHONE_TEL,
     },
     iranianMessengers: {
       label: "پیام‌رسان‌های ایرانی",
@@ -188,6 +193,5 @@ export const fa: LocaleMessages = {
     itemsHeading: "اقلام:",
     line: (code, name, finish, qty) => `• ${qty.toLocaleString("fa-IR")} عدد | ${code} (${name} - ${finish})`,
     footer: "لطفاً قیمت، موجودی و زمان تحویل را اعلام کنید.",
-    leadSource: "[Lead Source: Web-Catalog-26]",
   },
 };

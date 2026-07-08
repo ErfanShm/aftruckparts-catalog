@@ -17,6 +17,7 @@ import {
 } from "@/lib/catalog-search";
 import { useLocale } from "@/lib/i18n";
 import { addQuoteQty, quoteLineKey, removeQuoteQty } from "@/lib/quote-lines";
+import { buildWhatsAppOrderUrl } from "@/data/contact";
 import { buildWhatsAppMessage } from "@/locales";
 
 export const Route = createFileRoute("/")({
@@ -89,10 +90,14 @@ function CatalogPage() {
   );
 
   const sendWhatsApp = (customer: string, details: string) => {
-    const text = encodeURIComponent(
-      buildWhatsAppMessage(locale, quoteItems, products, customer, details),
+    window.open(
+      buildWhatsAppOrderUrl(
+        encodeURIComponent(
+          buildWhatsAppMessage(locale, quoteItems, products, customer, details),
+        ),
+      ),
+      "_blank",
     );
-    window.open(`https://wa.me/?text=${text}`, "_blank");
   };
 
   return (

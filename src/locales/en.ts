@@ -1,3 +1,9 @@
+import {
+  CONTACT_INSTAGRAM_HREF,
+  CONTACT_PHONE_TEL,
+  CONTACT_WHATSAPP_DISPLAY,
+  CONTACT_WHATSAPP_HREF,
+} from "@/data/contact";
 import type { LocaleMessages } from "./types";
 
 export const en: LocaleMessages = {
@@ -146,15 +152,15 @@ export const en: LocaleMessages = {
     socialLabel: "Contact channels",
     watermark: "B2B",
     social: [
-      { key: "whatsapp", label: "WhatsApp", short: "WA", href: "https://wa.me/" },
-      { key: "instagram", label: "Instagram", short: "IG", href: "https://instagram.com/" },
+      { key: "whatsapp", label: "WhatsApp", short: "WA", href: CONTACT_WHATSAPP_HREF },
+      { key: "instagram", label: "Instagram", short: "IG", href: CONTACT_INSTAGRAM_HREF },
       { key: "telegram", label: "Telegram", short: "TG", href: "https://t.me/" },
       { key: "email", label: "Email", short: "MAIL", href: "mailto:hello@aftruckparts.com" },
     ],
     phone: {
       label: "Phone",
-      display: "+98 912 000 0000",
-      href: "tel:+989120000000",
+      display: CONTACT_WHATSAPP_DISPLAY,
+      href: CONTACT_PHONE_TEL,
     },
     copyright: "© 2026 Aftruckparts",
     designedBy: {
@@ -181,6 +187,5 @@ export const en: LocaleMessages = {
     itemsHeading: "Items:",
     line: (code, name, finish, qty) => `• ${qty}x | ${code} (${name} - ${finish})`,
     footer: "Please confirm pricing, availability, and lead time.",
-    leadSource: "[Lead Source: Web-Catalog-26]",
   },
 };

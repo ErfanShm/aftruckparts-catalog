@@ -102,7 +102,7 @@ export function buildWhatsAppMessage(
   const headerLines = [t.header, t.customer(customer)];
   if (details) headerLines.push(t.details(details));
 
-  return [...headerLines, "", t.itemsHeading, ...lines, "", t.footer, "", t.leadSource].join("\n");
+  return [...headerLines, "", t.itemsHeading, ...lines, "", t.footer].join("\n");
 }
 
 export { DASTEH_KEYS, PRODUCT_CATALOG } from "@/data/products";
