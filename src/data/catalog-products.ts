@@ -176,11 +176,7 @@ export function productGalleryImagePaths(page: number, category: ProductCategory
   const manifest = CATALOG_IMAGE_MANIFEST[slug];
   if (!manifest) return [];
 
-  if (category === "installation") {
-    return [manifest.hero, manifest.install].filter(Boolean).map((entry) => entry!.src);
-  }
-
-  return [manifest.hero, manifest.mounted, manifest.detail]
+  return [manifest.hero, manifest.mounted]
     .filter(Boolean)
     .map((entry) => entry!.src);
 }

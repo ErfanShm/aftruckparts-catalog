@@ -2,8 +2,12 @@
  * Scans public/catalog/products/{slug}/ sources and writes WebP/AVIF variants
  * plus src/data/catalog-image-manifest.ts for the app.
  *
- * Usage: pnpm images:optimize
+ * Usage:
+ *   pnpm images:optimize          # regenerate changed sources only
+ *   pnpm images:optimize -- --force   # regenerate everything
+ *   pnpm images:check             # CI: fail if outputs are stale
  */
+import crypto from "node:crypto";
 import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -15,22 +19,43 @@ import {
   PRODUCT_FOLDER_SLUGS,
   type ProductCategory,
 } from "../src/data/catalog-products.ts";
-import type { CatalogImageManifest, ImageManifestEntry, ProductImageManifest } from "../src/data/catalog-image-types.ts";
+import type {
+  CatalogImageManifest,
+  ImageManifestEntry,
+  ProductImageManifest,
+} from "../src/data/catalog-image-types.ts";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(__dirname, "..");
 const PRODUCTS_ROOT = path.join(ROOT, "public/catalog/products");
 const MANIFEST_OUT = path.join(ROOT, "src/data/catalog-image-manifest.ts");
+const CACHE_FILE = ".optimize-cache.json";
 
 const WEBP_WIDTHS = [480, 800, 1200] as const;
 const AVIF_WIDTHS = [800, 1200] as const;
+const WEBP_QUALITY = 82;
+const AVIF_QUALITY = 65;
 const SOURCE_EXTS = [".png", ".jpeg", ".jpg", ".webp"] as const;
 
-type Role = "hero" | "mounted" | "detail" | "install";
+/** Bump when widths, formats, or quality settings change. */
+const CONFIG_VERSION = 1;
 
-function rolesForCategory(category: ProductCategory): Role[] {
-  if (category === "installation") return ["hero", "install"];
-  return ["hero", "mounted", "detail"];
+type Role = "hero" | "mounted";
+
+type RoleCacheEntry = {
+  configVersion: number;
+  sourceHash: string;
+  entry: ImageManifestEntry;
+};
+
+type ProductCache = Partial<Record<Role, RoleCacheEntry>>;
+
+const args = new Set(process.argv.slice(2));
+const CHECK_MODE = args.has("--check");
+const FORCE = args.has("--force");
+
+function rolesForCategory(_category: ProductCategory): Role[] {
+  return ["hero", "mounted"];
 }
 
 async function findSource(folder: string, role: Role): Promise<string | null> {
@@ -44,6 +69,60 @@ async function findSource(folder: string, role: Role): Promise<string | null> {
     }
   }
   return null;
+}
+
+async function hashFile(filePath: string): Promise<string> {
+  const data = await fs.readFile(filePath);
+  return crypto.createHash("sha256").update(data).digest("hex");
+}
+
+function expectedOutputNames(role: Role, origWidth: number): string[] {
+  const names = new Set<string>();
+  for (const w of WEBP_WIDTHS) {
+    names.add(`${role}-${Math.min(w, origWidth)}.webp`);
+  }
+  for (const w of AVIF_WIDTHS) {
+    names.add(`${role}-${Math.min(w, origWidth)}.avif`);
+  }
+  return [...names];
+}
+
+async function outputsExist(outDir: string, names: string[]): Promise<boolean> {
+  for (const name of names) {
+    try {
+      await fs.access(path.join(outDir, name));
+    } catch {
+      return false;
+    }
+  }
+  return true;
+}
+
+async function readProductCache(outDir: string): Promise<ProductCache> {
+  try {
+    const raw = await fs.readFile(path.join(outDir, CACHE_FILE), "utf8");
+    return JSON.parse(raw) as ProductCache;
+  } catch {
+    return {};
+  }
+}
+
+async function writeProductCache(outDir: string, cache: ProductCache): Promise<void> {
+  await fs.writeFile(path.join(outDir, CACHE_FILE), `${JSON.stringify(cache, null, 2)}\n`, "utf8");
+}
+
+async function removeStaleOutputs(outDir: string, keepNames: Set<string>): Promise<void> {
+  let entries: string[];
+  try {
+    entries = await fs.readdir(outDir);
+  } catch {
+    return;
+  }
+
+  for (const name of entries) {
+    if (name === CACHE_FILE || keepNames.has(name)) continue;
+    await fs.rm(path.join(outDir, name), { force: true });
+  }
 }
 
 async function optimizeRole(
@@ -67,7 +146,7 @@ async function optimizeRole(
     const outName = `${role}-${width}.webp`;
     await sharp(sourcePath)
       .resize({ width, withoutEnlargement: true })
-      .webp({ quality: 82 })
+      .webp({ quality: WEBP_QUALITY })
       .toFile(path.join(outDir, outName));
     webpParts.push(`/catalog/products/${slug}/optimized/${outName} ${width}w`);
     if (width === Math.min(1200, origWidth)) primaryWidth = width;
@@ -78,7 +157,7 @@ async function optimizeRole(
     const outName = `${role}-${width}.avif`;
     await sharp(sourcePath)
       .resize({ width, withoutEnlargement: true })
-      .avif({ quality: 65 })
+      .avif({ quality: AVIF_QUALITY })
       .toFile(path.join(outDir, outName));
     avifParts.push(`/catalog/products/${slug}/optimized/${outName} ${width}w`);
   }
@@ -98,6 +177,43 @@ async function optimizeRole(
   };
 }
 
+async function resolveRoleEntry(
+  slug: string,
+  role: Role,
+  sourcePath: string,
+  cache: ProductCache,
+): Promise<{ entry: ImageManifestEntry; cache: ProductCache; reused: boolean }> {
+  const outDir = path.join(PRODUCTS_ROOT, slug, "optimized");
+  const sourceHash = await hashFile(sourcePath);
+  const meta = await sharp(sourcePath).metadata();
+  const origWidth = meta.width ?? 1200;
+  const expectedNames = expectedOutputNames(role, origWidth);
+  const cached = cache[role];
+
+  const canReuse =
+    !FORCE &&
+    cached?.configVersion === CONFIG_VERSION &&
+    cached.sourceHash === sourceHash &&
+    (await outputsExist(outDir, expectedNames));
+
+  if (canReuse) {
+    return { entry: cached.entry, cache, reused: true };
+  }
+
+  if (CHECK_MODE) {
+    throw new Error(`stale: ${slug}/${role} — run pnpm images:optimize and commit the results`);
+  }
+
+  const entry = await optimizeRole(slug, role, sourcePath);
+  const nextCache: ProductCache = {
+    ...cache,
+    [role]: { configVersion: CONFIG_VERSION, sourceHash, entry },
+  };
+  await writeProductCache(outDir, nextCache);
+
+  return { entry, cache: nextCache, reused: false };
+}
+
 function writeManifest(manifest: CatalogImageManifest): string {
   return [
     `/** Generated by scripts/optimize-catalog-images.ts — do not edit manually. */`,
@@ -108,9 +224,18 @@ function writeManifest(manifest: CatalogImageManifest): string {
   ].join("\n");
 }
 
+async function readCommittedManifest(): Promise<string> {
+  try {
+    return await fs.readFile(MANIFEST_OUT, "utf8");
+  } catch {
+    return "";
+  }
+}
+
 async function main() {
   const manifest: CatalogImageManifest = {};
   let optimized = 0;
+  let reused = 0;
   let skipped = 0;
 
   for (const product of CATALOG_PAGES) {
@@ -118,8 +243,11 @@ async function main() {
     if (!slug) continue;
 
     const folder = path.join(PRODUCTS_ROOT, slug);
+    const outDir = path.join(folder, "optimized");
     const roles = rolesForCategory(product.category);
     const entry: Partial<ProductImageManifest> = {};
+    let cache = await readProductCache(outDir);
+    const keepNames = new Set<string>([CACHE_FILE]);
 
     for (const role of roles) {
       const source = await findSource(folder, role);
@@ -128,9 +256,27 @@ async function main() {
         skipped++;
         continue;
       }
-      entry[role] = await optimizeRole(slug, role, source);
-      optimized++;
-      console.log(`[ok] ${slug}/${role}`);
+
+      const sourceMeta = await sharp(source).metadata();
+      const origWidth = sourceMeta.width ?? 1200;
+      expectedOutputNames(role, origWidth).forEach((name) => keepNames.add(name));
+
+      const result = await resolveRoleEntry(slug, role, source, cache);
+      cache = result.cache;
+      entry[role] = result.entry;
+
+      if (result.reused) {
+        reused++;
+        console.log(`[cache] ${slug}/${role}`);
+      } else {
+        optimized++;
+        console.log(`[ok] ${slug}/${role}`);
+      }
+    }
+
+    if (!CHECK_MODE && Object.keys(cache).length > 0) {
+      await writeProductCache(outDir, cache);
+      await removeStaleOutputs(outDir, keepNames);
     }
 
     if (entry.hero) {
@@ -140,9 +286,28 @@ async function main() {
     }
   }
 
-  await fs.writeFile(MANIFEST_OUT, writeManifest(manifest), "utf8");
-  console.log(`\nDone: ${optimized} roles optimized, ${skipped} skipped`);
-  console.log(`Manifest: ${path.relative(ROOT, MANIFEST_OUT)}`);
+  const manifestContent = writeManifest(manifest);
+  const committedManifest = await readCommittedManifest();
+
+  if (CHECK_MODE) {
+    if (manifestContent !== committedManifest) {
+      console.error(
+        "[check] catalog-image-manifest.ts is out of date — run pnpm images:optimize and commit",
+      );
+      process.exit(1);
+    }
+    console.log(`\nCheck passed: ${reused} cached, ${optimized} regenerated, ${skipped} skipped`);
+    return;
+  }
+
+  if (manifestContent !== committedManifest) {
+    await fs.writeFile(MANIFEST_OUT, manifestContent, "utf8");
+    console.log(`Manifest updated: ${path.relative(ROOT, MANIFEST_OUT)}`);
+  } else {
+    console.log(`Manifest unchanged: ${path.relative(ROOT, MANIFEST_OUT)}`);
+  }
+
+  console.log(`\nDone: ${optimized} optimized, ${reused} cached, ${skipped} skipped`);
 }
 
 main().catch((err) => {

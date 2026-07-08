@@ -10,8 +10,6 @@ export type ImageManifestEntry = {
 export type ProductImageManifest = {
   hero: ImageManifestEntry;
   mounted?: ImageManifestEntry;
-  detail?: ImageManifestEntry;
-  install?: ImageManifestEntry;
 };
 
 export type CatalogImageManifest = Record<string, ProductImageManifest>;

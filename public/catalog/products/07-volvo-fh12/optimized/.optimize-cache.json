@@ -1,0 +1,26 @@
+{
+  "hero": {
+    "configVersion": 1,
+    "sourceHash": "3d95c8b3d87819d044d922fbdbc7eb55ae85cdf9161713e2f5b9c607a859266c",
+    "entry": {
+      "src": "/catalog/products/07-volvo-fh12/optimized/hero-1200.webp",
+      "width": 1200,
+      "height": 1200,
+      "blurDataURL": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAKAAoDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABQEG/8QAHxAAAgECBwAAAAAAAAAAAAAAAQIABBEDFDFBUVPh/8QAFAEBAAAAAAAAAAAAAAAAAAAAAv/EABcRAAMBAAAAAAAAAAAAAAAAAAABAhH/2gAMAwEAAhEDEQA/AMzgrSkXZ3RrX5ERWopAoGZ0HV7At5Y1WAc6f//Z",
+      "srcSetWebp": "/catalog/products/07-volvo-fh12/optimized/hero-480.webp 480w, /catalog/products/07-volvo-fh12/optimized/hero-800.webp 800w, /catalog/products/07-volvo-fh12/optimized/hero-1200.webp 1200w",
+      "srcSetAvif": "/catalog/products/07-volvo-fh12/optimized/hero-800.avif 800w, /catalog/products/07-volvo-fh12/optimized/hero-1200.avif 1200w"
+    }
+  },
+  "mounted": {
+    "configVersion": 1,
+    "sourceHash": "f040481f0b1e7832a10010cce3d019946663eb4fcecb6dfe64f64cf2d1ba112b",
+    "entry": {
+      "src": "/catalog/products/07-volvo-fh12/optimized/mounted-1200.webp",
+      "width": 1200,
+      "height": 1490,
+      "blurDataURL": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAMAAoDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABgMF/8QAIBAAAQQBBQEBAAAAAAAAAAAAAQIDBBEABRITISKBkf/EABQBAQAAAAAAAAAAAAAAAAAAAAD/xAAWEQEBAQAAAAAAAAAAAAAAAAAAARH/2gAMAwEAAhEDEQA/AIRdXmNub0SBw9eTR+ZsKm6gpRUGdoJuuUdYRQ4UtECvF1jOM4pUZpRNkoBP5jSP/9k=",
+      "srcSetWebp": "/catalog/products/07-volvo-fh12/optimized/mounted-480.webp 480w, /catalog/products/07-volvo-fh12/optimized/mounted-800.webp 800w, /catalog/products/07-volvo-fh12/optimized/mounted-1200.webp 1200w",
+      "srcSetAvif": "/catalog/products/07-volvo-fh12/optimized/mounted-800.avif 800w, /catalog/products/07-volvo-fh12/optimized/mounted-1200.avif 1200w"
+    }
+  }
+}

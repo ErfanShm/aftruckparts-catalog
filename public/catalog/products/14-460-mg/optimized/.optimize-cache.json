@@ -1,0 +1,14 @@
+{
+  "hero": {
+    "configVersion": 1,
+    "sourceHash": "25b9b0c69d8b70d05de48ec428e4cab1be5a56d3c3a15340ac3d4faba04cad13",
+    "entry": {
+      "src": "/catalog/products/14-460-mg/optimized/hero-1200.webp",
+      "width": 1200,
+      "height": 1200,
+      "blurDataURL": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAKAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAABQT/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMAERIEMUEGEyFRYf/EABUBAQEAAAAAAAAAAAAAAAAAAAID/8QAFhEBAQEAAAAAAAAAAAAAAAAAAQAC/9oADAMBAAIRAxEAPwAHT6XRiJCweeYi7KGso+e6Yj6VhmjSTu4ZgNiAfF+KhjAWAYgDbamo5HEa2dthzSCnpS//2Q==",
+      "srcSetWebp": "/catalog/products/14-460-mg/optimized/hero-480.webp 480w, /catalog/products/14-460-mg/optimized/hero-800.webp 800w, /catalog/products/14-460-mg/optimized/hero-1200.webp 1200w",
+      "srcSetAvif": "/catalog/products/14-460-mg/optimized/hero-800.avif 800w, /catalog/products/14-460-mg/optimized/hero-1200.avif 1200w"
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "hero": {
+    "configVersion": 1,
+    "sourceHash": "f2f5eea18f3942fb863b3496d9e23303d7ec2f7916172e81b89dead516fc2c26",
+    "entry": {
+      "src": "/catalog/products/26-hub-black/optimized/hero-1200.webp",
+      "width": 1200,
+      "height": 1200,
+      "blurDataURL": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAKAAoDASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAAIEBv/EAB0QAAIBBAMAAAAAAAAAAAAAAAABEQIDEiEjQVH/xAAUAQEAAAAAAAAAAAAAAAAAAAAC/8QAFhEBAQEAAAAAAAAAAAAAAAAAAQAC/9oADAMBAAIRAxEAPwDJ8dOOKnSmfexncoThPRMAjSRQb//Z",
+      "srcSetWebp": "/catalog/products/26-hub-black/optimized/hero-480.webp 480w, /catalog/products/26-hub-black/optimized/hero-800.webp 800w, /catalog/products/26-hub-black/optimized/hero-1200.webp 1200w",
+      "srcSetAvif": "/catalog/products/26-hub-black/optimized/hero-800.avif 800w, /catalog/products/26-hub-black/optimized/hero-1200.avif 1200w"
+    }
+  },
+  "mounted": {
+    "configVersion": 1,
+    "sourceHash": "ba9a5a7d87a3ce5d488099090ee0961d7d72c8e8d2f27ba67a73855dd03e6d02",
+    "entry": {
+      "src": "/catalog/products/26-hub-black/optimized/mounted-1122.webp",
+      "width": 1122,
+      "height": 1402,
+      "blurDataURL": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAMAAoDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABQME/8QAHxAAAgEEAgMAAAAAAAAAAAAAAQIDAAURIQQxEkFh/8QAFAEBAAAAAAAAAAAAAAAAAAAAAP/EABQRAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/ABLhJnmzyMHTzkY4PfegamNgHA38rXc3LuGcBiR7FGGZ8ndB/9k=",
+      "srcSetWebp": "/catalog/products/26-hub-black/optimized/mounted-480.webp 480w, /catalog/products/26-hub-black/optimized/mounted-800.webp 800w, /catalog/products/26-hub-black/optimized/mounted-1122.webp 1122w",
+      "srcSetAvif": "/catalog/products/26-hub-black/optimized/mounted-800.avif 800w, /catalog/products/26-hub-black/optimized/mounted-1122.avif 1122w"
+    }
+  }
+}

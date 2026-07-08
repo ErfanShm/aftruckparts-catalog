@@ -10,8 +10,11 @@
     "build:dev": "vite build --mode development",
     "preview": "vite preview",
     "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
     "format": "prettier --write .",
     "images:optimize": "tsx scripts/optimize-catalog-images.ts",
+    "images:check": "tsx scripts/optimize-catalog-images.ts --check",
+    "verify": "pnpm lint && pnpm typecheck && pnpm images:check && pnpm build",
     "prebuild": "pnpm images:optimize"
   },
   "dependencies": {

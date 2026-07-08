@@ -1,0 +1,26 @@
+{
+  "hero": {
+    "configVersion": 1,
+    "sourceHash": "b53aee2bcb01cdaf81b3d35745534736583979da34c105bdedf6558943306e72",
+    "entry": {
+      "src": "/catalog/products/02-fm9/optimized/hero-1200.webp",
+      "width": 1200,
+      "height": 1200,
+      "blurDataURL": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAKAAoDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABAEF/8QAHRAAAgMAAgMAAAAAAAAAAAAAAQIAAxEEExVRYf/EABUBAQEAAAAAAAAAAAAAAAAAAAEC/8QAFhEBAQEAAAAAAAAAAAAAAAAAAAER/9oADAMBAAIRAxEAPwDBp8Y9dCtTaHwdh7MBPz1B8itK+RalbgorkKd3RsNLKlGP/9k=",
+      "srcSetWebp": "/catalog/products/02-fm9/optimized/hero-480.webp 480w, /catalog/products/02-fm9/optimized/hero-800.webp 800w, /catalog/products/02-fm9/optimized/hero-1200.webp 1200w",
+      "srcSetAvif": "/catalog/products/02-fm9/optimized/hero-800.avif 800w, /catalog/products/02-fm9/optimized/hero-1200.avif 1200w"
+    }
+  },
+  "mounted": {
+    "configVersion": 1,
+    "sourceHash": "de11d3ba685e2b42f21a55f1155571a46ed3a9b2d11846b35f82487ee311acef",
+    "entry": {
+      "src": "/catalog/products/02-fm9/optimized/mounted-1200.webp",
+      "width": 1200,
+      "height": 1490,
+      "blurDataURL": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAMAAoDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABQQG/8QAHxABAAEDBQEBAAAAAAAAAAAAAQIAAxEEBSEiMUGh/8QAFAEBAAAAAAAAAAAAAAAAAAAAA//EABYRAAMAAAAAAAAAAAAAAAAAAAACMf/aAAwDAQACEQMRAD8Ap3TVW7VyUZW7tsn2DhicfMeZazLqTL1/WmN9uzNQJJEiYR84oEgJnLTJA2p//9k=",
+      "srcSetWebp": "/catalog/products/02-fm9/optimized/mounted-480.webp 480w, /catalog/products/02-fm9/optimized/mounted-800.webp 800w, /catalog/products/02-fm9/optimized/mounted-1200.webp 1200w",
+      "srcSetAvif": "/catalog/products/02-fm9/optimized/mounted-800.avif 800w, /catalog/products/02-fm9/optimized/mounted-1200.avif 1200w"
+    }
+  }
+}
