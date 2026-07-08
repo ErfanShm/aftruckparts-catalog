@@ -35,6 +35,12 @@ yarn.lock
 .wrangler/
 .dev.vars
 
+# Catalog product sources (local only — commit optimized/ + manifest)
+public/catalog/products/*/*.png
+public/catalog/products/*/*.jpeg
+public/catalog/products/*/*.jpg
+public/catalog/products/*/*.webp
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

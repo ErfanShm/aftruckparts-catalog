@@ -5,12 +5,12 @@
  * Usage:
  *   pnpm images:optimize          # regenerate changed sources only
  *   pnpm images:optimize -- --force   # regenerate everything
- *   pnpm images:check             # CI: fail if outputs are stale
+ *   pnpm images:check             # CI: verify manifest + optimized files on disk
  */
 import crypto from "node:crypto";
 import fs from "node:fs/promises";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 
 import sharp from "sharp";
 
@@ -232,7 +232,99 @@ async function readCommittedManifest(): Promise<string> {
   }
 }
 
+function parseSrcSetUrls(srcSet: string): string[] {
+  return srcSet
+    .split(",")
+    .map((part) => part.trim().split(/\s+/)[0])
+    .filter((url): url is string => Boolean(url));
+}
+
+async function assertPublicFileExists(publicPath: string): Promise<void> {
+  const filePath = path.join(ROOT, "public", publicPath);
+  try {
+    await fs.access(filePath);
+  } catch {
+    throw new Error(`missing file: ${publicPath}`);
+  }
+}
+
+async function verifyManifestEntry(entry: ImageManifestEntry): Promise<void> {
+  await assertPublicFileExists(entry.src);
+  for (const url of parseSrcSetUrls(entry.srcSetWebp)) {
+    await assertPublicFileExists(url);
+  }
+  for (const url of parseSrcSetUrls(entry.srcSetAvif)) {
+    await assertPublicFileExists(url);
+  }
+}
+
+async function loadCommittedManifest(): Promise<CatalogImageManifest> {
+  const mod = await import(pathToFileURL(MANIFEST_OUT).href);
+  return mod.CATALOG_IMAGE_MANIFEST as CatalogImageManifest;
+}
+
+async function runCheck(): Promise<void> {
+  const manifest = await loadCommittedManifest();
+  let verified = 0;
+
+  for (const product of CATALOG_PAGES) {
+    const slug = PRODUCT_FOLDER_SLUGS[product.page];
+    if (!slug) continue;
+
+    const productEntry = manifest[slug];
+    if (!productEntry?.hero) {
+      throw new Error(`[check] ${slug} missing from catalog-image-manifest.ts`);
+    }
+
+    const roles = rolesForCategory(product.category);
+    const folder = path.join(PRODUCTS_ROOT, slug);
+    const outDir = path.join(folder, "optimized");
+    const cache = await readProductCache(outDir);
+
+    for (const role of roles) {
+      const imageEntry = productEntry[role];
+      const source = await findSource(folder, role);
+
+      if (!imageEntry) {
+        if (role === "hero") {
+          throw new Error(`[check] ${slug}/${role} missing from manifest`);
+        }
+        if (source) {
+          throw new Error(
+            `[check] ${slug}/${role} has local source but missing from manifest — run pnpm images:optimize`,
+          );
+        }
+        continue;
+      }
+
+      await verifyManifestEntry(imageEntry);
+      verified++;
+
+      if (!source) continue;
+
+      const sourceHash = await hashFile(source);
+      const cached = cache[role];
+      if (
+        !cached ||
+        cached.configVersion !== CONFIG_VERSION ||
+        cached.sourceHash !== sourceHash
+      ) {
+        throw new Error(
+          `stale: ${slug}/${role} — run pnpm images:optimize and commit optimized/ + manifest`,
+        );
+      }
+    }
+  }
+
+  console.log(`Check passed: ${verified} image roles verified on disk`);
+}
+
 async function main() {
+  if (CHECK_MODE) {
+    await runCheck();
+    return;
+  }
+
   const manifest: CatalogImageManifest = {};
   let optimized = 0;
   let reused = 0;
@@ -252,6 +344,14 @@ async function main() {
     for (const role of roles) {
       const source = await findSource(folder, role);
       if (!source) {
+        const cachedRole = cache[role];
+        if (cachedRole?.entry) {
+          entry[role] = cachedRole.entry;
+          reused++;
+          console.log(`[cache-only] ${slug}/${role} — no local source, using committed cache`);
+          continue;
+        }
+
         console.warn(`[skip] ${slug}/${role} — no source file`);
         skipped++;
         continue;
@@ -288,17 +388,6 @@ async function main() {
 
   const manifestContent = writeManifest(manifest);
   const committedManifest = await readCommittedManifest();
-
-  if (CHECK_MODE) {
-    if (manifestContent !== committedManifest) {
-      console.error(
-        "[check] catalog-image-manifest.ts is out of date — run pnpm images:optimize and commit",
-      );
-      process.exit(1);
-    }
-    console.log(`\nCheck passed: ${reused} cached, ${optimized} regenerated, ${skipped} skipped`);
-    return;
-  }
 
   if (manifestContent !== committedManifest) {
     await fs.writeFile(MANIFEST_OUT, manifestContent, "utf8");

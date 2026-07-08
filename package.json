@@ -14,8 +14,7 @@
     "format": "prettier --write .",
     "images:optimize": "tsx scripts/optimize-catalog-images.ts",
     "images:check": "tsx scripts/optimize-catalog-images.ts --check",
-    "verify": "pnpm lint && pnpm typecheck && pnpm images:check && pnpm build",
-    "prebuild": "pnpm images:optimize"
+    "verify": "pnpm lint && pnpm typecheck && pnpm images:check && pnpm build"
   },
   "dependencies": {
     "@fontsource-variable/vazirmatn": "^5.2.8",

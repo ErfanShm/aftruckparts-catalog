@@ -2,7 +2,9 @@
 
 Drop **source** files into each product folder below. Accepted formats: **PNG, JPEG, or WebP**, sRGB, dark background `#020812` (match site void).
 
-The site does **not** serve these files directly. Run `pnpm images:optimize` (also runs automatically before `pnpm build`) to generate WebP/AVIF variants in `{slug}/optimized/` and update `src/data/catalog-image-manifest.ts`.
+The site does **not** serve these files directly. Run `pnpm images:optimize` locally to generate WebP/AVIF variants in `{slug}/optimized/` and update `src/data/catalog-image-manifest.ts`.
+
+**Git:** source files (`hero.*`, `mounted.*`) stay **local only** (gitignored). Commit `optimized/` + `src/data/catalog-image-manifest.ts` — ~8 MB total, fast pushes.
 
 ## Source file names (same for every product)
 
@@ -15,10 +17,10 @@ Every product — model, HP, emissions, technology, installation, and hub caps �
 
 ## Workflow when replacing photos
 
-1. Put source files in `public/catalog/products/{slug}/` (e.g. `hero.png`, `mounted.png`)
+1. Put source files in `public/catalog/products/{slug}/` (e.g. `hero.png`, `mounted.png`) — **local only**
 2. Run `pnpm images:optimize`
-3. Commit sources + `optimized/` (including `.optimize-cache.json`) + `src/data/catalog-image-manifest.ts`
-4. Refresh — no code changes per SKU
+3. Commit `optimized/` (including `.optimize-cache.json`) + `src/data/catalog-image-manifest.ts`
+4. Push — sources are not in git; keep a backup copy outside the repo if needed
 
 > Until AI/real shoots are ready, catalog scans are copied into each slot. Replace sources in place, then re-run optimize.
 

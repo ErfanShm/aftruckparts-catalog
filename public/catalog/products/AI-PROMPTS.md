@@ -4,7 +4,7 @@ Use your **reference hero shots** (dark chrome, navy rim light) as **style refer
 
 **Export size:** hero **1200×1200** or **1200×1500** · mounted **1200×1500** · PNG or JPEG (sources)
 
-**Save to:** `public/catalog/products/{folder}/hero.png` (or `.jpeg`) — then run `pnpm images:optimize` to generate deployable WebP/AVIF in `{folder}/optimized/`
+**Save to:** `public/catalog/products/{folder}/hero.png` (or `.jpeg`) — then run `pnpm images:optimize` to generate deployable WebP/AVIF in `{folder}/optimized/`. Sources are gitignored; commit only `optimized/` + manifest.
 
 Every product uses exactly **two** images: **hero** + **mounted**.
 
