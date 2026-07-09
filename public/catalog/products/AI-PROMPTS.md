@@ -35,7 +35,7 @@ Two different things — do **not** confuse them:
 
 Hero = **standalone raised letterforms** sitting on carbon fiber in a moody studio — like your 750 reference prompt. **Not** floating in empty void. **Not** letters on a rectangular chrome plate.
 
-Hub caps: dome resting on carbon-fiber floor. Installation: green disk on carbon-fiber floor, no extra plate behind disk.
+Hub caps: dome resting on carbon-fiber floor. Installation **L / V / IV / VI**: green disk on carbon-fiber floor, no extra plate behind disk — **must include a clean white circular ring or "arm" outlining the disk's perimeter** (OEM compliance marker frame).
 
 ---
 
@@ -568,6 +568,7 @@ natural overcast daylight, 35mm lens, shallow depth of field, B2B catalog photog
 ```
 Cinematic extreme macro product hero shot of a small circular green European truck compliance badge,
 white letter "L" center, Lärmarm low-noise regulatory marker, matte finish on green disk,
+a clean white circular ring or "arm" outlining the disk's perimeter — crisp OEM frame around the green disk,
 resting on a dark carbon-fiber textured surface in a moody studio environment, pure void black background #09090b — standalone circular green disk only, NO extra metal plate behind the disk,
 intense dramatic rim lighting from upper right navy #003d81 and icy cyan #9ccdef,
 ultra-shallow depth of field, editorial tech-surrealist aesthetic, hyper-detailed conceptual product photography,
@@ -579,6 +580,7 @@ no truck, no people, no watermark, centered, letterforms fill 70% of frame, 1:1,
 ```
 Photorealistic documentary photograph, real Volvo FH or FM truck in fleet yard,
 green circular "L" compliance badge clearly visible on front grille (جلوپنجره) on the LEFT side of the grille,
+clean white circular ring or arm outlining the disk perimeter visible on the badge,
 L badge always mounted left — ثابت on چپ,
 natural overcast daylight, 35mm lens, shallow depth of field, B2B catalog photography, no people, 4:5 vertical crop
 ```
@@ -591,6 +593,7 @@ natural overcast daylight, 35mm lens, shallow depth of field, B2B catalog photog
 ```
 Cinematic extreme macro product hero shot of a small circular green European truck compliance badge,
 white letter "V" center, regulatory compliance marker, matte finish on green disk,
+a clean white circular ring or "arm" outlining the disk's perimeter — crisp OEM frame around the green disk,
 resting on a dark carbon-fiber textured surface in a moody studio environment, void black #09090b — standalone circular green disk only, NO extra metal plate behind the disk,
 intense dramatic rim lighting upper right navy #003d81 and icy cyan #9ccdef,
 ultra-shallow depth of field, editorial tech-surrealist aesthetic, hyper-detailed conceptual product photography,
@@ -602,6 +605,7 @@ no truck, no people, no watermark, centered, letterforms fill 70% of frame, 1:1,
 ```
 Photorealistic documentary photograph, real Volvo FH or FM truck in fleet yard,
 green circular "V" compliance badge clearly visible on front grille (جلوپنجره) on the RIGHT side of the grille,
+clean white circular ring or arm outlining the disk perimeter visible on the badge,
 V always mounted right — راست,
 natural overcast daylight, 35mm lens, shallow depth of field, B2B catalog photography, no people, 4:5 vertical crop
 ```
@@ -614,6 +618,7 @@ natural overcast daylight, 35mm lens, shallow depth of field, B2B catalog photog
 ```
 Cinematic extreme macro product hero shot of a small circular green European truck compliance badge,
 white roman numeral "IV" center, regulatory compliance marker, matte finish on green disk,
+a clean white circular ring or "arm" outlining the disk's perimeter — crisp OEM frame around the green disk,
 resting on a dark carbon-fiber textured surface in a moody studio environment, void black #09090b — standalone circular green disk only, NO extra metal plate behind the disk,
 intense dramatic rim lighting upper right navy #003d81 and icy cyan #9ccdef,
 ultra-shallow depth of field, editorial tech-surrealist aesthetic, hyper-detailed conceptual product photography,
@@ -625,6 +630,7 @@ no truck, no people, no watermark, centered, letterforms fill 70% of frame, 1:1,
 ```
 Photorealistic documentary photograph, real Volvo FH or FM truck in fleet yard,
 green circular "IV" compliance badge clearly visible on front grille (جلوپنجره) on the RIGHT side of the grille,
+clean white circular ring or arm outlining the disk perimeter visible on the badge,
 IV always mounted right — راست,
 natural overcast daylight, 35mm lens, shallow depth of field, B2B catalog photography, no people, 4:5 vertical crop
 ```
@@ -637,6 +643,7 @@ natural overcast daylight, 35mm lens, shallow depth of field, B2B catalog photog
 ```
 Cinematic extreme macro product hero shot of a small circular green European truck compliance badge,
 white roman numeral "VI" center, Euro 6 related compliance marker, matte finish on green disk,
+a clean white circular ring or "arm" outlining the disk's perimeter — crisp OEM frame around the green disk,
 resting on a dark carbon-fiber textured surface in a moody studio environment, background #09090b — standalone circular green disk only, NO extra metal plate behind the disk,
 intense dramatic rim lighting upper right navy #003d81 and icy cyan #9ccdef,
 ultra-shallow depth of field, editorial tech-surrealist aesthetic, hyper-detailed conceptual product photography,
@@ -648,6 +655,7 @@ no truck, no people, no watermark, centered, letterforms fill 70% of frame, 1:1,
 ```
 Photorealistic documentary photograph, real Volvo FH or FM truck in fleet yard,
 green circular "VI" compliance badge clearly visible on front grille (جلوپنجره) on the RIGHT side of the grille,
+clean white circular ring or arm outlining the disk perimeter visible on the badge,
 VI always mounted right — راست,
 natural overcast daylight, 35mm lens, shallow depth of field, B2B catalog photography, no people, 4:5 vertical crop
 ```

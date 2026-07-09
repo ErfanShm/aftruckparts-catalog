@@ -1,12 +1,12 @@
 {
   "hero": {
     "configVersion": 1,
-    "sourceHash": "6ac2c45ae2580f3d5810dfde533c024553fd9f0f841d8f0ef29662cf01b62f44",
+    "sourceHash": "3b8f9c7c7103b80404389249dabec6bf9da78a399a65c1167c4cd14b8f03aa2e",
     "entry": {
       "src": "/catalog/products/21-install-l/optimized/hero-1200.webp",
       "width": 1200,
       "height": 1200,
-      "blurDataURL": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAKAAoDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABAIF/8QAHxAAAgICAQUAAAAAAAAAAAAAAQIDEQAhBBIiMUGR/8QAFQEBAQAAAAAAAAAAAAAAAAAAAgP/xAAXEQEBAQEAAAAAAAAAAAAAAAABAgAh/9oADAMBAAIRAxEAPwDG48Ea8SORIVk2Oq6thX3zrWEk5hWRlRu0EgavWDWR1QqHYA+gcnHNJpsC93//2Q==",
+      "blurDataURL": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAKAAoDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABQAD/8QAIhAAAQQBAgcAAAAAAAAAAAAAAQACAwQREkEhIjEyM2Fx/8QAFAEBAAAAAAAAAAAAAAAAAAAAA//EABcRAAMBAAAAAAAAAAAAAAAAAAABAhH/2gAMAwEAAhEDEQA/AAaNaA1g+SMPdq5suwQPSyxbHbE/Ttw2VV6JqPxt+BLINvGf/9k=",
       "srcSetWebp": "/catalog/products/21-install-l/optimized/hero-480.webp 480w, /catalog/products/21-install-l/optimized/hero-800.webp 800w, /catalog/products/21-install-l/optimized/hero-1200.webp 1200w",
       "srcSetAvif": "/catalog/products/21-install-l/optimized/hero-800.avif 800w, /catalog/products/21-install-l/optimized/hero-1200.avif 1200w"
     }

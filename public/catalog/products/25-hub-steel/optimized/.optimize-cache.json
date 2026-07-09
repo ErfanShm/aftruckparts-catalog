@@ -1,12 +1,12 @@
 {
   "hero": {
     "configVersion": 1,
-    "sourceHash": "70f39d194b55cc92f13037ad200054e8853d2525d193e35066109649eefb11c4",
+    "sourceHash": "2c33fab88e85e14c7e0a7016aea775d02cc080d6f9ac6a253e18bbb44920aa9a",
     "entry": {
       "src": "/catalog/products/25-hub-steel/optimized/hero-1200.webp",
       "width": 1200,
       "height": 1200,
-      "blurDataURL": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAKAAoDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABQAD/8QAHBAAAgMBAAMAAAAAAAAAAAAAAQIAAyEEBRFB/8QAFQEBAQAAAAAAAAAAAAAAAAAAAQL/xAAVEQEBAAAAAAAAAAAAAAAAAAAAEf/aAAwDAQACEQMRAD8AGp4fHtz1EPY7sAXc4iH1ozYS1aBiBYCAfkzlKoj/2Q==",
+      "blurDataURL": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAKAAoDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABAEF/8QAHxAAAgEEAgMAAAAAAAAAAAAAAgMBAAURIUFhBBIT/8QAFQEBAQAAAAAAAAAAAAAAAAAAAgP/xAAWEQEBAQAAAAAAAAAAAAAAAAABAAL/2gAMAwEAAhEDEQA/ABW232ZvhibjMmSOSyWMTzHVZD0LF7BU8vnBTA86zrdGxHsvsakzuqZYJf/Z",
       "srcSetWebp": "/catalog/products/25-hub-steel/optimized/hero-480.webp 480w, /catalog/products/25-hub-steel/optimized/hero-800.webp 800w, /catalog/products/25-hub-steel/optimized/hero-1200.webp 1200w",
       "srcSetAvif": "/catalog/products/25-hub-steel/optimized/hero-800.avif 800w, /catalog/products/25-hub-steel/optimized/hero-1200.avif 1200w"
     }
