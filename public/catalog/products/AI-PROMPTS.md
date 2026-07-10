@@ -35,7 +35,29 @@ Two different things — do **not** confuse them:
 
 Hero = **standalone raised letterforms** sitting on carbon fiber in a moody studio — like your 750 reference prompt. **Not** floating in empty void. **Not** letters on a rectangular chrome plate.
 
-Hub caps: dome resting on carbon-fiber floor. Installation **L / V / IV / VI**: green disk on carbon-fiber floor, no extra plate behind disk — **must include a clean white circular ring or "arm" outlining the disk's perimeter** (OEM compliance marker frame).
+**Typography (مورب):** Cab letterform badges use **italic forward-leaning slant** — typical Volvo OEM cab-door / cab-side angle. **Not** upright horizontal text. Match slant from reference image.
+
+Hub caps: dome resting on carbon-fiber floor — **no white border ring**.
+
+**Installation badges only (21–24: L / V / IV / VI):** flat glossy vinyl compliance sticker on carbon-fiber floor, no extra plate behind disk — **thick uniform white circular border exactly at the outer edge of the circle** (green fill stops at inner edge of white ring, zero gap, no green beyond white border, white ring = outermost edge of emblem). **NOT** arrow shapes, **NOT** metal arms, **NOT** neon green. **Do not apply this white-border rule to letter badges, HP numbers, VOLVO, hub caps, or any other product.**
+
+---
+
+## Hero boilerplate (identical on every product — do not shorten)
+
+Every hero prompt must end with this **exact** studio block (only the `MUST REFERENCE` line may add product-specific notes):
+
+```
+resting on a dark carbon-fiber textured surface in a moody studio environment, pure void black background #09090b,
+intense dramatic rim lighting from the upper right in navy blue #003d81 and icy cyan #9ccdef,
+sharp specular edges, deep shadows with soft falloff, ultra-shallow depth of field,
+sleek high-end editorial and tech-surrealist aesthetic, hyper-detailed conceptual product photography,
+MUST REFERENCE UPLOADED IMAGE for exact shape, proportions, and finish,
+no truck visible, no people, no watermark, no extra text,
+centered composition, product fills 70% of frame, 1:1 aspect ratio, 8K quality
+```
+
+Letter badges: use `letterforms fill 70%` instead of `product fills 70%`. Hub caps: `cap fills 70%`. Green disks: `disk fills 70%`.
 
 ---
 
@@ -94,6 +116,39 @@ realistic colors, not CGI, not artistic lighting, 4:5 vertical crop
 
 > **Installation badge rule (ثابت):** `L` = چپ (left of grille). `V`, `IV`, `VI` = راست (right of grille). Do not swap sides.
 
+### Master prompt — INSTALLATION HERO (green compliance disk — **L / V / IV / VI only**)
+
+All four installation badges share **identical** studio setup and realism rules — only the center letter changes. **This white-border geometry does not apply to any other product.**
+
+```
+Cinematic extreme macro product hero shot of an authentic OEM European heavy truck compliance sticker badge,
+small flat circular glossy vinyl sticker approximately 5 cm diameter,
+deep forest green fill — rich British Racing Green tone, glossy factory vinyl with subtle reflections, NOT neon, NOT lime,
+centered bold white sans-serif "{LETTER}" — clean factory typography, same pure white as the border ring,
+thick uniform white circular border ring exactly at the outer edge of the circle — white ring IS the outermost edge of the emblem, green fill stops precisely at inner edge of white ring with zero gap, NO green visible beyond the white border, NO space between green disk and white ring, NOT arrow shapes, NOT decorative arms, NOT metal brackets,
+real adhesive-backed compliance marker as seen on Volvo FH/FM grilles,
+standalone circular sticker only — NO backing plate, NO metal substrate behind the disk,
+resting on a dark carbon-fiber textured surface in a moody studio environment, pure void black background #09090b,
+intense dramatic rim lighting from the upper right in navy blue #003d81 and icy cyan #9ccdef,
+sharp specular edges on disk rim, deep shadows with soft falloff, ultra-shallow depth of field,
+sleek high-end editorial and tech-surrealist aesthetic, hyper-detailed conceptual product photography,
+MUST REFERENCE UPLOADED IMAGE for exact disk shape, deep green tone, white letter form, and white border flush with circle edge,
+no truck visible, no people, no watermark, no extra text,
+centered composition, disk fills 70% of frame, 1:1 aspect ratio, 8K quality
+```
+
+### Master prompt — INSTALLATION MOUNTED
+
+```
+Photorealistic documentary photograph, real Volvo FH or FM truck in fleet yard,
+authentic deep forest green circular OEM vinyl compliance sticker with bold white "{LETTER}" clearly visible on front grille (جلوپنجره) on the {LEFT or RIGHT} side of the grille,
+thick white circular border exactly at outer edge of sticker — no gap between green fill and white ring, no green beyond white perimeter, white ring is the outermost edge of the emblem,
+deep forest green glossy vinyl matching real European truck grille compliance markers, NOT CGI glow, NOT neon green, NOT arrow graphics,
+natural overcast daylight, 35mm lens, shallow depth of field,
+authentic Volvo truck cab, slightly weathered professional fleet condition,
+B2B commercial catalog photography, no people, realistic colors not CGI, 4:5 vertical crop
+```
+
 ---
 
 # All 26 products — copy-paste prompts
@@ -107,6 +162,7 @@ realistic colors, not CGI, not artistic lighting, 4:5 vertical crop
 Cinematic extreme macro product hero shot of standalone OEM truck cab lettering reading "NH 12",
 standalone Volvo classic "NH 12" raised letterforms with curved cab letter profile, satin matte chrome finish, soft diffuse reflections, no mirror shine, brushed metal texture on letter shoulders,
 embossed metallic letterforms only — NO backing plate, NO rectangular base plate, NO badge substrate behind the text,
+premium European heavy truck styling,
 resting on a dark carbon-fiber textured surface in a moody studio environment, pure void black background #09090b,
 intense dramatic rim lighting from the upper right in navy blue #003d81 and icy cyan #9ccdef,
 sharp specular edges, deep shadows with soft falloff, ultra-shallow depth of field,
@@ -119,10 +175,10 @@ centered composition letterforms fill 70% of frame, 1:1 aspect ratio, 8K quality
 **mounted**
 ```
 Photorealistic documentary photograph, real Volvo classic conventional cab truck in fleet yard,
-"NH 12" model badge clearly visible on cab front model badge area,
+"NH 12" model badge clearly visible and readable on cab front model badge area,
 natural overcast daylight, 35mm lens, shallow depth of field,
 authentic Volvo truck, slightly weathered professional fleet condition,
-B2B commercial catalog photography, no people, 4:5 vertical crop
+B2B commercial catalog photography, no people, realistic colors not CGI, 4:5 vertical crop
 ```
 
 ---
@@ -131,10 +187,11 @@ B2B commercial catalog photography, no people, 4:5 vertical crop
 
 **hero**
 ```
-Cinematic extreme macro product hero shot of an OEM truck cab badge reading "FM9",
-standalone Volvo FM "FM9" raised letterforms with curved profile, satin matte chrome finish, soft diffuse reflections, brushed metal texture,
-embossed metallic lettering, premium European heavy truck styling,
-resting on a dark carbon-fiber textured surface in a moody studio environment, pure void black background #09090b — standalone raised letterforms only, NO backing plate, NO rectangular base plate, NO badge substrate behind the text,
+Cinematic extreme macro product hero shot of standalone OEM truck cab lettering reading "FM9",
+standalone Volvo FM "FM9" raised italic letterforms with forward-leaning curved cab profile, satin matte chrome finish, soft diffuse reflections, no mirror shine, brushed metal texture on letter shoulders,
+embossed metallic letterforms only — NO backing plate, NO rectangular base plate, NO badge substrate behind the text,
+premium European heavy truck styling,
+resting on a dark carbon-fiber textured surface in a moody studio environment, pure void black background #09090b,
 intense dramatic rim lighting from the upper right in navy blue #003d81 and icy cyan #9ccdef,
 sharp specular edges, deep shadows with soft falloff, ultra-shallow depth of field,
 sleek high-end editorial and tech-surrealist aesthetic, hyper-detailed conceptual product photography,
@@ -146,9 +203,10 @@ centered composition letterforms fill 70% of frame, 1:1 aspect ratio, 8K quality
 **mounted**
 ```
 Photorealistic documentary photograph, real Volvo FM series truck in fleet yard,
-"FM9" model badge clearly visible on cab front or door model badge area,
+"FM9" model badge clearly visible and readable on cab front or door model badge area,
 natural overcast daylight, 35mm lens, shallow depth of field,
-authentic Volvo FM cab, professional fleet condition, B2B catalog photography, no people, 4:5 vertical crop
+authentic Volvo FM cab, slightly weathered professional fleet condition,
+B2B commercial catalog photography, no people, realistic colors not CGI, 4:5 vertical crop
 ```
 
 ---
@@ -157,11 +215,12 @@ authentic Volvo FM cab, professional fleet condition, B2B catalog photography, n
 
 **hero**
 ```
-Cinematic extreme macro product hero shot of an OEM truck cab badge reading "420",
-large numeric horsepower badge, bold industrial font, cab door size proportion,
-satin matte chrome finish, soft diffuse reflections, brushed metal texture,
-embossed metallic lettering, premium European heavy truck styling,
-resting on a dark carbon-fiber textured surface in a moody studio environment, pure void black background #09090b — standalone raised letterforms only, NO backing plate, NO rectangular base plate, NO badge substrate behind the text,
+Cinematic extreme macro product hero shot of standalone OEM truck cab lettering reading "420",
+large numeric horsepower badge, bold italic industrial font, forward-leaning cab-door slant, cab door size proportion,
+satin matte chrome finish, soft diffuse reflections, no mirror shine, brushed metal texture on letter shoulders,
+embossed metallic letterforms only — NO backing plate, NO rectangular base plate, NO badge substrate behind the text,
+premium European heavy truck styling,
+resting on a dark carbon-fiber textured surface in a moody studio environment, pure void black background #09090b,
 intense dramatic rim lighting from the upper right in navy blue #003d81 and icy cyan #9ccdef,
 sharp specular edges, deep shadows with soft falloff, ultra-shallow depth of field,
 sleek high-end editorial and tech-surrealist aesthetic, hyper-detailed conceptual product photography,
@@ -173,8 +232,10 @@ centered composition letterforms fill 70% of frame, 1:1 aspect ratio, 8K quality
 **mounted**
 ```
 Photorealistic documentary photograph, real Volvo FH or FM truck in fleet yard,
-"420" horsepower badge clearly visible on lower cab side door panel below window line,
-natural overcast daylight, 35mm lens, shallow depth of field, B2B catalog photography, no people, 4:5 vertical crop
+"420" horsepower badge clearly visible and readable on lower cab side door panel below window line,
+natural overcast daylight, 35mm lens, shallow depth of field,
+authentic Volvo truck, slightly weathered professional fleet condition,
+B2B commercial catalog photography, no people, realistic colors not CGI, 4:5 vertical crop
 ```
 
 ---
@@ -183,23 +244,27 @@ natural overcast daylight, 35mm lens, shallow depth of field, B2B catalog photog
 
 **hero**
 ```
-Cinematic extreme macro product hero shot of an OEM truck cab badge reading "460",
-large numeric horsepower badge, bold industrial font, cab door size proportion,
+Cinematic extreme macro product hero shot of standalone OEM truck cab lettering reading "460",
+large numeric horsepower badge, bold italic industrial font, forward-leaning cab-door slant, cab door size proportion,
 satin matte chrome finish, soft diffuse reflections, no mirror shine, brushed metal texture,
-raised embossed metallic letterforms only — NO backing plate, NO rectangular base plate, NO badge substrate,
+embossed metallic letterforms only — NO backing plate, NO rectangular base plate, NO badge substrate behind the text,
+premium European heavy truck styling,
 resting on a dark carbon-fiber textured surface in a moody studio environment, pure void black background #09090b,
-pure void black background #09090b, intense dramatic rim lighting from upper right navy #003d81 and icy cyan #9ccdef,
+intense dramatic rim lighting from the upper right in navy blue #003d81 and icy cyan #9ccdef,
 sharp specular edges, deep shadows with soft falloff, ultra-shallow depth of field,
-editorial tech-surrealist aesthetic, hyper-detailed conceptual product photography,
+sleek high-end editorial and tech-surrealist aesthetic, hyper-detailed conceptual product photography,
 MUST REFERENCE UPLOADED IMAGE for exact badge shape and finish — must look duller/matte than 14-460-mg,
-no truck, no people, no watermark, centered, letterforms fill 70% of frame, 1:1, 8K quality
+no truck visible, no people, no watermark, no extra text,
+centered composition letterforms fill 70% of frame, 1:1 aspect ratio, 8K quality
 ```
 
 **mounted**
 ```
 Photorealistic documentary photograph, real Volvo truck in fleet yard,
-"460" matte horsepower badge on lower cab side door panel below window line, clearly readable,
-natural overcast daylight, 35mm lens, B2B catalog photography, no people, 4:5 vertical crop
+"460" matte horsepower badge clearly visible and readable on lower cab side door panel below window line,
+natural overcast daylight, 35mm lens, shallow depth of field,
+authentic Volvo truck, slightly weathered professional fleet condition,
+B2B commercial catalog photography, no people, realistic colors not CGI, 4:5 vertical crop
 ```
 
 ---
@@ -208,20 +273,27 @@ natural overcast daylight, 35mm lens, B2B catalog photography, no people, 4:5 ve
 
 **hero**
 ```
-Cinematic extreme macro product hero shot of an OEM truck cab badge reading "440",
-large numeric horsepower badge, bold industrial font, cab door size proportion,
-satin matte chrome finish, soft diffuse reflections, brushed metal texture,
-resting on a dark carbon-fiber textured surface in a moody studio environment, background #09090b — standalone raised letterforms only, NO backing plate, NO rectangular base plate, NO badge substrate behind the text,
-intense dramatic rim lighting from upper right navy #003d81 and icy cyan #9ccdef,
-ultra-shallow depth of field, editorial tech-surrealist aesthetic, hyper-detailed conceptual product photography,
+Cinematic extreme macro product hero shot of standalone OEM truck cab lettering reading "440",
+large numeric horsepower badge, bold italic industrial font, forward-leaning cab-door slant, cab door size proportion,
+satin matte chrome finish, soft diffuse reflections, no mirror shine, brushed metal texture on letter shoulders,
+embossed metallic letterforms only — NO backing plate, NO rectangular base plate, NO badge substrate behind the text,
+premium European heavy truck styling,
+resting on a dark carbon-fiber textured surface in a moody studio environment, pure void black background #09090b,
+intense dramatic rim lighting from the upper right in navy blue #003d81 and icy cyan #9ccdef,
+sharp specular edges, deep shadows with soft falloff, ultra-shallow depth of field,
+sleek high-end editorial and tech-surrealist aesthetic, hyper-detailed conceptual product photography,
 MUST REFERENCE UPLOADED IMAGE for exact badge shape and finish,
-no truck, no people, no watermark, centered, letterforms fill 70% of frame, 1:1, 8K quality
+no truck visible, no people, no watermark, no extra text,
+centered composition letterforms fill 70% of frame, 1:1 aspect ratio, 8K quality
 ```
 
 **mounted**
 ```
-Photorealistic documentary photograph, real Volvo truck, "440" badge on lower cab side door panel below window line,
-natural overcast daylight, 35mm lens, B2B catalog photography, no people, 4:5 vertical crop
+Photorealistic documentary photograph, real Volvo truck in fleet yard,
+"440" horsepower badge clearly visible and readable on lower cab side door panel below window line,
+natural overcast daylight, 35mm lens, shallow depth of field,
+authentic Volvo truck, slightly weathered professional fleet condition,
+B2B commercial catalog photography, no people, realistic colors not CGI, 4:5 vertical crop
 ```
 
 ---
@@ -230,20 +302,27 @@ natural overcast daylight, 35mm lens, B2B catalog photography, no people, 4:5 ve
 
 **hero**
 ```
-Cinematic extreme macro product hero shot of an OEM truck cab badge reading "480",
-large numeric horsepower badge, bold industrial font, cab door size proportion,
-satin matte chrome finish, soft diffuse reflections, brushed metal texture,
-resting on a dark carbon-fiber textured surface in a moody studio environment, void black #09090b — standalone raised letterforms only, NO backing plate, NO rectangular base plate, NO badge substrate behind the text,
-intense dramatic rim lighting upper right navy #003d81 and icy cyan #9ccdef,
-ultra-shallow depth of field, editorial tech-surrealist aesthetic, hyper-detailed conceptual product photography,
+Cinematic extreme macro product hero shot of standalone OEM truck cab lettering reading "480",
+large numeric horsepower badge, bold italic industrial font, forward-leaning cab-door slant, cab door size proportion,
+satin matte chrome finish, soft diffuse reflections, no mirror shine, brushed metal texture on letter shoulders,
+embossed metallic letterforms only — NO backing plate, NO rectangular base plate, NO badge substrate behind the text,
+premium European heavy truck styling,
+resting on a dark carbon-fiber textured surface in a moody studio environment, pure void black background #09090b,
+intense dramatic rim lighting from the upper right in navy blue #003d81 and icy cyan #9ccdef,
+sharp specular edges, deep shadows with soft falloff, ultra-shallow depth of field,
+sleek high-end editorial and tech-surrealist aesthetic, hyper-detailed conceptual product photography,
 MUST REFERENCE UPLOADED IMAGE for exact badge shape and finish,
-no truck, no people, no watermark, centered, letterforms fill 70% of frame, 1:1, 8K quality
+no truck visible, no people, no watermark, no extra text,
+centered composition letterforms fill 70% of frame, 1:1 aspect ratio, 8K quality
 ```
 
 **mounted**
 ```
-Photorealistic documentary photograph, real Volvo truck, "480" badge on lower cab side door panel below window line,
-natural overcast daylight, 35mm lens, B2B catalog photography, no people, 4:5 vertical crop
+Photorealistic documentary photograph, real Volvo truck in fleet yard,
+"480" horsepower badge clearly visible and readable on lower cab side door panel below window line,
+natural overcast daylight, 35mm lens, shallow depth of field,
+authentic Volvo truck, slightly weathered professional fleet condition,
+B2B commercial catalog photography, no people, realistic colors not CGI, 4:5 vertical crop
 ```
 
 ---
@@ -252,21 +331,26 @@ natural overcast daylight, 35mm lens, B2B catalog photography, no people, 4:5 ve
 
 **hero**
 ```
-Cinematic extreme macro product hero shot of an OEM truck cab badge reading "VOLVO",
-standalone VOLVO raised letterforms, wide horizontal chrome letters, satin matte chrome finish, soft diffuse reflections, brushed metal texture — NO backing plate behind letters,
-embossed metallic lettering, premium Volvo FH12 styling,
-resting on a dark carbon-fiber textured surface in a moody studio environment, pure void black background #09090b — standalone raised letterforms only, NO backing plate, NO rectangular base plate, NO badge substrate behind the text,
-intense dramatic rim lighting from upper right navy #003d81 and icy cyan #9ccdef,
-ultra-shallow depth of field, editorial tech-surrealist aesthetic, hyper-detailed conceptual product photography,
+Cinematic extreme macro product hero shot of standalone OEM truck cab lettering reading "VOLVO",
+standalone VOLVO raised letterforms, wide horizontal chrome letters, satin matte chrome finish, soft diffuse reflections, no mirror shine, brushed metal texture on letter shoulders,
+embossed metallic letterforms only — NO backing plate, NO rectangular base plate, NO badge substrate behind the text,
+premium European heavy truck styling,
+resting on a dark carbon-fiber textured surface in a moody studio environment, pure void black background #09090b,
+intense dramatic rim lighting from the upper right in navy blue #003d81 and icy cyan #9ccdef,
+sharp specular edges, deep shadows with soft falloff, ultra-shallow depth of field,
+sleek high-end editorial and tech-surrealist aesthetic, hyper-detailed conceptual product photography,
 MUST REFERENCE UPLOADED IMAGE for exact VOLVO letterforms and matte finish — duller than 17-volvo,
-no truck, no people, no watermark, centered, letterforms fill 70% of frame, 1:1, 8K quality
+no truck visible, no people, no watermark, no extra text,
+centered composition letterforms fill 70% of frame, 1:1 aspect ratio, 8K quality
 ```
 
 **mounted**
 ```
 Photorealistic documentary photograph, real Volvo FH12 truck in fleet yard,
-"VOLVO" grille lettering clearly visible at front grille center (جلوپنجره), letters prominent and readable,
-natural overcast daylight, 35mm lens, shallow depth of field, B2B catalog photography, no people, 4:5 vertical crop
+"VOLVO" grille lettering clearly visible and readable at front grille center (جلوپنجره), letters prominent,
+natural overcast daylight, 35mm lens, shallow depth of field,
+authentic Volvo truck, slightly weathered professional fleet condition,
+B2B commercial catalog photography, no people, realistic colors not CGI, 4:5 vertical crop
 ```
 
 ---
@@ -275,20 +359,27 @@ natural overcast daylight, 35mm lens, shallow depth of field, B2B catalog photog
 
 **hero**
 ```
-Cinematic extreme macro product hero shot of an OEM truck cab badge reading "EEV",
+Cinematic extreme macro product hero shot of standalone OEM truck cab lettering reading "EEV",
 small regulatory emissions badge, clean regulatory typography,
 dual-tone matte body with glossy raised lettering, mixed satin and polished chrome highlights finish,
-resting on a dark carbon-fiber textured surface in a moody studio environment, void black #09090b — standalone raised letterforms only, NO backing plate, NO rectangular base plate, NO badge substrate behind the text,
-intense dramatic rim lighting upper right navy #003d81 and icy cyan #9ccdef,
-ultra-shallow depth of field, editorial tech-surrealist aesthetic, hyper-detailed conceptual product photography,
+embossed metallic letterforms only — NO backing plate, NO rectangular base plate, NO badge substrate behind the text,
+premium European heavy truck styling,
+resting on a dark carbon-fiber textured surface in a moody studio environment, pure void black background #09090b,
+intense dramatic rim lighting from the upper right in navy blue #003d81 and icy cyan #9ccdef,
+sharp specular edges, deep shadows with soft falloff, ultra-shallow depth of field,
+sleek high-end editorial and tech-surrealist aesthetic, hyper-detailed conceptual product photography,
 MUST REFERENCE UPLOADED IMAGE for exact badge shape and finish,
-no truck, no people, no watermark, centered, letterforms fill 70% of frame, 1:1, 8K quality
+no truck visible, no people, no watermark, no extra text,
+centered composition letterforms fill 70% of frame, 1:1 aspect ratio, 8K quality
 ```
 
 **mounted**
 ```
-Photorealistic documentary photograph, real Volvo truck, small "EEV" emissions badge on cab side or chassis fairing near door,
-natural overcast daylight, 35mm lens, B2B catalog photography, no people, 4:5 vertical crop
+Photorealistic documentary photograph, real Volvo truck in fleet yard,
+small "EEV" emissions badge clearly visible and readable on cab side or chassis fairing near door,
+natural overcast daylight, 35mm lens, shallow depth of field,
+authentic Volvo truck, slightly weathered professional fleet condition,
+B2B commercial catalog photography, no people, realistic colors not CGI, 4:5 vertical crop
 ```
 
 ---
@@ -297,20 +388,27 @@ natural overcast daylight, 35mm lens, B2B catalog photography, no people, 4:5 ve
 
 **hero**
 ```
-Cinematic extreme macro product hero shot of an OEM truck cab badge reading "I-Shift",
-modern Volvo technology badge with hyphenated typography,
+Cinematic extreme macro product hero shot of standalone OEM truck cab lettering reading "I-Shift",
+modern Volvo technology badge with hyphenated italic typography, forward-leaning cab-side slant,
 dual-tone matte body with glossy raised lettering, mixed satin and polished chrome highlights finish,
-resting on a dark carbon-fiber textured surface in a moody studio environment, void black #09090b — standalone raised letterforms only, NO backing plate, NO rectangular base plate, NO badge substrate behind the text,
-intense dramatic rim lighting upper right navy #003d81 and icy cyan #9ccdef,
-ultra-shallow depth of field, editorial tech-surrealist aesthetic, hyper-detailed conceptual product photography,
+embossed metallic letterforms only — NO backing plate, NO rectangular base plate, NO badge substrate behind the text,
+premium European heavy truck styling,
+resting on a dark carbon-fiber textured surface in a moody studio environment, pure void black background #09090b,
+intense dramatic rim lighting from the upper right in navy blue #003d81 and icy cyan #9ccdef,
+sharp specular edges, deep shadows with soft falloff, ultra-shallow depth of field,
+sleek high-end editorial and tech-surrealist aesthetic, hyper-detailed conceptual product photography,
 MUST REFERENCE UPLOADED IMAGE for exact badge shape and finish,
-no truck, no people, no watermark, centered, letterforms fill 70% of frame, 1:1, 8K quality
+no truck visible, no people, no watermark, no extra text,
+centered composition letterforms fill 70% of frame, 1:1 aspect ratio, 8K quality
 ```
 
 **mounted**
 ```
-Photorealistic documentary photograph, real Volvo FH truck, "I-Shift" badge on cab side technology badge zone near door,
-natural overcast daylight, 35mm lens, B2B catalog photography, no people, 4:5 vertical crop
+Photorealistic documentary photograph, real Volvo FH truck in fleet yard,
+"I-Shift" badge clearly visible and readable on cab side technology badge zone near door,
+natural overcast daylight, 35mm lens, shallow depth of field,
+authentic Volvo truck, slightly weathered professional fleet condition,
+B2B commercial catalog photography, no people, realistic colors not CGI, 4:5 vertical crop
 ```
 
 ---
@@ -319,20 +417,27 @@ natural overcast daylight, 35mm lens, B2B catalog photography, no people, 4:5 ve
 
 **hero**
 ```
-Cinematic extreme macro product hero shot of an OEM truck cab badge reading "500",
-large numeric horsepower badge, bold industrial font, cab door size proportion,
+Cinematic extreme macro product hero shot of standalone OEM truck cab lettering reading "500",
+large numeric horsepower badge, bold italic industrial font, forward-leaning cab-door slant, cab door size proportion,
 dual-tone matte body with glossy raised lettering, mixed satin and polished chrome highlights finish,
-resting on a dark carbon-fiber textured surface in a moody studio environment, void black #09090b — standalone raised letterforms only, NO backing plate, NO rectangular base plate, NO badge substrate behind the text,
-intense dramatic rim lighting upper right navy #003d81 and icy cyan #9ccdef,
-ultra-shallow depth of field, editorial tech-surrealist aesthetic, hyper-detailed conceptual product photography,
+embossed metallic letterforms only — NO backing plate, NO rectangular base plate, NO badge substrate behind the text,
+premium European heavy truck styling,
+resting on a dark carbon-fiber textured surface in a moody studio environment, pure void black background #09090b,
+intense dramatic rim lighting from the upper right in navy blue #003d81 and icy cyan #9ccdef,
+sharp specular edges, deep shadows with soft falloff, ultra-shallow depth of field,
+sleek high-end editorial and tech-surrealist aesthetic, hyper-detailed conceptual product photography,
 MUST REFERENCE UPLOADED IMAGE for exact badge shape and finish,
-no truck, no people, no watermark, centered, letterforms fill 70% of frame, 1:1, 8K quality
+no truck visible, no people, no watermark, no extra text,
+centered composition letterforms fill 70% of frame, 1:1 aspect ratio, 8K quality
 ```
 
 **mounted**
 ```
-Photorealistic documentary photograph, real Volvo FH truck, "500" badge on lower cab side door panel below window line,
-natural overcast daylight, 35mm lens, B2B catalog photography, no people, 4:5 vertical crop
+Photorealistic documentary photograph, real Volvo FH truck in fleet yard,
+"500" horsepower badge clearly visible and readable on lower cab side door panel below window line,
+natural overcast daylight, 35mm lens, shallow depth of field,
+authentic Volvo truck, slightly weathered professional fleet condition,
+B2B commercial catalog photography, no people, realistic colors not CGI, 4:5 vertical crop
 ```
 
 ---
@@ -341,20 +446,27 @@ natural overcast daylight, 35mm lens, B2B catalog photography, no people, 4:5 ve
 
 **hero**
 ```
-Cinematic extreme macro product hero shot of an OEM truck cab badge reading "EURO 4",
+Cinematic extreme macro product hero shot of standalone OEM truck cab lettering reading "EURO 4",
 regulatory emissions badge, clean regulatory typography,
-satin matte chrome finish, soft diffuse reflections, brushed metal texture,
-resting on a dark carbon-fiber textured surface in a moody studio environment, background #09090b — standalone raised letterforms only, NO backing plate, NO rectangular base plate, NO badge substrate behind the text,
-intense dramatic rim lighting upper right navy #003d81 and icy cyan #9ccdef,
-ultra-shallow depth of field, editorial tech-surrealist aesthetic, hyper-detailed conceptual product photography,
+satin matte chrome finish, soft diffuse reflections, no mirror shine, brushed metal texture on letter shoulders,
+embossed metallic letterforms only — NO backing plate, NO rectangular base plate, NO badge substrate behind the text,
+premium European heavy truck styling,
+resting on a dark carbon-fiber textured surface in a moody studio environment, pure void black background #09090b,
+intense dramatic rim lighting from the upper right in navy blue #003d81 and icy cyan #9ccdef,
+sharp specular edges, deep shadows with soft falloff, ultra-shallow depth of field,
+sleek high-end editorial and tech-surrealist aesthetic, hyper-detailed conceptual product photography,
 MUST REFERENCE UPLOADED IMAGE for exact badge shape and finish,
-no truck, no people, no watermark, centered, letterforms fill 70% of frame, 1:1, 8K quality
+no truck visible, no people, no watermark, no extra text,
+centered composition letterforms fill 70% of frame, 1:1 aspect ratio, 8K quality
 ```
 
 **mounted**
 ```
-Photorealistic documentary photograph, real Volvo truck, "EURO 4" badge on cab side or chassis fairing,
-natural overcast daylight, 35mm lens, B2B catalog photography, no people, 4:5 vertical crop
+Photorealistic documentary photograph, real Volvo truck in fleet yard,
+"EURO 4" emissions badge clearly visible and readable on cab side or chassis fairing,
+natural overcast daylight, 35mm lens, shallow depth of field,
+authentic Volvo truck, slightly weathered professional fleet condition,
+B2B commercial catalog photography, no people, realistic colors not CGI, 4:5 vertical crop
 ```
 
 ---
@@ -363,20 +475,27 @@ natural overcast daylight, 35mm lens, B2B catalog photography, no people, 4:5 ve
 
 **hero**
 ```
-Cinematic extreme macro product hero shot of an OEM truck cab badge reading "EURO 5",
+Cinematic extreme macro product hero shot of standalone OEM truck cab lettering reading "EURO 5",
 regulatory emissions badge, clean regulatory typography,
-satin matte chrome finish, soft diffuse reflections, brushed metal texture,
-resting on a dark carbon-fiber textured surface in a moody studio environment, void black #09090b — standalone raised letterforms only, NO backing plate, NO rectangular base plate, NO badge substrate behind the text,
-intense dramatic rim lighting upper right navy #003d81 and icy cyan #9ccdef,
-ultra-shallow depth of field, editorial tech-surrealist aesthetic, hyper-detailed conceptual product photography,
+satin matte chrome finish, soft diffuse reflections, no mirror shine, brushed metal texture on letter shoulders,
+embossed metallic letterforms only — NO backing plate, NO rectangular base plate, NO badge substrate behind the text,
+premium European heavy truck styling,
+resting on a dark carbon-fiber textured surface in a moody studio environment, pure void black background #09090b,
+intense dramatic rim lighting from the upper right in navy blue #003d81 and icy cyan #9ccdef,
+sharp specular edges, deep shadows with soft falloff, ultra-shallow depth of field,
+sleek high-end editorial and tech-surrealist aesthetic, hyper-detailed conceptual product photography,
 MUST REFERENCE UPLOADED IMAGE for exact badge shape and finish,
-no truck, no people, no watermark, centered, letterforms fill 70% of frame, 1:1, 8K quality
+no truck visible, no people, no watermark, no extra text,
+centered composition letterforms fill 70% of frame, 1:1 aspect ratio, 8K quality
 ```
 
 **mounted**
 ```
-Photorealistic documentary photograph, real Volvo truck, "EURO 5" badge on cab side emissions badge location,
-natural overcast daylight, 35mm lens, B2B catalog photography, no people, 4:5 vertical crop
+Photorealistic documentary photograph, real Volvo truck in fleet yard,
+"EURO 5" emissions badge clearly visible and readable on cab side emissions badge location,
+natural overcast daylight, 35mm lens, shallow depth of field,
+authentic Volvo truck, slightly weathered professional fleet condition,
+B2B commercial catalog photography, no people, realistic colors not CGI, 4:5 vertical crop
 ```
 
 ---
@@ -385,20 +504,27 @@ natural overcast daylight, 35mm lens, B2B catalog photography, no people, 4:5 ve
 
 **hero**
 ```
-Cinematic extreme macro product hero shot of an OEM truck cab badge reading "EURO 6",
-modern regulatory emissions badge, clean typography,
+Cinematic extreme macro product hero shot of standalone OEM truck cab lettering reading "EURO 6",
+regulatory emissions badge, italic slanted regulatory typography, forward-leaning cab-side angle,
 dual-tone matte body with glossy raised lettering, mixed satin and polished chrome highlights finish,
-resting on a dark carbon-fiber textured surface in a moody studio environment, pure void black background #09090b — standalone raised letterforms only, NO backing plate, NO rectangular base plate, NO badge substrate behind the text,
-intense dramatic rim lighting upper right navy #003d81 and icy cyan #9ccdef,
-ultra-shallow depth of field, editorial tech-surrealist aesthetic, hyper-detailed conceptual product photography,
+embossed metallic letterforms only — NO backing plate, NO rectangular base plate, NO badge substrate behind the text,
+premium European heavy truck styling,
+resting on a dark carbon-fiber textured surface in a moody studio environment, pure void black background #09090b,
+intense dramatic rim lighting from the upper right in navy blue #003d81 and icy cyan #9ccdef,
+sharp specular edges, deep shadows with soft falloff, ultra-shallow depth of field,
+sleek high-end editorial and tech-surrealist aesthetic, hyper-detailed conceptual product photography,
 MUST REFERENCE UPLOADED IMAGE for exact badge shape and finish,
-no truck, no people, no watermark, centered, letterforms fill 70% of frame, 1:1, 8K quality
+no truck visible, no people, no watermark, no extra text,
+centered composition letterforms fill 70% of frame, 1:1 aspect ratio, 8K quality
 ```
 
 **mounted**
 ```
-Photorealistic documentary photograph, real Volvo FH truck, "EURO 6" badge on cab side emissions location,
-natural overcast daylight, 35mm lens, B2B catalog photography, no people, 4:5 vertical crop
+Photorealistic documentary photograph, real Volvo FH truck in fleet yard,
+"EURO 6" emissions badge clearly visible and readable on cab side emissions location,
+natural overcast daylight, 35mm lens, shallow depth of field,
+authentic Volvo truck, slightly weathered professional fleet condition,
+B2B commercial catalog photography, no people, realistic colors not CGI, 4:5 vertical crop
 ```
 
 ---
@@ -407,20 +533,27 @@ natural overcast daylight, 35mm lens, B2B catalog photography, no people, 4:5 ve
 
 **hero**
 ```
-Cinematic extreme macro product hero shot of an OEM truck cab badge reading "460",
-large numeric horsepower badge, bold industrial font, cab door size proportion,
+Cinematic extreme macro product hero shot of standalone OEM truck cab lettering reading "460",
+large numeric horsepower badge, bold italic industrial font, forward-leaning cab-door slant, cab door size proportion,
 dual-tone matte body with glossy raised lettering, mixed satin and polished chrome highlights finish — more shine than matte 04-460,
-resting on a dark carbon-fiber textured surface in a moody studio environment, void black #09090b — standalone raised letterforms only, NO backing plate, NO rectangular base plate, NO badge substrate behind the text,
-intense dramatic rim lighting upper right navy #003d81 and icy cyan #9ccdef,
-ultra-shallow depth of field, editorial tech-surrealist aesthetic, hyper-detailed conceptual product photography,
+embossed metallic letterforms only — NO backing plate, NO rectangular base plate, NO badge substrate behind the text,
+premium European heavy truck styling,
+resting on a dark carbon-fiber textured surface in a moody studio environment, pure void black background #09090b,
+intense dramatic rim lighting from the upper right in navy blue #003d81 and icy cyan #9ccdef,
+sharp specular edges, deep shadows with soft falloff, ultra-shallow depth of field,
+sleek high-end editorial and tech-surrealist aesthetic, hyper-detailed conceptual product photography,
 MUST REFERENCE UPLOADED IMAGE for exact badge shape and glossy finish — must differ visually from 04-460,
-no truck, no people, no watermark, centered, letterforms fill 70% of frame, 1:1, 8K quality
+no truck visible, no people, no watermark, no extra text,
+centered composition letterforms fill 70% of frame, 1:1 aspect ratio, 8K quality
 ```
 
 **mounted**
 ```
-Photorealistic documentary photograph, real Volvo truck, glossy "460" badge on lower cab side door panel below window line,
-natural overcast daylight, 35mm lens, B2B catalog photography, no people, 4:5 vertical crop
+Photorealistic documentary photograph, real Volvo truck in fleet yard,
+glossy "460" horsepower badge clearly visible and readable on lower cab side door panel below window line,
+natural overcast daylight, 35mm lens, shallow depth of field,
+authentic Volvo truck, slightly weathered professional fleet condition,
+B2B commercial catalog photography, no people, realistic colors not CGI, 4:5 vertical crop
 ```
 
 ---
@@ -429,20 +562,27 @@ natural overcast daylight, 35mm lens, B2B catalog photography, no people, 4:5 ve
 
 **hero**
 ```
-Cinematic extreme macro product hero shot of an OEM truck cab badge reading "540",
-large numeric horsepower badge, bold industrial font, cab door size proportion,
+Cinematic extreme macro product hero shot of standalone OEM truck cab lettering reading "540",
+large numeric horsepower badge, bold italic industrial font, forward-leaning cab-door slant, cab door size proportion,
 dual-tone matte body with glossy raised lettering, mixed satin and polished chrome highlights finish,
-resting on a dark carbon-fiber textured surface in a moody studio environment, void black #09090b — standalone raised letterforms only, NO backing plate, NO rectangular base plate, NO badge substrate behind the text,
-intense dramatic rim lighting upper right navy #003d81 and icy cyan #9ccdef,
-ultra-shallow depth of field, editorial tech-surrealist aesthetic, hyper-detailed conceptual product photography,
+embossed metallic letterforms only — NO backing plate, NO rectangular base plate, NO badge substrate behind the text,
+premium European heavy truck styling,
+resting on a dark carbon-fiber textured surface in a moody studio environment, pure void black background #09090b,
+intense dramatic rim lighting from the upper right in navy blue #003d81 and icy cyan #9ccdef,
+sharp specular edges, deep shadows with soft falloff, ultra-shallow depth of field,
+sleek high-end editorial and tech-surrealist aesthetic, hyper-detailed conceptual product photography,
 MUST REFERENCE UPLOADED IMAGE for exact badge shape and finish,
-no truck, no people, no watermark, centered, letterforms fill 70% of frame, 1:1, 8K quality
+no truck visible, no people, no watermark, no extra text,
+centered composition letterforms fill 70% of frame, 1:1 aspect ratio, 8K quality
 ```
 
 **mounted**
 ```
-Photorealistic documentary photograph, real Volvo truck, "540" badge on lower cab side door panel below window line,
-natural overcast daylight, 35mm lens, B2B catalog photography, no people, 4:5 vertical crop
+Photorealistic documentary photograph, real Volvo truck in fleet yard,
+"540" horsepower badge clearly visible and readable on lower cab side door panel below window line,
+natural overcast daylight, 35mm lens, shallow depth of field,
+authentic Volvo truck, slightly weathered professional fleet condition,
+B2B commercial catalog photography, no people, realistic colors not CGI, 4:5 vertical crop
 ```
 
 ---
@@ -451,20 +591,27 @@ natural overcast daylight, 35mm lens, B2B catalog photography, no people, 4:5 ve
 
 **hero**
 ```
-Cinematic extreme macro product hero shot of an OEM truck cab badge reading "FH",
-standalone FH raised letterforms, Volvo FH series front letter proportion, compact bold lettering,
+Cinematic extreme macro product hero shot of standalone OEM truck cab lettering reading "FH",
+standalone FH raised letterforms, Volvo FH series front letter proportion, compact bold italic lettering, forward-leaning cab-side slant,
 dual-tone matte body with glossy raised lettering, mixed satin and polished chrome highlights finish,
-resting on a dark carbon-fiber textured surface in a moody studio environment, void black #09090b — standalone raised letterforms only, NO backing plate, NO rectangular base plate, NO badge substrate behind the text,
-intense dramatic rim lighting upper right navy #003d81 and icy cyan #9ccdef,
-ultra-shallow depth of field, editorial tech-surrealist aesthetic, hyper-detailed conceptual product photography,
+embossed metallic letterforms only — NO backing plate, NO rectangular base plate, NO badge substrate behind the text,
+premium European heavy truck styling,
+resting on a dark carbon-fiber textured surface in a moody studio environment, pure void black background #09090b,
+intense dramatic rim lighting from the upper right in navy blue #003d81 and icy cyan #9ccdef,
+sharp specular edges, deep shadows with soft falloff, ultra-shallow depth of field,
+sleek high-end editorial and tech-surrealist aesthetic, hyper-detailed conceptual product photography,
 MUST REFERENCE UPLOADED IMAGE for exact badge shape and finish,
-no truck, no people, no watermark, centered, letterforms fill 70% of frame, 1:1, 8K quality
+no truck visible, no people, no watermark, no extra text,
+centered composition letterforms fill 70% of frame, 1:1 aspect ratio, 8K quality
 ```
 
 **mounted**
 ```
-Photorealistic documentary photograph, real Volvo FH truck, "FH" model badge on front cab badge area below grille,
-natural overcast daylight, 35mm lens, B2B catalog photography, no people, 4:5 vertical crop
+Photorealistic documentary photograph, real Volvo FH truck in fleet yard,
+"FH" model badge clearly visible and readable on front cab badge area below grille,
+natural overcast daylight, 35mm lens, shallow depth of field,
+authentic Volvo truck, slightly weathered professional fleet condition,
+B2B commercial catalog photography, no people, realistic colors not CGI, 4:5 vertical crop
 ```
 
 ---
@@ -473,21 +620,27 @@ natural overcast daylight, 35mm lens, B2B catalog photography, no people, 4:5 ve
 
 **hero**
 ```
-Cinematic extreme macro product hero shot of an OEM truck cab badge reading "VOLVO",
+Cinematic extreme macro product hero shot of standalone OEM truck cab lettering reading "VOLVO",
 standalone VOLVO raised letterforms, wide horizontal chrome letters,
 dual-tone matte body with glossy raised lettering, mixed satin and polished chrome highlights finish — brighter highlights than 07-volvo-fh12,
-resting on a dark carbon-fiber textured surface in a moody studio environment, background #09090b — standalone raised letterforms only, NO backing plate, NO rectangular base plate, NO badge substrate behind the text,
-intense dramatic rim lighting upper right navy #003d81 and icy cyan #9ccdef,
-ultra-shallow depth of field, editorial tech-surrealist aesthetic, hyper-detailed conceptual product photography,
+embossed metallic letterforms only — NO backing plate, NO rectangular base plate, NO badge substrate behind the text,
+premium European heavy truck styling,
+resting on a dark carbon-fiber textured surface in a moody studio environment, pure void black background #09090b,
+intense dramatic rim lighting from the upper right in navy blue #003d81 and icy cyan #9ccdef,
+sharp specular edges, deep shadows with soft falloff, ultra-shallow depth of field,
+sleek high-end editorial and tech-surrealist aesthetic, hyper-detailed conceptual product photography,
 MUST REFERENCE UPLOADED IMAGE for exact badge shape and glossy letter finish,
-no truck, no people, no watermark, centered, letterforms fill 70% of frame, 1:1, 8K quality
+no truck visible, no people, no watermark, no extra text,
+centered composition letterforms fill 70% of frame, 1:1 aspect ratio, 8K quality
 ```
 
 **mounted**
 ```
 Photorealistic documentary photograph, real Volvo FH truck in fleet yard,
-"VOLVO" grille lettering clearly visible at front grille center (جلوپنجره), letters prominent and readable,
-natural overcast daylight, 35mm lens, shallow depth of field, B2B catalog photography, no people, 4:5 vertical crop
+"VOLVO" grille lettering clearly visible and readable at front grille center (جلوپنجره), letters prominent,
+natural overcast daylight, 35mm lens, shallow depth of field,
+authentic Volvo truck, slightly weathered professional fleet condition,
+B2B commercial catalog photography, no people, realistic colors not CGI, 4:5 vertical crop
 ```
 
 ---
@@ -496,21 +649,27 @@ natural overcast daylight, 35mm lens, shallow depth of field, B2B catalog photog
 
 **hero**
 ```
-Cinematic extreme macro product hero shot of an OEM truck cab badge reading "XF",
-standalone DAF XF raised "XF" letterforms, DAF cab styling not Volvo, curved letter profile only — NO backing plate,
-satin matte chrome finish, soft diffuse reflections, brushed metal texture,
-resting on a dark carbon-fiber textured surface in a moody studio environment, void black #09090b — standalone raised letterforms only, NO backing plate, NO rectangular base plate, NO badge substrate behind the text,
-intense dramatic rim lighting upper right navy #003d81 and icy cyan #9ccdef,
-ultra-shallow depth of field, editorial tech-surrealist aesthetic, hyper-detailed conceptual product photography,
+Cinematic extreme macro product hero shot of standalone OEM truck cab lettering reading "XF",
+standalone DAF XF raised "XF" letterforms, DAF cab styling not Volvo, curved italic letter profile, forward-leaning cab-side slant,
+satin matte chrome finish, soft diffuse reflections, no mirror shine, brushed metal texture on letter shoulders,
+embossed metallic letterforms only — NO backing plate, NO rectangular base plate, NO badge substrate behind the text,
+premium European heavy truck styling,
+resting on a dark carbon-fiber textured surface in a moody studio environment, pure void black background #09090b,
+intense dramatic rim lighting from the upper right in navy blue #003d81 and icy cyan #9ccdef,
+sharp specular edges, deep shadows with soft falloff, ultra-shallow depth of field,
+sleek high-end editorial and tech-surrealist aesthetic, hyper-detailed conceptual product photography,
 MUST REFERENCE UPLOADED IMAGE for exact DAF XF badge shape and finish,
-no truck, no people, no watermark, centered, letterforms fill 70% of frame, 1:1, 8K quality
+no truck visible, no people, no watermark, no extra text,
+centered composition letterforms fill 70% of frame, 1:1 aspect ratio, 8K quality
 ```
 
 **mounted**
 ```
 Photorealistic documentary photograph, real DAF XF truck in fleet yard,
-"XF" model badge clearly visible on front grille area (جلوپنجره), DAF cab styling,
-natural overcast daylight, 35mm lens, shallow depth of field, B2B catalog photography, no people, 4:5 vertical crop
+"XF" model badge clearly visible and readable on front grille area (جلوپنجره), DAF cab styling,
+natural overcast daylight, 35mm lens, shallow depth of field,
+authentic DAF truck, slightly weathered professional fleet condition,
+B2B commercial catalog photography, no people, realistic colors not CGI, 4:5 vertical crop
 ```
 
 ---
@@ -519,20 +678,27 @@ natural overcast daylight, 35mm lens, shallow depth of field, B2B catalog photog
 
 **hero**
 ```
-Cinematic extreme macro product hero shot of an OEM truck cab badge reading "I-SAVE",
-Volvo fuel technology badge, hyphenated modern typography,
+Cinematic extreme macro product hero shot of standalone OEM truck cab lettering reading "I-SAVE",
+Volvo fuel technology badge, hyphenated italic typography, forward-leaning cab-side slant,
 dual-tone matte body with glossy raised lettering, mixed satin and polished chrome highlights finish,
-resting on a dark carbon-fiber textured surface in a moody studio environment, pure void black background #09090b — standalone raised letterforms only, NO backing plate, NO rectangular base plate, NO badge substrate behind the text,
-intense dramatic rim lighting upper right navy #003d81 and icy cyan #9ccdef,
-ultra-shallow depth of field, editorial tech-surrealist aesthetic, hyper-detailed conceptual product photography,
+embossed metallic letterforms only — NO backing plate, NO rectangular base plate, NO badge substrate behind the text,
+premium European heavy truck styling,
+resting on a dark carbon-fiber textured surface in a moody studio environment, pure void black background #09090b,
+intense dramatic rim lighting from the upper right in navy blue #003d81 and icy cyan #9ccdef,
+sharp specular edges, deep shadows with soft falloff, ultra-shallow depth of field,
+sleek high-end editorial and tech-surrealist aesthetic, hyper-detailed conceptual product photography,
 MUST REFERENCE UPLOADED IMAGE for exact badge shape and finish,
-no truck, no people, no watermark, centered, letterforms fill 70% of frame, 1:1, 8K quality
+no truck visible, no people, no watermark, no extra text,
+centered composition letterforms fill 70% of frame, 1:1 aspect ratio, 8K quality
 ```
 
 **mounted**
 ```
-Photorealistic documentary photograph, real Volvo FH truck, "I-SAVE" badge on cab side technology badge zone near door,
-natural overcast daylight, 35mm lens, B2B catalog photography, no people, 4:5 vertical crop
+Photorealistic documentary photograph, real Volvo FH truck in fleet yard,
+"I-SAVE" badge clearly visible and readable on cab side technology badge zone near door,
+natural overcast daylight, 35mm lens, shallow depth of field,
+authentic Volvo truck, slightly weathered professional fleet condition,
+B2B commercial catalog photography, no people, realistic colors not CGI, 4:5 vertical crop
 ```
 
 ---
@@ -541,14 +707,16 @@ natural overcast daylight, 35mm lens, B2B catalog photography, no people, 4:5 ve
 
 **hero**
 ```
-Cinematic extreme macro product hero shot of an OEM truck cab badge reading "750",
-large numeric horsepower badge, bold industrial font, cab door size proportion, premium FH16 prestige styling, largest numeric badge,
+Cinematic extreme macro product hero shot of standalone OEM truck cab lettering reading "750",
+large numeric horsepower badge, bold italic industrial font, forward-leaning cab-door slant, cab door size proportion, premium FH16 prestige styling, largest numeric badge,
 dual-tone matte body with glossy raised lettering, mixed satin and polished chrome highlights finish,
-resting on a dark carbon-fiber textured surface in a moody studio environment, pure void black background #09090b — standalone raised letterforms only, NO backing plate, NO rectangular base plate, NO badge substrate behind the text,
+embossed metallic letterforms only — NO backing plate, NO rectangular base plate, NO badge substrate behind the text,
+premium European heavy truck styling,
+resting on a dark carbon-fiber textured surface in a moody studio environment, pure void black background #09090b,
 intense dramatic rim lighting from the upper right in navy blue #003d81 and icy cyan #9ccdef,
 sharp specular edges, deep shadows with soft falloff, ultra-shallow depth of field,
 sleek high-end editorial and tech-surrealist aesthetic, hyper-detailed conceptual product photography,
-MUST REFERENCE UPLOADED IMAGE "image_f1437c.png" OR "image_f14381.png" FOR EXACT BADGE SHAPE AND FINISH,
+MUST REFERENCE UPLOADED IMAGE "image_f1437c.png" OR "image_f14381.png" for exact badge shape and finish,
 no truck visible, no people, no watermark, no extra text,
 centered composition letterforms fill 70% of frame, 1:1 aspect ratio, 8K quality
 ```
@@ -556,8 +724,10 @@ centered composition letterforms fill 70% of frame, 1:1 aspect ratio, 8K quality
 **mounted**
 ```
 Photorealistic documentary photograph, real Volvo FH16 truck in fleet yard,
-"750" horsepower badge clearly visible on lower cab side door panel below window line,
-natural overcast daylight, 35mm lens, shallow depth of field, B2B catalog photography, no people, 4:5 vertical crop
+"750" horsepower badge clearly visible and readable on lower cab side door panel below window line,
+natural overcast daylight, 35mm lens, shallow depth of field,
+authentic Volvo truck, slightly weathered professional fleet condition,
+B2B commercial catalog photography, no people, realistic colors not CGI, 4:5 vertical crop
 ```
 
 ---
@@ -566,23 +736,32 @@ natural overcast daylight, 35mm lens, shallow depth of field, B2B catalog photog
 
 **hero**
 ```
-Cinematic extreme macro product hero shot of a small circular green European truck compliance badge,
-white letter "L" center, Lärmarm low-noise regulatory marker, matte finish on green disk,
-a clean white circular ring or "arm" outlining the disk's perimeter — crisp OEM frame around the green disk,
-resting on a dark carbon-fiber textured surface in a moody studio environment, pure void black background #09090b — standalone circular green disk only, NO extra metal plate behind the disk,
-intense dramatic rim lighting from upper right navy #003d81 and icy cyan #9ccdef,
-ultra-shallow depth of field, editorial tech-surrealist aesthetic, hyper-detailed conceptual product photography,
-MUST REFERENCE UPLOADED IMAGE for exact circular badge shape and green tone,
-no truck, no people, no watermark, centered, letterforms fill 70% of frame, 1:1, 8K quality
+Cinematic extreme macro product hero shot of an authentic OEM European heavy truck compliance sticker badge,
+small flat circular glossy vinyl sticker approximately 5 cm diameter,
+deep forest green fill — rich British Racing Green tone, glossy factory vinyl with subtle reflections, NOT neon, NOT lime,
+centered bold white sans-serif "L" — Lärmarm low-noise regulatory marker, clean factory typography, same pure white as the border ring,
+thick uniform white circular border ring exactly at the outer edge of the circle — white ring IS the outermost edge of the emblem, green fill stops precisely at inner edge of white ring with zero gap, NO green visible beyond the white border, NO space between green disk and white ring, NOT arrow shapes, NOT decorative arms, NOT metal brackets,
+real adhesive-backed compliance marker as seen on Volvo FH/FM grilles,
+standalone circular sticker only — NO backing plate, NO metal substrate behind the disk,
+resting on a dark carbon-fiber textured surface in a moody studio environment, pure void black background #09090b,
+intense dramatic rim lighting from the upper right in navy blue #003d81 and icy cyan #9ccdef,
+sharp specular edges on disk rim, deep shadows with soft falloff, ultra-shallow depth of field,
+sleek high-end editorial and tech-surrealist aesthetic, hyper-detailed conceptual product photography,
+MUST REFERENCE UPLOADED IMAGE for exact disk shape, deep green tone, white letter form, and white border flush with circle edge,
+no truck visible, no people, no watermark, no extra text,
+centered composition, disk fills 70% of frame, 1:1 aspect ratio, 8K quality
 ```
 
 **mounted**
 ```
 Photorealistic documentary photograph, real Volvo FH or FM truck in fleet yard,
-green circular "L" compliance badge clearly visible on front grille (جلوپنجره) on the LEFT side of the grille,
-clean white circular ring or arm outlining the disk perimeter visible on the badge,
+authentic deep forest green circular OEM vinyl compliance sticker with bold white "L" clearly visible on front grille (جلوپنجره) on the LEFT side of the grille,
+thick white circular border exactly at outer edge of sticker — no gap between green fill and white ring, no green beyond white perimeter, white ring is the outermost edge of the emblem,
+deep forest green glossy vinyl matching real European truck grille compliance markers, NOT CGI glow, NOT neon green, NOT arrow graphics,
 L badge always mounted left — ثابت on چپ,
-natural overcast daylight, 35mm lens, shallow depth of field, B2B catalog photography, no people, 4:5 vertical crop
+natural overcast daylight, 35mm lens, shallow depth of field,
+authentic Volvo truck cab, slightly weathered professional fleet condition,
+B2B commercial catalog photography, no people, realistic colors not CGI, 4:5 vertical crop
 ```
 
 ---
@@ -591,23 +770,32 @@ natural overcast daylight, 35mm lens, shallow depth of field, B2B catalog photog
 
 **hero**
 ```
-Cinematic extreme macro product hero shot of a small circular green European truck compliance badge,
-white letter "V" center, regulatory compliance marker, matte finish on green disk,
-a clean white circular ring or "arm" outlining the disk's perimeter — crisp OEM frame around the green disk,
-resting on a dark carbon-fiber textured surface in a moody studio environment, void black #09090b — standalone circular green disk only, NO extra metal plate behind the disk,
-intense dramatic rim lighting upper right navy #003d81 and icy cyan #9ccdef,
-ultra-shallow depth of field, editorial tech-surrealist aesthetic, hyper-detailed conceptual product photography,
-MUST REFERENCE UPLOADED IMAGE for exact circular badge shape and green tone,
-no truck, no people, no watermark, centered, letterforms fill 70% of frame, 1:1, 8K quality
+Cinematic extreme macro product hero shot of an authentic OEM European heavy truck compliance sticker badge,
+small flat circular glossy vinyl sticker approximately 5 cm diameter,
+deep forest green fill — rich British Racing Green tone, glossy factory vinyl with subtle reflections, NOT neon, NOT lime,
+centered bold white sans-serif "V" — clean factory typography, same pure white as the border ring,
+thick uniform white circular border ring exactly at the outer edge of the circle — white ring IS the outermost edge of the emblem, green fill stops precisely at inner edge of white ring with zero gap, NO green visible beyond the white border, NO space between green disk and white ring, NOT arrow shapes, NOT decorative arms, NOT metal brackets,
+real adhesive-backed compliance marker as seen on Volvo FH/FM grilles,
+standalone circular sticker only — NO backing plate, NO metal substrate behind the disk,
+resting on a dark carbon-fiber textured surface in a moody studio environment, pure void black background #09090b,
+intense dramatic rim lighting from the upper right in navy blue #003d81 and icy cyan #9ccdef,
+sharp specular edges on disk rim, deep shadows with soft falloff, ultra-shallow depth of field,
+sleek high-end editorial and tech-surrealist aesthetic, hyper-detailed conceptual product photography,
+MUST REFERENCE UPLOADED IMAGE for exact disk shape, deep green tone, white letter form, and white border flush with circle edge,
+no truck visible, no people, no watermark, no extra text,
+centered composition, disk fills 70% of frame, 1:1 aspect ratio, 8K quality
 ```
 
 **mounted**
 ```
 Photorealistic documentary photograph, real Volvo FH or FM truck in fleet yard,
-green circular "V" compliance badge clearly visible on front grille (جلوپنجره) on the RIGHT side of the grille,
-clean white circular ring or arm outlining the disk perimeter visible on the badge,
+authentic deep forest green circular OEM vinyl compliance sticker with bold white "V" clearly visible on front grille (جلوپنجره) on the RIGHT side of the grille,
+thick white circular border exactly at outer edge of sticker — no gap between green fill and white ring, no green beyond white perimeter, white ring is the outermost edge of the emblem,
+deep forest green glossy vinyl matching real European truck grille compliance markers, NOT CGI glow, NOT neon green, NOT arrow graphics,
 V always mounted right — راست,
-natural overcast daylight, 35mm lens, shallow depth of field, B2B catalog photography, no people, 4:5 vertical crop
+natural overcast daylight, 35mm lens, shallow depth of field,
+authentic Volvo truck cab, slightly weathered professional fleet condition,
+B2B commercial catalog photography, no people, realistic colors not CGI, 4:5 vertical crop
 ```
 
 ---
@@ -616,23 +804,32 @@ natural overcast daylight, 35mm lens, shallow depth of field, B2B catalog photog
 
 **hero**
 ```
-Cinematic extreme macro product hero shot of a small circular green European truck compliance badge,
-white roman numeral "IV" center, regulatory compliance marker, matte finish on green disk,
-a clean white circular ring or "arm" outlining the disk's perimeter — crisp OEM frame around the green disk,
-resting on a dark carbon-fiber textured surface in a moody studio environment, void black #09090b — standalone circular green disk only, NO extra metal plate behind the disk,
-intense dramatic rim lighting upper right navy #003d81 and icy cyan #9ccdef,
-ultra-shallow depth of field, editorial tech-surrealist aesthetic, hyper-detailed conceptual product photography,
-MUST REFERENCE UPLOADED IMAGE for exact circular badge shape and green tone,
-no truck, no people, no watermark, centered, letterforms fill 70% of frame, 1:1, 8K quality
+Cinematic extreme macro product hero shot of an authentic OEM European heavy truck compliance sticker badge,
+small flat circular glossy vinyl sticker approximately 5 cm diameter,
+deep forest green fill — rich British Racing Green tone, glossy factory vinyl with subtle reflections, NOT neon, NOT lime,
+centered bold white sans-serif "IV" — clean factory typography, same pure white as the border ring,
+thick uniform white circular border ring exactly at the outer edge of the circle — white ring IS the outermost edge of the emblem, green fill stops precisely at inner edge of white ring with zero gap, NO green visible beyond the white border, NO space between green disk and white ring, NOT arrow shapes, NOT decorative arms, NOT metal brackets,
+real adhesive-backed compliance marker as seen on Volvo FH/FM grilles,
+standalone circular sticker only — NO backing plate, NO metal substrate behind the disk,
+resting on a dark carbon-fiber textured surface in a moody studio environment, pure void black background #09090b,
+intense dramatic rim lighting from the upper right in navy blue #003d81 and icy cyan #9ccdef,
+sharp specular edges on disk rim, deep shadows with soft falloff, ultra-shallow depth of field,
+sleek high-end editorial and tech-surrealist aesthetic, hyper-detailed conceptual product photography,
+MUST REFERENCE UPLOADED IMAGE for exact disk shape, deep green tone, white roman numeral form, and white border flush with circle edge,
+no truck visible, no people, no watermark, no extra text,
+centered composition, disk fills 70% of frame, 1:1 aspect ratio, 8K quality
 ```
 
 **mounted**
 ```
 Photorealistic documentary photograph, real Volvo FH or FM truck in fleet yard,
-green circular "IV" compliance badge clearly visible on front grille (جلوپنجره) on the RIGHT side of the grille,
-clean white circular ring or arm outlining the disk perimeter visible on the badge,
+authentic deep forest green circular OEM vinyl compliance sticker with bold white "IV" clearly visible on front grille (جلوپنجره) on the RIGHT side of the grille,
+thick white circular border exactly at outer edge of sticker — no gap between green fill and white ring, no green beyond white perimeter, white ring is the outermost edge of the emblem,
+deep forest green glossy vinyl matching real European truck grille compliance markers, NOT CGI glow, NOT neon green, NOT arrow graphics,
 IV always mounted right — راست,
-natural overcast daylight, 35mm lens, shallow depth of field, B2B catalog photography, no people, 4:5 vertical crop
+natural overcast daylight, 35mm lens, shallow depth of field,
+authentic Volvo truck cab, slightly weathered professional fleet condition,
+B2B commercial catalog photography, no people, realistic colors not CGI, 4:5 vertical crop
 ```
 
 ---
@@ -641,23 +838,32 @@ natural overcast daylight, 35mm lens, shallow depth of field, B2B catalog photog
 
 **hero**
 ```
-Cinematic extreme macro product hero shot of a small circular green European truck compliance badge,
-white roman numeral "VI" center, Euro 6 related compliance marker, matte finish on green disk,
-a clean white circular ring or "arm" outlining the disk's perimeter — crisp OEM frame around the green disk,
-resting on a dark carbon-fiber textured surface in a moody studio environment, background #09090b — standalone circular green disk only, NO extra metal plate behind the disk,
-intense dramatic rim lighting upper right navy #003d81 and icy cyan #9ccdef,
-ultra-shallow depth of field, editorial tech-surrealist aesthetic, hyper-detailed conceptual product photography,
-MUST REFERENCE UPLOADED IMAGE for exact circular badge shape and green tone,
-no truck, no people, no watermark, centered, letterforms fill 70% of frame, 1:1, 8K quality
+Cinematic extreme macro product hero shot of an authentic OEM European heavy truck compliance sticker badge,
+small flat circular glossy vinyl sticker approximately 5 cm diameter,
+deep forest green fill — rich British Racing Green tone, glossy factory vinyl with subtle reflections, NOT neon, NOT lime,
+centered bold white sans-serif "VI" — Euro 6 related compliance marker, clean factory typography, same pure white as the border ring,
+thick uniform white circular border ring exactly at the outer edge of the circle — white ring IS the outermost edge of the emblem, green fill stops precisely at inner edge of white ring with zero gap, NO green visible beyond the white border, NO space between green disk and white ring, NOT arrow shapes, NOT decorative arms, NOT metal brackets,
+real adhesive-backed compliance marker as seen on Volvo FH/FM grilles,
+standalone circular sticker only — NO backing plate, NO metal substrate behind the disk,
+resting on a dark carbon-fiber textured surface in a moody studio environment, pure void black background #09090b,
+intense dramatic rim lighting from the upper right in navy blue #003d81 and icy cyan #9ccdef,
+sharp specular edges on disk rim, deep shadows with soft falloff, ultra-shallow depth of field,
+sleek high-end editorial and tech-surrealist aesthetic, hyper-detailed conceptual product photography,
+MUST REFERENCE UPLOADED IMAGE for exact disk shape, deep green tone, white roman numeral form, and white border flush with circle edge,
+no truck visible, no people, no watermark, no extra text,
+centered composition, disk fills 70% of frame, 1:1 aspect ratio, 8K quality
 ```
 
 **mounted**
 ```
 Photorealistic documentary photograph, real Volvo FH or FM truck in fleet yard,
-green circular "VI" compliance badge clearly visible on front grille (جلوپنجره) on the RIGHT side of the grille,
-clean white circular ring or arm outlining the disk perimeter visible on the badge,
+authentic deep forest green circular OEM vinyl compliance sticker with bold white "VI" clearly visible on front grille (جلوپنجره) on the RIGHT side of the grille,
+thick white circular border exactly at outer edge of sticker — no gap between green fill and white ring, no green beyond white perimeter, white ring is the outermost edge of the emblem,
+deep forest green glossy vinyl matching real European truck grille compliance markers, NOT CGI glow, NOT neon green, NOT arrow graphics,
 VI always mounted right — راست,
-natural overcast daylight, 35mm lens, shallow depth of field, B2B catalog photography, no people, 4:5 vertical crop
+natural overcast daylight, 35mm lens, shallow depth of field,
+authentic Volvo truck cab, slightly weathered professional fleet condition,
+B2B commercial catalog photography, no people, realistic colors not CGI, 4:5 vertical crop
 ```
 
 ---
@@ -669,18 +875,23 @@ natural overcast daylight, 35mm lens, shallow depth of field, B2B catalog photog
 Cinematic extreme macro product hero shot of a polished stainless steel truck wheel hub cap,
 mirror chrome convex dome, center bore visible, circular wheel cap shape,
 polished stainless steel finish, mirror chrome, bright specular highlights,
-resting on a dark carbon-fiber textured surface in a moody studio environment, pure void black background #09090b — hub cap dome only, NO badge-style backing plate,
-intense dramatic rim lighting from upper right navy #003d81 and icy cyan #9ccdef,
-ultra-shallow depth of field, editorial tech-surrealist aesthetic, hyper-detailed conceptual product photography,
+hub cap dome only — NO badge-style backing plate,
+resting on a dark carbon-fiber textured surface in a moody studio environment, pure void black background #09090b,
+intense dramatic rim lighting from the upper right in navy blue #003d81 and icy cyan #9ccdef,
+sharp specular edges, deep shadows with soft falloff, ultra-shallow depth of field,
+sleek high-end editorial and tech-surrealist aesthetic, hyper-detailed conceptual product photography,
 MUST REFERENCE UPLOADED IMAGE for exact hub cap dome shape and chrome finish,
-no wheel, no truck, no people, no watermark, centered, cap fills 70% of frame, 1:1, 8K quality
+no wheel, no truck, no people, no watermark, no extra text,
+centered composition, cap fills 70% of frame, 1:1 aspect ratio, 8K quality
 ```
 
 **mounted**
 ```
-Photorealistic documentary photograph, real Volvo or DAF truck rear axle,
+Photorealistic documentary photograph, real Volvo or DAF truck rear axle in fleet yard,
 polished steel hub cap installed on truck wheel hub, clearly visible and readable scale,
-natural overcast daylight, 35mm lens, B2B catalog photography, no people, 4:5 vertical crop
+natural overcast daylight, 35mm lens, shallow depth of field,
+authentic truck, slightly weathered professional fleet condition,
+B2B commercial catalog photography, no people, realistic colors not CGI, 4:5 vertical crop
 ```
 
 ---
@@ -692,18 +903,23 @@ natural overcast daylight, 35mm lens, B2B catalog photography, no people, 4:5 ve
 Cinematic extreme macro product hero shot of a piano black glossy truck wheel hub cap,
 deep black lacquer mirror reflections, convex circular dome, center bore,
 piano black lacquer surface, deep mirror reflections, high-gloss automotive finish,
-resting on a dark carbon-fiber textured surface in a moody studio environment, void black #09090b — hub cap dome only, NO badge-style backing plate,
-intense dramatic rim lighting upper right navy #003d81 and icy cyan #9ccdef,
-ultra-shallow depth of field, editorial tech-surrealist aesthetic, hyper-detailed conceptual product photography,
+hub cap dome only — NO badge-style backing plate,
+resting on a dark carbon-fiber textured surface in a moody studio environment, pure void black background #09090b,
+intense dramatic rim lighting from the upper right in navy blue #003d81 and icy cyan #9ccdef,
+sharp specular edges, deep shadows with soft falloff, ultra-shallow depth of field,
+sleek high-end editorial and tech-surrealist aesthetic, hyper-detailed conceptual product photography,
 MUST REFERENCE UPLOADED IMAGE for exact hub cap shape and piano black finish,
-no wheel, no truck, no people, no watermark, centered, cap fills 70% of frame, 1:1, 8K quality
+no wheel, no truck, no people, no watermark, no extra text,
+centered composition, cap fills 70% of frame, 1:1 aspect ratio, 8K quality
 ```
 
 **mounted**
 ```
-Photorealistic documentary photograph, real truck rear axle,
+Photorealistic documentary photograph, real truck rear axle in fleet yard,
 glossy black hub cap installed on wheel with smoked rim, clearly visible,
-natural overcast daylight, 35mm lens, B2B catalog photography, no people, 4:5 vertical crop
+natural overcast daylight, 35mm lens, shallow depth of field,
+authentic truck, slightly weathered professional fleet condition,
+B2B commercial catalog photography, no people, realistic colors not CGI, 4:5 vertical crop
 ```
 
 ---
@@ -719,11 +935,18 @@ natural overcast daylight, 35mm lens, B2B catalog photography, no people, 4:5 ve
 Attach reference hero + catalog PDF crop. Ask: "Match reference lighting, void black studio, and badge shape exactly. Text must read {BADGE_TEXT} correctly."
 
 ### Flux / SD
-Reference image at 0.4–0.6 strength for hero. Negative prompt:
+Reference image at 0.4–0.6 strength for hero. Negative prompt (all products):
 ```
 white background, daylight, truck, people, watermark, blurry text, wrong spelling,
 cartoon, illustration, oversaturated, warm orange light, flat lighting,
-floating in empty void with no surface, rectangular backing plate, badge substrate, metal base plate behind letters
+floating in empty void with no surface, rectangular backing plate, badge substrate, metal base plate behind letters,
+upright horizontal letters, no italic slant, straight vertical typography
+```
+
+**Installation badges only (21–24)** — add to negative prompt when generating L / V / IV / VI:
+```
+neon green, lime green, glossy plastic toy, arrow shapes, decorative arms, metal brackets on compliance disk,
+gap between green fill and white border, green bleed beyond white ring, inset white ring with margin, separate outer green halo
 ```
 
 ### After generation

@@ -6,8 +6,8 @@ import { SITE_URL, SITE_EMAIL, THEME_COLOR, siteUrl } from "./site";
 
 /** Landscape brand lockup for social previews (summary_large_image). */
 const OG_IMAGE = "/og-share.png";
-const OG_IMAGE_WIDTH = "1536";
-const OG_IMAGE_HEIGHT = "1024";
+const OG_IMAGE_WIDTH = "1200";
+const OG_IMAGE_HEIGHT = "630";
 const OG_IMAGE_TYPE = "image/png";
 
 export function ogImageUrl() {

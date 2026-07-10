@@ -1,16 +1,12 @@
 import { useEffect, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Download } from "lucide-react";
 
 import { HeroBadgeStage } from "./HeroBadgeStage";
 import { HeroMobileLogo } from "./HeroMobileLogo";
 import { useLocale } from "@/lib/i18n";
 import { scrollToCatalog } from "@/lib/scrollToCatalog";
 import { cn } from "@/lib/utils";
-
-import { PAGE_SECTION_INDEX } from "@/lib/page-sections";
-
-import { SectionRule } from "../layout/SectionRule";
 
 const PDF_CATALOG = "/af_catalog-5.pdf";
 
@@ -67,9 +63,13 @@ function HeroCtas({ cta, ctaPdf, className }: { cta: string; ctaPdf: string; cla
         href={PDF_CATALOG}
         target="_blank"
         rel="noopener noreferrer"
-        className="text-center text-[0.875rem] text-foreground/62 underline-offset-[5px] transition-colors hover:text-brand-readable hover:underline lg:ps-3 lg:text-start"
+        className="group inline-flex w-fit items-center gap-2 rounded-full border border-brand-readable/35 bg-brand/[0.06] px-4 py-2 text-[0.8125rem] type-ui-strong text-brand-readable transition-colors hover:border-brand-readable/55 hover:bg-brand/[0.1]"
       >
-        {ctaPdf}
+        <Download
+          strokeWidth={2}
+          className="size-3.5 shrink-0 opacity-80 transition-opacity group-hover:opacity-100"
+        />
+        <span className="leading-none">{ctaPdf}</span>
       </a>
     </div>
   );
@@ -125,22 +125,19 @@ export function CatalogHero() {
             className="pointer-events-none absolute -end-6 top-1/2 hidden h-[55%] w-28 -translate-y-1/2 bg-gradient-to-r from-transparent via-brand/8 to-brand-highlight/12 blur-2xl lg:block"
             aria-hidden
           />
-          <motion.div {...fadeUp(0, reduced)} className="mb-1 self-center lg:mb-9 lg:self-start">
-            <SectionRule index={PAGE_SECTION_INDEX.hero} />
-          </motion.div>
 
-          {/* Mobile: truck → type → CTA as one centered composition */}
+          {/* Mobile: brand mark → type → CTA as one centered composition */}
           <div className="relative flex flex-col items-center lg:block lg:items-stretch">
             <motion.div
-              {...fadeUp(0.04, reduced)}
+              {...fadeUp(0, reduced)}
               className="relative z-0 flex justify-center lg:hidden"
             >
               <HeroMobileLogo />
             </motion.div>
 
-            <div className="relative z-10 mx-auto w-full max-w-xl max-lg:-mt-11 lg:mx-0 lg:mt-0">
+            <div className="relative z-10 mx-auto w-full max-w-xl max-lg:-mt-6 lg:mx-0 lg:mt-0">
               <motion.h1
-                {...fadeUp(0.06, reduced)}
+                {...fadeUp(0.04, reduced)}
                 className={cn(
                   "relative z-10 font-display type-billboard text-center lg:text-start",
                   locale === "fa" ? "leading-[1.18]" : "leading-[1.05]",

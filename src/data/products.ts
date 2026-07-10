@@ -31,6 +31,7 @@ export type ProductBase = {
   euroNorm?: string;
   modelCompat?: string;
   finishOffers: readonly FinishKey[];
+  showFinish: boolean;
 };
 
 export const PRODUCT_CATALOG: ProductBase[] = CATALOG_PAGES.map((p) => {
@@ -53,6 +54,7 @@ export const PRODUCT_CATALOG: ProductBase[] = CATALOG_PAGES.map((p) => {
     euroNorm: p.euroNorm,
     modelCompat: p.modelCompat,
     finishOffers: resolveFinishOffers(p.finishKey, p.finishOffers),
+    showFinish: p.showFinish ?? true,
   };
 });
 

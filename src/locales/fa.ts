@@ -24,7 +24,7 @@ export const fa: LocaleMessages = {
   hero: {
     titleLine1: "کیفیت ما",
     titleLine2: "",
-    titleAccent: "هویت ماست.",
+    titleAccent: "هویت ماست",
     subtitleLead: "سفارشی آسان از سایت",
     subtitleWarranty: "تمامی اجناس دارای گارانتی ۲ ساله می‌باشد",
     subtitleWarrantyHighlight: "گارانتی ۲ ساله",
@@ -45,7 +45,7 @@ export const fa: LocaleMessages = {
     title: "سفارش در ۳ قدم ساده",
     steps: [
       { title: "قطعه را انتخاب کنید", body: "روی عکس قطعه بزنید." },
-      { title: "به لیست اضافه کنید", body: "دکمه + را بزنید." },
+      { title: "به لیست اضافه کنید", body: "با + تعداد را تنظیم کنید (هر بار ۲ عدد)." },
       { title: "در واتساپ بفرستید", body: "لیست خرید را باز کنید و ارسال کنید." },
     ],
   },
@@ -74,7 +74,6 @@ export const fa: LocaleMessages = {
     { key: "horsepower", label: "قدرت" },
     { key: "emissions", label: "آلایندگی" },
     { key: "technology", label: "تکنولوژی" },
-    { key: "installation", label: "نصب" },
     { key: "accessory", label: "لوازم" },
   ],
 
@@ -121,6 +120,9 @@ export const fa: LocaleMessages = {
       swipePhotosHint: "برای نمای بیشتر بکشید",
       viewsLabel: "نماها",
       browsePartsLabel: "مرور قطعات",
+      confirm: "تأیید",
+      confirmLabel: (count) => `تأیید · ${count} عدد`,
+      minOrderWarning: (count) => `حداقل سفارش: ${count} عدد`,
     },
   },
 
@@ -137,7 +139,8 @@ export const fa: LocaleMessages = {
     detailsLabel: "یادداشت",
     detailsPlaceholder: "شهر، توضیح… (اختیاری)",
     nameRequired: "نام را بنویسید تا ارسال شود",
-    qtyHint: "هر بار ۱۰ عدد",
+    qtyHint: "هر بار ۲ عدد · حداقل سفارش بسته به دسته فرق دارد",
+    minOrderRequired: (count) => `حداقل سفارش ${count} عدد لازم است`,
     sendWhatsApp: "ارسال در واتساپ",
     sendWhatsAppArrow: "",
     footerNote: "بدون پرداخت آنلاین",
@@ -192,7 +195,8 @@ export const fa: LocaleMessages = {
     customer: (name) => `👤 مشتری: ${name}`,
     details: (text) => `📝 جزئیات بیشتر: ${text}`,
     itemsHeading: "اقلام:",
-    line: (code, name, finish, qty) => `• ${qty.toLocaleString("fa-IR")} عدد | ${code} (${name} - ${finish})`,
+    line: (code, name, finish, qty) =>
+      `• ${qty.toLocaleString("fa-IR")} عدد | ${code} (${finish ? `${name} - ${finish}` : name})`,
     footer: "لطفاً قیمت، موجودی و زمان تحویل را اعلام کنید.",
   },
 };

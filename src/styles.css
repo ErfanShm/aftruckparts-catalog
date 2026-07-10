@@ -81,8 +81,12 @@ html.locale-pending body {
 }
 
 :root {
-  /* Logo navy on zinc vault — #003d81 identity, surfaces stay dark/neutral */
+  /* Logo navy on zinc vault — deep caravan fills, lighter ink for text */
   --logo-navy: #003d81;
+  --caravan-blue: #0a4a8f;
+  --caravan-mid: #1a5fa8;
+  --caravan-bright: #3d82cc;
+  --caravan-ink: #8eb6dc;
   --zinc-950: #07070a;
   --zinc-900: #121216;
   --zinc-800: #1e1e24;
@@ -93,9 +97,9 @@ html.locale-pending body {
   --brand-panel: var(--zinc-900);
   --brand-panel-elevated: var(--zinc-800);
   --brand-line: var(--zinc-700);
-  --brand-highlight: color-mix(in oklch, var(--logo-navy) 24%, #7eb4e4);
-  --brand-glow: color-mix(in oklch, var(--logo-navy) 30%, #a8d4f5);
-  --brand-readable: color-mix(in oklch, var(--logo-navy) 18%, #8ec4ea);
+  --brand-highlight: var(--caravan-bright);
+  --brand-glow: color-mix(in oklch, var(--caravan-mid) 55%, var(--caravan-ink));
+  --brand-readable: var(--caravan-ink);
   --void: var(--zinc-950);
   --blue-deep: var(--brand-deep);
   --blue-mid: color-mix(in oklch, var(--logo-navy) 28%, var(--zinc-800));
@@ -109,10 +113,10 @@ html.locale-pending body {
   --border-hair: color-mix(in oklch, var(--zinc-700) 38%, var(--logo-navy) 8%);
   --muted: var(--brand-panel);
   --muted-foreground: oklch(0.7 0.012 250);
-  --accent: color-mix(in oklch, var(--logo-navy) 16%, #8ec4ea);
-  --accent-glow: color-mix(in oklch, var(--logo-navy) 18%, transparent);
+  --accent: var(--caravan-bright);
+  --accent-glow: color-mix(in oklch, var(--caravan-bright) 28%, transparent);
   --warranty: #e4572e;
-  --terminal-cyan: #06b6d4;
+  --terminal-cyan: var(--caravan-bright);
   --radius: 14px;
   --safe-top: env(safe-area-inset-top, 0px);
   --header-bar: 4.25rem;
@@ -122,12 +126,12 @@ html.locale-pending body {
   --section-gap: 3rem;
   --column-px: clamp(1.5rem, 5vw, 2.5rem);
   --quote-dock-offset: max(9.5rem, calc(8rem + env(safe-area-inset-bottom, 0px)));
-  /* Ambient art palette — muted navy whispers on near-black */
+  /* Ambient art palette — deep caravan navy on near-black */
   --ambient-void: #030407;
-  --ambient-deep: color-mix(in oklch, var(--logo-navy) 20%, #04060c);
-  --ambient-sky: color-mix(in oklch, var(--logo-navy) 14%, #4a8ab8);
-  --ambient-ice: color-mix(in oklch, var(--logo-navy) 6%, #8eb8d4);
-  --ambient-indigo: color-mix(in oklch, var(--logo-navy) 28%, #1a1838);
+  --ambient-deep: color-mix(in oklch, var(--logo-navy) 24%, #04060c);
+  --ambient-sky: color-mix(in oklch, var(--logo-navy) 45%, var(--caravan-mid));
+  --ambient-ice: color-mix(in oklch, var(--caravan-mid) 40%, var(--caravan-ink));
+  --ambient-indigo: color-mix(in oklch, var(--logo-navy) 42%, #0c1a32);
   --scrollbar-size: 5px;
   --scrollbar-thumb: color-mix(in oklch, var(--foreground) 16%, transparent);
   --scrollbar-thumb-hover: color-mix(in oklch, var(--foreground) 28%, transparent);
@@ -478,7 +482,7 @@ html.locale-pending body {
   line-height: 1.45;
   letter-spacing: 0;
   text-transform: none;
-  color: color-mix(in oklch, var(--brand-highlight) 50%, transparent);
+  color: color-mix(in oklch, var(--brand-readable) 82%, var(--foreground));
 }
 
 @utility filter-index-count {
@@ -510,7 +514,7 @@ html.locale-pending body {
 @utility filter-index-sep {
   margin-inline: 0.4rem;
   font-size: 10px;
-  color: color-mix(in oklch, var(--brand) 28%, transparent);
+  color: color-mix(in oklch, var(--brand-readable) 55%, transparent);
   user-select: none;
 }
 
@@ -716,12 +720,13 @@ html.locale-pending body {
   pointer-events: none;
 }
 
+/* Hero accent — deep saturated caravan navy (not sky) */
 @utility gradient-text {
   background: linear-gradient(
     128deg,
-    color-mix(in oklch, var(--brand-highlight) 88%, white) 0%,
-    var(--brand-highlight) 45%,
-    color-mix(in oklch, var(--brand-readable) 75%, var(--brand-highlight)) 100%
+    #3a7ec4 0%,
+    #1e63b0 42%,
+    #0d4a94 100%
   );
   -webkit-background-clip: text;
   background-clip: text;
@@ -1546,46 +1551,45 @@ html[dir="rtl"] .quote-sidebar-enter {
   mask-image: linear-gradient(to top, black 30%, transparent);
 }
 
-/* Mobile hero — artistic truck dissolves into type */
-@utility hero-mobile-truck-frame {
-  mask-image: linear-gradient(
-    to bottom,
-    transparent 0%,
-    black 10%,
-    black 52%,
-    transparent 92%
+/* Mobile hero — AF lockup; screen blend drops the black plate */
+@utility hero-mobile-mark-frame {
+  mask-image: radial-gradient(
+    ellipse 72% 68% at 50% 46%,
+    black 42%,
+    color-mix(in oklch, black 55%, transparent) 72%,
+    transparent 100%
   );
-  -webkit-mask-image: linear-gradient(
-    to bottom,
-    transparent 0%,
-    black 10%,
-    black 52%,
-    transparent 92%
+  -webkit-mask-image: radial-gradient(
+    ellipse 72% 68% at 50% 46%,
+    black 42%,
+    color-mix(in oklch, black 55%, transparent) 72%,
+    transparent 100%
   );
 }
 
-@utility hero-mobile-truck {
-  filter: drop-shadow(0 0 28px color-mix(in oklch, var(--brand) 16%, transparent));
+@utility hero-mobile-mark {
+  mix-blend-mode: screen;
+  filter: drop-shadow(0 0 28px color-mix(in oklch, var(--brand) 20%, transparent));
 }
 
-@utility hero-mobile-truck-pulse {
-  animation: hero-mobile-truck-pulse 7s ease-in-out infinite;
+@utility hero-mobile-mark-pulse {
+  animation: hero-mobile-mark-pulse 7s ease-in-out infinite;
 }
 
-@keyframes hero-mobile-truck-pulse {
+@keyframes hero-mobile-mark-pulse {
   0%,
   100% {
-    filter: drop-shadow(0 0 24px color-mix(in oklch, var(--brand) 14%, transparent));
-    opacity: 0.92;
+    filter: drop-shadow(0 0 22px color-mix(in oklch, var(--brand) 14%, transparent));
+    opacity: 0.94;
   }
   50% {
-    filter: drop-shadow(0 0 40px color-mix(in oklch, var(--brand-highlight) 24%, transparent));
+    filter: drop-shadow(0 0 38px color-mix(in oklch, var(--brand-highlight) 26%, transparent));
     opacity: 1;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero-mobile-truck-pulse,
+  .hero-mobile-mark-pulse,
   .quote-dock-halo {
     animation: none;
   }
@@ -1748,7 +1752,7 @@ html[lang="fa"] .filter-index-label {
 }
 
 html[lang="fa"] .filter-index-label {
-  color: color-mix(in oklch, var(--brand-readable) 65%, var(--foreground-muted));
+  color: color-mix(in oklch, var(--brand-readable) 78%, var(--foreground));
 }
 
 html[lang="en"] .section-tag {

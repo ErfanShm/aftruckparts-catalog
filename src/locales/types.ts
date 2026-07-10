@@ -89,6 +89,9 @@ export type LocaleMessages = {
       swipePhotosHint: string;
       viewsLabel: string;
       browsePartsLabel: string;
+      confirm: string;
+      confirmLabel: (count: number) => string;
+      minOrderWarning: (count: number) => string;
     };
   };
   quote: {
@@ -105,6 +108,7 @@ export type LocaleMessages = {
     detailsPlaceholder: string;
     nameRequired: string;
     qtyHint: string;
+    minOrderRequired: (count: number) => string;
     sendWhatsApp: string;
     sendWhatsAppArrow: string;
     footerNote: string;
@@ -172,4 +176,5 @@ export type Product = {
   euroNorm?: string;
   modelCompat?: string;
   finishOffers: FinishKey[];
+  showFinish: boolean;
 };

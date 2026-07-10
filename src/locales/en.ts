@@ -25,7 +25,7 @@ export const en: LocaleMessages = {
   hero: {
     titleLine1: "Quality is",
     titleLine2: "",
-    titleAccent: "our identity.",
+    titleAccent: "our identity",
     subtitleLead: "Easy ordering from the website",
     subtitleWarranty: "All products include a 2-year warranty",
     subtitleWarrantyHighlight: "2-year warranty",
@@ -46,7 +46,7 @@ export const en: LocaleMessages = {
     title: "Order in 3 simple steps",
     steps: [
       { title: "Pick a part", body: "Tap the product image." },
-      { title: "Add to your list", body: "Press the + button." },
+      { title: "Add to your list", body: "Use + to set qty (±2 each tap)." },
       { title: "Send on WhatsApp", body: "Open your list and send." },
     ],
   },
@@ -75,7 +75,6 @@ export const en: LocaleMessages = {
     { key: "horsepower", label: "Power" },
     { key: "emissions", label: "Emissions" },
     { key: "technology", label: "Tech" },
-    { key: "installation", label: "Install" },
     { key: "accessory", label: "Accessory" },
   ],
 
@@ -122,6 +121,9 @@ export const en: LocaleMessages = {
       swipePhotosHint: "Swipe for more views",
       viewsLabel: "Views",
       browsePartsLabel: "Browse parts",
+      confirm: "Done",
+      confirmLabel: (count) => `Done · ${count} pcs`,
+      minOrderWarning: (count) => `Minimum order: ${count} pcs`,
     },
   },
 
@@ -138,7 +140,8 @@ export const en: LocaleMessages = {
     detailsLabel: "Notes",
     detailsPlaceholder: "City, notes… (optional)",
     nameRequired: "Enter your name to send",
-    qtyHint: "±10 per tap",
+    qtyHint: "±2 per tap · minimum order depends on category",
+    minOrderRequired: (count) => `Minimum order of ${count} pcs is required`,
     sendWhatsApp: "Send on WhatsApp",
     sendWhatsAppArrow: "",
     footerNote: "No online payment",
@@ -186,7 +189,7 @@ export const en: LocaleMessages = {
     customer: (name) => `👤 Customer: ${name}`,
     details: (text) => `📝 More details: ${text}`,
     itemsHeading: "Items:",
-    line: (code, name, finish, qty) => `• ${qty}x | ${code} (${name} - ${finish})`,
+    line: (code, name, finish, qty) => `• ${qty}x | ${code} (${finish ? `${name} - ${finish}` : name})`,
     footer: "Please confirm pricing, availability, and lead time.",
   },
 };

@@ -88,7 +88,7 @@ function HeroEnvironment() {
       />
       <Lightformer
         intensity={0.85}
-        color="#06b6d4"
+        color="#2f74c0"
         rotation={[0, -Math.PI / 2, 0]}
         position={[5, 1, -2]}
         scale={[8, 3, 1]}

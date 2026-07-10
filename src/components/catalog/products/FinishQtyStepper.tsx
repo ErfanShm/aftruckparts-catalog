@@ -12,9 +12,22 @@ type FinishQtyStepperProps = {
   quote: Record<string, number>;
   onAdd: (productId: string, finishKey: FinishKey) => void;
   onRemove: (productId: string, finishKey: FinishKey) => void;
-  variant?: "grid" | "detail";
+  variant?: "grid" | "detail" | "detail-mobile";
+  hideFinishLabel?: boolean;
   className?: string;
 };
+
+function detailButtonClass(isGrid: boolean, isDetailMobile: boolean) {
+  if (isGrid) return "h-7 w-7";
+  if (isDetailMobile) return "h-9 w-9";
+  return "h-11 w-11";
+}
+
+function detailIconClass(isGrid: boolean, isDetailMobile: boolean) {
+  if (isGrid) return "h-3 w-3";
+  if (isDetailMobile) return "h-3.5 w-3.5";
+  return "h-4 w-4";
+}
 
 function finishTagClass(finishKey: FinishKey) {
   switch (finishKey) {
@@ -37,43 +50,50 @@ export function FinishQtyStepper({
   onAdd,
   onRemove,
   variant = "grid",
+  hideFinishLabel = false,
   className,
 }: FinishQtyStepperProps) {
   const { messages, dir, formatDigits } = useLocale();
   const qty = quoteLineQty(quote, productId, finishKey);
   const isGrid = variant === "grid";
+  const isDetailMobile = variant === "detail-mobile";
 
   return (
     <div
       className={cn(
-        "flex items-center justify-between gap-2",
+        "flex items-center gap-2",
+        hideFinishLabel ? "justify-end" : "justify-between",
         isGrid
           ? "rounded-full border border-foreground/10 bg-void/55 px-1 py-0.5 backdrop-blur-sm"
-          : "rounded-xl border border-border-hair/40 glass-panel px-4 py-3",
+          : isDetailMobile
+            ? "px-3 py-2"
+            : "rounded-xl border border-border-hair/40 glass-panel px-4 py-3",
         className,
       )}
     >
-      <span
-        className={cn(
-          "finish-specimen-tag shrink-0",
-          finishTagClass(finishKey),
-          isGrid && "px-2 py-0.5 text-[9px]",
-        )}
-      >
-        {finishLabel}
-      </span>
+      {!hideFinishLabel && (
+        <span
+          className={cn(
+            "finish-specimen-tag shrink-0",
+            finishTagClass(finishKey),
+            isGrid && "px-2 py-0.5 text-[9px]",
+          )}
+        >
+          {finishLabel}
+        </span>
+      )}
 
       {qty === 0 ? (
         <button
           type="button"
           onClick={() => onAdd(productId, finishKey)}
-          aria-label={`${messages.product.addToQuote} · ${finishLabel}`}
+          aria-label={`${messages.product.addToQuote}${hideFinishLabel ? "" : ` · ${finishLabel}`}`}
           className={cn(
             "flex touch-manipulation items-center justify-center rounded-lg border border-foreground/10 bg-foreground/[0.04] text-foreground/58 transition-colors hover:bg-foreground/[0.07] hover:text-foreground/88 active:scale-95",
-            isGrid ? "h-7 w-7" : "h-11 w-11",
+            detailButtonClass(isGrid, isDetailMobile),
           )}
         >
-          <Plus className={isGrid ? "h-3 w-3" : "h-4 w-4"} />
+          <Plus className={detailIconClass(isGrid, isDetailMobile)} />
         </button>
       ) : (
         <div className={cn("flex items-center gap-1", dir === "rtl" && "flex-row-reverse")}>
@@ -83,15 +103,15 @@ export function FinishQtyStepper({
             aria-label={messages.product.decreaseQty}
             className={cn(
               "flex touch-manipulation items-center justify-center rounded-lg border border-foreground/10 bg-foreground/[0.04] text-foreground/58 transition-colors hover:bg-foreground/[0.07] hover:text-foreground/88 active:scale-95",
-              isGrid ? "h-7 w-7" : "h-11 w-11",
+              detailButtonClass(isGrid, isDetailMobile),
             )}
           >
-            <Minus className={isGrid ? "h-3 w-3" : "h-4 w-4"} />
+            <Minus className={detailIconClass(isGrid, isDetailMobile)} />
           </button>
           <span
             className={cn(
               "text-center tabular-nums type-digits text-foreground/78",
-              isGrid ? "w-5 text-[11px]" : "w-8 text-[13px]",
+              isGrid ? "w-5 text-[11px]" : isDetailMobile ? "w-7 text-xs" : "w-8 text-[13px]",
             )}
           >
             {formatDigits(qty)}
@@ -102,10 +122,10 @@ export function FinishQtyStepper({
             aria-label={messages.product.increaseQty}
             className={cn(
               "flex touch-manipulation items-center justify-center rounded-lg border border-foreground/10 bg-foreground/[0.04] text-foreground/58 transition-colors hover:bg-foreground/[0.07] hover:text-foreground/88 active:scale-95",
-              isGrid ? "h-7 w-7" : "h-11 w-11",
+              detailButtonClass(isGrid, isDetailMobile),
             )}
           >
-            <Plus className={isGrid ? "h-3 w-3" : "h-4 w-4"} />
+            <Plus className={detailIconClass(isGrid, isDetailMobile)} />
           </button>
         </div>
       )}
@@ -120,8 +140,9 @@ type DualFinishQuoteActionsProps = {
   quote: Record<string, number>;
   onAdd: (productId: string, finishKey: FinishKey) => void;
   onRemove: (productId: string, finishKey: FinishKey) => void;
-  variant?: "grid" | "detail";
+  variant?: "grid" | "detail" | "detail-mobile";
   revealOnHover?: boolean;
+  hideFinishLabel?: boolean;
   className?: string;
 };
 
@@ -134,15 +155,21 @@ export function DualFinishQuoteActions({
   onRemove,
   variant = "grid",
   revealOnHover = false,
+  hideFinishLabel = false,
   className,
 }: DualFinishQuoteActionsProps) {
   const inQuote = finishOffers.some((finishKey) => quoteLineQty(quote, productId, finishKey) > 0);
+  const isDetail = variant === "detail" || variant === "detail-mobile";
+  const isDetailMobile = variant === "detail-mobile";
 
   return (
     <div
       className={cn(
-        variant === "detail"
-          ? "divide-y divide-foreground/[0.06] overflow-hidden rounded-xl border border-border-hair/40 glass-panel"
+        isDetail
+          ? cn(
+              "divide-y divide-foreground/[0.06] overflow-hidden rounded-xl border border-border-hair/40 glass-panel",
+              isDetailMobile && "rounded-lg",
+            )
           : "flex flex-col gap-1",
         variant === "grid" && "w-[min(100%,8.75rem)]",
         revealOnHover &&
@@ -161,7 +188,8 @@ export function DualFinishQuoteActions({
           onAdd={onAdd}
           onRemove={onRemove}
           variant={variant}
-          className={variant === "detail" ? "border-0 bg-transparent" : undefined}
+          hideFinishLabel={hideFinishLabel}
+          className={isDetail ? "border-0 bg-transparent" : undefined}
         />
       ))}
     </div>

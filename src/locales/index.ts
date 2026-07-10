@@ -50,6 +50,7 @@ export function buildProducts(
 
   return PRODUCT_CATALOG.map((p) => {
     const finishOffers = [...p.finishOffers];
+    const showFinish = p.showFinish;
     return {
       id: p.id,
       code: p.code,
@@ -57,13 +58,16 @@ export function buildProducts(
       dasteh: p.dasteh,
       dastehLabel: dastehMap[p.dasteh],
       finishKey: p.finishKey,
-      finish: productFinishLabel(
-        p.finishKey,
-        finishOffers,
-        finishMap,
-        msgs.product.finishBoth,
-      ),
+      finish: showFinish
+        ? productFinishLabel(
+            p.finishKey,
+            finishOffers,
+            finishMap,
+            msgs.product.finishBoth,
+          )
+        : "",
       finishOffers,
+      showFinish,
       name: p.names[locale],
       spec: p.spec,
       image: p.image,
@@ -96,7 +100,7 @@ export function buildWhatsAppMessage(
   const lines = items.map(([key, qty]) => {
     const { productId, finishKey } = parseQuoteLineKey(key);
     const p = products.find((x) => x.id === productId)!;
-    const finish = finishKey ? finishMap[finishKey] : p.finish;
+    const finish = finishKey && p.showFinish ? finishMap[finishKey] : "";
     return t.line(p.code, p.name, finish, qty);
   });
   const headerLines = [t.header, t.customer(customer)];

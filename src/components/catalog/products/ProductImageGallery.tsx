@@ -177,7 +177,7 @@ export function ProductImageGallery({
   if (isMobile) {
     return (
       <div className={cn("relative shrink-0", className)}>
-        <div className="relative h-[min(30vh,260px)] min-h-[180px] w-full">{stage}</div>
+        <div className="relative h-[min(24vh,210px)] min-h-[148px] w-full">{stage}</div>
       </div>
     );
   }

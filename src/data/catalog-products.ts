@@ -5,7 +5,6 @@ export type ProductCategory =
   | "horsepower"
   | "emissions"
   | "technology"
-  | "installation"
   | "accessory";
 
 export type ProductDasteh =
@@ -37,6 +36,8 @@ export type CatalogPageProduct = {
   euroNorm?: string;
   modelCompat?: string;
   finishOffers?: readonly FinishKey[];
+  /** When false, finish is internal-only (quote keys) and hidden in catalog UI. */
+  showFinish?: boolean;
 };
 
 type EntryOpts = {
@@ -53,6 +54,7 @@ type EntryOpts = {
   modelCompat?: string;
   finishOffers?: readonly FinishKey[];
   code?: string;
+  showFinish?: boolean;
 };
 
 function entry({
@@ -69,6 +71,7 @@ function entry({
   modelCompat,
   finishOffers,
   code,
+  showFinish = true,
 }: EntryOpts): CatalogPageProduct {
   return {
     page,
@@ -84,6 +87,7 @@ function entry({
     euroNorm,
     modelCompat,
     finishOffers,
+    showFinish,
   };
 }
 
@@ -118,10 +122,10 @@ export const CATALOG_PAGES: CatalogPageProduct[] = [
   entry({ page: 18, spec: "XF", brand: "DAF", dasteh: "daf", finishKey: "matte", category: "model-badge", code: "ATP-XF-DAF", names: { fa: "آرم XF", en: "DAF XF" }, description: { fa: "آرم مدل XF برای کامیون‌های DAF، روکش مات.", en: "DAF XF model badge with matte finish." }, modelCompat: "DAF XF" }),
   entry({ page: 19, spec: "I-Save", brand: "Volvo", dasteh: "volvo-fh500", finishKey: "matte-glossy", category: "technology", code: "ATP-I-SAVE", names: { fa: "آرم I-Save", en: "I-Save" }, description: { fa: "آرم پکیج موتوری I-Save، روکش مات‌براق.", en: "I-Save engine package badge with matte-glossy finish." }, modelCompat: "FH / FM" }),
   entry({ page: 20, spec: "750", brand: "Volvo", dasteh: "volvo-fh500", finishKey: "matte-glossy", category: "horsepower", code: "ATP-750", names: { fa: "آرم 750", en: "750" }, description: { fa: "آرم توان 750 اسب برای FH16، روکش مات‌براق.", en: "750 HP badge for FH16 with matte-glossy finish." }, modelCompat: "FH16" }),
-  entry({ page: 21, spec: "L", brand: "Volvo", dasteh: "volvo-fh500", finishKey: "matte", category: "installation", code: "ATP-INST-L", names: { fa: "آرم L", en: "L" }, description: { fa: "آرم دایره‌ای L (کم‌صدا) با راهنمای نصب FH/FM.", en: "Low-noise L installation badge with FH/FM fitting guide." }, modelCompat: "FH / FM" }),
-  entry({ page: 22, spec: "V", brand: "Volvo", dasteh: "volvo-fh500", finishKey: "matte", category: "installation", code: "ATP-INST-V", names: { fa: "آرم V", en: "V" }, description: { fa: "آرم دایره‌ای V با راهنمای نصب FH/FM.", en: "V installation badge with FH/FM fitting guide." }, modelCompat: "FH / FM" }),
-  entry({ page: 23, spec: "IV", brand: "Volvo", dasteh: "volvo-fh500", finishKey: "matte", category: "installation", code: "ATP-INST-IV", names: { fa: "آرم IV", en: "IV" }, description: { fa: "آرم دایره‌ای IV با راهنمای نصب FH/FM.", en: "IV installation badge with FH/FM fitting guide." }, modelCompat: "FH / FM" }),
-  entry({ page: 24, spec: "VI", brand: "Volvo", dasteh: "volvo-fh500", finishKey: "matte", category: "installation", code: "ATP-INST-VI", names: { fa: "آرم VI", en: "VI" }, description: { fa: "آرم دایره‌ای VI (Euro 6) با راهنمای نصب FH/FM.", en: "VI (Euro 6) installation badge with FH/FM fitting guide." }, modelCompat: "FH / FM" }),
+  entry({ page: 21, spec: "L", brand: "Volvo", dasteh: "volvo-fh500", finishKey: "matte", category: "model-badge", showFinish: false, code: "ATP-INST-L", names: { fa: "آرم L", en: "L" }, description: { fa: "آرم دایره‌ای L (کم‌صدا) با راهنمای نصب FH/FM.", en: "Low-noise L badge with FH/FM fitting guide." }, modelCompat: "FH / FM" }),
+  entry({ page: 22, spec: "V", brand: "Volvo", dasteh: "volvo-fh500", finishKey: "matte", category: "model-badge", showFinish: false, code: "ATP-INST-V", names: { fa: "آرم V", en: "V" }, description: { fa: "آرم دایره‌ای V با راهنمای نصب FH/FM.", en: "V badge with FH/FM fitting guide." }, modelCompat: "FH / FM" }),
+  entry({ page: 23, spec: "IV", brand: "Volvo", dasteh: "volvo-fh500", finishKey: "matte", category: "model-badge", showFinish: false, code: "ATP-INST-IV", names: { fa: "آرم IV", en: "IV" }, description: { fa: "آرم دایره‌ای IV با راهنمای نصب FH/FM.", en: "IV badge with FH/FM fitting guide." }, modelCompat: "FH / FM" }),
+  entry({ page: 24, spec: "VI", brand: "Volvo", dasteh: "volvo-fh500", finishKey: "matte", category: "model-badge", showFinish: false, code: "ATP-INST-VI", names: { fa: "آرم VI", en: "VI" }, description: { fa: "آرم دایره‌ای VI (Euro 6) با راهنمای نصب FH/FM.", en: "VI (Euro 6) badge with FH/FM fitting guide." }, modelCompat: "FH / FM" }),
   entry({ page: 25, spec: "Steel", brand: "AF Accessories", dasteh: "hub-caps", finishKey: "steel", category: "accessory", code: "ATP-HUB-STEEL", names: { fa: "قالپاق استیل", en: "Steel hub cap" }, description: { fa: "قالپاق وسط توپی استیل براق، مناسب ولوو، رنو و C&C.", en: "Polished steel center hub cap for Volvo, Renault and C&C." }, modelCompat: "Volvo / Renault / C&C" }),
   entry({ page: 26, spec: "Black", brand: "AF Accessories", dasteh: "hub-caps", finishKey: "glossy", category: "accessory", code: "ATP-HUB-BLACK", names: { fa: "قالپاق مشکی", en: "Black hub cap" }, description: { fa: "قالپاق وسط توپی مشکی براق، مناسب ولوو، رنو و C&C.", en: "Glossy black center hub cap for Volvo, Renault and C&C." }, modelCompat: "Volvo / Renault / C&C" }),
 ];

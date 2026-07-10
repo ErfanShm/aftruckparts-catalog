@@ -1,6 +1,6 @@
 import type { CSSProperties } from "react";
 import { useEffect, useState } from "react";
-import { Minus, Plus } from "lucide-react";
+import { Plus } from "lucide-react";
 
 import {
   CatalogImage,
@@ -14,7 +14,7 @@ import type { FinishKey } from "@/data/products";
 import { productQuoteTotal } from "@/lib/quote-lines";
 import type { Product } from "@/locales";
 
-import { DualFinishQuoteActions } from "./FinishQtyStepper";
+import { DualFinishQuoteActions, FinishQtyStepper } from "./FinishQtyStepper";
 
 type ProductCardProps = {
   product: Product;
@@ -115,12 +115,13 @@ export function ProductCard({
   onRemove,
   onOpen,
 }: ProductCardProps) {
-  const { messages, dir, locale, formatIndex, formatDigits } = useLocale();
+  const { messages, locale, formatIndex } = useLocale();
   const dualFinish = product.finishOffers.length > 1;
   const finishMap = Object.fromEntries(messages.finishes.map((f) => [f.key, f.label]));
   const quantity = productQuoteTotal(quote, product.id, product.finishOffers);
   const inQuote = quantity > 0;
   const [dualActionsReady, setDualActionsReady] = useState(inQuote);
+  const [singleActionsReady, setSingleActionsReady] = useState(inQuote);
   const [canHover, setCanHover] = useState(true);
 
   useEffect(() => {
@@ -128,10 +129,17 @@ export function ProductCard({
   }, []);
 
   useEffect(() => {
-    if (inQuote) setDualActionsReady(true);
+    if (inQuote) {
+      setDualActionsReady(true);
+      setSingleActionsReady(true);
+    }
   }, [inQuote]);
 
   const showDualActions = dualFinish && (inQuote || dualActionsReady || !canHover);
+  const showSingleActions = !dualFinish && (inQuote || singleActionsReady || !canHover);
+  const singleFinishKey = product.finishOffers[0]!;
+  const revealOnHoverClass =
+    "opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-within:opacity-100 [@media(hover:none)]:opacity-75";
   const indexLabel = formatIndex(index + 1);
   const styles = variantStyles(layout.variant);
   const organicY = layout.organicY;
@@ -150,6 +158,7 @@ export function ProductCard({
       )}
       onPointerEnter={() => {
         if (dualFinish) setDualActionsReady(true);
+        if (!dualFinish) setSingleActionsReady(true);
         prefetchCatalogImage(product.imageManifest.hero);
         for (const entry of product.imageManifest.gallery) {
           prefetchCatalogImage(entry);
@@ -173,7 +182,7 @@ export function ProductCard({
         </span>
       )}
 
-      {styles.showFinish && (
+      {styles.showFinish && product.showFinish && (
         <span
           className={cn(
             "finish-specimen-tag pointer-events-none absolute end-3 top-3 z-[2]",
@@ -205,11 +214,13 @@ export function ProductCard({
 
       <div
         className={cn(
-          "specimen-strip absolute inset-x-0 bottom-0 z-20 flex items-end justify-between gap-2",
+          "specimen-strip absolute inset-x-0 bottom-0 z-20 flex gap-2",
+          "flex-col items-stretch",
+          "min-[380px]:flex-row min-[380px]:items-end min-[380px]:justify-between",
           styles.strip,
         )}
       >
-        <div className="min-w-0">
+        <div className="min-w-0 flex-1">
           <h3
             className={cn(
               "type-ui truncate leading-snug transition-colors duration-500",
@@ -219,10 +230,12 @@ export function ProductCard({
           >
             {product.name}
           </h3>
-          <p className="type-code mt-1 ltr-embed text-foreground/40">{product.code}</p>
+          <p className="type-code mt-0.5 truncate ltr-embed text-foreground/40">
+            {product.code}
+          </p>
         </div>
 
-        <div className="relative z-[3] shrink-0 pb-0.5">
+        <div className="relative z-[3] flex shrink-0 justify-end self-end pb-0.5">
           {dualFinish ? (
             showDualActions ? (
               <DualFinishQuoteActions
@@ -251,45 +264,24 @@ export function ProductCard({
                 <Plus className="h-3 w-3" />
               </button>
             )
-          ) : inQuote ? (
-            <div
-              className={cn(
-                "flex items-center rounded-full border border-foreground/10 bg-void/55 px-0.5 backdrop-blur-sm",
-                dir === "rtl" && "flex-row-reverse",
-              )}
-            >
-              <button
-                type="button"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onRemove(product.id, product.finishOffers[0]);
-                }}
-                aria-label={messages.product.decreaseQty}
-                className="flex h-7 w-7 items-center justify-center rounded-full text-foreground/40 transition-colors hover:text-foreground/70 active:scale-95"
-              >
-                <Minus className="h-3 w-3" />
-              </button>
-              <span className="type-digits w-5 text-center text-[11px] tabular-nums text-foreground/70">
-                {formatDigits(quantity)}
-              </span>
-              <button
-                type="button"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onAdd(product.id, product.finishOffers[0]);
-                }}
-                aria-label={messages.product.increaseQty}
-                className="flex h-7 w-7 items-center justify-center rounded-full text-foreground/40 transition-colors hover:text-foreground/70 active:scale-95"
-              >
-                <Plus className="h-3 w-3" />
-              </button>
-            </div>
+          ) : showSingleActions ? (
+            <FinishQtyStepper
+              productId={product.id}
+              finishKey={singleFinishKey}
+              finishLabel={finishMap[singleFinishKey] ?? singleFinishKey}
+              hideFinishLabel={!product.showFinish}
+              quote={quote}
+              onAdd={onAdd}
+              onRemove={onRemove}
+              variant="grid"
+              className={canHover && !inQuote ? revealOnHoverClass : undefined}
+            />
           ) : (
             <button
               type="button"
               onClick={(e) => {
                 e.stopPropagation();
-                onAdd(product.id, product.finishOffers[0]);
+                onAdd(product.id, singleFinishKey);
               }}
               aria-label={messages.product.addToQuote}
               className={cn(

@@ -8,7 +8,11 @@ import { useIsMobile } from "@/hooks/use-mobile";
 import { useBodyScrollLock } from "@/hooks/use-body-scroll-lock";
 import type { FinishKey } from "@/data/products";
 import { useLocale } from "@/lib/i18n";
-import { parseQuoteLineKey } from "@/lib/quote-lines";
+import {
+  meetsQuoteMinimums,
+  parseQuoteLineKey,
+  unmetMinOrder,
+} from "@/lib/quote-lines";
 import { cn } from "@/lib/utils";
 import type { Product } from "@/locales";
 import { Sheet, SheetContent } from "@/components/ui/sheet";
@@ -160,6 +164,7 @@ function QuoteCheckout({
   customer,
   details,
   items,
+  products,
   onCustomerChange,
   onDetailsChange,
   onSend,
@@ -167,13 +172,20 @@ function QuoteCheckout({
   customer: string;
   details: string;
   items: [string, number][];
+  products: Product[];
   onCustomerChange: (value: string) => void;
   onDetailsChange: (value: string) => void;
   onSend: () => void;
 }) {
-  const { messages } = useLocale();
+  const { messages, formatDigits } = useLocale();
   const hasItems = items.length > 0;
-  const canSend = hasItems && customer.trim().length > 0;
+  const minsOk = meetsQuoteMinimums(items, products);
+  const canSend = hasItems && customer.trim().length > 0 && minsOk;
+
+  const unmetMin = useMemo(
+    () => (hasItems && !minsOk ? unmetMinOrder(items, products) : null),
+    [hasItems, minsOk, items, products],
+  );
 
   return (
     <div className="shrink-0 border-t border-foreground/[0.06] pt-4 safe-bottom">
@@ -207,7 +219,13 @@ function QuoteCheckout({
         {messages.quote.sendWhatsApp}
       </button>
 
-      {hasItems && !canSend && (
+      {hasItems && !minsOk && unmetMin != null && (
+        <p className="mt-2 text-center text-[11px] text-foreground/58">
+          {formatDigits(messages.quote.minOrderRequired(unmetMin))}
+        </p>
+      )}
+
+      {hasItems && minsOk && !canSend && (
         <p className="mt-2 text-center text-[11px] text-foreground/58">{messages.quote.nameRequired}</p>
       )}
 
@@ -240,6 +258,7 @@ function QuotePanelBody({
   items,
   productMap,
   finishMap,
+  products,
   customer,
   details,
   onClose,
@@ -253,6 +272,7 @@ function QuotePanelBody({
   items: [string, number][];
   productMap: Map<string, Product>;
   finishMap: Record<string, string>;
+  products: Product[];
   customer: string;
   details: string;
   onClose: () => void;
@@ -279,6 +299,7 @@ function QuotePanelBody({
         customer={customer}
         details={details}
         items={items}
+        products={products}
         onCustomerChange={onCustomerChange}
         onDetailsChange={onDetailsChange}
         onSend={onSend}
@@ -320,6 +341,7 @@ export function QuoteDock({
     items,
     productMap,
     finishMap,
+    products,
     customer,
     details,
     onClose: close,

@@ -16,7 +16,13 @@ import {
   type CatalogSearch,
 } from "@/lib/catalog-search";
 import { useLocale } from "@/lib/i18n";
-import { addQuoteQty, quoteLineKey, removeQuoteQty } from "@/lib/quote-lines";
+import {
+  addQuoteQty,
+  meetsQuoteMinimums,
+  productQtyRules,
+  quoteLineKey,
+  removeQuoteQty,
+} from "@/lib/quote-lines";
 import { buildWhatsAppOrderUrl } from "@/data/contact";
 import { buildWhatsAppMessage } from "@/locales";
 
@@ -73,7 +79,8 @@ function CatalogPage() {
       if (!product) return;
       const finish = finishKey ?? product.finishOffers[0]!;
       const key = quoteLineKey(id, finish);
-      setQuote((q) => ({ ...q, [key]: addQuoteQty(q[key] ?? 0) }));
+      const { startQty, step } = productQtyRules(product.dasteh);
+      setQuote((q) => ({ ...q, [key]: addQuoteQty(q[key] ?? 0, startQty, step) }));
     },
     [products],
   );
@@ -84,12 +91,14 @@ function CatalogPage() {
       if (!product) return;
       const finish = finishKey ?? product.finishOffers[0]!;
       const key = quoteLineKey(id, finish);
-      setQuote((q) => ({ ...q, [key]: removeQuoteQty(q[key] ?? 0) }));
+      const { startQty, step } = productQtyRules(product.dasteh);
+      setQuote((q) => ({ ...q, [key]: removeQuoteQty(q[key] ?? 0, startQty, step) }));
     },
     [products],
   );
 
   const sendWhatsApp = (customer: string, details: string) => {
+    if (!meetsQuoteMinimums(quoteItems, products)) return;
     window.open(
       buildWhatsAppOrderUrl(
         encodeURIComponent(

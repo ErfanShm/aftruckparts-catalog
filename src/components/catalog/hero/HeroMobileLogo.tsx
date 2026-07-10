@@ -5,26 +5,25 @@ import { cn } from "@/lib/utils";
 import { BRAND_NAME } from "../layout/BrandMark";
 import { HERO_MOBILE_ASSETS } from "./hero-assets";
 
-/** Atmospheric truck emblem for mobile hero — fades into the headline. */
+/** AF lockup for mobile hero — black plate blends into the void. */
 export function HeroMobileLogo({ className }: { className?: string }) {
   const reduced = useReducedMotion() ?? false;
 
   return (
-    <div className={cn("pointer-events-none relative", className)} aria-hidden>
-      <div className="hero-mobile-truck-frame mx-auto w-[min(78vw,18.5rem)]">
+    <div className={cn("pointer-events-none relative", className)}>
+      <div className="hero-mobile-mark-frame mx-auto w-[min(72vw,16.5rem)] sm:w-[min(64vw,18rem)]">
         <img
-          src={HERO_MOBILE_ASSETS.truck}
-          alt=""
+          src={HERO_MOBILE_ASSETS.mark}
+          alt={BRAND_NAME}
           width={512}
           height={512}
           className={cn(
-            "hero-mobile-truck mx-auto h-auto w-full object-contain",
-            !reduced && "hero-mobile-truck-pulse",
+            "hero-mobile-mark mx-auto h-auto w-full object-contain",
+            !reduced && "hero-mobile-mark-pulse",
           )}
           decoding="async"
         />
       </div>
-      <span className="sr-only">{BRAND_NAME}</span>
     </div>
   );
 }

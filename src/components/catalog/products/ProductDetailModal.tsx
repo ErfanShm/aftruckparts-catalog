@@ -1,13 +1,13 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { Minus, Plus, X } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
+import { X } from "lucide-react";
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useBodyScrollLock } from "@/hooks/use-body-scroll-lock";
 import type { FinishKey } from "@/data/products";
 import { useLocale } from "@/lib/i18n";
+import { productQtyRules, productQuoteTotal } from "@/lib/quote-lines";
 import { gallerySlidesForProduct } from "@/lib/product-gallery";
-import { quoteLineQty } from "@/lib/quote-lines";
 import { cn } from "@/lib/utils";
 import type { Product } from "@/locales";
 import { Sheet, SheetContent } from "@/components/ui/sheet";
@@ -31,7 +31,8 @@ function isCodeLikeValue(value: string) {
   return !/[\u0600-\u06FF]/.test(value);
 }
 
-function finishTagClass(finishKey: Product["finishKey"]) {
+function finishTagClass(finishKey: Product["finishKey"], dualFinish: boolean) {
+  if (dualFinish) return "finish-specimen-tag-matte-glossy";
   switch (finishKey) {
     case "matte":
       return "finish-specimen-tag-matte";
@@ -49,18 +50,25 @@ function SpecRow({
   value,
   codeLike,
   finishKey,
+  dualFinish,
 }: {
   label: string;
   value: string;
   codeLike?: boolean;
   finishKey?: Product["finishKey"];
+  dualFinish?: boolean;
 }) {
   return (
     <div className="flex items-center justify-between gap-4 py-2.5">
       <dt className="shrink-0 text-xs text-foreground/68">{label}</dt>
       <dd className="min-w-0 text-end">
         {finishKey ? (
-          <span className={cn("finish-specimen-tag inline-flex", finishTagClass(finishKey))}>
+          <span
+            className={cn(
+              "finish-specimen-tag inline-flex",
+              finishTagClass(finishKey, dualFinish ?? false),
+            )}
+          >
             {value}
           </span>
         ) : (
@@ -81,6 +89,7 @@ function SpecRow({
 function ProductSpecSheet({ product }: { product: Product }) {
   const { messages } = useLocale();
   const d = messages.product.detail;
+  const dualFinish = product.finishOffers.length > 1;
 
   const rows: {
     key: string;
@@ -88,12 +97,22 @@ function ProductSpecSheet({ product }: { product: Product }) {
     value: string;
     codeLike?: boolean;
     finishKey?: Product["finishKey"];
+    dualFinish?: boolean;
   }[] = [
     { key: "type", label: d.category, value: product.categoryLabel },
     { key: "dasteh", label: d.dasteh, value: product.dastehLabel },
     { key: "spec", label: d.specValue, value: product.spec, codeLike: true },
-    { key: "finish", label: d.finish, value: product.finish, finishKey: product.finishOffers.length > 1 ? undefined : product.finishKey },
   ];
+
+  if (product.showFinish) {
+    rows.push({
+      key: "finish",
+      label: d.finish,
+      value: product.finish,
+      finishKey: product.finishKey,
+      dualFinish,
+    });
+  }
 
   if (product.modelCompat) {
     rows.push({
@@ -124,6 +143,7 @@ function ProductSpecSheet({ product }: { product: Product }) {
             value={row.value}
             codeLike={row.codeLike}
             finishKey={row.finishKey}
+            dualFinish={row.dualFinish}
           />
         ))}
       </dl>
@@ -137,18 +157,21 @@ function ProductQuoteSection({
   onAdd,
   onRemove,
   className,
+  compact = false,
 }: {
   product: Product;
   quote: Record<string, number>;
   onAdd: (id: string, finishKey?: FinishKey) => void;
   onRemove: (id: string, finishKey?: FinishKey) => void;
   className?: string;
+  compact?: boolean;
 }) {
-  const { messages, dir } = useLocale();
+  const { messages, formatDigits } = useLocale();
   const finishMap = Object.fromEntries(messages.finishes.map((f) => [f.key, f.label]));
+  const { minOrder } = productQtyRules(product.dasteh);
 
-  if (product.finishOffers.length > 1) {
-    return (
+  return (
+    <div className={className}>
       <DualFinishQuoteActions
         productId={product.id}
         finishOffers={product.finishOffers}
@@ -156,96 +179,57 @@ function ProductQuoteSection({
         quote={quote}
         onAdd={onAdd}
         onRemove={onRemove}
-        variant="detail"
-        className={className}
+        variant={compact ? "detail-mobile" : "detail"}
+        hideFinishLabel={!product.showFinish}
       />
-    );
-  }
-
-  const finishKey = product.finishOffers[0]!;
-  const quantity = quoteLineQty(quote, product.id, finishKey);
-
-  return (
-    <QuoteStepper
-      quantity={quantity}
-      onAdd={() => onAdd(product.id, finishKey)}
-      onRemove={() => onRemove(product.id, finishKey)}
-      dir={dir}
-      addLabel={messages.product.addToQuote}
-      decreaseLabel={messages.product.decreaseQty}
-      increaseLabel={messages.product.increaseQty}
-      className={className}
-    />
+      <p
+        className={cn(
+          "text-center text-[11px] leading-relaxed text-brand-readable",
+          compact ? "mt-2" : "mt-2.5",
+        )}
+      >
+        {formatDigits(messages.product.detail.minOrderWarning(minOrder))}
+      </p>
+    </div>
   );
 }
 
-function QuoteStepper({
+function QuoteConfirmBar({
   quantity,
-  onAdd,
-  onRemove,
-  dir,
-  addLabel,
-  decreaseLabel,
-  increaseLabel,
-  className,
+  onConfirm,
+  compact = false,
 }: {
   quantity: number;
-  onAdd: () => void;
-  onRemove: () => void;
-  dir: "rtl" | "ltr";
-  addLabel: string;
-  decreaseLabel: string;
-  increaseLabel: string;
-  className?: string;
+  onConfirm: () => void;
+  compact?: boolean;
 }) {
-  const { formatDigits } = useLocale();
-  const inQuote = quantity > 0;
-
-  if (!inQuote) {
-    return (
-      <button
-        type="button"
-        onClick={onAdd}
-        className={cn(
-          "w-full rounded-xl btn-primary px-6 py-3.5 text-sm type-ui-strong active:scale-[0.98] transition-transform",
-          className,
-        )}
-      >
-        {addLabel}
-      </button>
-    );
-  }
+  const { messages, formatDigits } = useLocale();
+  const d = messages.product.detail;
 
   return (
-    <div
-      className={cn(
-        "flex items-center justify-between gap-4 rounded-xl border border-border-hair/40 glass-panel px-4 py-3",
-        className,
-      )}
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.15 }}
+      className={cn("w-full", compact ? "pt-2" : "pt-2")}
     >
-      <span className="text-sm text-foreground/68">{addLabel}</span>
-      <div className={cn("flex items-center gap-1", dir === "rtl" && "flex-row-reverse")}>
-        <button
-          type="button"
-          onClick={onRemove}
-          aria-label={decreaseLabel}
-          className="flex h-11 w-11 touch-manipulation items-center justify-center rounded-lg border border-foreground/10 bg-foreground/[0.04] text-foreground/58 transition-colors hover:bg-foreground/[0.07] hover:text-foreground/88 active:scale-95"
-        >
-          <Minus className="h-4 w-4" />
-        </button>
-        <span className="type-digits w-8 text-center text-[13px] tabular-nums text-foreground/78">
-          {formatDigits(quantity)}
+      <button
+        type="button"
+        onClick={onConfirm}
+        aria-label={formatDigits(d.confirmLabel(quantity))}
+        className={cn(
+          "flex w-full touch-manipulation items-center justify-between gap-3 rounded-xl border border-brand/14 bg-brand/[0.05] text-sm text-brand-readable transition-colors",
+          "hover:border-brand/28 hover:bg-brand/[0.09] active:scale-[0.99]",
+          compact ? "min-h-11 px-3.5 py-2.5" : "min-h-11 px-4 py-3",
+        )}
+      >
+        <span className="type-ui-strong leading-none">{d.confirm}</span>
+        <span className="type-digits text-[11px] tabular-nums text-brand-readable/90">
+          {formatDigits(messages.quote.itemsCount(quantity))}
         </span>
-        <button
-          type="button"
-          onClick={onAdd}
-          aria-label={increaseLabel}
-          className="flex h-11 w-11 touch-manipulation items-center justify-center rounded-lg border border-foreground/10 bg-foreground/[0.04] text-foreground/58 transition-colors hover:bg-foreground/[0.07] hover:text-foreground/88 active:scale-95"
-        >
-          <Plus className="h-4 w-4" />
-        </button>
-      </div>
-    </div>
+      </button>
+    </motion.div>
   );
 }
 
@@ -272,6 +256,16 @@ function ProductDetailBody({
 }) {
   const { messages, dir } = useLocale();
   const [photoIndex, setPhotoIndex] = useState(0);
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const navigatedInModalRef = useRef(false);
+
+  const handleNavigate = useCallback(
+    (index: number) => {
+      navigatedInModalRef.current = true;
+      onNavigate(index);
+    },
+    [onNavigate],
+  );
 
   const slides = useMemo(
     () => gallerySlidesForProduct(product.imageManifest.gallery),
@@ -282,11 +276,21 @@ function ProductDetailBody({
     setPhotoIndex(0);
   }, [product.id]);
 
+  useLayoutEffect(() => {
+    if (!isMobile || !scrollRef.current) return;
+    if (!navigatedInModalRef.current) {
+      scrollRef.current.scrollTop = 0;
+    }
+    navigatedInModalRef.current = false;
+  }, [isMobile, product.id]);
+
   useEffect(() => {
     if (photoIndex >= slides.length) setPhotoIndex(0);
   }, [photoIndex, slides.length]);
 
   const { handlePhotoKey } = usePhotoNavigation(slides.length, photoIndex, setPhotoIndex, dir);
+
+  const quantity = productQuoteTotal(quote, product.id, product.finishOffers);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -301,9 +305,11 @@ function ProductDetailBody({
     <>
       <div className="flex items-center justify-between gap-3">
         <p className="type-code ltr-embed text-[11px] text-foreground/62">{product.code}</p>
-        <span className="rounded-full border border-brand/20 bg-brand/10 px-2.5 py-0.5 text-[10px] text-brand/80">
-          {messages.product.warrantyBadge}
-        </span>
+        {isMobile && (
+          <span className="rounded-full border border-brand/20 bg-brand/10 px-2.5 py-0.5 text-[10px] text-brand-readable">
+            {messages.product.warrantyBadge}
+          </span>
+        )}
       </div>
       <h2
         className={cn(
@@ -322,18 +328,6 @@ function ProductDetailBody({
         </h3>
         <p className="mt-2 text-sm leading-[1.75] text-foreground/78">{product.description}</p>
       </section>
-
-      {!isMobile && (
-        <div className="mt-auto space-y-3 pt-6">
-          <ProductQuoteSection
-            product={product}
-            quote={quote}
-            onAdd={onAdd}
-            onRemove={onRemove}
-          />
-          <p className="text-center text-[11px] text-foreground/58">{messages.product.warranty}</p>
-        </div>
-      )}
     </>
   );
 
@@ -359,31 +353,35 @@ function ProductDetailBody({
         </div>
 
         <div
-          key={product.id}
-          className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-5 py-4 scrollbar-minimal"
+          ref={scrollRef}
+          className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-5 pt-4 pb-4 scrollbar-minimal"
         >
           {specPanel}
+        </div>
 
+        <div className="shrink-0 border-t border-foreground/[0.06] vault-glass backdrop-blur-md safe-bottom">
           {products.length > 1 && (
             <ProductIndexStrip
               products={products}
               activeIndex={activeIndex}
-              onNavigate={onNavigate}
-              className="mt-5"
+              onNavigate={handleNavigate}
+              className="border-0 border-b border-foreground/[0.06] px-5 py-2 pt-2"
             />
           )}
-        </div>
-
-        <div className="shrink-0 border-t border-foreground/[0.06] vault-glass px-5 pt-3 backdrop-blur-md safe-bottom">
-          <ProductQuoteSection
-            product={product}
-            quote={quote}
-            onAdd={onAdd}
-            onRemove={onRemove}
-          />
-          <p className="pb-1 pt-2 text-center text-[11px] text-foreground/58">
-            {messages.product.warranty}
-          </p>
+          <div className="px-5 py-2">
+            <ProductQuoteSection
+              product={product}
+              quote={quote}
+              onAdd={onAdd}
+              onRemove={onRemove}
+              compact
+            />
+            <AnimatePresence mode="popLayout">
+              {quantity > 0 && (
+                <QuoteConfirmBar quantity={quantity} onConfirm={onClose} compact />
+              )}
+            </AnimatePresence>
+          </div>
         </div>
       </div>
     );
@@ -409,8 +407,8 @@ function ProductDetailBody({
         />
       </div>
 
-      <div className="relative flex min-h-0 min-w-0 flex-1 flex-col overflow-y-auto scrollbar-minimal md:p-8 md:ps-6">
-        <div className="mb-2 flex items-start justify-end md:absolute md:end-6 md:top-6">
+      <div className="relative flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden">
+        <div className="absolute end-6 top-6 z-10">
           <button
             type="button"
             onClick={onClose}
@@ -421,8 +419,28 @@ function ProductDetailBody({
           </button>
         </div>
 
-        <div key={product.id} className="flex min-h-0 flex-1 flex-col px-5 pt-2 md:px-0 md:pt-0">
+        <div
+          key={product.id}
+          className="min-h-0 flex-1 overflow-y-auto scrollbar-minimal px-5 pt-2 md:px-8 md:ps-6 md:pt-8 md:pe-14"
+        >
           {specPanel}
+        </div>
+
+        <div className="shrink-0 border-t border-foreground/[0.06] px-5 py-4 md:px-8 md:ps-6">
+          <ProductQuoteSection
+            product={product}
+            quote={quote}
+            onAdd={onAdd}
+            onRemove={onRemove}
+          />
+          <AnimatePresence mode="popLayout">
+            {quantity > 0 && (
+              <QuoteConfirmBar quantity={quantity} onConfirm={onClose} />
+            )}
+          </AnimatePresence>
+          <p className="mt-3 text-center text-[11px] text-brand-readable">
+            {messages.product.warranty}
+          </p>
         </div>
       </div>
     </div>
@@ -454,7 +472,7 @@ export function ProductDetailModal({
       <Sheet open={open} onOpenChange={onOpenChange}>
         <SheetContent
           side="bottom"
-          className="flex h-[92dvh] max-h-[92dvh] flex-col rounded-t-2xl border-border-hair bg-void p-0 duration-200 data-[state=open]:duration-200 data-[state=closed]:duration-150 [&>button]:hidden"
+          className="flex h-[94dvh] max-h-[94dvh] flex-col rounded-t-2xl border-border-hair bg-void p-0 duration-200 data-[state=open]:duration-200 data-[state=closed]:duration-150 [&>button]:hidden"
         >
           <div className="mx-auto mt-2.5 mb-1 h-1 w-10 shrink-0 rounded-full bg-foreground/10" />
           <ProductDetailBody
