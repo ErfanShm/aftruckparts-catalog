@@ -357,17 +357,18 @@ export function QuoteDock({
       <QuoteDockFab label={messages.quote.fab} count={count} onClick={() => onOpenChange(true)} />
 
       {isMobile ? (
-        open && (
-          <Sheet open onOpenChange={onOpenChange}>
-            <SheetContent
-              side="bottom"
-              className="flex max-h-[88dvh] flex-col rounded-t-2xl border-border-hair/40 bg-void p-5 [&>button]:hidden"
-            >
-              <div className="mx-auto mb-3 h-1 w-10 shrink-0 rounded-full bg-foreground/10" />
-              <QuotePanelBody {...panelProps} />
-            </SheetContent>
-          </Sheet>
-        )
+        <Sheet open={open} onOpenChange={onOpenChange}>
+          <SheetContent
+            side="bottom"
+            onOpenAutoFocus={(e) => e.preventDefault()}
+            onCloseAutoFocus={(e) => e.preventDefault()}
+            overlayClassName="bg-void/70 data-[state=open]:duration-[320ms] data-[state=closed]:duration-[260ms]"
+            className="flex max-h-[88dvh] flex-col rounded-t-2xl border-border-hair/40 bg-void p-5 ease-[cubic-bezier(0.32,0.72,0,1)] data-[state=open]:duration-[360ms] data-[state=closed]:duration-[280ms] [&>button]:hidden"
+          >
+            <div className="mx-auto mb-3 h-1 w-10 shrink-0 rounded-full bg-foreground/10" />
+            <QuotePanelBody {...panelProps} />
+          </SheetContent>
+        </Sheet>
       ) : (
         open && (
           <>

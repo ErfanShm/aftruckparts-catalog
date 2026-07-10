@@ -59,6 +59,14 @@ export function CatalogSection({
 
   const detailOpen = detailIndex >= 0;
 
+  // Keep last opened index while the sheet closes — falling back to 0 flashed NH-12 mid-animation.
+  const stickyDetailIndexRef = useRef(0);
+  if (detailIndex >= 0) stickyDetailIndexRef.current = detailIndex;
+  const modalActiveIndex = Math.min(
+    detailIndex >= 0 ? detailIndex : stickyDetailIndexRef.current,
+    Math.max(0, filtered.length - 1),
+  );
+
   useEffect(() => {
     if (detailId && !filtered.some((p) => p.id === detailId)) {
       setDetailId(null);
@@ -112,7 +120,7 @@ export function CatalogSection({
           if (!nextOpen) setDetailId(null);
         }}
         products={filtered}
-        activeIndex={detailIndex >= 0 ? detailIndex : 0}
+        activeIndex={modalActiveIndex}
         onNavigate={(index) => setDetailId(filtered[index]?.id ?? null)}
         quote={quote}
         onAdd={onAdd}
