@@ -1,8 +1,11 @@
-import { AnimatePresence, motion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useCallback, useEffect, useRef, type TouchEvent } from "react";
 
-import { CatalogImage, CATALOG_IMAGE_SIZES } from "@/components/catalog/CatalogImage";
+import {
+  CatalogImage,
+  CATALOG_IMAGE_SIZES,
+  prefetchCatalogImage,
+} from "@/components/catalog/CatalogImage";
 import { useLocale } from "@/lib/i18n";
 import type { GallerySlide } from "@/lib/product-gallery";
 import { cn } from "@/lib/utils";
@@ -76,6 +79,13 @@ export function ProductImageGallery({
     if (canNext) onPhotoChange(photoIndex + 1);
   }, [canNext, onPhotoChange, photoIndex]);
 
+  // Prefetch current + adjacent slides so swipe/open feels instant.
+  useEffect(() => {
+    prefetchCatalogImage(slides[photoIndex]?.manifest);
+    prefetchCatalogImage(slides[photoIndex + 1]?.manifest);
+    prefetchCatalogImage(slides[photoIndex - 1]?.manifest);
+  }, [photoIndex, slides]);
+
   const onTouchStart = (e: TouchEvent) => {
     touchStart.current = e.touches[0]?.clientX ?? null;
   };
@@ -130,28 +140,28 @@ export function ProductImageGallery({
         </button>
       )}
 
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={photoIndex}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
-          className="absolute inset-0 px-10 py-6 md:px-14 md:py-8"
+      {/* Keep all slides mounted so switching photos is instant (cached). */}
+      {slides.map((s, i) => (
+        <div
+          key={i}
+          className={cn(
+            "absolute inset-0 px-10 py-6 md:px-14 md:py-8",
+            i === photoIndex ? "z-10 opacity-100" : "pointer-events-none z-0 opacity-0",
+          )}
+          aria-hidden={i !== photoIndex}
         >
           <CatalogImage
-            manifest={slide.manifest}
+            manifest={s.manifest}
             alt={alt}
-            priority={photoIndex === 0}
-            placeholder={false}
-            fullResolution
+            priority={i === 0}
+            placeholder
             lazy={false}
             fill
             objectFit="contain"
             sizes={CATALOG_IMAGE_SIZES.detailMain}
           />
-        </motion.div>
-      </AnimatePresence>
+        </div>
+      ))}
 
       {showPhotoNav && isMobile && (
         <PhotoDotStrip

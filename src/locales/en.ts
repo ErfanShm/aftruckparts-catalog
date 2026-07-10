@@ -1,15 +1,16 @@
 import {
   CONTACT_INSTAGRAM_HREF,
+  CONTACT_PHONE_DISPLAY,
   CONTACT_PHONE_TEL,
-  CONTACT_WHATSAPP_DISPLAY,
   CONTACT_WHATSAPP_HREF,
 } from "@/data/contact";
 import type { LocaleMessages } from "./types";
 
 export const en: LocaleMessages = {
   meta: {
-    title: "Aftruckparts | Truck Badges",
-    description: "B2B truck badge and hardware catalog. 2-year warranty.",
+    title: "Aftruckparts | Volvo & DAF Truck Badges",
+    description:
+      "Catalog of Volvo and DAF cab badges, hub caps, and truck accessories. Easy online ordering with a 2-year warranty.",
     author: "Aftruckparts",
   },
 
@@ -158,8 +159,8 @@ export const en: LocaleMessages = {
       { key: "email", label: "Email", short: "MAIL", href: "mailto:hello@aftruckparts.com" },
     ],
     phone: {
-      label: "Phone",
-      display: CONTACT_WHATSAPP_DISPLAY,
+      label: "We answer during business hours",
+      display: CONTACT_PHONE_DISPLAY,
       href: CONTACT_PHONE_TEL,
     },
     copyright: "© 2026 Aftruckparts",

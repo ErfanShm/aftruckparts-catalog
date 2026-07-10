@@ -454,7 +454,7 @@ export function ProductDetailModal({
       <Sheet open={open} onOpenChange={onOpenChange}>
         <SheetContent
           side="bottom"
-          className="flex h-[92dvh] max-h-[92dvh] flex-col rounded-t-2xl border-border-hair bg-void p-0 [&>button]:hidden"
+          className="flex h-[92dvh] max-h-[92dvh] flex-col rounded-t-2xl border-border-hair bg-void p-0 duration-200 data-[state=open]:duration-200 data-[state=closed]:duration-150 [&>button]:hidden"
         >
           <div className="mx-auto mt-2.5 mb-1 h-1 w-10 shrink-0 rounded-full bg-foreground/10" />
           <ProductDetailBody
@@ -481,6 +481,7 @@ export function ProductDetailModal({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            transition={{ duration: 0.12 }}
             onClick={close}
             className="fixed inset-0 z-50 bg-void/80"
           />
@@ -488,7 +489,7 @@ export function ProductDetailModal({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.25 }}
+            transition={{ duration: 0.12 }}
             className="fixed inset-4 z-50 mx-auto flex max-h-[calc(100vh-2rem)] max-w-5xl flex-col overflow-hidden rounded-2xl border border-foreground/[0.06] bg-void shadow-[0_32px_80px_-24px_rgba(0,0,0,0.65)] md:inset-8 md:max-h-[calc(100vh-4rem)]"
             role="dialog"
             aria-modal="true"

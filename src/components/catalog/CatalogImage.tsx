@@ -12,6 +12,17 @@ export const CATALOG_IMAGE_SIZES = {
   brandBand: "(max-width: 640px) 100vw, 33vw",
 } as const;
 
+const prefetchedSrcs = new Set<string>();
+
+/** Warm the browser cache for a catalog image (detail open / hover). */
+export function prefetchCatalogImage(manifest: ImageManifestEntry | undefined) {
+  if (!manifest?.src || prefetchedSrcs.has(manifest.src)) return;
+  prefetchedSrcs.add(manifest.src);
+  const img = new Image();
+  img.decoding = "async";
+  img.src = manifest.src;
+}
+
 export type CatalogImageProps = {
   manifest: ImageManifestEntry;
   alt: string;
@@ -117,7 +128,7 @@ export const CatalogImage = forwardRef<HTMLImageElement, CatalogImageProps>(
             height={manifest.height}
             loading={eager ? "eager" : "lazy"}
             fetchPriority={priority ? "high" : undefined}
-            decoding="async"
+            decoding={eager ? "sync" : "async"}
             sizes={sizes}
             onLoad={markLoaded}
             style={{ objectPosition, objectFit, ...style }}

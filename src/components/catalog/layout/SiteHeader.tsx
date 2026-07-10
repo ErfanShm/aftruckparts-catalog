@@ -20,10 +20,21 @@ export function SiteHeader() {
   const [activeSection, setActiveSection] = useState<ActiveNavSection>(null);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12);
+    let frame = 0;
+    const onScroll = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        const y = window.scrollY;
+        // Hysteresis: avoid flicker near the threshold on rubber-band / fast scroll.
+        setScrolled((was) => (was ? y > 4 : y > 24));
+      });
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", onScroll);
+    };
   }, []);
 
   useEffect(() => {

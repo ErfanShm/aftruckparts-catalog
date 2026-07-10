@@ -7,8 +7,9 @@ import type { LocaleMessages } from "./types";
 
 export const fa: LocaleMessages = {
   meta: {
-    title: "Aftruckparts | آرم و یراق کامیون",
-    description: "کاتالوگ B2B آرم‌ها و یراق‌آلات کامیون. گارانتی ۲ ساله.",
+    title: "Aftruckparts | آرم کامیون ولوو و داف",
+    description:
+      "کاتالوگ آرم‌های کامیون ولوو و داف، قالپاق توپی و یراق کابین. سفارش آسان از سایت با گارانتی ۲ ساله.",
     author: "Aftruckparts",
   },
 
@@ -157,8 +158,8 @@ export const fa: LocaleMessages = {
       { key: "email", label: "ایمیل", short: "MAIL", href: "mailto:hello@aftruckparts.com" },
     ],
     phone: {
-      label: "تماس تلفنی",
-      display: "۰۹۰۳ ۴۹۱ ۳۲۹۱",
+      label: "ما پاسخ‌گوییم — در ساعات کاری",
+      display: "۰۲۱ ۷۷۳۷ ۰۶۲۹",
       href: CONTACT_PHONE_TEL,
     },
     iranianMessengers: {

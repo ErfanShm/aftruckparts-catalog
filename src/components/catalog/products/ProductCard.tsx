@@ -2,7 +2,11 @@ import type { CSSProperties } from "react";
 import { useEffect, useState } from "react";
 import { Minus, Plus } from "lucide-react";
 
-import { CatalogImage, CATALOG_IMAGE_SIZES } from "@/components/catalog/CatalogImage";
+import {
+  CatalogImage,
+  CATALOG_IMAGE_SIZES,
+  prefetchCatalogImage,
+} from "@/components/catalog/CatalogImage";
 import { type GalleryLayout } from "@/lib/gallery-collage";
 import { cn } from "@/lib/utils";
 import { useLocale } from "@/lib/i18n";
@@ -146,6 +150,10 @@ export function ProductCard({
       )}
       onPointerEnter={() => {
         if (dualFinish) setDualActionsReady(true);
+        prefetchCatalogImage(product.imageManifest.hero);
+        for (const entry of product.imageManifest.gallery) {
+          prefetchCatalogImage(entry);
+        }
       }}
     >
       <button
@@ -181,8 +189,8 @@ export function ProductCard({
         <CatalogImage
           manifest={product.imageManifest.hero}
           alt={product.name}
-          priority={index < 4}
-          placeholder={false}
+          priority={index < 8}
+          placeholder
           fill
           objectPosition={layout.imagePosition}
           sizes={CATALOG_IMAGE_SIZES.grid}

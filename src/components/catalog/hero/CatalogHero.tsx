@@ -48,7 +48,7 @@ function splitWarrantyHighlight(text: string, highlight: string) {
 
 function HeroCtas({ cta, ctaPdf, className }: { cta: string; ctaPdf: string; className?: string }) {
   return (
-    <div className={cn("flex flex-col items-center gap-7 lg:items-start", className)}>
+    <div className={cn("flex flex-col items-center gap-4 lg:items-start lg:gap-7", className)}>
       <a
         href="#catalog"
         onClick={(e) => {
@@ -113,77 +113,86 @@ export function CatalogHero() {
   }, []);
 
   return (
-    <section className="site-column relative flex min-h-0 flex-col justify-center overflow-visible pb-16 pt-8 lg:min-h-[calc(100svh-var(--header-offset))] lg:pb-24 lg:pt-10">
+    <section className="site-column relative flex min-h-0 flex-col overflow-visible pb-12 pt-4 max-lg:min-h-[calc(100svh-var(--header-offset))] max-lg:justify-center lg:min-h-[calc(100svh-var(--header-offset))] lg:justify-center lg:pb-24 lg:pt-10">
       <div
         className="editorial-spine pointer-events-none absolute inset-y-[14%] start-0 hidden w-px lg:block"
         aria-hidden
       />
 
-      <div className="relative z-10 grid flex-1 items-center gap-6 lg:max-w-xl">
-        <div className="relative flex flex-col justify-center lg:pe-2 xl:pe-0">
+      <div className="relative z-10 flex flex-col lg:max-w-xl lg:items-center lg:gap-6">
+        <div className="relative flex flex-col lg:pe-2 xl:pe-0">
           <div
             className="pointer-events-none absolute -end-6 top-1/2 hidden h-[55%] w-28 -translate-y-1/2 bg-gradient-to-r from-transparent via-brand/8 to-brand-highlight/12 blur-2xl lg:block"
             aria-hidden
           />
-          <motion.div {...fadeUp(0, reduced)} className="mb-7 self-center md:mb-9 lg:self-start">
+          <motion.div {...fadeUp(0, reduced)} className="mb-1 self-center lg:mb-9 lg:self-start">
             <SectionRule index={PAGE_SECTION_INDEX.hero} />
           </motion.div>
 
-          <motion.div
-            {...fadeUp(0.04, reduced)}
-            className="mb-6 flex justify-center lg:hidden"
-          >
-            <HeroMobileLogo className="scale-110 sm:scale-125" />
-          </motion.div>
-
-          <div className="relative lg:max-w-xl">
-            <motion.h1
-              {...fadeUp(0.06, reduced)}
-              className={cn(
-                "relative z-10 mx-auto max-w-xl font-display type-billboard text-center lg:mx-0 lg:text-start",
-                locale === "fa" ? "leading-[1.18]" : "leading-[1.05]",
-              )}
+          {/* Mobile: truck → type → CTA as one centered composition */}
+          <div className="relative flex flex-col items-center lg:block lg:items-stretch">
+            <motion.div
+              {...fadeUp(0.04, reduced)}
+              className="relative z-0 flex justify-center lg:hidden"
             >
-              {messages.hero.titleLine1}
-              {(messages.hero.titleLine2 || messages.hero.titleAccent) && (
-                <>
-                  <br />
-                  {messages.hero.titleLine2}{" "}
-                  {messages.hero.titleAccent && (
-                    <span
-                      className={cn(
-                        "gradient-text",
-                        locale === "en"
-                          ? "font-mono-tech font-normal tracking-[0.1em]"
-                          : "type-heading-display",
-                      )}
-                    >
-                      {messages.hero.titleAccent}
+              <HeroMobileLogo />
+            </motion.div>
+
+            <div className="relative z-10 mx-auto w-full max-w-xl max-lg:-mt-11 lg:mx-0 lg:mt-0">
+              <motion.h1
+                {...fadeUp(0.06, reduced)}
+                className={cn(
+                  "relative z-10 font-display type-billboard text-center lg:text-start",
+                  locale === "fa" ? "leading-[1.18]" : "leading-[1.05]",
+                )}
+              >
+                {messages.hero.titleLine1}
+                {(messages.hero.titleLine2 || messages.hero.titleAccent) && (
+                  <>
+                    <br />
+                    {messages.hero.titleLine2}{" "}
+                    {messages.hero.titleAccent && (
+                      <span
+                        className={cn(
+                          "gradient-text",
+                          locale === "en"
+                            ? "font-mono-tech font-normal tracking-[0.1em]"
+                            : "type-heading-display",
+                        )}
+                      >
+                        {messages.hero.titleAccent}
+                      </span>
+                    )}
+                  </>
+                )}
+              </motion.h1>
+
+              <motion.p
+                {...fadeUp(0.12, reduced)}
+                className="type-hero-subtitle relative z-10 mx-auto mt-4 max-w-[22rem] text-center md:mt-6 md:max-w-md lg:mx-0 lg:mt-7 lg:max-w-md lg:text-start"
+              >
+                {messages.hero.subtitleLead}
+                <br />
+                <span className="text-foreground/76 max-lg:text-foreground/84">
+                  {warrantyLine.before}
+                  {warrantyLine.highlight && (
+                    <span className="text-foreground/92 max-lg:text-foreground/96">
+                      {warrantyLine.highlight}
                     </span>
                   )}
-                </>
-              )}
-            </motion.h1>
+                  {warrantyLine.after}
+                </span>
+              </motion.p>
 
-          <motion.p
-            {...fadeUp(0.12, reduced)}
-            className="type-hero-subtitle relative z-10 mx-auto mt-6 max-w-md text-center md:mt-7 lg:mx-0 lg:text-start"
-          >
-            {messages.hero.subtitleLead}
-            <br />
-            <span className="text-foreground/76 max-lg:text-foreground/84">
-              {warrantyLine.before}
-              {warrantyLine.highlight && (
-                <span className="text-foreground/92 max-lg:text-foreground/96">{warrantyLine.highlight}</span>
-              )}
-              {warrantyLine.after}
-            </span>
-          </motion.p>
+              {/* CTA stays with warranty copy — not pinned to viewport bottom */}
+              <motion.div
+                {...fadeUp(0.18, reduced)}
+                className="mt-6 flex justify-center md:mt-8 lg:mt-10 lg:justify-start"
+              >
+                <HeroCtas cta={messages.hero.cta} ctaPdf={messages.hero.ctaPdf} />
+              </motion.div>
+            </div>
           </div>
-
-          <motion.div {...fadeUp(0.18, reduced)} className="mt-8 flex justify-center md:mt-10 lg:justify-start">
-            <HeroCtas cta={messages.hero.cta} ctaPdf={messages.hero.ctaPdf} />
-          </motion.div>
         </div>
       </div>
 
@@ -197,12 +206,12 @@ export function CatalogHero() {
 
       <div
         className={cn(
-          "absolute bottom-8 start-1/2 flex -translate-x-1/2 flex-col items-center gap-2.5 transition-opacity duration-500 md:bottom-10",
+          "absolute bottom-5 start-1/2 flex -translate-x-1/2 flex-col items-center gap-2 transition-opacity duration-500 max-lg:bottom-4 md:bottom-10",
           showScrollCue ? "opacity-100" : "pointer-events-none opacity-0",
         )}
       >
         <div className="scroll-cue-node scroll-cue" />
-        <div className="h-9 w-px origin-top bg-gradient-to-b from-brand/22 to-transparent scroll-cue" />
+        <div className="h-7 w-px origin-top bg-gradient-to-b from-brand/22 to-transparent scroll-cue max-lg:h-6 md:h-9" />
       </div>
     </section>
   );

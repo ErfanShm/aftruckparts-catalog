@@ -4,7 +4,11 @@ import type { Locale, LocaleMessages } from "@/locales/types";
 
 import { SITE_URL, SITE_EMAIL, THEME_COLOR, siteUrl } from "./site";
 
-const OG_IMAGE = "/android-chrome-512x512.png";
+/** Landscape brand lockup for social previews (summary_large_image). */
+const OG_IMAGE = "/og-share.png";
+const OG_IMAGE_WIDTH = "1536";
+const OG_IMAGE_HEIGHT = "1024";
+const OG_IMAGE_TYPE = "image/png";
 
 export function ogImageUrl() {
   return siteUrl(OG_IMAGE);
@@ -36,6 +40,10 @@ export function buildHead(messages: LocaleMessages = fa, locale: Locale = "fa") 
       { property: "og:url", content: url },
       { property: "og:site_name", content: BRAND_NAME },
       { property: "og:image", content: image },
+      { property: "og:image:alt", content: title },
+      { property: "og:image:type", content: OG_IMAGE_TYPE },
+      { property: "og:image:width", content: OG_IMAGE_WIDTH },
+      { property: "og:image:height", content: OG_IMAGE_HEIGHT },
       { property: "og:locale", content: ogLocale(locale) },
       {
         property: "og:locale:alternate",
@@ -45,6 +53,7 @@ export function buildHead(messages: LocaleMessages = fa, locale: Locale = "fa") 
       { name: "twitter:title", content: title },
       { name: "twitter:description", content: description },
       { name: "twitter:image", content: image },
+      { name: "twitter:image:alt", content: title },
       { name: "theme-color", content: THEME_COLOR },
     ],
     links: [{ rel: "canonical", href: url }],
@@ -70,10 +79,12 @@ export function syncDocumentMeta(messages: LocaleMessages, locale: Locale) {
   setMeta('meta[property="og:description"]', description);
   setMeta('meta[property="og:url"]', url);
   setMeta('meta[property="og:image"]', image);
+  setMeta('meta[property="og:image:alt"]', title);
   setMeta('meta[property="og:locale"]', ogLocale(locale));
   setMeta('meta[name="twitter:title"]', title);
   setMeta('meta[name="twitter:description"]', description);
   setMeta('meta[name="twitter:image"]', image);
+  setMeta('meta[name="twitter:image:alt"]', title);
 
   const canonical = document.querySelector('link[rel="canonical"]');
   if (canonical) canonical.setAttribute("href", url);
@@ -88,7 +99,7 @@ export function buildJsonLd(messages: LocaleMessages, locale: Locale) {
         "@id": `${SITE_URL}/#organization`,
         name: BRAND_NAME,
         url: SITE_URL,
-        logo: ogImageUrl(),
+        logo: siteUrl("/android-chrome-512x512.png"),
         email: SITE_EMAIL,
       },
       {

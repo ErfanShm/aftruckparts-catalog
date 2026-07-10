@@ -351,21 +351,20 @@ html.locale-pending body {
   background: color-mix(in oklch, var(--void) 94%, var(--brand) 2%);
   backdrop-filter: blur(16px) saturate(1.05);
   -webkit-backdrop-filter: blur(16px) saturate(1.05);
-  transition:
-    background 0.3s ease,
-    box-shadow 0.3s ease;
+  box-shadow: none;
+  transition: box-shadow 0.25s ease, background 0.25s ease;
 }
 
 @utility header-shell-scrolled {
-  background: color-mix(in oklch, var(--void) 96%, var(--brand) 2%);
-  backdrop-filter: blur(20px) saturate(1.08);
-  -webkit-backdrop-filter: blur(20px) saturate(1.08);
+  background: color-mix(in oklch, var(--void) 97%, var(--brand) 2%);
+  /* Keep blur identical to header-shell — changing backdrop-filter mid-scroll
+     makes the bar look like it collapses on mobile Safari. */
+  backdrop-filter: blur(16px) saturate(1.05);
+  -webkit-backdrop-filter: blur(16px) saturate(1.05);
   box-shadow:
     0 1px 0 color-mix(in oklch, var(--brand) 12%, transparent),
     0 24px 64px -36px color-mix(in oklch, black 80%, var(--brand));
-  transition:
-    background 0.3s ease,
-    box-shadow 0.3s ease;
+  transition: box-shadow 0.25s ease, background 0.25s ease;
 }
 
 @utility header-brand-line {
@@ -380,7 +379,10 @@ html.locale-pending body {
 }
 
 @utility brand-logo-lockup {
-  mix-blend-mode: screen;
+  /* Screen blend looks good on desktop; on touch it janks the fixed header while scrolling. */
+  @media (hover: hover) and (pointer: fine) {
+    mix-blend-mode: screen;
+  }
 }
 
 @utility header-fixed {
@@ -388,7 +390,13 @@ html.locale-pending body {
   inset-inline: 0;
   top: 0;
   z-index: 40;
-  padding-top: max(0px, env(safe-area-inset-top));
+  padding-top: max(0px, env(safe-area-inset-top, 0px));
+  /* Own compositor layer — stops iOS scroll jank / visual “collapse”. */
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  isolation: isolate;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 @utility header-spacer {
@@ -1538,116 +1546,46 @@ html[dir="rtl"] .quote-sidebar-enter {
   mask-image: linear-gradient(to top, black 30%, transparent);
 }
 
-/* Mobile hero — atmosphere bleeds into site void, no framed card */
-@utility hero-mobile-glow {
-  opacity: 0.9;
-  mask-image: radial-gradient(
-    ellipse 72% 68% at 50% 46%,
-    black 8%,
-    color-mix(in oklch, black 55%, transparent) 52%,
-    transparent 78%
+/* Mobile hero — artistic truck dissolves into type */
+@utility hero-mobile-truck-frame {
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 10%,
+    black 52%,
+    transparent 92%
   );
-  -webkit-mask-image: radial-gradient(
-    ellipse 72% 68% at 50% 46%,
-    black 8%,
-    color-mix(in oklch, black 55%, transparent) 52%,
-    transparent 78%
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 10%,
+    black 52%,
+    transparent 92%
   );
 }
 
-@utility hero-mobile-glow-pulse {
-  animation: hero-mobile-glow-pulse 5.5s ease-in-out infinite;
+@utility hero-mobile-truck {
+  filter: drop-shadow(0 0 28px color-mix(in oklch, var(--brand) 16%, transparent));
 }
 
-@keyframes hero-mobile-glow-pulse {
+@utility hero-mobile-truck-pulse {
+  animation: hero-mobile-truck-pulse 7s ease-in-out infinite;
+}
+
+@keyframes hero-mobile-truck-pulse {
   0%,
   100% {
-    opacity: 0.82;
+    filter: drop-shadow(0 0 24px color-mix(in oklch, var(--brand) 14%, transparent));
+    opacity: 0.92;
   }
   50% {
-    opacity: 0.94;
-  }
-}
-
-@utility hero-mobile-well {
-  background: radial-gradient(
-    ellipse 58% 50% at 50% 48%,
-    color-mix(in oklch, var(--ambient-sky) 18%, transparent) 0%,
-    color-mix(in oklch, var(--brand) 10%, transparent) 38%,
-    transparent 72%
-  );
-}
-
-@utility hero-mobile-well-pulse {
-  animation: hero-mobile-well-pulse 6.5s ease-in-out infinite;
-}
-
-@keyframes hero-mobile-well-pulse {
-  0%,
-  100% {
-    opacity: 0.65;
-    transform: scale(1);
-  }
-  50% {
+    filter: drop-shadow(0 0 40px color-mix(in oklch, var(--brand-highlight) 24%, transparent));
     opacity: 1;
-    transform: scale(1.04);
   }
-}
-
-@utility hero-mobile-mark-ghost {
-  opacity: 0.09;
-  transform: scale(1.32);
-  filter: drop-shadow(0 0 36px color-mix(in oklch, var(--brand-readable) 55%, transparent));
-}
-
-@utility hero-mobile-ring {
-  border: 1px solid color-mix(in oklch, var(--brand) 14%, transparent);
-  box-shadow: inset 0 0 28px color-mix(in oklch, var(--brand) 5%, transparent);
-}
-
-@utility hero-mobile-mark {
-  filter: drop-shadow(0 0 22px color-mix(in oklch, var(--brand-highlight) 42%, transparent))
-    drop-shadow(0 0 48px color-mix(in oklch, var(--brand) 18%, transparent));
-}
-
-@utility hero-mobile-glow--inline {
-  opacity: 0.72;
-  mask-image: radial-gradient(
-    ellipse 68% 64% at 50% 50%,
-    black 10%,
-    color-mix(in oklch, black 50%, transparent) 48%,
-    transparent 76%
-  );
-  -webkit-mask-image: radial-gradient(
-    ellipse 68% 64% at 50% 50%,
-    black 10%,
-    color-mix(in oklch, black 50%, transparent) 48%,
-    transparent 76%
-  );
-}
-
-@utility hero-mobile-well--inline {
-  background: radial-gradient(
-    ellipse 54% 48% at 50% 50%,
-    color-mix(in oklch, var(--ambient-sky) 14%, transparent) 0%,
-    color-mix(in oklch, var(--brand) 7%, transparent) 42%,
-    transparent 70%
-  );
-}
-
-@utility hero-mobile-mark-ghost--inline {
-  opacity: 0.07;
-  transform: scale(1.28);
-}
-
-@utility hero-mobile-mark--inline {
-  filter: drop-shadow(0 0 14px color-mix(in oklch, var(--brand-highlight) 36%, transparent))
-    drop-shadow(0 0 28px color-mix(in oklch, var(--brand) 14%, transparent));
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero-mobile-glow-pulse,
-  .hero-mobile-well-pulse,
+  .hero-mobile-truck-pulse,
   .quote-dock-halo {
     animation: none;
   }
@@ -1750,11 +1688,11 @@ html[dir="rtl"] .quote-sidebar-enter {
   }
 }
 
-/* CatalogImage blur-up (detail gallery only — grid uses placeholder={false}) */
+/* CatalogImage blur-up while the sharp asset loads */
 .catalog-image-blur {
   filter: blur(8px);
   transform: scale(1.04);
-  transition: opacity 0.3s ease;
+  transition: opacity 0.18s ease;
 }
 
 .catalog-image-blur-hidden {
@@ -1763,7 +1701,7 @@ html[dir="rtl"] .quote-sidebar-enter {
 
 .catalog-image-pending {
   opacity: 0;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.18s ease;
 }
 
 .catalog-image-loaded {
