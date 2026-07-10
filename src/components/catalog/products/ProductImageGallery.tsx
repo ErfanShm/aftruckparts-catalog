@@ -79,11 +79,11 @@ export function ProductImageGallery({
     if (canNext) onPhotoChange(photoIndex + 1);
   }, [canNext, onPhotoChange, photoIndex]);
 
-  // Prefetch current + adjacent slides so swipe/open feels instant.
+  // Prefetch current + adjacent at detail size; do not download the whole gallery up front.
   useEffect(() => {
-    prefetchCatalogImage(slides[photoIndex]?.manifest);
-    prefetchCatalogImage(slides[photoIndex + 1]?.manifest);
-    prefetchCatalogImage(slides[photoIndex - 1]?.manifest);
+    prefetchCatalogImage(slides[photoIndex]?.manifest, "detail");
+    prefetchCatalogImage(slides[photoIndex + 1]?.manifest, "detail");
+    prefetchCatalogImage(slides[photoIndex - 1]?.manifest, "detail");
   }, [photoIndex, slides]);
 
   const onTouchStart = (e: TouchEvent) => {
@@ -140,28 +140,34 @@ export function ProductImageGallery({
         </button>
       )}
 
-      {/* Keep all slides mounted so switching photos is instant (cached). */}
-      {slides.map((s, i) => (
-        <div
-          key={i}
-          className={cn(
-            "absolute inset-0 px-10 py-6 md:px-14 md:py-8",
-            i === photoIndex ? "z-10 opacity-100" : "pointer-events-none z-0 opacity-0",
-          )}
-          aria-hidden={i !== photoIndex}
-        >
-          <CatalogImage
-            manifest={s.manifest}
-            alt={alt}
-            priority={i === 0}
-            placeholder
-            lazy={false}
-            fill
-            objectFit="contain"
-            sizes={CATALOG_IMAGE_SIZES.detailMain}
-          />
-        </div>
-      ))}
+      {/* Only mount active + adjacent slides so open doesn't download the full gallery. */}
+      {slides.map((s, i) => {
+        const isActive = i === photoIndex;
+        const isNear = Math.abs(i - photoIndex) <= 1;
+        if (!isNear) return null;
+
+        return (
+          <div
+            key={i}
+            className={cn(
+              "absolute inset-0 px-10 py-6 md:px-14 md:py-8",
+              isActive ? "z-10 opacity-100" : "pointer-events-none z-0 opacity-0",
+            )}
+            aria-hidden={!isActive}
+          >
+            <CatalogImage
+              manifest={s.manifest}
+              alt={alt}
+              priority={isActive}
+              placeholder
+              lazy={!isActive}
+              fill
+              objectFit="contain"
+              sizes={CATALOG_IMAGE_SIZES.detailMain}
+            />
+          </div>
+        );
+      })}
 
       {showPhotoNav && isMobile && (
         <PhotoDotStrip

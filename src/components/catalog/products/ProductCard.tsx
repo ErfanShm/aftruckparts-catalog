@@ -136,11 +136,10 @@ export function ProductCard({
     }
   }, [inQuote]);
 
+  // Warm only the first detail slide at a phone-friendly size — full gallery waits for open/swipe.
   const warmDetailImages = () => {
-    prefetchCatalogImage(product.imageManifest.hero);
-    for (const entry of product.imageManifest.gallery) {
-      prefetchCatalogImage(entry);
-    }
+    const first = product.imageManifest.gallery[0] ?? product.imageManifest.hero;
+    prefetchCatalogImage(first, "detail");
   };
 
   const showDualActions = dualFinish && (inQuote || dualActionsReady || !canHover);
@@ -204,7 +203,7 @@ export function ProductCard({
         <CatalogImage
           manifest={product.imageManifest.hero}
           alt={product.name}
-          priority={index < 8}
+          priority={index < 4}
           placeholder
           fill
           objectPosition={layout.imagePosition}

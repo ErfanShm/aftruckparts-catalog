@@ -460,48 +460,41 @@ export function ProductDetailModal({
   const isMobile = useIsMobile();
   const product = products[activeIndex];
 
-  // Radix Sheet can miss its enter transition when mounted already `open`.
-  // Mount closed, then open on the next frame so the first tap always shows the sheet.
-  const [sheetOpen, setSheetOpen] = useState(false);
-  useEffect(() => {
-    if (!isMobile || !open) {
-      setSheetOpen(false);
-      return;
-    }
-    const id = requestAnimationFrame(() => setSheetOpen(true));
-    return () => cancelAnimationFrame(id);
-  }, [isMobile, open]);
-
   // Desktop uses a custom modal — lock page scroll. Mobile Sheet (Radix) handles this itself.
   useBodyScrollLock(open && !isMobile);
 
-  if (!product) return null;
-
   const close = () => onOpenChange(false);
 
+  // Keep Sheet mounted while closed so open flips closed→open (reliable first tap on mobile).
   if (isMobile) {
     return (
-      <Sheet open={sheetOpen} onOpenChange={onOpenChange}>
+      <Sheet open={Boolean(open && product)} onOpenChange={onOpenChange}>
         <SheetContent
           side="bottom"
           className="flex h-[94dvh] max-h-[94dvh] flex-col rounded-t-2xl border-border-hair bg-void p-0 duration-200 data-[state=open]:duration-200 data-[state=closed]:duration-150 [&>button]:hidden"
         >
-          <div className="mx-auto mt-2.5 mb-1 h-1 w-10 shrink-0 rounded-full bg-foreground/10" />
-          <ProductDetailBody
-            product={product}
-            products={products}
-            activeIndex={activeIndex}
-            quote={quote}
-            onAdd={onAdd}
-            onRemove={onRemove}
-            onNavigate={onNavigate}
-            onClose={close}
-            isMobile
-          />
+          {product ? (
+            <>
+              <div className="mx-auto mt-2.5 mb-1 h-1 w-10 shrink-0 rounded-full bg-foreground/10" />
+              <ProductDetailBody
+                product={product}
+                products={products}
+                activeIndex={activeIndex}
+                quote={quote}
+                onAdd={onAdd}
+                onRemove={onRemove}
+                onNavigate={onNavigate}
+                onClose={close}
+                isMobile
+              />
+            </>
+          ) : null}
         </SheetContent>
       </Sheet>
     );
   }
+
+  if (!product) return null;
 
   return (
     <AnimatePresence>

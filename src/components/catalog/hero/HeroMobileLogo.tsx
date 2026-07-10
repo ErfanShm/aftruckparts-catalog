@@ -12,17 +12,21 @@ export function HeroMobileLogo({ className }: { className?: string }) {
   return (
     <div className={cn("pointer-events-none relative", className)}>
       <div className="hero-mobile-mark-frame mx-auto w-[min(72vw,16.5rem)] sm:w-[min(64vw,18rem)]">
-        <img
-          src={HERO_MOBILE_ASSETS.mark}
-          alt={BRAND_NAME}
-          width={512}
-          height={512}
-          className={cn(
-            "hero-mobile-mark mx-auto h-auto w-full object-contain",
-            !reduced && "hero-mobile-mark-pulse",
-          )}
-          decoding="async"
-        />
+        <picture>
+          <source type="image/webp" srcSet={HERO_MOBILE_ASSETS.mark} />
+          <img
+            src={HERO_MOBILE_ASSETS.markFallback}
+            alt={BRAND_NAME}
+            width={768}
+            height={768}
+            className={cn(
+              "hero-mobile-mark mx-auto h-auto w-full object-contain",
+              !reduced && "hero-mobile-mark-pulse",
+            )}
+            decoding="async"
+            fetchPriority="high"
+          />
+        </picture>
       </div>
     </div>
   );

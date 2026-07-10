@@ -58,7 +58,6 @@ export function CatalogSection({
   );
 
   const detailOpen = detailIndex >= 0;
-  const activeProduct = detailOpen ? filtered[detailIndex] : null;
 
   useEffect(() => {
     if (detailId && !filtered.some((p) => p.id === detailId)) {
@@ -106,21 +105,19 @@ export function CatalogSection({
         </div>
       </div>
 
-      {/* Keep modal mounted while `detailId` is set so Sheet/desktop dialog can animate open/close. */}
-      {detailId && activeProduct && (
-        <ProductDetailModal
-          open={detailOpen}
-          onOpenChange={(nextOpen) => {
-            if (!nextOpen) setDetailId(null);
-          }}
-          products={filtered}
-          activeIndex={detailIndex}
-          onNavigate={(index) => setDetailId(filtered[index]?.id ?? null)}
-          quote={quote}
-          onAdd={onAdd}
-          onRemove={onRemove}
-        />
-      )}
+      {/* Always mounted so mobile Sheet opens from closed→open (avoids Radix miss-first-tap). */}
+      <ProductDetailModal
+        open={detailOpen}
+        onOpenChange={(nextOpen) => {
+          if (!nextOpen) setDetailId(null);
+        }}
+        products={filtered}
+        activeIndex={detailIndex >= 0 ? detailIndex : 0}
+        onNavigate={(index) => setDetailId(filtered[index]?.id ?? null)}
+        quote={quote}
+        onAdd={onAdd}
+        onRemove={onRemove}
+      />
     </PageSection>
   );
 }

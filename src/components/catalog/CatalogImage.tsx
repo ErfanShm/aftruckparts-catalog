@@ -14,13 +14,42 @@ export const CATALOG_IMAGE_SIZES = {
 
 const prefetchedSrcs = new Set<string>();
 
+type PrefetchHint = "grid" | "detail";
+
+/** Pick a responsive candidate near `targetW` instead of always warming the 1200w master. */
+function pickPrefetchSrc(manifest: ImageManifestEntry, hint: PrefetchHint): string {
+  const targetW = hint === "detail" ? 800 : 480;
+  const srcSet = manifest.srcSetWebp || manifest.srcSetAvif;
+  if (!srcSet) return manifest.src;
+
+  let bestSrc = manifest.src;
+  let bestDelta = Number.POSITIVE_INFINITY;
+  for (const part of srcSet.split(",")) {
+    const [url, descriptor] = part.trim().split(/\s+/);
+    if (!url) continue;
+    const width = descriptor?.endsWith("w") ? Number.parseInt(descriptor, 10) : NaN;
+    if (!Number.isFinite(width)) continue;
+    const delta = Math.abs(width - targetW);
+    if (delta < bestDelta) {
+      bestDelta = delta;
+      bestSrc = url;
+    }
+  }
+  return bestSrc;
+}
+
 /** Warm the browser cache for a catalog image (detail open / hover). */
-export function prefetchCatalogImage(manifest: ImageManifestEntry | undefined) {
-  if (!manifest?.src || prefetchedSrcs.has(manifest.src)) return;
-  prefetchedSrcs.add(manifest.src);
+export function prefetchCatalogImage(
+  manifest: ImageManifestEntry | undefined,
+  hint: PrefetchHint = "grid",
+) {
+  if (!manifest?.src) return;
+  const src = pickPrefetchSrc(manifest, hint);
+  if (prefetchedSrcs.has(src)) return;
+  prefetchedSrcs.add(src);
   const img = new Image();
   img.decoding = "async";
-  img.src = manifest.src;
+  img.src = src;
 }
 
 export type CatalogImageProps = {
@@ -128,7 +157,7 @@ export const CatalogImage = forwardRef<HTMLImageElement, CatalogImageProps>(
             height={manifest.height}
             loading={eager ? "eager" : "lazy"}
             fetchPriority={priority ? "high" : undefined}
-            decoding={eager ? "sync" : "async"}
+            decoding="async"
             sizes={sizes}
             onLoad={markLoaded}
             style={{ objectPosition, objectFit, ...style }}
