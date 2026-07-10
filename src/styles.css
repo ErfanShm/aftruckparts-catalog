@@ -1705,16 +1705,33 @@ html[dir="rtl"] .quote-sidebar-enter {
 
 .catalog-image-pending {
   opacity: 0;
-  transition: opacity 0.18s ease;
 }
 
-.catalog-image-loaded {
-  opacity: 1;
+.catalog-image-revealed {
+  animation: catalog-image-reveal 0.2s ease forwards;
+}
+
+@keyframes catalog-image-reveal {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .catalog-image-blur {
     display: none;
+  }
+
+  .catalog-image-pending {
+    opacity: 1;
+  }
+
+  .catalog-image-revealed {
+    animation: none;
+    opacity: 1;
   }
 }
 

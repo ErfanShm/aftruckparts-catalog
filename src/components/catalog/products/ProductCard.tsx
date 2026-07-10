@@ -35,7 +35,7 @@ function variantStyles(variant: GalleryLayout["variant"]) {
         title: "text-[15px] md:text-[16px]",
         strip: "px-4 pb-4 pt-20",
         showCategory: false,
-        hoverScale: "group-hover:scale-[1.03]",
+        hoverScale: "hover-capable:group-hover:scale-[1.03]",
         addButton: "gap-1.5 px-3 py-2",
         showAddLabel: true,
       };
@@ -45,7 +45,7 @@ function variantStyles(variant: GalleryLayout["variant"]) {
         title: "text-[14px]",
         strip: "px-5 pb-3 pt-12",
         showCategory: false,
-        hoverScale: "group-hover:scale-[1.02]",
+        hoverScale: "hover-capable:group-hover:scale-[1.02]",
         addButton: "gap-1 px-2.5 py-1.5",
         showAddLabel: true,
       };
@@ -55,7 +55,7 @@ function variantStyles(variant: GalleryLayout["variant"]) {
         title: "text-[13px]",
         strip: "px-3 pb-3 pt-16",
         showCategory: false,
-        hoverScale: "group-hover:scale-[1.04]",
+        hoverScale: "hover-capable:group-hover:scale-[1.04]",
         addButton: "h-7 w-7",
         showAddLabel: false,
       };
@@ -65,7 +65,7 @@ function variantStyles(variant: GalleryLayout["variant"]) {
         title: "text-[13px]",
         strip: "px-3 pb-3 pt-14",
         showCategory: false,
-        hoverScale: "group-hover:scale-[1.04]",
+        hoverScale: "hover-capable:group-hover:scale-[1.04]",
         addButton: "h-7 w-7",
         showAddLabel: false,
       };
@@ -75,7 +75,7 @@ function variantStyles(variant: GalleryLayout["variant"]) {
         title: "text-[14px]",
         strip: "px-4 pb-3 pt-12",
         showCategory: false,
-        hoverScale: "group-hover:scale-[1.035]",
+        hoverScale: "hover-capable:group-hover:scale-[1.035]",
         addButton: "h-7 w-7",
         showAddLabel: false,
       };
@@ -85,7 +85,7 @@ function variantStyles(variant: GalleryLayout["variant"]) {
         title: "text-[12px]",
         strip: "px-3 pb-2.5 pt-12",
         showCategory: false,
-        hoverScale: "group-hover:scale-[1.04]",
+        hoverScale: "hover-capable:group-hover:scale-[1.04]",
         addButton: "h-7 w-7",
         showAddLabel: false,
       };
@@ -155,7 +155,7 @@ export function ProductCard({
     <article
       style={organicY ? ({ "--gallery-y": `${organicY}px` } as CSSProperties) : undefined}
       className={cn(
-        "specimen-frame specimen-corner group relative h-full overflow-hidden transition-all duration-500 hover-capable:group-hover:border-brand/20",
+        "specimen-frame specimen-corner group relative h-full overflow-hidden hover-capable:group-hover:border-brand/20",
         layout.mobileClassName,
         layout.desktopClassName,
         inQuote && "specimen-frame-active",
@@ -204,14 +204,15 @@ export function ProductCard({
           manifest={product.imageManifest.hero}
           alt={product.name}
           priority={index < 4}
-          placeholder
           fill
           objectPosition={layout.imagePosition}
           sizes={CATALOG_IMAGE_SIZES.grid}
           className={cn(
-            "brand-specimen-photo transition-all duration-500",
+            "brand-specimen-photo",
+            // Only transform/filter — never transition-all (opacity flash on modal open/hover clear).
+            "transition-[transform,filter] duration-500 ease-out",
             styles.hoverScale,
-            "group-hover:saturate-100 group-hover:brightness-100",
+            "hover-capable:group-hover:saturate-100 hover-capable:group-hover:brightness-100",
           )}
         />
         <div className="brand-specimen-scrim pointer-events-none absolute inset-0" aria-hidden />

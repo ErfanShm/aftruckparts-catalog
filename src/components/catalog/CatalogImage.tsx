@@ -13,6 +13,8 @@ export const CATALOG_IMAGE_SIZES = {
 } as const;
 
 const prefetchedSrcs = new Set<string>();
+/** Survives remounts so open/close modal doesn't re-run the fade-in flash. */
+const loadedSrcs = new Set<string>();
 
 type PrefetchHint = "grid" | "detail";
 
@@ -92,16 +94,23 @@ export const CatalogImage = forwardRef<HTMLImageElement, CatalogImageProps>(
     ref,
   ) {
     const imgRef = useRef<HTMLImageElement | null>(null);
-    const [loaded, setLoaded] = useState(false);
+    const initiallyCached = loadedSrcs.has(manifest.src);
+    const [loaded, setLoaded] = useState(initiallyCached);
     const eager = priority || lazy === false;
     const showPlaceholder = placeholder && Boolean(manifest.blurDataURL);
+    const fadeIn = showPlaceholder && !initiallyCached;
 
     const markLoaded = () => {
+      loadedSrcs.add(manifest.src);
       setLoaded(true);
       onLoad?.();
     };
 
     useLayoutEffect(() => {
+      if (loadedSrcs.has(manifest.src)) {
+        setLoaded(true);
+        return;
+      }
       const img = imgRef.current;
       if (img?.complete && img.naturalWidth > 0) {
         markLoaded();
@@ -164,8 +173,9 @@ export const CatalogImage = forwardRef<HTMLImageElement, CatalogImageProps>(
             className={cn(
               "catalog-image-main",
               fill ? "absolute inset-0 h-full w-full" : "h-full w-full",
-              showPlaceholder && !loaded && "catalog-image-pending",
-              showPlaceholder && loaded && "catalog-image-loaded",
+              // Fade only on first uncached load — remounts/modal open must not re-flash.
+              fadeIn && !loaded && "catalog-image-pending",
+              fadeIn && loaded && "catalog-image-revealed",
               className,
             )}
           />

@@ -346,7 +346,7 @@ function ProductDetailBody({
             type="button"
             onClick={onClose}
             aria-label={messages.product.detail.close}
-            className="absolute end-3 top-3 z-40 flex h-11 w-11 touch-manipulation items-center justify-center rounded-full bg-void/60 text-foreground/62 backdrop-blur-sm transition-colors active:text-foreground/92"
+            className="absolute end-3 top-3 z-40 flex h-11 w-11 touch-manipulation items-center justify-center rounded-full bg-void/70 text-foreground/62 transition-colors active:text-foreground/92"
           >
             <X className="h-4 w-4" />
           </button>
@@ -359,7 +359,7 @@ function ProductDetailBody({
           {specPanel}
         </div>
 
-        <div className="shrink-0 border-t border-foreground/[0.06] vault-glass backdrop-blur-md safe-bottom">
+        <div className="shrink-0 border-t border-foreground/[0.06] bg-void safe-bottom">
           {products.length > 1 && (
             <ProductIndexStrip
               products={products}
@@ -471,7 +471,14 @@ export function ProductDetailModal({
       <Sheet open={Boolean(open && product)} onOpenChange={onOpenChange}>
         <SheetContent
           side="bottom"
-          className="flex h-[94dvh] max-h-[94dvh] flex-col rounded-t-2xl border-border-hair bg-void p-0 duration-200 data-[state=open]:duration-200 data-[state=closed]:duration-150 [&>button]:hidden"
+          onOpenAutoFocus={(e) => e.preventDefault()}
+          onCloseAutoFocus={(e) => e.preventDefault()}
+          overlayClassName="bg-void/70 data-[state=open]:duration-[320ms] data-[state=closed]:duration-[260ms]"
+          className={cn(
+            "flex h-[94dvh] max-h-[94dvh] flex-col rounded-t-2xl border-border-hair bg-void p-0 [&>button]:hidden",
+            // iOS-like sheet: ease-out rise, slightly longer so it doesn’t feel like a shock.
+            "ease-[cubic-bezier(0.32,0.72,0,1)] data-[state=open]:duration-[360ms] data-[state=closed]:duration-[280ms]",
+          )}
         >
           {product ? (
             <>
