@@ -93,7 +93,7 @@ export const fa: LocaleMessages = {
 
   product: {
     warranty: "گارانتی ۲ ساله",
-    warrantyBadge: "۲۴ ماه",
+    warrantyBadge: "۲۴ ماه گارانتی",
     finishBoth: "مات و براق",
     addToQuote: "به لیست اضافه",
     inQuote: "در لیست",

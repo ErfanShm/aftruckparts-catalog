@@ -122,7 +122,8 @@ export function ProductCard({
   const inQuote = quantity > 0;
   const [dualActionsReady, setDualActionsReady] = useState(inQuote);
   const [singleActionsReady, setSingleActionsReady] = useState(inQuote);
-  const [canHover, setCanHover] = useState(true);
+  // Default false so phones don't wait a paint assuming hover (which hid quote actions).
+  const [canHover, setCanHover] = useState(false);
 
   useEffect(() => {
     setCanHover(window.matchMedia("(hover: hover)").matches);
@@ -134,6 +135,13 @@ export function ProductCard({
       setSingleActionsReady(true);
     }
   }, [inQuote]);
+
+  const warmDetailImages = () => {
+    prefetchCatalogImage(product.imageManifest.hero);
+    for (const entry of product.imageManifest.gallery) {
+      prefetchCatalogImage(entry);
+    }
+  };
 
   const showDualActions = dualFinish && (inQuote || dualActionsReady || !canHover);
   const showSingleActions = !dualFinish && (inQuote || singleActionsReady || !canHover);
@@ -159,17 +167,15 @@ export function ProductCard({
       onPointerEnter={() => {
         if (dualFinish) setDualActionsReady(true);
         if (!dualFinish) setSingleActionsReady(true);
-        prefetchCatalogImage(product.imageManifest.hero);
-        for (const entry of product.imageManifest.gallery) {
-          prefetchCatalogImage(entry);
-        }
+        warmDetailImages();
       }}
     >
       <button
         type="button"
+        onPointerDown={warmDetailImages}
         onClick={onOpen}
         aria-label={`${product.name}, ${product.finish}`}
-        className="absolute inset-0 z-10 cursor-pointer focus-visible:outline-none"
+        className="absolute inset-0 z-10 touch-manipulation cursor-pointer focus-visible:outline-none"
       />
 
       <span className="pointer-events-none absolute start-3.5 top-3.5 z-[2] type-digits ltr-embed text-[10px] tabular-nums text-foreground/35 transition-colors duration-500 group-hover:text-terminal/70">
@@ -212,9 +218,11 @@ export function ProductCard({
         <div className="brand-specimen-scrim pointer-events-none absolute inset-0" aria-hidden />
       </div>
 
+      {/* pointer-events-none so taps on title/code reach the open button underneath (z-10).
+          Quote controls re-enable pointer events — without this, ~40% of the card was a dead zone. */}
       <div
         className={cn(
-          "specimen-strip absolute inset-x-0 bottom-0 z-20 flex gap-2",
+          "specimen-strip pointer-events-none absolute inset-x-0 bottom-0 z-20 flex gap-2",
           "flex-col items-stretch",
           "min-[380px]:flex-row min-[380px]:items-end min-[380px]:justify-between",
           styles.strip,
@@ -235,7 +243,7 @@ export function ProductCard({
           </p>
         </div>
 
-        <div className="relative z-[3] flex shrink-0 justify-end self-end pb-0.5">
+        <div className="pointer-events-auto relative z-[3] flex shrink-0 justify-end self-end pb-0.5">
           {dualFinish ? (
             showDualActions ? (
               <DualFinishQuoteActions
@@ -257,7 +265,7 @@ export function ProductCard({
                 }}
                 aria-label={messages.product.addToQuote}
                 className={cn(
-                  "flex h-7 w-7 items-center justify-center rounded-full border border-foreground/10 bg-void/45 text-foreground/35 opacity-0 backdrop-blur-sm transition-all duration-300 group-hover:opacity-100 group-focus-within:opacity-100 hover:text-foreground/65 active:scale-95 [@media(hover:none)]:opacity-75",
+                  "flex h-7 w-7 touch-manipulation items-center justify-center rounded-full border border-foreground/10 bg-void/45 text-foreground/35 opacity-0 backdrop-blur-sm transition-all duration-300 group-hover:opacity-100 group-focus-within:opacity-100 hover:text-foreground/65 active:scale-95 [@media(hover:none)]:opacity-75",
                   styles.addButton,
                 )}
               >
@@ -285,7 +293,7 @@ export function ProductCard({
               }}
               aria-label={messages.product.addToQuote}
               className={cn(
-                "flex items-center justify-center rounded-full border border-foreground/10 bg-void/45 text-foreground/35 opacity-0 backdrop-blur-sm transition-all duration-300 group-hover:opacity-100 group-focus-within:opacity-100 hover:text-foreground/65 active:scale-95 [@media(hover:none)]:opacity-75",
+                "flex touch-manipulation items-center justify-center rounded-full border border-foreground/10 bg-void/45 text-foreground/35 opacity-0 backdrop-blur-sm transition-all duration-300 group-hover:opacity-100 group-focus-within:opacity-100 hover:text-foreground/65 active:scale-95 [@media(hover:none)]:opacity-75",
                 styles.addButton,
               )}
             >

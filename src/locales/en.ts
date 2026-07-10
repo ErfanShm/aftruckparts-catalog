@@ -94,7 +94,7 @@ export const en: LocaleMessages = {
 
   product: {
     warranty: "2-year warranty",
-    warrantyBadge: "24 mo",
+    warrantyBadge: "24 month guarantee",
     finishBoth: "Matte & gloss",
     addToQuote: "Add to list",
     inQuote: "In list",

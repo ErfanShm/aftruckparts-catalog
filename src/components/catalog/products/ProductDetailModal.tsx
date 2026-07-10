@@ -460,6 +460,18 @@ export function ProductDetailModal({
   const isMobile = useIsMobile();
   const product = products[activeIndex];
 
+  // Radix Sheet can miss its enter transition when mounted already `open`.
+  // Mount closed, then open on the next frame so the first tap always shows the sheet.
+  const [sheetOpen, setSheetOpen] = useState(false);
+  useEffect(() => {
+    if (!isMobile || !open) {
+      setSheetOpen(false);
+      return;
+    }
+    const id = requestAnimationFrame(() => setSheetOpen(true));
+    return () => cancelAnimationFrame(id);
+  }, [isMobile, open]);
+
   // Desktop uses a custom modal — lock page scroll. Mobile Sheet (Radix) handles this itself.
   useBodyScrollLock(open && !isMobile);
 
@@ -469,7 +481,7 @@ export function ProductDetailModal({
 
   if (isMobile) {
     return (
-      <Sheet open={open} onOpenChange={onOpenChange}>
+      <Sheet open={sheetOpen} onOpenChange={onOpenChange}>
         <SheetContent
           side="bottom"
           className="flex h-[94dvh] max-h-[94dvh] flex-col rounded-t-2xl border-border-hair bg-void p-0 duration-200 data-[state=open]:duration-200 data-[state=closed]:duration-150 [&>button]:hidden"

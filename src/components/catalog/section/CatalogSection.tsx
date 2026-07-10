@@ -106,10 +106,13 @@ export function CatalogSection({
         </div>
       </div>
 
-      {activeProduct && (
+      {/* Keep modal mounted while `detailId` is set so Sheet/desktop dialog can animate open/close. */}
+      {detailId && activeProduct && (
         <ProductDetailModal
           open={detailOpen}
-          onOpenChange={(open) => !open && setDetailId(null)}
+          onOpenChange={(nextOpen) => {
+            if (!nextOpen) setDetailId(null);
+          }}
           products={filtered}
           activeIndex={detailIndex}
           onNavigate={(index) => setDetailId(filtered[index]?.id ?? null)}
