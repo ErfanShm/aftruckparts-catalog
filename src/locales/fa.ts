@@ -158,7 +158,7 @@ export const fa: LocaleMessages = {
       { key: "email", label: "ایمیل", short: "MAIL", href: "mailto:hello@aftruckparts.com" },
     ],
     phone: {
-      label: "ما پاسخ‌گوییم — در ساعات کاری",
+      label: "تماس در ساعت کاری",
       display: "۰۲۱ ۷۷۳۷ ۰۶۲۹",
       href: CONTACT_PHONE_TEL,
     },

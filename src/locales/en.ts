@@ -159,7 +159,7 @@ export const en: LocaleMessages = {
       { key: "email", label: "Email", short: "MAIL", href: "mailto:hello@aftruckparts.com" },
     ],
     phone: {
-      label: "We answer during business hours",
+      label: "Call during business hours",
       display: CONTACT_PHONE_DISPLAY,
       href: CONTACT_PHONE_TEL,
     },
