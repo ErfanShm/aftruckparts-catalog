@@ -1,6 +1,6 @@
 import { AfLogoModel } from "./AfLogoModel";
 
-/** Static AF monolith — only moves when the user drags the vault camera. */
+/** AF monolith — camera idle-drifts and yields to user orbit. */
 export function HeroAssembly() {
   return (
     <group rotation={[0.04, -0.14, 0]} scale={1.34}>

@@ -1,5 +1,5 @@
 import { Environment, Lightformer, OrbitControls } from "@react-three/drei";
-import { useLayoutEffect, useEffect, useRef } from "react";
+import { useLayoutEffect, useEffect, useRef, type ComponentRef } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import { TOUCH, type Mesh } from "three";
 
@@ -7,6 +7,61 @@ import { useIsMobile } from "@/hooks/use-mobile";
 
 import { HeroAssembly } from "./HeroAssembly";
 import { HERO_VAULT_ATMOSPHERE } from "./hero-finishes";
+
+/** Idle orbit — keeps turning through full 3D views; yields on drag, then resumes. */
+function IdleOrbitControls() {
+  const controlsRef = useRef<ComponentRef<typeof OrbitControls>>(null);
+  const dragging = useRef(false);
+  const goalPol = useRef(Math.PI / 2);
+  const nextGoalAt = useRef(0);
+
+  useFrame((state, delta) => {
+    const controls = controlsRef.current;
+    if (!controls || dragging.current) return;
+
+    const t = state.clock.elapsedTime;
+    if (t >= nextGoalAt.current) {
+      nextGoalAt.current = t + 1.4 + Math.random() * 1.8;
+      // Full vertical range (top → underside), avoiding exact poles
+      goalPol.current = 0.35 + Math.random() * (Math.PI - 0.7);
+    }
+
+    // Steady yaw so every side of the logo is seen
+    controls.setAzimuthalAngle(controls.getAzimuthalAngle() + delta * 0.85);
+
+    const ease = 1 - Math.exp(-2.2 * delta);
+    controls.setPolarAngle(
+      controls.getPolarAngle() + (goalPol.current - controls.getPolarAngle()) * ease,
+    );
+  });
+
+  return (
+    <OrbitControls
+      ref={controlsRef}
+      enablePan={false}
+      enableZoom
+      enableDamping
+      touches={{
+        ONE: TOUCH.ROTATE,
+        TWO: TOUCH.DOLLY_PAN,
+      }}
+      minDistance={2.2}
+      maxDistance={6.5}
+      minPolarAngle={0.28}
+      maxPolarAngle={Math.PI - 0.28}
+      dampingFactor={0.08}
+      rotateSpeed={0.85}
+      zoomSpeed={0.75}
+      onStart={() => {
+        dragging.current = true;
+      }}
+      onEnd={() => {
+        dragging.current = false;
+        nextGoalAt.current = 0;
+      }}
+    />
+  );
+}
 
 type Pointer = { x: number; y: number };
 
@@ -155,19 +210,7 @@ export function HeroVaultScene({ pointer, onReady }: HeroVaultSceneProps) {
 
       <HeroAssembly />
 
-      <OrbitControls
-        enablePan={false}
-        enableZoom
-        touches={{
-          ONE: TOUCH.ROTATE,
-          TWO: TOUCH.DOLLY_PAN,
-        }}
-        minDistance={2.2}
-        maxDistance={6.5}
-        dampingFactor={0.08}
-        rotateSpeed={0.85}
-        zoomSpeed={0.75}
-      />
+      <IdleOrbitControls />
     </>
   );
 }
