@@ -1,4 +1,4 @@
-import { BRAND_NAME } from "@/locales";
+import { BRAND_ALIASES, BRAND_NAME, BRAND_NAME_FA } from "@/locales";
 import { fa } from "@/locales/fa";
 import type { Locale, LocaleMessages } from "@/locales/types";
 
@@ -19,9 +19,11 @@ function ogLocale(locale: Locale) {
 }
 
 export function buildHead(messages: LocaleMessages = fa, locale: Locale = "fa") {
-  const { title, description, author } = messages.meta;
+  const { title, description, author, keywords } = messages.meta;
   const url = siteUrl("/");
   const image = ogImageUrl();
+  const siteName =
+    locale === "fa" ? `${BRAND_NAME} | ${BRAND_NAME_FA}` : BRAND_NAME;
 
   return {
     meta: [
@@ -33,12 +35,13 @@ export function buildHead(messages: LocaleMessages = fa, locale: Locale = "fa") 
       { title },
       { name: "description", content: description },
       { name: "author", content: author },
+      { name: "keywords", content: keywords },
       { name: "robots", content: "index, follow" },
       { property: "og:title", content: title },
       { property: "og:description", content: description },
       { property: "og:type", content: "website" },
       { property: "og:url", content: url },
-      { property: "og:site_name", content: BRAND_NAME },
+      { property: "og:site_name", content: siteName },
       { property: "og:image", content: image },
       { property: "og:image:alt", content: title },
       { property: "og:image:type", content: OG_IMAGE_TYPE },
@@ -69,15 +72,19 @@ function setMeta(selector: string, content: string) {
 export function syncDocumentMeta(messages: LocaleMessages, locale: Locale) {
   if (typeof document === "undefined") return;
 
-  const { title, description } = messages.meta;
+  const { title, description, keywords } = messages.meta;
   const url = siteUrl("/");
   const image = ogImageUrl();
+  const siteName =
+    locale === "fa" ? `${BRAND_NAME} | ${BRAND_NAME_FA}` : BRAND_NAME;
 
   document.title = title;
   setMeta('meta[name="description"]', description);
+  setMeta('meta[name="keywords"]', keywords);
   setMeta('meta[property="og:title"]', title);
   setMeta('meta[property="og:description"]', description);
   setMeta('meta[property="og:url"]', url);
+  setMeta('meta[property="og:site_name"]', siteName);
   setMeta('meta[property="og:image"]', image);
   setMeta('meta[property="og:image:alt"]', title);
   setMeta('meta[property="og:locale"]', ogLocale(locale));
@@ -91,6 +98,9 @@ export function syncDocumentMeta(messages: LocaleMessages, locale: Locale) {
 }
 
 export function buildJsonLd(messages: LocaleMessages, locale: Locale) {
+  const siteName =
+    locale === "fa" ? `${BRAND_NAME} | ${BRAND_NAME_FA}` : BRAND_NAME;
+
   return {
     "@context": "https://schema.org",
     "@graph": [
@@ -98,6 +108,7 @@ export function buildJsonLd(messages: LocaleMessages, locale: Locale) {
         "@type": "Organization",
         "@id": `${SITE_URL}/#organization`,
         name: BRAND_NAME,
+        alternateName: [...BRAND_ALIASES],
         url: SITE_URL,
         logo: siteUrl("/android-chrome-512x512.png"),
         email: SITE_EMAIL,
@@ -106,7 +117,8 @@ export function buildJsonLd(messages: LocaleMessages, locale: Locale) {
         "@type": "WebSite",
         "@id": `${SITE_URL}/#website`,
         url: SITE_URL,
-        name: BRAND_NAME,
+        name: siteName,
+        alternateName: [...BRAND_ALIASES],
         description: messages.meta.description,
         inLanguage: locale,
         publisher: { "@id": `${SITE_URL}/#organization` },

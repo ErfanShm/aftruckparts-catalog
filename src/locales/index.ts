@@ -13,8 +13,18 @@ const messages: Record<Locale, LocaleMessages> = { fa, en };
 
 export const DEFAULT_LOCALE: Locale = "fa";
 
-/** Brand name is always Latin — not translated per locale. */
+/** Latin brand lockup — used in UI chrome and logos. */
 export const BRAND_NAME = "Aftruckparts";
+
+/** Persian spoken/search form of the brand (SEO + schema alternateName). */
+export const BRAND_NAME_FA = "ای اف تراک پارتز";
+
+/** Extra brand aliases Google/schema can associate with the same entity. */
+export const BRAND_ALIASES = [
+  BRAND_NAME_FA,
+  "آف‌تراک‌پارتز",
+  "AF Truck Parts",
+] as const;
 
 export function getMessages(locale: Locale): LocaleMessages {
   return messages[locale];

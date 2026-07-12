@@ -8,6 +8,8 @@ export type LocaleMessages = {
     title: string;
     description: string;
     author: string;
+    /** Comma-separated; useful for non-Google crawlers; keep natural & short. */
+    keywords: string;
   };
   nav: {
     links: readonly string[];

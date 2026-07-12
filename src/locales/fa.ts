@@ -7,10 +7,12 @@ import type { LocaleMessages } from "./types";
 
 export const fa: LocaleMessages = {
   meta: {
-    title: "Aftruckparts | آرم کامیون ولوو و داف",
+    title: "Aftruckparts | ای اف تراک پارتز — آرم ولوو و داف",
     description:
-      "کاتالوگ آرم‌های کامیون ولوو و داف، قالپاق توپی و یراق کابین. سفارش آسان از سایت با گارانتی ۲ ساله.",
-    author: "Aftruckparts",
+      "ای اف تراک پارتز (Aftruckparts) — فروش آرم کامیون ولوو FH و داف XF، قالپاق توپی و یراق کابین. سفارش آنلاین، ارسال سریع، گارانتی ۲ ساله.",
+    author: "Aftruckparts | ای اف تراک پارتز",
+    keywords:
+      "ای اف تراک پارتز, Aftruckparts, آرم ولوو, آرم داف, آرم FH, آرم XF, قالپاق توپی, یراق کابین, قطعات کامیون",
   },
 
   nav: {

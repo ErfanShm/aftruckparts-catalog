@@ -8,10 +8,12 @@ import type { LocaleMessages } from "./types";
 
 export const en: LocaleMessages = {
   meta: {
-    title: "Aftruckparts | Volvo & DAF Truck Badges",
+    title: "Aftruckparts | Volvo FH & DAF XF Cab Badges",
     description:
-      "Catalog of Volvo and DAF cab badges, hub caps, and truck accessories. Easy online ordering with a 2-year warranty.",
+      "Aftruckparts — premium Volvo FH and DAF XF cab badges, hub caps, and truck accessories. Easy online ordering with a 2-year warranty.",
     author: "Aftruckparts",
+    keywords:
+      "Aftruckparts, Volvo FH badge, DAF XF badge, truck cab badges, hub caps, truck accessories",
   },
 
   nav: {
