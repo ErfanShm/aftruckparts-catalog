@@ -1,6 +1,6 @@
 /** Production site origin — override with VITE_SITE_URL when deploying. */
 export const SITE_URL = (
-  import.meta.env.VITE_SITE_URL ?? "https://aftruckparts.com"
+  import.meta.env.VITE_SITE_URL ?? "https://www.aftruckparts.com"
 ).replace(/\/$/, "");
 
 export const THEME_COLOR = "#07070a";
