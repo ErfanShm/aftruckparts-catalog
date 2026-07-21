@@ -23,7 +23,7 @@ import {
   quoteLineKey,
   removeQuoteQty,
 } from "@/lib/quote-lines";
-import { buildWhatsAppOrderUrl } from "@/data/contact";
+import { openWhatsAppChat } from "@/data/contact";
 import { buildWhatsAppMessage } from "@/locales";
 
 export const Route = createFileRoute("/")({
@@ -99,14 +99,7 @@ function CatalogPage() {
 
   const sendWhatsApp = (customer: string, details: string) => {
     if (!meetsQuoteMinimums(quoteItems, products)) return;
-    window.open(
-      buildWhatsAppOrderUrl(
-        encodeURIComponent(
-          buildWhatsAppMessage(locale, quoteItems, products, customer, details),
-        ),
-      ),
-      "_blank",
-    );
+    openWhatsAppChat(buildWhatsAppMessage(locale, quoteItems, products, customer, details));
   };
 
   return (

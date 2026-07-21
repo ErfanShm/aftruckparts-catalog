@@ -113,10 +113,17 @@ export function buildWhatsAppMessage(
     const finish = finishKey && p.showFinish ? finishMap[finishKey] : "";
     return t.line(p.code, p.name, finish, qty);
   });
-  const headerLines = [t.header, t.customer(customer)];
-  if (details) headerLines.push(t.details(details));
 
-  return [...headerLines, "", t.itemsHeading, ...lines, "", t.footer].join("\n");
+  return [
+    t.header,
+    t.customer(customer),
+    details ? t.details(details) : "",
+    t.itemsHeading,
+    ...lines,
+    t.footer,
+  ]
+    .filter(Boolean)
+    .join("\n");
 }
 
 export { DASTEH_KEYS, PRODUCT_CATALOG } from "@/data/products";

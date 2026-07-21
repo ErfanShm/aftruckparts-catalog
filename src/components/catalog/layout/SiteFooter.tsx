@@ -2,6 +2,7 @@ import type { ComponentType } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { Instagram, Mail, Phone, Send } from "lucide-react";
 
+import { openWhatsAppChat } from "@/data/contact";
 import { PAGE_SECTION_INDEX } from "@/lib/page-sections";
 import { useLocale } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
@@ -119,16 +120,27 @@ function ChannelGrid({
       <ul className="grid grid-cols-2 gap-x-8 gap-y-3 sm:gap-x-10">
         {links.map((link, i) => {
           const Icon = CHANNEL_ICONS[link.key];
+          const isWhatsApp = link.key === "whatsapp";
           const isExternal = link.href.startsWith("http");
+          // WhatsApp: same-tab / native scheme opens the app on phones; _blank often stays in browser.
+          const openInNewTab = isExternal && !isWhatsApp;
 
           return (
             <motion.li key={link.key} {...iconFade(i, reduced, baseDelay)} className="min-w-0">
               <a
                 href={link.href}
-                target={isExternal ? "_blank" : undefined}
-                rel={isExternal ? "noopener noreferrer" : undefined}
+                target={openInNewTab ? "_blank" : undefined}
+                rel={openInNewTab ? "noopener noreferrer" : undefined}
                 aria-label={link.label}
                 className={channelButtonClass}
+                onClick={
+                  isWhatsApp
+                    ? (e) => {
+                        e.preventDefault();
+                        openWhatsAppChat();
+                      }
+                    : undefined
+                }
               >
                 <span
                   className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-brand/[0.08] transition-colors group-hover:bg-brand/14 group-focus-visible:bg-brand/14"

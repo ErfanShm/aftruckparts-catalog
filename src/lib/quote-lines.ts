@@ -29,13 +29,13 @@ export type QtyRules = {
 export function productQtyRules(dasteh: ProductDasteh): QtyRules {
   switch (dasteh) {
     case "volvo-fh500":
-      return { startQty: 6, step: QUOTE_QTY_STEP, minOrder: 12, minOrderIsCategoryTotal: false };
+      return { startQty: 2, step: QUOTE_QTY_STEP, minOrder: 12, minOrderIsCategoryTotal: false };
     case "hub-caps":
-      return { startQty: 10, step: QUOTE_QTY_STEP, minOrder: 30, minOrderIsCategoryTotal: true };
+      return { startQty: 2, step: QUOTE_QTY_STEP, minOrder: 30, minOrderIsCategoryTotal: true };
     case "volvo-fh12-fh13":
     case "daf":
     default:
-      return { startQty: 10, step: QUOTE_QTY_STEP, minOrder: 10, minOrderIsCategoryTotal: false };
+      return { startQty: 2, step: QUOTE_QTY_STEP, minOrder: 10, minOrderIsCategoryTotal: false };
   }
 }
 

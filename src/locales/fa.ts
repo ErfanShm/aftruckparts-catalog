@@ -48,7 +48,7 @@ export const fa: LocaleMessages = {
     steps: [
       { title: "قطعه را انتخاب کنید", body: "روی عکس قطعه بزنید." },
       { title: "به لیست اضافه کنید", body: "با + تعداد را تنظیم کنید (هر بار ۲ عدد)." },
-      { title: "در واتساپ بفرستید", body: "لیست خرید را باز کنید و ارسال کنید." },
+      { title: "در واتساپ بفرستید", body: "لیست را باز کنید — پاسخ آنجا می‌آید." },
     ],
   },
 
@@ -137,15 +137,15 @@ export const fa: LocaleMessages = {
     emptyHint: "روی عکس قطعه بزنید، + را بزنید، بعد اینجا ارسال کنید.",
     itemsCount: (count) => `${count} عدد`,
     customerLabel: "نام",
-    customerPlaceholder: "نام یا شرکت",
+    customerPlaceholder: "نام یا نام شرکت",
     detailsLabel: "یادداشت",
-    detailsPlaceholder: "شهر، توضیح… (اختیاری)",
-    nameRequired: "نام را بنویسید تا ارسال شود",
+    detailsPlaceholder: "شهر، توضیح ارسال… (اختیاری)",
+    nameRequired: "نام‌تون رو بنویسید تا بدونیم به کی جواب بدیم",
     qtyHint: "هر بار ۲ عدد · حداقل سفارش بسته به دسته فرق دارد",
     minOrderRequired: (count) => `حداقل سفارش ${count} عدد لازم است`,
-    sendWhatsApp: "ارسال در واتساپ",
+    sendWhatsApp: "ادامه در واتساپ",
     sendWhatsAppArrow: "",
-    footerNote: "بدون پرداخت آنلاین",
+    footerNote: "واتساپ باز می‌شود — پاسخ آنجا می‌آید. پرداخت آنلاین نداریم.",
   },
 
   footer: {
@@ -193,12 +193,12 @@ export const fa: LocaleMessages = {
   },
 
   whatsapp: {
-    header: "📦 Aftruckparts — سفارش جدید",
-    customer: (name) => `👤 مشتری: ${name}`,
-    details: (text) => `📝 جزئیات بیشتر: ${text}`,
-    itemsHeading: "اقلام:",
+    header: "سلام وقتتون بخیر،\nمی‌خوام این قطعات رو سفارش بدم:\n",
+    customer: (name) => `👤 نام/شرکت: ${name}`,
+    details: (text) => `📝 توضیحات: ${text}`,
+    itemsHeading: "📦 لیست سفارش:",
     line: (code, name, finish, qty) =>
-      `• ${qty.toLocaleString("fa-IR")} عدد | ${code} (${finish ? `${name} - ${finish}` : name})`,
-    footer: "لطفاً قیمت، موجودی و زمان تحویل را اعلام کنید.",
+      `• ${qty.toLocaleString("fa-IR")} عدد ${finish ? `${name} — ${finish}` : name} (کد: ${code})`,
+    footer: "\nلطفاً قیمت و موجودی رو برام بفرستید. ممنون!",
   },
 };

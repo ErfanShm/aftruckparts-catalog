@@ -49,7 +49,7 @@ export const en: LocaleMessages = {
     steps: [
       { title: "Pick a part", body: "Tap the product image." },
       { title: "Add to your list", body: "Use + to set qty (±2 each tap)." },
-      { title: "Send on WhatsApp", body: "Open your list and send." },
+      { title: "Send on WhatsApp", body: "Open your list — we’ll reply there." },
     ],
   },
 
@@ -138,15 +138,15 @@ export const en: LocaleMessages = {
     emptyHint: "Tap a part, press +, then send from here.",
     itemsCount: (count) => `${count} pcs`,
     customerLabel: "Name",
-    customerPlaceholder: "Name or company",
+    customerPlaceholder: "Your name or company",
     detailsLabel: "Notes",
-    detailsPlaceholder: "City, notes… (optional)",
-    nameRequired: "Enter your name to send",
+    detailsPlaceholder: "City, delivery notes… (optional)",
+    nameRequired: "Add your name so we know who to reply to",
     qtyHint: "±2 per tap · minimum order depends on category",
     minOrderRequired: (count) => `Minimum order of ${count} pcs is required`,
-    sendWhatsApp: "Send on WhatsApp",
+    sendWhatsApp: "Continue in WhatsApp",
     sendWhatsAppArrow: "",
-    footerNote: "No online payment",
+    footerNote: "Opens WhatsApp — we'll reply there. No payment on the site.",
   },
 
   footer: {
@@ -187,11 +187,12 @@ export const en: LocaleMessages = {
   },
 
   whatsapp: {
-    header: "📦 Aftruckparts — New Order",
-    customer: (name) => `👤 Customer: ${name}`,
-    details: (text) => `📝 More details: ${text}`,
-    itemsHeading: "Items:",
-    line: (code, name, finish, qty) => `• ${qty}x | ${code} (${finish ? `${name} - ${finish}` : name})`,
-    footer: "Please confirm pricing, availability, and lead time.",
+    header: "Hi, hope you're having a good day!\nI would like to order these parts:\n",
+    customer: (name) => `👤 Name/Company: ${name}`,
+    details: (text) => `📝 Notes: ${text}`,
+    itemsHeading: "📦 Order List:",
+    line: (code, name, finish, qty) =>
+      `• ${qty}× ${finish ? `${name} — ${finish}` : name} (Code: ${code})`,
+    footer: "\nCould you please let me know the price and availability? Thank you!",
   },
 };
