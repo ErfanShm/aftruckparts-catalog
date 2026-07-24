@@ -10,5 +10,17 @@
       "srcSetWebp": "/catalog/products/13-euro-6/optimized/hero-480.webp 480w, /catalog/products/13-euro-6/optimized/hero-800.webp 800w, /catalog/products/13-euro-6/optimized/hero-1200.webp 1200w",
       "srcSetAvif": "/catalog/products/13-euro-6/optimized/hero-800.avif 800w, /catalog/products/13-euro-6/optimized/hero-1200.avif 1200w"
     }
+  },
+  "mounted": {
+    "configVersion": 1,
+    "sourceHash": "79f077351ce8f711f90acaf94f97c9d655d6a1811631d1790fc4bcdddb900448",
+    "entry": {
+      "src": "/catalog/products/13-euro-6/optimized/mounted-1200.webp",
+      "width": 1200,
+      "height": 1490,
+      "blurDataURL": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAMAAoDASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAwQFBv/EACEQAAIBAwQDAQAAAAAAAAAAAAECAwAEBRESIUEiMVFh/8QAFAEBAAAAAAAAAAAAAAAAAAAAAf/EABYRAQEBAAAAAAAAAAAAAAAAAAABMf/aAAwDAQACEQMRAD8AstkoBLJGVcSFd7gKWA146rJre5VFCpZttA0GqH1Tt+7ognVyHHH4RQUyVzsXz6H2nBX/2Q==",
+      "srcSetWebp": "/catalog/products/13-euro-6/optimized/mounted-480.webp 480w, /catalog/products/13-euro-6/optimized/mounted-800.webp 800w, /catalog/products/13-euro-6/optimized/mounted-1200.webp 1200w",
+      "srcSetAvif": "/catalog/products/13-euro-6/optimized/mounted-800.avif 800w, /catalog/products/13-euro-6/optimized/mounted-1200.avif 1200w"
+    }
   }
 }

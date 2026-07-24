@@ -127,7 +127,8 @@ export const CATALOG_PAGES: CatalogPageProduct[] = [
   entry({ page: 23, spec: "IV", brand: "Volvo", dasteh: "volvo-fh500", finishKey: "matte", category: "model-badge", showFinish: false, code: "ATP-INST-IV", names: { fa: "آرم IV", en: "IV" }, description: { fa: "آرم دایره‌ای IV با راهنمای نصب FH/FM.", en: "IV badge with FH/FM fitting guide." }, modelCompat: "FH / FM" }),
   entry({ page: 24, spec: "VI", brand: "Volvo", dasteh: "volvo-fh500", finishKey: "matte", category: "model-badge", showFinish: false, code: "ATP-INST-VI", names: { fa: "آرم VI", en: "VI" }, description: { fa: "آرم دایره‌ای VI (Euro 6) با راهنمای نصب FH/FM.", en: "VI (Euro 6) badge with FH/FM fitting guide." }, modelCompat: "FH / FM" }),
   entry({ page: 25, spec: "Steel", brand: "AF Accessories", dasteh: "hub-caps", finishKey: "steel", category: "accessory", code: "ATP-HUB-STEEL", names: { fa: "قالپاق استیل", en: "Steel hub cap" }, description: { fa: "قالپاق وسط توپی استیل براق، مناسب ولوو، رنو و C&C.", en: "Polished steel center hub cap for Volvo, Renault and C&C." }, modelCompat: "Volvo / Renault / C&C" }),
-  entry({ page: 26, spec: "Black", brand: "AF Accessories", dasteh: "hub-caps", finishKey: "glossy", category: "accessory", code: "ATP-HUB-BLACK", names: { fa: "قالپاق مشکی", en: "Black hub cap" }, description: { fa: "قالپاق وسط توپی مشکی براق، مناسب ولوو، رنو و C&C.", en: "Glossy black center hub cap for Volvo, Renault and C&C." }, modelCompat: "Volvo / Renault / C&C" }),
+  entry({ page: 26, spec: "Black", brand: "AF Accessories", dasteh: "hub-caps", finishKey: "glossy", category: "accessory", code: "ATP-HUB-BLACK", names: { fa: "قالپاق مشکی براق", en: "Glossy black hub cap" }, description: { fa: "قالپاق وسط توپی مشکی براق، مناسب ولوو، رنو و C&C.", en: "Glossy black center hub cap for Volvo, Renault and C&C." }, modelCompat: "Volvo / Renault / C&C" }),
+  entry({ page: 27, spec: "Black", brand: "AF Accessories", dasteh: "hub-caps", finishKey: "matte", category: "accessory", code: "ATP-HUB-BLACK-M", names: { fa: "قالپاق مشکی مات", en: "Matte black hub cap" }, description: { fa: "قالپاق وسط توپی مشکی مات، مناسب ولوو، رنو و C&C — همان شکل قالپاق مشکی براق با روکش مات.", en: "Matte black center hub cap for Volvo, Renault and C&C — same shape as the glossy black hub, satin matte finish." }, modelCompat: "Volvo / Renault / C&C" }),
 ];
 
 /** Folder slug per catalog page — images live in public/catalog/products/{slug}/ */
@@ -158,6 +159,7 @@ export const PRODUCT_FOLDER_SLUGS: Record<number, string> = {
   24: "24-install-vi",
   25: "25-hub-steel",
   26: "26-hub-black",
+  27: "27-hub-black-matte",
 };
 
 export function productFolderSlug(page: number): string {

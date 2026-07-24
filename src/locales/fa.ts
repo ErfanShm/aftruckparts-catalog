@@ -36,7 +36,7 @@ export const fa: LocaleMessages = {
     zoomHint: "نیشگون برای بزرگ‌نمایی",
     scrollZoomHint: "اسکرول برای بزرگ‌نمایی",
     stats: {
-      skus: { label: "کد کالا", value: "۲۶+" },
+      skus: { label: "کد کالا", value: "۲۷+" },
       brands: { label: "برند", value: "۳" },
       warranty: { label: "گارانتی", value: "۲۴ ماه" },
     },

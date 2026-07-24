@@ -1,0 +1,26 @@
+{
+  "hero": {
+    "configVersion": 1,
+    "sourceHash": "e17862d3a16d6fb7851cfe467102f05620fc281ab44c1a504589ed795e7de942",
+    "entry": {
+      "src": "/catalog/products/27-hub-black-matte/optimized/hero-1200.webp",
+      "width": 1200,
+      "height": 1200,
+      "blurDataURL": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAKAAoDASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAgMEBv/EACAQAAEDAgcAAAAAAAAAAAAAAAEAAgMRQRMhIjJhcZH/xAAUAQEAAAAAAAAAAAAAAAAAAAAD/8QAFxEBAQEBAAAAAAAAAAAAAAAAAgABEv/aAAwDAQACEQMRAD8Ay0cUToAa6r8JGFJZjvETRmFe3aOkoGKNvm//2Q==",
+      "srcSetWebp": "/catalog/products/27-hub-black-matte/optimized/hero-480.webp 480w, /catalog/products/27-hub-black-matte/optimized/hero-800.webp 800w, /catalog/products/27-hub-black-matte/optimized/hero-1200.webp 1200w",
+      "srcSetAvif": "/catalog/products/27-hub-black-matte/optimized/hero-800.avif 800w, /catalog/products/27-hub-black-matte/optimized/hero-1200.avif 1200w"
+    }
+  },
+  "mounted": {
+    "configVersion": 1,
+    "sourceHash": "9485a56469060bef8320b55ab557d141eab195b78df19b851778c1eda730b915",
+    "entry": {
+      "src": "/catalog/products/27-hub-black-matte/optimized/mounted-1122.webp",
+      "width": 1122,
+      "height": 1402,
+      "blurDataURL": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAMAAoDASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAQIEBf/EACAQAAEEAgEFAAAAAAAAAAAAAAEAAgMhERJhBCJBUZH/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8AzunjjlgDnl+XbdwIAZj2POVHkG7SGMXbr5Q1HP1B/9k=",
+      "srcSetWebp": "/catalog/products/27-hub-black-matte/optimized/mounted-480.webp 480w, /catalog/products/27-hub-black-matte/optimized/mounted-800.webp 800w, /catalog/products/27-hub-black-matte/optimized/mounted-1122.webp 1122w",
+      "srcSetAvif": "/catalog/products/27-hub-black-matte/optimized/mounted-800.avif 800w, /catalog/products/27-hub-black-matte/optimized/mounted-1122.avif 1122w"
+    }
+  }
+}

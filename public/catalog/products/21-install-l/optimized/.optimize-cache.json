@@ -10,5 +10,17 @@
       "srcSetWebp": "/catalog/products/21-install-l/optimized/hero-480.webp 480w, /catalog/products/21-install-l/optimized/hero-800.webp 800w, /catalog/products/21-install-l/optimized/hero-1200.webp 1200w",
       "srcSetAvif": "/catalog/products/21-install-l/optimized/hero-800.avif 800w, /catalog/products/21-install-l/optimized/hero-1200.avif 1200w"
     }
+  },
+  "mounted": {
+    "configVersion": 1,
+    "sourceHash": "765ce7c04842df0635931ebe76c7d02e62ddc751ef354d904afa8177912d9bf8",
+    "entry": {
+      "src": "/catalog/products/21-install-l/optimized/mounted-1200.webp",
+      "width": 1200,
+      "height": 1490,
+      "blurDataURL": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAMAAoDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABQME/8QAIRAAAgEDBAMBAAAAAAAAAAAAAQIDAAQRBRIx0SEiUeH/xAAVAQEBAAAAAAAAAAAAAAAAAAAAAf/EABURAQEAAAAAAAAAAAAAAAAAAAAR/9oADAMBAAIRAxEAPwCcthIkrI13lifn7WtNMvAigX+BjjYe6NuJxLcM7wxls8+3dIpqEpRTtQeOBnurSP/Z",
+      "srcSetWebp": "/catalog/products/21-install-l/optimized/mounted-480.webp 480w, /catalog/products/21-install-l/optimized/mounted-800.webp 800w, /catalog/products/21-install-l/optimized/mounted-1200.webp 1200w",
+      "srcSetAvif": "/catalog/products/21-install-l/optimized/mounted-800.avif 800w, /catalog/products/21-install-l/optimized/mounted-1200.avif 1200w"
+    }
   }
 }

@@ -10,5 +10,17 @@
       "srcSetWebp": "/catalog/products/17-volvo/optimized/hero-480.webp 480w, /catalog/products/17-volvo/optimized/hero-800.webp 800w, /catalog/products/17-volvo/optimized/hero-1200.webp 1200w",
       "srcSetAvif": "/catalog/products/17-volvo/optimized/hero-800.avif 800w, /catalog/products/17-volvo/optimized/hero-1200.avif 1200w"
     }
+  },
+  "mounted": {
+    "configVersion": 1,
+    "sourceHash": "6110383db3adf235cc5f67ddaaeb21aec9c8d998d97d4d8f791ef4161fab454f",
+    "entry": {
+      "src": "/catalog/products/17-volvo/optimized/mounted-1200.webp",
+      "width": 1200,
+      "height": 1490,
+      "blurDataURL": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAMAAoDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABAUG/8QAIRAAAgECBgMAAAAAAAAAAAAAAQIDABIEBRETIjEhQYH/xAAVAQEBAAAAAAAAAAAAAAAAAAAAAf/EABURAQEAAAAAAAAAAAAAAAAAAAAR/9oADAMBAAIRAxEAPwAs2cWzOGij8MQTeRqR8qhHj8TJGrrYFYAga9CsrKW3W5HumxlttebdD3UpH//Z",
+      "srcSetWebp": "/catalog/products/17-volvo/optimized/mounted-480.webp 480w, /catalog/products/17-volvo/optimized/mounted-800.webp 800w, /catalog/products/17-volvo/optimized/mounted-1200.webp 1200w",
+      "srcSetAvif": "/catalog/products/17-volvo/optimized/mounted-800.avif 800w, /catalog/products/17-volvo/optimized/mounted-1200.avif 1200w"
+    }
   }
 }

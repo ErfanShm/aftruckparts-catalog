@@ -37,7 +37,7 @@ export const en: LocaleMessages = {
     zoomHint: "Pinch to zoom",
     scrollZoomHint: "Scroll to zoom",
     stats: {
-      skus: { label: "SKUs", value: "26+" },
+      skus: { label: "SKUs", value: "27+" },
       brands: { label: "Brands", value: "3" },
       warranty: { label: "Warranty", value: "24 mo" },
     },

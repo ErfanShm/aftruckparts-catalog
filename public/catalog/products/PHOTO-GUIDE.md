@@ -1,4 +1,4 @@
-# Product photo guide — all 26 SKUs
+# Product photo guide — all 27 SKUs
 
 Drop **source** files into each product folder below. Accepted formats: **PNG, JPEG, or WebP**, sRGB, dark background `#020812` (match site void).
 
@@ -30,7 +30,7 @@ Every product — model, HP, emissions, technology, installation, and hub caps �
 
 | Category | Products | Photos each | Total |
 |----------|----------|-------------|-------|
-| All categories | 26 | **2** | **52** |
+| All categories | 27 | **2** | **54** |
 
 Grid always uses **`hero.webp` only**. Detail view uses **hero** + **mounted**.
 
@@ -43,7 +43,7 @@ Grid always uses **`hero.webp` only**. Detail view uses **hero** + **mounted**.
 | Folder | Code | Spec | Finish | Photos |
 |--------|------|------|--------|--------|
 | `01-nh-12` | ATP-NH-12 | NH 12 | matte | hero, mounted (classic Volvo cab) |
-| `02-fm9` | ATP-FM9 | FM9 | matte | hero, mounted (FM cab door/front) |
+| `02-fm9` | ATP-FM9 | FM9 | matte | hero, mounted (**FM cab front** model-badge zone) |
 | `07-volvo-fh12` | ATP-VOLVO | VOLVO grille | matte | hero, mounted (**جلوپنجره** / FH12 grille center) |
 | `16-fh` | ATP-FH | FH | matte-glossy | hero, mounted (FH front below grille) |
 | `17-volvo` | ATP-VOLVO-MG | VOLVO grille | matte-glossy | hero, mounted (**جلوپنجره** / FH grille center) — **different finish from page 7** |
@@ -66,35 +66,36 @@ Grid always uses **`hero.webp` only**. Detail view uses **hero** + **mounted**.
 
 | Folder | Code | Spec | Finish | Photos |
 |--------|------|------|--------|--------|
-| `08-eev` | ATP-EEV | EEV | matte-glossy | hero, mounted (cab/chassis norm location) |
-| `11-euro-4` | ATP-EURO-4 | EURO 4 | matte | hero, mounted |
-| `12-euro-5` | ATP-EURO-5 | EURO 5 | matte | hero, mounted |
-| `13-euro-6` | ATP-EURO-6 | EURO 6 | matte-glossy | hero, mounted |
+| `08-eev` | ATP-EEV | EEV | matte-glossy | hero, mounted (**cab side door** — same door-emblem zone as HP) |
+| `11-euro-4` | ATP-EURO-4 | EURO 4 | matte | hero, mounted (**cab side door**) |
+| `12-euro-5` | ATP-EURO-5 | EURO 5 | matte | hero, mounted (**cab side door**) |
+| `13-euro-6` | ATP-EURO-6 | EURO 6 | matte-glossy | hero, mounted (**cab side door**) |
 
 ### Technology badges (2 photos: hero + mounted)
 
 | Folder | Code | Spec | Finish | Photos |
 |--------|------|------|--------|--------|
-| `09-i-shift` | ATP-I-Shift | I-Shift | matte-glossy | hero, mounted (cab tech badge area) |
-| `19-i-save` | ATP-I-SAVE | I-SAVE | matte-glossy | hero, mounted |
+| `09-i-shift` | ATP-I-Shift | I-Shift | matte-glossy | hero, mounted (**cab side door** exterior) |
+| `19-i-save` | ATP-I-SAVE | I-SAVE | matte-glossy | hero, mounted (**cab side door** exterior) |
 
 ### Installation badges (2 photos: hero + mounted)
 
-Mount on **جلوپنجره** (front grille). **L = چپ (left, fixed). V / IV / VI = راست (right).**
+Mount on the **black upper fascia** beside the Volvo **iron mark** (below windshield / above main grille) — inspired by real FH front. **L = چپ (left of iron mark). V / IV / VI = راست (right of iron mark).**
 
 | Folder | Code | Spec | Photos |
 |--------|------|------|--------|
-| `21-install-l` | ATP-Installation-L | L (low noise) | hero (green L badge), mounted (**جلوپنجره — left side**) |
-| `22-install-v` | ATP-Installation-V | V | hero, mounted (**جلوپنجره — right side**) |
-| `23-install-iv` | ATP-Installation-IV | IV | hero, mounted (**جلوپنجره — right side**) |
-| `24-install-vi` | ATP-Installation-VI | VI | hero, mounted (**جلوپنجره — right side**) |
+| `21-install-l` | ATP-Installation-L | L (low noise) | hero (green L badge), mounted (**left of iron mark**) |
+| `22-install-v` | ATP-Installation-V | V | hero, mounted (**right of iron mark**) |
+| `23-install-iv` | ATP-Installation-IV | IV | hero, mounted (**right of iron mark**) |
+| `24-install-vi` | ATP-Installation-VI | VI | hero, mounted (**right of iron mark**) |
 
 ### Accessories — hub caps (2 photos: hero + mounted)
 
 | Folder | Code | Spec | Finish | Photos |
 |--------|------|------|--------|--------|
-| `25-hub-steel` | ATP-Hub-Steel | Hub Steel | steel | hero (cap face), mounted (**on wheel/axle**) |
-| `26-hub-black` | ATP-Hub-Black | Hub Black | glossy | hero, mounted (on wheel) |
+| `25-hub-steel` | ATP-Hub-Steel | Hub Steel | steel | hero (cap face), mounted (**tandem white-steel duals** + leaf spring + dirt — ref `image_d80999.png`, steel caps on hubs) |
+| `26-hub-black` | ATP-Hub-Black | Hub Black | glossy | hero (family studio lock), mounted (**front-on** polished rim + glossy hub + ATIS) |
+| `27-hub-black-matte` | ATP-HUB-BLACK-M | Hub Black | matte | hero (**twin of 26**, matte only), mounted (**twin of 26 framing**, matte hub only) |
 
 ---
 
@@ -102,7 +103,7 @@ Mount on **جلوپنجره** (front grille). **L = چپ (left, fixed). V / IV /
 
 **hero** — Standalone raised letterforms on **dark carbon-fiber studio floor**, void black `#09090b` behind, navy/cyan rim light. **NO rectangular backing plate** behind the letters — letters rest on carbon fiber, not on a metal badge plate.
 
-**mounted** — Real truck or realistic mock; buyer must see **where it goes** and **scale**. Grille badges (VOLVO, XF, L/V/IV/VI) shoot **جلوپنجره**; installation L always **left**, V/IV/VI always **right**.
+**mounted** — Real truck; buyer must see **OEM-standard place, position, and camera way**. Door badges (HP, EURO, EEV, I-Shift, I-SAVE) = **straight side-door**. Grille letters (VOLVO, XF) = **head-on جلوپنجره**. Installation L/V/IV/VI = **black upper fascia beside iron mark** (L left, V/IV/VI right). FH / NH 12 / FM9 = **front panel**. Hub = reference-matched axle/wheel setup.
 
 ---
 
