@@ -13,14 +13,14 @@
   },
   "mounted": {
     "configVersion": 1,
-    "sourceHash": "353184609908d11e278049dae8b80295d04af7fc41ad5de8ad45183972f2cfe7",
+    "sourceHash": "f70d1a5c4fb15e7d663dfff0dad515980c74265b295240932515019e8e3b2b35",
     "entry": {
-      "src": "/catalog/products/16-fh/optimized/mounted-1200.webp",
-      "width": 1200,
-      "height": 1490,
-      "blurDataURL": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAMAAoDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABQIE/8QAHBAAAgIDAQEAAAAAAAAAAAAAAQIDBAARIQXR/8QAFAEBAAAAAAAAAAAAAAAAAAAAAv/EABcRAAMBAAAAAAAAAAAAAAAAAAABESH/2gAMAwEAAhEDEQA/ALt+xM1thHM8ab4nAcXj9muI1DLIW0NkIT3BrVNJbJlLuGY91r5mhYlRQoHANDDWNyYf/9k=",
-      "srcSetWebp": "/catalog/products/16-fh/optimized/mounted-480.webp 480w, /catalog/products/16-fh/optimized/mounted-800.webp 800w, /catalog/products/16-fh/optimized/mounted-1200.webp 1200w",
-      "srcSetAvif": "/catalog/products/16-fh/optimized/mounted-800.avif 800w, /catalog/products/16-fh/optimized/mounted-1200.avif 1200w"
+      "src": "/catalog/products/16-fh/optimized/mounted-1122.webp",
+      "width": 1122,
+      "height": 1402,
+      "blurDataURL": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAMAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAABQb/xAAiEAACAQMCBwAAAAAAAAAAAAABAgADBBEFIRITMTJScdH/xAAVAQEBAAAAAAAAAAAAAAAAAAACA//EABYRAQEBAAAAAAAAAAAAAAAAAAEAEf/aAAwDAQACEQMRAD8ABt0JdSGVidsL9lMuq0Cozbt085KWx46gHb6jvMYbZh1qOIX/2Q==",
+      "srcSetWebp": "/catalog/products/16-fh/optimized/mounted-480.webp 480w, /catalog/products/16-fh/optimized/mounted-800.webp 800w, /catalog/products/16-fh/optimized/mounted-1122.webp 1122w",
+      "srcSetAvif": "/catalog/products/16-fh/optimized/mounted-800.avif 800w, /catalog/products/16-fh/optimized/mounted-1122.avif 1122w"
     }
   }
 }

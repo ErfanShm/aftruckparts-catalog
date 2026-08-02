@@ -92,27 +92,26 @@ centered composition letterforms fill 70% of frame, 1:1 aspect ratio, 8K quality
 
 **Critical — OEM mount first:** Every mounted shot must show the badge in its **real factory / aftermarket-standard position** on the correct truck. Do **not** invent alternate places (fairing, bumper, wrong panel). Place is fixed per product group below. Only **truck color + daylight mood** may vary slightly so photos are not identical clones.
 
-Shared realism rules:
+Shared realism rules (keep each product prompt short — this order):
 
 ```
-Photorealistic handheld documentary photograph of a real European heavy truck,
-{BADGE_TEXT} badge sharp and clearly readable at the OEM-standard {MOUNT_LOCATION},
-mounted the factory way — correct height, alignment, and orientation for that badge type,
-authentic paint imperfections, fine road dust, micro-scratches on paint, real panel gaps,
-natural daylight only — no studio softboxes, no rim-light glow, no CGI sheen,
-{CAMERA_WAY}, badge is the clear focal point,
-B2B parts catalog photography, no people, no extra logos except OEM badges already on the truck,
-realistic color science, not CGI, not stock-photo perfection, 4:5 vertical crop
+Photorealistic documentary photo, {TRUCK COLOR + MODEL}, {CAMERA},
+{BADGE} at {MOUNT_LOCATION}, letters sharp and readable,
+{FINISH}, soft natural daylight, light road dust,
+real truck photograph, natural colors, no people, 4:5
 ```
+
+Do **not** cross-reference other products (“like I-Shift”, “duller than 17”). Spell finish and framing directly.
 
 ### OEM-standard mount table (do not change place or camera way)
 
 | Product group | Standard place `{MOUNT_LOCATION}` | Standard position & way | Standard camera `{CAMERA_WAY}` |
 |---------------|-----------------------------------|-------------------------|--------------------------------|
-| **HP** 420–750 | Cab **side door** outer skin | Lower door panel **below the window line**, roughly mid-door height, factory door-emblem zone (OEM “door cover” / PS badge); italic HP digits leaning forward; both doors get the same badge in real life — show **one door clearly**. **Exception — 500:** mount **beside / around the door handle** (اینور دستگیره), same framing as I-Shift | Straight side-door view, 50–85mm, badge centered, door handle and window edge for scale. **500:** tight handle + badge crop like I-Shift |
-| **EURO 4 / 5 / 6 / EEV** | Cab **side door** outer skin | Same door-emblem family as HP — lower/mid door panel below window; emissions text on door skin (not chassis fairing, not bumper). **EURO 4:** same as EURO 5 but **tighter crop**, badge a bit **smaller** in frame. **EURO 5:** **pure matte** + **tight crop like I-Shift** (اینور دستگیره، کاپ) | Straight side-door; EURO 5 = 50mm tight handle + badge crop like I-Shift; EURO 4 = tighter crop |
+| **HP** 420–750 | Cab **side door** outer skin | Lower door panel **below the window line**, roughly mid-door height, factory door-emblem zone (OEM “door cover” / PS badge); italic HP digits leaning forward; both doors get the same badge in real life — show **one door clearly**. **Exception — 500 & 750:** mount **beside / around the door handle** (اینور دستگیره), same framing as I-Shift — badge large in frame | Straight side-door view, 50–85mm, badge centered, door handle and window edge for scale. **500 & 750:** 50mm tight handle + badge crop like I-Shift; badge fills ~35–45% of frame |
+| **EURO 4 / 5 / 6 / EEV** | Cab **side door** outer skin | Same door-emblem family as HP — lower/mid door panel below window; emissions text on door skin (not chassis fairing, not bumper). **EURO 4:** same as EURO 5 but **tighter crop**, badge a bit **smaller** in frame. **EURO 5:** **pure matte** + **tight crop** beside handle. **EURO 6:** mid crop on white door near handle — **EURO 6 alone**, no HP digits; more door/cab visible than a detail macro | Straight side-door; EURO 5 = 50mm tight handle + badge; EURO 4 = tighter crop; EURO 6 = 50mm medium crop, door + handle + window edge in frame |
 | **I-Shift / I-SAVE** | Cab **side door** exterior | Technology side badge on the **cabin door skin** beside / around the **door handle** (اینور دستگیره) | Straight side-door view, 50mm, tight handle + badge crop |
-| **VOLVO** (07, 17) | Front **grille center** (جلوپنجره) | Horizontal **VOLVO** letters centered on the main grille face | Head-on grille crop, slight low angle, 35–50mm |
+| **VOLVO FH12** (07) | Upper **front cab panel** below windshield | First-gen FH12 (1993–2002): small chrome **VOLVO** on upper cab panel **left**; small **FH12** on upper cab panel **right**; grille center = iron-mark diagonal only — **no** large VOLVO letters across grille | Head-on front crop, slight low angle, 35–50mm, upper panel + iron-mark grille visible |
+| **VOLVO later FH** (17) | Front **grille center** | Later FH generations: horizontal **VOLVO** letters across main grille face / iron-mark zone | Head-on grille crop, slight low angle, 35–50mm |
 | **FH** (16) | Front **lower logo panel** | **FH** letters on the front panel **below the windscreen / below the main grille** (FH4 front lower logo zone) | Head-on or slight 3/4 front, 35mm, front panel + grille context |
 | **DAF XF** (18) | DAF **front grille center** (جلوپنجره) | **XF** emblem centered on the main grille panel — DAF cab styling, not Volvo | Head-on grille crop, 35mm |
 | **NH 12** (01) | Classic Volvo **NH cab front** | Model badge on the **front cab face** / front model-badge zone above bumper | Head-on or slight 3/4 front, 35mm |
@@ -226,11 +225,10 @@ centered composition letterforms fill 70% of frame, 1:1 aspect ratio, 8K quality
 
 **mounted**
 ```
-Photorealistic handheld documentary photograph of a white Volvo NH classic conventional cab tractor,
-OEM-standard mount: "NH 12" raised model badge on the FRONT CAB FACE model-badge zone above the bumper — not on the door, not on the bumper itself,
-head-on or slight three-quarter front, 35mm, cab front fills frame, badge sharp and clearly readable,
-soft overcast daylight, light road dust on white paint, authentic aged conventional cab proportions,
-natural daylight only, no CGI sheen, no people, realistic colors, 4:5 vertical crop
+Photorealistic documentary photo, white Volvo NH classic truck front, head-on slight three-quarter, 35mm,
+raised "NH 12" badge on the front cab face above the bumper, letters sharp and readable,
+satin matte chrome finish, soft overcast daylight, light road dust on white paint,
+real truck photograph, natural colors, no people, 4:5
 ```
 
 ---
@@ -254,11 +252,10 @@ centered composition letterforms fill 70% of frame, 1:1 aspect ratio, 8K quality
 
 **mounted**
 ```
-Photorealistic handheld documentary photograph of a dark blue Volvo FM series truck,
-OEM-standard mount: "FM9" model badge on the FRONT CAB PANEL / front model-badge zone of the FM cab — not on the side door, not on the bumper,
-head-on or slight three-quarter front, 35mm, front panel and badge sharp and clearly readable,
-bright midday sun, dark blue fleet paint with light dust, authentic FM cab front proportions,
-natural daylight only, no CGI sheen, no people, realistic colors, 4:5 vertical crop
+Photorealistic documentary photo, dark blue Volvo FM truck front, head-on slight three-quarter, 35mm,
+raised "FM9" badge on the front cab panel, letters sharp and readable,
+satin matte chrome finish, bright midday sun, light dust on dark blue paint,
+real truck photograph, natural colors, no people, 4:5
 ```
 
 ---
@@ -283,11 +280,10 @@ centered composition letterforms fill 70% of frame, 1:1 aspect ratio, 8K quality
 
 **mounted**
 ```
-Photorealistic handheld documentary photograph of a red Volvo FH tractor,
-OEM-standard mount: "420" horsepower badge on the CAB SIDE DOOR outer skin — lower door panel below the window line, factory door-emblem zone (mid-door height), italic forward-leaning digits,
-straight side-door camera, 50–85mm, badge centered, door handle and window edge visible for scale — not on grille, not on fairing,
-soft overcast daylight, red paint with light road grit on lower door, exact text "420",
-natural daylight only, no CGI glow, no people, realistic colors, 4:5 vertical crop
+Photorealistic documentary photo, red Volvo FH cab side, straight side view, 50mm,
+"420" badge on the side door below the window, mid-door height, italic forward-leaning digits, door handle and window edge visible,
+satin matte chrome finish, soft overcast daylight, light road grit on red paint,
+real truck photograph, natural colors, no people, 4:5
 ```
 
 ---
@@ -312,11 +308,10 @@ centered composition letterforms fill 70% of frame, 1:1 aspect ratio, 8K quality
 
 **mounted**
 ```
-Photorealistic handheld documentary photograph of a silver metallic Volvo FH or FM tractor,
-OEM-standard mount: matte "460" horsepower badge on the CAB SIDE DOOR outer skin — lower door panel below the window line, factory door-emblem zone, italic forward-leaning digits (duller than glossy 460),
-straight side-door camera, 50–85mm, badge centered, door handle and window edge for scale,
-soft daylight, silver paint with light dust film, exact text "460",
-natural daylight only, no people, not CGI, 4:5 vertical crop
+Photorealistic documentary photo, silver Volvo FH cab side, straight side view, 50mm,
+"460" badge on the side door below the window, mid-door height, italic forward-leaning digits, door handle and window edge visible,
+satin matte chrome finish, soft daylight, light dust on silver paint,
+real truck photograph, natural colors, no people, 4:5
 ```
 
 ---
@@ -341,11 +336,10 @@ centered composition letterforms fill 70% of frame, 1:1 aspect ratio, 8K quality
 
 **mounted**
 ```
-Photorealistic handheld documentary photograph of a grey Volvo FH tractor,
-OEM-standard mount: "440" horsepower badge on the CAB SIDE DOOR outer skin — lower door panel below the window line, factory door-emblem zone, italic forward-leaning digits,
-straight side-door camera, 50–85mm, badge centered, door handle and window edge for scale,
-soft overcast daylight, grey paint with fine micro-scratches, exact text "440",
-natural daylight only, no people, not CGI, 4:5 vertical crop
+Photorealistic documentary photo, grey Volvo FH cab side, straight side view, 50mm,
+"440" badge on the side door below the window, mid-door height, italic forward-leaning digits, door handle and window edge visible,
+satin matte chrome finish, soft overcast daylight, fine scratches on grey paint,
+real truck photograph, natural colors, no people, 4:5
 ```
 
 ---
@@ -370,15 +364,14 @@ centered composition letterforms fill 70% of frame, 1:1 aspect ratio, 8K quality
 
 **mounted**
 ```
-Photorealistic handheld documentary photograph of a black Volvo FH tractor,
-OEM-standard mount: "480" horsepower badge on the CAB SIDE DOOR outer skin — lower door panel below the window line, factory door-emblem zone, italic forward-leaning digits,
-straight side-door camera, 50–85mm, badge centered, door handle and window edge for scale — not rear-side angle, not grille,
-soft flat daylight, black paint with fine swirl marks and light road dust, exact text "480",
-natural daylight only, no people, not CGI, 4:5 vertical crop
+Photorealistic documentary photo, black Volvo FH cab side, straight side view, 50mm,
+"480" badge on the side door below the window, mid-door height, italic forward-leaning digits, door handle and window edge visible,
+satin matte chrome finish, soft flat daylight, swirl marks and light dust on black paint,
+real truck photograph, natural colors, no people, 4:5
 ```
 ---
 
-## 07-volvo-fh12 · VOLVO grille matte (FH12)
+## 07-volvo-fh12 · VOLVO cab-panel matte (FH12)
 
 **hero**
 ```
@@ -397,11 +390,13 @@ centered composition letterforms fill 70% of frame, 1:1 aspect ratio, 8K quality
 
 **mounted**
 ```
-Photorealistic handheld documentary photograph of a white Volvo FH12 tractor,
-OEM-standard mount: "VOLVO" lettering centered on the FRONT GRILLE FACE (جلوپنجره) — horizontal letters across grille center only, not on bumper, not on door,
-head-on grille crop with slight low angle, 35–50mm, VOLVO band sharp and correctly spaced, grille mesh visible,
-soft cool daylight, matte chrome VOLVO (duller than glossy VOLVO variant), white cab with light road film,
-natural daylight only, no CGI glow, no people, realistic colors, 4:5 vertical crop
+Photorealistic documentary photo, first-generation Volvo FH12 (1993–2002), white truck front, head-on slight low angle, 50mm,
+small chrome "VOLVO" badge on the upper front cab panel below the windshield, left side,
+small "FH12" badge on the upper front cab panel, right side,
+classic Volvo iron-mark diagonal grille in the center — no large VOLVO letters across the grille,
+satin matte chrome VOLVO, soft diffuse reflections, brushed metal, no mirror shine,
+soft cool daylight, light road dust on white paint,
+real truck photograph, natural colors, no people, 4:5
 ```
 
 ---
@@ -426,11 +421,10 @@ centered composition letterforms fill 70% of frame, 1:1 aspect ratio, 8K quality
 
 **mounted**
 ```
-Photorealistic handheld documentary photograph of a yellow Volvo FH or FM tractor,
-OEM-standard mount: small "EEV" emissions badge on the CAB SIDE DOOR outer skin — lower/mid door panel below the window line, same door-emblem family as HP badges — NOT on chassis fairing, NOT on bumper,
-straight side-door camera, 50–85mm, badge sharp and readable, door handle and window edge for scale,
-soft daylight, yellow fleet paint with light dust, dual-tone EEV finish exact,
-natural daylight only, no people, not CGI, 4:5 vertical crop
+Photorealistic documentary photo, yellow Volvo FH cab side, straight side view, 50mm,
+small "EEV" badge on the side door below the window, mid-door height, door handle and window edge visible,
+dual-tone matte body with glossy raised lettering, soft daylight, light dust on yellow paint,
+real truck photograph, natural colors, no people, 4:5
 ```
 
 ---
@@ -455,11 +449,10 @@ centered composition letterforms fill 70% of frame, 1:1 aspect ratio, 8K quality
 
 **mounted**
 ```
-Photorealistic handheld documentary photograph of a dark green Volvo FH tractor,
-OEM-standard mount: "I-Shift" technology badge on the CAB SIDE DOOR exterior skin — placed beside / around the door handle zone (اینور دستگیره), factory side-badge placement — not on grille, not on bumper, not low on the skirt,
-straight side-door camera, 50mm, tight crop on handle + badge: door handle clearly visible next to the badge for scale,
-soft midday daylight, dark green paint with light chalk dust, dual-tone I-Shift lettering with hyphen exact,
-natural daylight only, no people, not CGI, 4:5 vertical crop
+Photorealistic documentary photo, dark green Volvo FH cab side, straight side view, 50mm,
+"I-Shift" badge on the side door beside the door handle, tight crop on handle and badge, hyphen exact,
+dual-tone matte body with glossy raised lettering, soft midday daylight, light chalk dust on green paint,
+real truck photograph, natural colors, no people, 4:5
 ```
 
 ---
@@ -484,11 +477,10 @@ centered composition letterforms fill 70% of frame, 1:1 aspect ratio, 8K quality
 
 **mounted**
 ```
-Photorealistic handheld documentary photograph of a white Volvo FH tractor,
-OEM-standard mount: "500" horsepower badge on the CAB SIDE DOOR outer skin — same framing as I-Shift: beside / around the door handle zone (اینور دستگیره), mid-door height near the handle — not low skirt, not grille,
-straight side-door camera, 50mm, tight crop on handle + badge like I-Shift mounted shot: door handle clearly visible next to the "500" badge for scale,
-soft overcast daylight, white cab with light road grit, dual-tone matte-glossy "500" exact,
-natural daylight only, no people, not CGI, 4:5 vertical crop
+Photorealistic documentary photo, white Volvo FH cab side, straight side view, 50mm,
+"500" badge on the side door beside the door handle, tight crop on handle and badge, italic forward-leaning digits,
+dual-tone matte body with glossy raised lettering, soft overcast daylight, light road grit on white paint,
+real truck photograph, natural colors, no people, 4:5
 ```
 
 ---
@@ -513,12 +505,10 @@ centered composition, letterforms fill about 55–60% of frame (slightly smaller
 
 **mounted**
 ```
-Photorealistic handheld documentary photograph of a red Volvo FH or FM tractor,
-OEM-standard mount: "EURO 4" emissions badge on the CAB SIDE DOOR outer skin — same place and style as EURO 5 (lower/mid door panel below window) — NOT on chassis fairing, NOT on bumper,
-MATCH EURO 5 mounted framing but tighter crop (کاپ): pull in closer on the badge, badge reads a bit smaller / finer in frame than a wide door shot,
-straight side-door camera, 50–85mm tight crop, door handle edge barely in frame for scale, soft overcast daylight,
-red paint with light dust, satin matte EURO 4 lettering exact — same matte family as EURO 5,
-natural daylight only, no people, not CGI, 4:5 vertical crop
+Photorealistic documentary photo, red Volvo FH cab side, straight side view, 50mm,
+"EURO 4" badge on the side door below the window near the handle, tighter crop, badge modest in frame,
+satin matte chrome finish, soft overcast daylight, light dust on red paint,
+real truck photograph, natural colors, no people, 4:5
 ```
 
 ---
@@ -543,11 +533,10 @@ centered composition letterforms fill 70% of frame, 1:1 aspect ratio, 8K quality
 
 **mounted**
 ```
-Photorealistic handheld documentary photograph of a blue Volvo FH tractor,
-OEM-standard mount: "EURO 5" emissions badge on the CAB SIDE DOOR outer skin — beside / around the door handle zone (اینور دستگیره), same tight framing as I-Shift — NOT on fairing, NOT on bumper, not a wide full-door shot,
-straight side-door camera, 50mm, TIGHT CROP (کاپ) on handle + badge like I-Shift: door handle clearly visible next to the badge for scale, badge fills more of the frame,
-soft daylight, blue fleet paint with light road film, PURE satin matte EURO 5 lettering — no gloss, no shine, dull matte chrome only, exact text,
-natural daylight only, no people, not CGI, 4:5 vertical crop
+Photorealistic documentary photo, blue Volvo FH cab side, straight side view, 50mm,
+"EURO 5" badge on the side door beside the door handle, tight crop on handle and badge,
+pure satin matte chrome finish, no gloss, soft daylight, light road film on blue paint,
+real truck photograph, natural colors, no people, 4:5
 ```
 
 ---
@@ -572,11 +561,11 @@ centered composition letterforms fill 70% of frame, 1:1 aspect ratio, 8K quality
 
 **mounted**
 ```
-Photorealistic handheld documentary photograph of a white Volvo FH tractor,
-OEM-standard mount: "EURO 6" emissions badge on the CAB SIDE DOOR outer skin — lower/mid door panel below the window line, factory door-emblem zone — NOT on fairing, NOT near fuel tank only, NOT on bumper,
-straight side-door camera, 50–85mm, badge sharp and readable with italic OEM slant, door handle and window edge for scale,
-soft morning daylight, white paint with light chalk dust, dual-tone EURO 6 lettering exact,
-natural daylight only, no people, not CGI, 4:5 vertical crop
+Photorealistic documentary photo, white Volvo FH cab side, straight side view, 50mm medium crop,
+only "EURO 6" badge on the side door near the door handle — no horsepower digits beside it,
+show door panel, window edge, handle, and some cab body, dual-tone matte-glossy lettering,
+soft overcast daylight, fine road dust on white paint,
+real truck photograph, natural colors, no people, 4:5
 ```
 
 ---
@@ -601,11 +590,10 @@ centered composition letterforms fill 70% of frame, 1:1 aspect ratio, 8K quality
 
 **mounted**
 ```
-Photorealistic handheld documentary photograph of a dark blue Volvo FH tractor,
-OEM-standard mount: glossy dual-tone "460" horsepower badge on the CAB SIDE DOOR outer skin — lower door panel below the window line, factory door-emblem zone, italic forward-leaning digits — shinier than matte 460,
-straight side-door camera, 50–85mm, badge centered, door handle and window edge for scale,
-bright midday sun with soft speculars on glossy raised digits, dark blue paint with fine swirl marks, exact text "460",
-natural daylight only, no people, not CGI, 4:5 vertical crop
+Photorealistic documentary photo, dark blue Volvo FH cab side, straight side view, 50mm,
+"460" badge on the side door below the window, mid-door height, italic forward-leaning digits, door handle and window edge visible,
+dual-tone matte body with glossy raised lettering, bright midday sun, swirl marks on dark blue paint,
+real truck photograph, natural colors, no people, 4:5
 ```
 
 ---
@@ -630,11 +618,10 @@ centered composition letterforms fill 70% of frame, 1:1 aspect ratio, 8K quality
 
 **mounted**
 ```
-Photorealistic handheld documentary photograph of a silver Volvo FH tractor,
-OEM-standard mount: "540" horsepower badge on the CAB SIDE DOOR outer skin — lower door panel below the window line, factory door-emblem zone, italic forward-leaning digits,
-straight side-door camera, 50–85mm, badge centered, door handle and window edge for scale — not low three-quarter inventing another angle,
-soft overcast daylight, silver metallic paint with light grit, dual-tone "540" exact,
-natural daylight only, no people, not CGI, 4:5 vertical crop
+Photorealistic documentary photo, silver Volvo FH cab side, straight side view, 50mm,
+"540" badge on the side door below the window, mid-door height, italic forward-leaning digits, door handle and window edge visible,
+dual-tone matte body with glossy raised lettering, soft overcast daylight, light grit on silver paint,
+real truck photograph, natural colors, no people, 4:5
 ```
 
 ---
@@ -659,11 +646,11 @@ centered composition letterforms fill 70% of frame, 1:1 aspect ratio, 8K quality
 
 **mounted**
 ```
-Photorealistic handheld documentary photograph of a red Volvo FH tractor,
-OEM-standard mount: "FH" model badge on the FRONT LOWER LOGO PANEL — below the windscreen / below the main grille (FH4 front lower logo zone) — not on the door, not on the bumper alone,
-head-on or slight three-quarter front, 35mm, front panel + grille context, FH letters sharp and clearly readable,
-soft overcast daylight, red paint with light dust, dual-tone FH lettering exact,
-natural daylight only, authentic Volvo FH front styling, no people, not CGI, 4:5 vertical crop
+Photorealistic documentary photo, red Volvo FH4 truck front, head-on slight three-quarter, 35mm,
+raised "FH" letters on the lower front panel below the main grille, letters sharp and readable,
+dual-tone matte body with glossy raised lettering, soft overcast daylight,
+show lower front panel and grille so the truck looks real, light dust on red paint,
+real truck photograph, natural colors, no people, 4:5
 ```
 
 ---
@@ -688,11 +675,11 @@ centered composition letterforms fill 70% of frame, 1:1 aspect ratio, 8K quality
 
 **mounted**
 ```
-Photorealistic handheld documentary photograph of a black Volvo FH tractor,
-OEM-standard mount: "VOLVO" lettering centered on the FRONT GRILLE FACE (جلوپنجره) — horizontal letters across grille center only — glossier dual-tone finish than matte FH12 VOLVO,
-head-on grille crop with slight low angle, 35–50mm, VOLVO band sharp and correctly spaced, grille mesh visible,
-soft daylight, black paint with fine dust on bumper, exact VOLVO spacing,
-natural daylight only, no CGI glow, no people, 4:5 vertical crop
+Photorealistic documentary photo, later-generation Volvo FH truck front, black cab, head-on slight low angle, 50mm,
+large chrome "VOLVO" letters centered across the front grille, iron-mark grille zone, letters sharp and evenly spaced,
+dual-tone matte body with glossy raised lettering, polished chrome highlights,
+grille mesh visible around the letters, soft daylight, fine dust on black paint,
+real truck photograph, natural colors, no people, 4:5
 ```
 
 ---
@@ -717,11 +704,10 @@ centered composition letterforms fill 70% of frame, 1:1 aspect ratio, 8K quality
 
 **mounted**
 ```
-Photorealistic handheld documentary photograph of a white DAF XF tractor,
-OEM-standard mount: "XF" model badge centered on the DAF FRONT GRILLE PANEL (جلوپنجره) — main grille center emblem position — DAF cab styling clearly not Volvo,
-head-on grille crop, 35mm, XF badge and DAF grille geometry dominant and sharp,
-bright midday sun, white DAF paint with light road film, satin matte XF lettering exact,
-natural daylight only, no people, realistic colors not CGI, 4:5 vertical crop
+Photorealistic documentary photo, white DAF XF truck front, head-on grille crop, 35mm,
+"XF" badge centered on the DAF front grille, DAF cab styling not Volvo, letters sharp and readable,
+satin matte chrome finish, bright midday sun, light road film on white paint,
+real truck photograph, natural colors, no people, 4:5
 ```
 
 ---
@@ -746,11 +732,10 @@ centered composition letterforms fill 70% of frame, 1:1 aspect ratio, 8K quality
 
 **mounted**
 ```
-Photorealistic handheld documentary photograph of a grey Volvo FH tractor,
-OEM-standard mount: "I-SAVE" technology badge on the CAB SIDE DOOR exterior skin — outside cabin door badge zone (I-Save package side badge) — not on grille, not on bumper,
-straight side-door camera, 50mm, badge and door panel relationship clear, door handle visible for scale,
-soft overcast daylight, grey paint with light dust, dual-tone I-SAVE lettering with hyphen exact,
-natural daylight only, no people, not CGI, 4:5 vertical crop
+Photorealistic documentary photo, grey Volvo FH cab side, straight side view, 50mm,
+"I-SAVE" badge on the side door beside the door handle, hyphen exact, door handle visible,
+dual-tone matte body with glossy raised lettering, soft overcast daylight, light dust on grey paint,
+real truck photograph, natural colors, no people, 4:5
 ```
 
 ---
@@ -775,11 +760,10 @@ centered composition letterforms fill 70% of frame, 1:1 aspect ratio, 8K quality
 
 **mounted**
 ```
-Photorealistic handheld documentary photograph of a dark blue Volvo FH16 tractor,
-OEM-standard mount: "750" horsepower badge on the CAB SIDE DOOR outer skin — lower door panel below the window line, factory door-emblem zone, italic forward-leaning digits — largest numeric HP badge presence on FH16,
-straight side-door camera, 50–85mm, badge centered, door handle and window edge for scale,
-soft daylight, dark blue paint with fine swirl marks, dual-tone "750" exact,
-natural daylight only, no people, not CGI, 4:5 vertical crop
+Photorealistic documentary photo, dark blue Volvo FH16 cab side, straight side view, 50mm,
+"750" badge on the side door beside the door handle, tight crop, badge large and dominant in frame, italic forward-leaning digits,
+dual-tone matte body with glossy raised lettering, soft overcast daylight, swirl marks and road grit on dark blue paint,
+real truck photograph, natural colors, no people, 4:5
 ```
 
 ---
@@ -804,15 +788,13 @@ no truck visible, no people, no watermark, no extra text,
 centered composition, disk fills 70% of frame, 1:1 aspect ratio, 8K quality
 ```
 
-**mounted** — inspired by real FH: L left of iron mark on upper black fascia
+**mounted** — L left of iron mark on upper black fascia
 ```
-Photorealistic head-on eye-level photograph of a white Volvo FH truck front on asphalt,
-OEM-standard install: authentic deep forest green circular OEM vinyl compliance sticker with bold white "L" on the smooth BLACK UPPER FASCIA PANEL below the windshield, immediately LEFT of the centered Volvo iron-mark emblem — ثابت چپ — same layout as real FH arm badges,
-thick white circular border exactly at outer edge of sticker — no gap between green fill and white ring, no green beyond white perimeter,
-deep forest green glossy vinyl, NOT neon, NOT arrow graphics, NOT on bumper, NOT on door, NOT deep in honeycomb mesh,
-head-on front crop, 35–50mm, iron mark + green "L" sticker sharp and readable as the focal point, main grille / VOLVO lettering softly in context below,
-natural daylight, authentic white cab and black fascia, no people, not CGI, 4:5 vertical crop,
-MUST REFERENCE UPLOADED FH FRONT REFERENCE for panel placement beside iron mark — keep only the L badge on the left (do not invent a second badge unless generating a pair shot)
+Photorealistic documentary photo, white Volvo FH truck front, head-on eye-level, 50mm,
+deep forest green circular vinyl sticker with white "L" and thick white outer border,
+on the black upper fascia below the windshield, immediately left of the Volvo iron mark,
+glossy factory vinyl not neon, soft natural daylight, asphalt ground,
+real truck photograph, natural colors, no people, 4:5
 ```
 
 ---
@@ -837,15 +819,13 @@ no truck visible, no people, no watermark, no extra text,
 centered composition, disk fills 70% of frame, 1:1 aspect ratio, 8K quality
 ```
 
-**mounted** — inspired by real FH: V right of iron mark on upper black fascia
+**mounted** — V right of iron mark on upper black fascia
 ```
-Photorealistic head-on eye-level photograph of a white Volvo FH truck front on asphalt,
-OEM-standard install: authentic deep forest green circular OEM vinyl compliance sticker with bold white "V" on the smooth BLACK UPPER FASCIA PANEL below the windshield, immediately RIGHT of the centered Volvo iron-mark emblem — ثابت راست — same layout as real FH arm badges,
-thick white circular border exactly at outer edge of sticker — no gap between green fill and white ring, no green beyond white perimeter,
-deep forest green glossy vinyl, NOT neon, NOT arrow graphics, NOT on bumper, NOT on door, NOT deep in honeycomb mesh,
-head-on front crop, 35–50mm, iron mark + green "V" sticker sharp and readable as the focal point, main grille / FH lettering softly in context below,
-natural daylight, authentic white cab and black fascia, no people, not CGI, 4:5 vertical crop,
-MUST REFERENCE UPLOADED FH FRONT REFERENCE for panel placement beside iron mark — keep only the V badge on the right
+Photorealistic documentary photo, white Volvo FH truck front, head-on eye-level, 50mm,
+deep forest green circular vinyl sticker with white "V" and thick white outer border,
+on the black upper fascia below the windshield, immediately right of the Volvo iron mark,
+glossy factory vinyl not neon, soft natural daylight, asphalt ground,
+real truck photograph, natural colors, no people, 4:5
 ```
 
 ---
@@ -870,15 +850,13 @@ no truck visible, no people, no watermark, no extra text,
 centered composition, disk fills 70% of frame, 1:1 aspect ratio, 8K quality
 ```
 
-**mounted** — inspired by real FH: IV right of iron mark on upper black fascia
+**mounted** — IV right of iron mark on upper black fascia
 ```
-Photorealistic head-on eye-level photograph of a white Volvo FH truck front on asphalt,
-OEM-standard install: authentic deep forest green circular OEM vinyl compliance sticker with bold white "IV" on the smooth BLACK UPPER FASCIA PANEL below the windshield, immediately RIGHT of the centered Volvo iron-mark emblem — ثابت راست — same layout as real FH arm badges,
-thick white circular border exactly at outer edge of sticker — no gap between green fill and white ring, no green beyond white perimeter,
-deep forest green glossy vinyl, NOT neon, NOT arrow graphics, NOT on bumper, NOT on door, NOT deep in honeycomb mesh,
-head-on front crop, 35–50mm, iron mark + green "IV" sticker sharp and readable as the focal point, main grille / FH lettering softly in context below,
-natural daylight, authentic white cab and black fascia, no people, not CGI, 4:5 vertical crop,
-MUST REFERENCE UPLOADED FH FRONT REFERENCE for panel placement beside iron mark — keep only the IV badge on the right
+Photorealistic documentary photo, white Volvo FH truck front, head-on eye-level, 50mm,
+deep forest green circular vinyl sticker with white "IV" and thick white outer border,
+on the black upper fascia below the windshield, immediately right of the Volvo iron mark,
+glossy factory vinyl not neon, soft natural daylight, asphalt ground,
+real truck photograph, natural colors, no people, 4:5
 ```
 
 ---
@@ -903,15 +881,13 @@ no truck visible, no people, no watermark, no extra text,
 centered composition, disk fills 70% of frame, 1:1 aspect ratio, 8K quality
 ```
 
-**mounted** — inspired by real FH: VI right of iron mark on upper black fascia
+**mounted** — VI right of iron mark on upper black fascia
 ```
-Photorealistic head-on eye-level photograph of a white Volvo FH truck front on asphalt,
-OEM-standard install: authentic deep forest green circular OEM vinyl compliance sticker with bold white "VI" on the smooth BLACK UPPER FASCIA PANEL below the windshield, immediately RIGHT of the centered Volvo iron-mark emblem — ثابت راست — same layout as the real FH reference with L left / VI right of the iron mark,
-thick white circular border exactly at outer edge of sticker — no gap between green fill and white ring, no green beyond white perimeter,
-deep forest green glossy vinyl, NOT neon, NOT arrow graphics, NOT on bumper, NOT on door, NOT deep in honeycomb mesh,
-head-on front crop, 35–50mm, iron mark + green "VI" sticker sharp and readable as the focal point, main grille / FH lettering softly in context below,
-natural daylight, authentic white cab and black fascia, no people, not CGI, 4:5 vertical crop,
-MUST REFERENCE UPLOADED FH FRONT REFERENCE for panel placement beside iron mark — product shot focuses on VI on the right
+Photorealistic documentary photo, white Volvo FH truck front, head-on eye-level, 50mm,
+deep forest green circular vinyl sticker with white "VI" and thick white outer border,
+on the black upper fascia below the windshield, immediately right of the Volvo iron mark,
+glossy factory vinyl not neon, soft natural daylight, asphalt ground,
+real truck photograph, natural colors, no people, 4:5
 ```
 
 ---
@@ -934,16 +910,13 @@ MUST REFERENCE UPLOADED 26-hub-black hero for camera/light/floor — only materi
 no watermark, no extra text, 8K quality
 ```
 
-**mounted** — inspired by reference `image_d80999.png`
+**mounted** — tandem duals, white steel rims
 ```
-Photorealistic real-world ground-level view of a heavy-duty truck or trailer TANDEM axle setup,
-two visible sets of heavy-duty tires mounted on WHITE STEEL rims showing typical wear and dirt — not polished aluminum,
-between the wheels the heavy-duty LEAF SPRING suspension and undercarriage clearly visible,
-vehicle parked on asphalt with a faded yellow painted line on the ground,
-OEM product placement: polished stainless steel HUB CAPS (Hub Steel) seated on the protruding drive hubs of the dual wheels — chrome dome caps clearly readable as the product focal point,
-low ground-level crop matching documentary fleet photography, 35–50mm, tandem duals dominate the frame,
-natural harsh outdoor daylight, industrial gritty realism, not CGI, not studio, 4:5 vertical crop,
-MUST REFERENCE UPLOADED IMAGE "image_d80999.png" for tandem layout, white steel rims, dirt/wear, leaf spring, asphalt and yellow line — install Hub Steel caps on the hubs
+Photorealistic documentary photo, truck tandem axle at ground level, 35mm,
+two sets of tires on dirty white steel rims, leaf spring visible between wheels, asphalt with faded yellow line,
+polished stainless steel hub caps on the protruding hubs, chrome dome caps sharp and readable,
+harsh outdoor daylight, industrial grit,
+real truck photograph, natural colors, no people, 4:5
 ```
 
 ---
@@ -968,18 +941,13 @@ MUST REFERENCE UPLOADED approved hub hero for exact camera, light, and carbon fl
 no people, no watermark, no extra text, 8K quality
 ```
 
-**mounted** — Hub Black mounted family (lock this framing for 27 too)
+**mounted** — Hub Black family camera lock (copy for 27)
 ```
-Photorealistic clean high-resolution catalog photograph of a single modern commercial truck wheel,
-MATCH HUB BLACK MOUNTED CAMERA LOCK: perfectly FRONT-ON, eye-level to hub center, wheel perfectly centered and symmetrical in frame — NOT three-quarter, NOT low angle, NOT tilted,
-50mm, 4:5 vertical crop, dark gray seamless studio backdrop,
-MATCH LIGHT LOCK: soft even studio softbox lighting, smooth broad highlights on polished rim, no harsh daylight, no handheld grit,
-tire: Michelin "X LINE" sidewall branding sharp and readable,
-rim: highly polished shiny aluminum/chrome with circular cutouts — reflective catalog chrome,
-OEM product: GLOSSY piano-black center hub cap (Hub Black glossy) at wheel center — protruding glossy black cover is the clear product focal point, center dimple SAME black not silver,
-visible lug nuts around the hub, CRUCIAL: external ATIS air hose on the rim face connected toward the hub — do not omit,
-perfectly clean surfaces, commercial B2B catalog look, no people, not CGI,
-MUST REFERENCE UPLOADED IMAGE "image_d8099c.png" OR approved 26-hub-black mounted for exact front-on framing, rim polish, ATIS path, and lighting — keep glossy finish
+Photorealistic catalog photo, single truck wheel front-on, eye-level to hub center, centered and symmetrical, 50mm,
+Michelin X LINE tire, polished aluminum rim with circular cutouts, dark gray studio backdrop,
+glossy piano-black center hub cap with black center dimple, lug nuts visible, ATIS air hose on the rim face,
+soft even studio lighting, clean commercial look,
+no people, 4:5
 ```
 
 ---
@@ -1006,20 +974,13 @@ attach glossy hero as --sref / image reference at high strength,
 no people, no watermark, no extra text, 8K quality
 ```
 
-**mounted** — twin of 26; only hub finish changes
+**mounted** — same framing as 26; only hub finish changes
 ```
-Photorealistic clean high-resolution catalog photograph of a single modern commercial truck wheel,
-MATCH 26-hub-black mounted EXACTLY for camera, crop, light, tire, rim, hose, background — only the hub finish differs,
-CAMERA LOCK: perfectly FRONT-ON, eye-level to hub center, wheel perfectly centered and symmetrical — NOT three-quarter, NOT angled, NOT low ground tilt,
-50mm, 4:5 vertical crop, dark gray seamless studio backdrop (same as 26, not light gray),
-LIGHT LOCK: soft even studio softbox lighting identical to 26 — smooth broad highlights on polished rim,
-tire: Michelin "X LINE" sidewall branding, same catalog tire look as 26,
-rim: highly polished shiny aluminum/chrome with circular cutouts — same reflective rim as 26,
-OEM product: SATIN MATTE black center hub cap (Hub Black matte) at wheel center — same size/placement as glossy 26 hub, but PURE matte black with soft diffuse shading, NO piano gloss, NO mirror reflections on the hub face, center dimple SAME matte black not silver,
-visible lug nuts, CRUCIAL: external ATIS air hose on the rim face — same path/placement family as 26,
-perfectly clean surfaces, commercial B2B catalog look, no people, not CGI,
-MUST REFERENCE UPLOADED 26-hub-black mounted.png as layout/lighting twin — swap only hub finish to matte; MUST REFERENCE product shape from matte hero,
-attach 26 mounted as composition reference
+Photorealistic catalog photo, single truck wheel front-on, eye-level to hub center, centered and symmetrical, 50mm,
+Michelin X LINE tire, polished aluminum rim with circular cutouts, dark gray studio backdrop,
+satin matte black center hub cap with matte black center dimple — no piano gloss, lug nuts visible, ATIS air hose on the rim face,
+soft even studio lighting, clean commercial look,
+no people, 4:5
 ```
 
 ---

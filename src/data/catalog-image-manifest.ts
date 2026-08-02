@@ -120,12 +120,12 @@ export const CATALOG_IMAGE_MANIFEST: CatalogImageManifest = {
       "srcSetAvif": "/catalog/products/07-volvo-fh12/optimized/hero-800.avif 800w, /catalog/products/07-volvo-fh12/optimized/hero-1200.avif 1200w"
     },
     "mounted": {
-      "src": "/catalog/products/07-volvo-fh12/optimized/mounted-1200.webp",
-      "width": 1200,
-      "height": 1490,
-      "blurDataURL": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAMAAoDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABgMF/8QAIBAAAQQBBQEBAAAAAAAAAAAAAQIDBBEABRITISKBkf/EABQBAQAAAAAAAAAAAAAAAAAAAAD/xAAWEQEBAQAAAAAAAAAAAAAAAAAAARH/2gAMAwEAAhEDEQA/AIRdXmNub0SBw9eTR+ZsKm6gpRUGdoJuuUdYRQ4UtECvF1jOM4pUZpRNkoBP5jSP/9k=",
-      "srcSetWebp": "/catalog/products/07-volvo-fh12/optimized/mounted-480.webp 480w, /catalog/products/07-volvo-fh12/optimized/mounted-800.webp 800w, /catalog/products/07-volvo-fh12/optimized/mounted-1200.webp 1200w",
-      "srcSetAvif": "/catalog/products/07-volvo-fh12/optimized/mounted-800.avif 800w, /catalog/products/07-volvo-fh12/optimized/mounted-1200.avif 1200w"
+      "src": "/catalog/products/07-volvo-fh12/optimized/mounted-1122.webp",
+      "width": 1122,
+      "height": 1402,
+      "blurDataURL": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAMAAoDASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAAIEBv/EACEQAAIBAwQDAQAAAAAAAAAAAAECAwAEEhEhMWEFE0FV/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAH/xAAVEQEBAAAAAAAAAAAAAAAAAAAAEf/aAAwDAQACEQMRAD8ADJcXOAkvArFQSikgcdAVZ65v0WHWPFZSTydxA2KYaABRqvylM8khzY7tuatH/9k=",
+      "srcSetWebp": "/catalog/products/07-volvo-fh12/optimized/mounted-480.webp 480w, /catalog/products/07-volvo-fh12/optimized/mounted-800.webp 800w, /catalog/products/07-volvo-fh12/optimized/mounted-1122.webp 1122w",
+      "srcSetAvif": "/catalog/products/07-volvo-fh12/optimized/mounted-800.avif 800w, /catalog/products/07-volvo-fh12/optimized/mounted-1122.avif 1122w"
     }
   },
   "08-eev": {
@@ -154,6 +154,14 @@ export const CATALOG_IMAGE_MANIFEST: CatalogImageManifest = {
       "blurDataURL": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAKAAoDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABgEF/8QAHxAAAgICAQUAAAAAAAAAAAAAAQIAAwQRQQUSMYGR/8QAFAEBAAAAAAAAAAAAAAAAAAAAAv/EABYRAQEBAAAAAAAAAAAAAAAAAAEAEf/aAAwDAQACEQMRAD8AP10Y2OyG24Wt5KV8e5pHq1YOkRlXgd29D5D4l2YxyCbf/9k=",
       "srcSetWebp": "/catalog/products/09-i-shift/optimized/hero-480.webp 480w, /catalog/products/09-i-shift/optimized/hero-800.webp 800w, /catalog/products/09-i-shift/optimized/hero-1200.webp 1200w",
       "srcSetAvif": "/catalog/products/09-i-shift/optimized/hero-800.avif 800w, /catalog/products/09-i-shift/optimized/hero-1200.avif 1200w"
+    },
+    "mounted": {
+      "src": "/catalog/products/09-i-shift/optimized/mounted-1200.webp",
+      "width": 1200,
+      "height": 1490,
+      "blurDataURL": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAMAAoDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABQME/8QAIhAAAgIBAgcBAAAAAAAAAAAAAQMCEQAEMQUGEyEzQnGh/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAL/xAAXEQADAQAAAAAAAAAAAAAAAAAAAQIh/9oADAMBAAIRAxEAPwCuv4stjFSdpp9MrIAJIo3vWFB4rxNOa+ZnTg5NH1rv9wQamdbR/cJk1On/2Q==",
+      "srcSetWebp": "/catalog/products/09-i-shift/optimized/mounted-480.webp 480w, /catalog/products/09-i-shift/optimized/mounted-800.webp 800w, /catalog/products/09-i-shift/optimized/mounted-1200.webp 1200w",
+      "srcSetAvif": "/catalog/products/09-i-shift/optimized/mounted-800.avif 800w, /catalog/products/09-i-shift/optimized/mounted-1200.avif 1200w"
     }
   },
   "10-500": {
@@ -215,17 +223,17 @@ export const CATALOG_IMAGE_MANIFEST: CatalogImageManifest = {
       "src": "/catalog/products/13-euro-6/optimized/hero-1200.webp",
       "width": 1200,
       "height": 1200,
-      "blurDataURL": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAKAAoDASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAAEEBv/EAB4QAAICAgIDAAAAAAAAAAAAAAECAxEAEgQTITGh/8QAFQEBAQAAAAAAAAAAAAAAAAAAAQL/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwDPx8Tg9MTvJK7MoLKCBR+5LJDF2NoW1s1fusQJ1HnDKD//2Q==",
+      "blurDataURL": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAKAAoDASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAQQFBv/EAB4QAAIBBAMBAAAAAAAAAAAAAAECAAMEERIFUnHh/8QAFAEBAAAAAAAAAAAAAAAAAAAAAv/EABcRAQADAAAAAAAAAAAAAAAAAAIAEUH/2gAMAwEAAhEDEQA/AMqKVuCNqznxPsbV+L1GbdicdzJcMZVZAjez/9k=",
       "srcSetWebp": "/catalog/products/13-euro-6/optimized/hero-480.webp 480w, /catalog/products/13-euro-6/optimized/hero-800.webp 800w, /catalog/products/13-euro-6/optimized/hero-1200.webp 1200w",
       "srcSetAvif": "/catalog/products/13-euro-6/optimized/hero-800.avif 800w, /catalog/products/13-euro-6/optimized/hero-1200.avif 1200w"
     },
     "mounted": {
-      "src": "/catalog/products/13-euro-6/optimized/mounted-1200.webp",
-      "width": 1200,
-      "height": 1490,
-      "blurDataURL": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAMAAoDASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAwQFBv/EACEQAAIBAwQDAQAAAAAAAAAAAAECAwAEBRESIUEiMVFh/8QAFAEBAAAAAAAAAAAAAAAAAAAAAf/EABYRAQEBAAAAAAAAAAAAAAAAAAABMf/aAAwDAQACEQMRAD8AstkoBLJGVcSFd7gKWA146rJre5VFCpZttA0GqH1Tt+7ognVyHHH4RQUyVzsXz6H2nBX/2Q==",
-      "srcSetWebp": "/catalog/products/13-euro-6/optimized/mounted-480.webp 480w, /catalog/products/13-euro-6/optimized/mounted-800.webp 800w, /catalog/products/13-euro-6/optimized/mounted-1200.webp 1200w",
-      "srcSetAvif": "/catalog/products/13-euro-6/optimized/mounted-800.avif 800w, /catalog/products/13-euro-6/optimized/mounted-1200.avif 1200w"
+      "src": "/catalog/products/13-euro-6/optimized/mounted-1122.webp",
+      "width": 1122,
+      "height": 1402,
+      "blurDataURL": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAMAAoDASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAgMEBf/EAB4QAQABBAIDAAAAAAAAAAAAAAECAAMhMRESFCKh/8QAFQEBAQAAAAAAAAAAAAAAAAAAAQL/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwDXuXoCwey6xFpEr8iSeNdc7Az9qrllOMVw7oIvqYNVYf/Z",
+      "srcSetWebp": "/catalog/products/13-euro-6/optimized/mounted-480.webp 480w, /catalog/products/13-euro-6/optimized/mounted-800.webp 800w, /catalog/products/13-euro-6/optimized/mounted-1122.webp 1122w",
+      "srcSetAvif": "/catalog/products/13-euro-6/optimized/mounted-800.avif 800w, /catalog/products/13-euro-6/optimized/mounted-1122.avif 1122w"
     }
   },
   "14-460-mg": {
@@ -258,8 +266,8 @@ export const CATALOG_IMAGE_MANIFEST: CatalogImageManifest = {
     "mounted": {
       "src": "/catalog/products/15-540/optimized/mounted-1200.webp",
       "width": 1200,
-      "height": 1490,
-      "blurDataURL": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAMAAoDASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAgMEBf/EACEQAAIBAwMFAAAAAAAAAAAAAAECAwAEEQUSMRMhQWFy/8QAFAEBAAAAAAAAAAAAAAAAAAAAAf/EABQRAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/ALJ9RPVWS4McYcbFwT35PmseeaNriRgy4LE8+6DWp3W3t2zklm5pYnYgEhCfgUh//9k=",
+      "height": 1491,
+      "blurDataURL": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAMAAoDASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAQIEBf/EACAQAAIBAwQDAAAAAAAAAAAAAAECAAMREgQTUXFTkZL/xAAVAQEBAAAAAAAAAAAAAAAAAAABAv/EABQRAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/ALTrVRyRTAaociFbL1x1H3X8T/MylruqrjZehaHfqcyg/9k=",
       "srcSetWebp": "/catalog/products/15-540/optimized/mounted-480.webp 480w, /catalog/products/15-540/optimized/mounted-800.webp 800w, /catalog/products/15-540/optimized/mounted-1200.webp 1200w",
       "srcSetAvif": "/catalog/products/15-540/optimized/mounted-800.avif 800w, /catalog/products/15-540/optimized/mounted-1200.avif 1200w"
     }
@@ -274,12 +282,12 @@ export const CATALOG_IMAGE_MANIFEST: CatalogImageManifest = {
       "srcSetAvif": "/catalog/products/16-fh/optimized/hero-800.avif 800w, /catalog/products/16-fh/optimized/hero-1200.avif 1200w"
     },
     "mounted": {
-      "src": "/catalog/products/16-fh/optimized/mounted-1200.webp",
-      "width": 1200,
-      "height": 1490,
-      "blurDataURL": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAMAAoDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABQIE/8QAHBAAAgIDAQEAAAAAAAAAAAAAAQIDBAARIQXR/8QAFAEBAAAAAAAAAAAAAAAAAAAAAv/EABcRAAMBAAAAAAAAAAAAAAAAAAABESH/2gAMAwEAAhEDEQA/ALt+xM1thHM8ab4nAcXj9muI1DLIW0NkIT3BrVNJbJlLuGY91r5mhYlRQoHANDDWNyYf/9k=",
-      "srcSetWebp": "/catalog/products/16-fh/optimized/mounted-480.webp 480w, /catalog/products/16-fh/optimized/mounted-800.webp 800w, /catalog/products/16-fh/optimized/mounted-1200.webp 1200w",
-      "srcSetAvif": "/catalog/products/16-fh/optimized/mounted-800.avif 800w, /catalog/products/16-fh/optimized/mounted-1200.avif 1200w"
+      "src": "/catalog/products/16-fh/optimized/mounted-1122.webp",
+      "width": 1122,
+      "height": 1402,
+      "blurDataURL": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAMAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAABQb/xAAiEAACAQMCBwAAAAAAAAAAAAABAgADBBEFIRITMTJScdH/xAAVAQEBAAAAAAAAAAAAAAAAAAACA//EABYRAQEBAAAAAAAAAAAAAAAAAAEAEf/aAAwDAQACEQMRAD8ABt0JdSGVidsL9lMuq0Cozbt085KWx46gHb6jvMYbZh1qOIX/2Q==",
+      "srcSetWebp": "/catalog/products/16-fh/optimized/mounted-480.webp 480w, /catalog/products/16-fh/optimized/mounted-800.webp 800w, /catalog/products/16-fh/optimized/mounted-1122.webp 1122w",
+      "srcSetAvif": "/catalog/products/16-fh/optimized/mounted-800.avif 800w, /catalog/products/16-fh/optimized/mounted-1122.avif 1122w"
     }
   },
   "17-volvo": {
@@ -292,12 +300,12 @@ export const CATALOG_IMAGE_MANIFEST: CatalogImageManifest = {
       "srcSetAvif": "/catalog/products/17-volvo/optimized/hero-800.avif 800w, /catalog/products/17-volvo/optimized/hero-1200.avif 1200w"
     },
     "mounted": {
-      "src": "/catalog/products/17-volvo/optimized/mounted-1200.webp",
-      "width": 1200,
-      "height": 1490,
-      "blurDataURL": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAMAAoDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABAUG/8QAIRAAAgECBgMAAAAAAAAAAAAAAQIDABIEBRETIjEhQYH/xAAVAQEBAAAAAAAAAAAAAAAAAAAAAf/EABURAQEAAAAAAAAAAAAAAAAAAAAR/9oADAMBAAIRAxEAPwAs2cWzOGij8MQTeRqR8qhHj8TJGrrYFYAga9CsrKW3W5HumxlttebdD3UpH//Z",
-      "srcSetWebp": "/catalog/products/17-volvo/optimized/mounted-480.webp 480w, /catalog/products/17-volvo/optimized/mounted-800.webp 800w, /catalog/products/17-volvo/optimized/mounted-1200.webp 1200w",
-      "srcSetAvif": "/catalog/products/17-volvo/optimized/mounted-800.avif 800w, /catalog/products/17-volvo/optimized/mounted-1200.avif 1200w"
+      "src": "/catalog/products/17-volvo/optimized/mounted-1122.webp",
+      "width": 1122,
+      "height": 1402,
+      "blurDataURL": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAMAAoDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABQEE/8QAIRAAAgIBAgcAAAAAAAAAAAAAAQIAERIDBAUhIjEyUnH/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8AFXfkhjSCzdYiaF4icB06fb0hjKMz9lGu6gKAtDl4iB//2Q==",
+      "srcSetWebp": "/catalog/products/17-volvo/optimized/mounted-480.webp 480w, /catalog/products/17-volvo/optimized/mounted-800.webp 800w, /catalog/products/17-volvo/optimized/mounted-1122.webp 1122w",
+      "srcSetAvif": "/catalog/products/17-volvo/optimized/mounted-800.avif 800w, /catalog/products/17-volvo/optimized/mounted-1122.avif 1122w"
     }
   },
   "18-xf-daf": {
@@ -349,7 +357,7 @@ export const CATALOG_IMAGE_MANIFEST: CatalogImageManifest = {
       "src": "/catalog/products/20-750/optimized/mounted-1200.webp",
       "width": 1200,
       "height": 1490,
-      "blurDataURL": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAMAAoDASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAQIDBf/EAB0QAAEEAgMAAAAAAAAAAAAAAAEAAgMREiEFMcH/xAAVAQEBAAAAAAAAAAAAAAAAAAACA//EABQRAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/AEjmJAcJY97ou8U38g3N2U7yb3XSyA40EMyqi//Z",
+      "blurDataURL": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAMAAoDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAgQF/8QAIBAAAgEEAQUAAAAAAAAAAAAAAQIDAAQRIRITIzFBQv/EABUBAQEAAAAAAAAAAAAAAAAAAAID/8QAFhEBAQEAAAAAAAAAAAAAAAAAAAEC/9oADAMBAAIRAxEAPwAT38MrdNO0qjChzsisqS94yMoaMgEjOTujej69+KgzVchY/9k=",
       "srcSetWebp": "/catalog/products/20-750/optimized/mounted-480.webp 480w, /catalog/products/20-750/optimized/mounted-800.webp 800w, /catalog/products/20-750/optimized/mounted-1200.webp 1200w",
       "srcSetAvif": "/catalog/products/20-750/optimized/mounted-800.avif 800w, /catalog/products/20-750/optimized/mounted-1200.avif 1200w"
     }
@@ -402,8 +410,8 @@ export const CATALOG_IMAGE_MANIFEST: CatalogImageManifest = {
     "mounted": {
       "src": "/catalog/products/23-install-iv/optimized/mounted-1200.webp",
       "width": 1200,
-      "height": 1490,
-      "blurDataURL": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAMAAoDASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAQIEBf/EACAQAAIBAwQDAAAAAAAAAAAAAAEEAAIDERIVVJMTMYP/xAAUAQEAAAAAAAAAAAAAAAAAAAAB/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8AgtruacVW2Kc+s2jmKVnQSPGyfmZm7i7zGOww7g5y7/YYh//Z",
+      "height": 1491,
+      "blurDataURL": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAMAAoDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABQQG/8QAHxAAAgEEAgMAAAAAAAAAAAAAAQIDAAQRIRIxIkGB/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAH/xAAVEQEBAAAAAAAAAAAAAAAAAAABAP/aAAwDAQACEQMRAD8AnayuBKfKAcjkaPulFs7kKAZUBx0OqzzXztOvKKJimACQc6+00LiRgGOMndGoX//Z",
       "srcSetWebp": "/catalog/products/23-install-iv/optimized/mounted-480.webp 480w, /catalog/products/23-install-iv/optimized/mounted-800.webp 800w, /catalog/products/23-install-iv/optimized/mounted-1200.webp 1200w",
       "srcSetAvif": "/catalog/products/23-install-iv/optimized/mounted-800.avif 800w, /catalog/products/23-install-iv/optimized/mounted-1200.avif 1200w"
     }

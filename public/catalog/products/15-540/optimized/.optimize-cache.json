@@ -13,12 +13,12 @@
   },
   "mounted": {
     "configVersion": 1,
-    "sourceHash": "f317eabd032bedcc4b081d9b4991214582f0fbb9d2da4e90299042b1a9847059",
+    "sourceHash": "ba960828060a62b8354ec6c1e1a4f0cacf0fcec971248d04f95f98486fd95633",
     "entry": {
       "src": "/catalog/products/15-540/optimized/mounted-1200.webp",
       "width": 1200,
-      "height": 1490,
-      "blurDataURL": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAMAAoDASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAgMEBf/EACEQAAIBAwMFAAAAAAAAAAAAAAECAwAEEQUSMRMhQWFy/8QAFAEBAAAAAAAAAAAAAAAAAAAAAf/EABQRAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/ALJ9RPVWS4McYcbFwT35PmseeaNriRgy4LE8+6DWp3W3t2zklm5pYnYgEhCfgUh//9k=",
+      "height": 1491,
+      "blurDataURL": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAMAAoDASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAQIEBf/EACAQAAIBAwQDAAAAAAAAAAAAAAECAAMREgQTUXFTkZL/xAAVAQEBAAAAAAAAAAAAAAAAAAABAv/EABQRAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/ALTrVRyRTAaociFbL1x1H3X8T/MylruqrjZehaHfqcyg/9k=",
       "srcSetWebp": "/catalog/products/15-540/optimized/mounted-480.webp 480w, /catalog/products/15-540/optimized/mounted-800.webp 800w, /catalog/products/15-540/optimized/mounted-1200.webp 1200w",
       "srcSetAvif": "/catalog/products/15-540/optimized/mounted-800.avif 800w, /catalog/products/15-540/optimized/mounted-1200.avif 1200w"
     }
