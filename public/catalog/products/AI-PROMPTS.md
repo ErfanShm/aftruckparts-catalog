@@ -2,13 +2,13 @@
 
 Use your **reference hero shots** (dark chrome, navy rim light) as **style reference** in Midjourney (`--sref`), Flux, or ChatGPT image **+ attach reference**.
 
-**Export size:** hero **1200×1200** or **1200×1500** · mounted **1200×1500** · PNG or JPEG (sources)
+**Export size:** hero **1200×1200** or **1200×1500** · mounted **1200×1500** · package **1200×1200** · PNG or JPEG (sources)
 
-**Save to:** `public/catalog/products/{folder}/hero.png` (or `.jpeg`) — then run `pnpm images:optimize` to generate deployable WebP/AVIF in `{folder}/optimized/`. Sources are gitignored; commit only `optimized/` + manifest.
+**Save to:** `public/catalog/products/{folder}/hero.png`, `mounted.png`, optional `package.png` — then run `pnpm images:optimize` to generate deployable WebP/AVIF in `{folder}/optimized/`. Sources are gitignored; commit only `optimized/` + manifest.
 
-Every product uses exactly **two** images: **hero** + **mounted**.
+Every product uses **hero** + **mounted**. Optional third: **package** (appears in the product gallery when present).
 
-**Reference images:** Attach the catalog PDF crop or your approved hero (`image_f1437c.png` / `image_f14381.png`) for every hero generation. Prompts say *MUST REFERENCE UPLOADED IMAGE* — swap in your actual file name.
+**Reference images:** Attach the catalog PDF crop or your approved hero for hero generation. For **package**, attach the approved sealed-bag photo as the main reference — do not re-describe bag/layout in the prompt.
 
 ---
 
@@ -102,6 +102,19 @@ real truck photograph, natural colors, no people, 4:5
 ```
 
 Do **not** cross-reference other products (“like I-Shift”, “duller than 17”). Spell finish and framing directly.
+
+### Master prompt — PACKAGE (sealed retail bag)
+
+**Order matters:** put camera + surface first. Keep bag contents short — match the uploaded package photo for bag/seal/sheet. Do not lead with navy hex codes (models turn them into flat backgrounds).
+
+**Variation rule (anti-clone):** same family, but each package shot must differ slightly — angle, surface, light direction, bag wrinkles, or seal placement. Never copy-paste identical staging.
+
+```
+Camera first: {ANGLE + SURFACE}. NOT a flat solid-color backdrop. NOT dead top-down.
+Match UPLOADED PACKAGE REFERENCE for the sealed polybag, AF.TRUCK seal, install sheet, and card-strip layout.
+Only swap the product: raised "{BADGE_TEXT}" in {FINISH}.
+{ONE small natural variation}. Photorealistic B2B parts photo, 1:1
+```
 
 ### OEM-standard mount table (do not change place or camera way)
 
@@ -231,6 +244,14 @@ satin matte chrome finish, soft overcast daylight, light road dust on white pain
 real truck photograph, natural colors, no people, 4:5
 ```
 
+**package**
+```
+Camera first: slight three-quarter from above, bag on dark brushed-steel workbench — metal grain, faint oil haze, soft contact shadow. NOT flat color backdrop. NOT dead top-down.
+Match UPLOADED PACKAGE REFERENCE for polybag, AF.TRUCK seal, install sheet, card-strip layout.
+Only swap the product: raised "NH12" in satin matte chrome.
+Soft side window light from the left, shallow DOF. Photorealistic B2B parts photo, 1:1
+```
+
 ---
 
 ## 02-fm9 · FM9 (matte model badge)
@@ -256,6 +277,14 @@ Photorealistic documentary photo, dark blue Volvo FM truck front, head-on slight
 raised "FM9" badge on the front cab panel, letters sharp and readable,
 satin matte chrome finish, bright midday sun, light dust on dark blue paint,
 real truck photograph, natural colors, no people, 4:5
+```
+
+**package**
+```
+Camera first: a bit higher three-quarter angle, bag on dark rubber parts-counter mat over steel — mat texture visible at edges. NOT flat color backdrop. NOT dead top-down.
+Match UPLOADED PACKAGE REFERENCE for polybag, AF.TRUCK seal, install sheet, card-strip layout.
+Only swap the product: raised "FM9" in satin matte chrome.
+Bag rotated a few degrees clockwise, cooler overhead shop light, more plastic wrinkles. Photorealistic B2B parts photo, 1:1
 ```
 
 ---
@@ -286,6 +315,14 @@ satin matte chrome finish, soft overcast daylight, light road grit on red paint,
 real truck photograph, natural colors, no people, 4:5
 ```
 
+**package**
+```
+Camera first: lower three-quarter angle, bag on scratched painted metal shelf — chip marks and dust in the paint. NOT flat color backdrop. NOT dead top-down.
+Match UPLOADED PACKAGE REFERENCE for polybag, AF.TRUCK seal, install sheet, card-strip layout.
+Only swap the product: raised "420" in satin matte chrome, italic HP digits.
+Warm workshop bulb light from the right, AF seal slightly off-center. Photorealistic B2B parts photo, 1:1
+```
+
 ---
 
 ## 04-460 · 460 HP matte
@@ -312,6 +349,14 @@ Photorealistic documentary photo, silver Volvo FH cab side, straight side view, 
 "460" badge on the side door below the window, mid-door height, italic forward-leaning digits, door handle and window edge visible,
 satin matte chrome finish, soft daylight, light dust on silver paint,
 real truck photograph, natural colors, no people, 4:5
+```
+
+**package**
+```
+Camera first: near-overhead but still slight three-quarter, bag on raw cardboard packing table — kraft fiber texture. NOT flat color backdrop. NOT dead top-down.
+Match UPLOADED PACKAGE REFERENCE for polybag, AF.TRUCK seal, install sheet, card-strip layout.
+Only swap the product: raised "460" in satin matte chrome, italic HP digits.
+Diffuse cloudy daylight, bag flatter / less inflated, soft long shadow. Photorealistic B2B parts photo, 1:1
 ```
 
 ---
@@ -342,6 +387,14 @@ satin matte chrome finish, soft overcast daylight, fine scratches on grey paint,
 real truck photograph, natural colors, no people, 4:5
 ```
 
+**package**
+```
+Camera first: three-quarter from the left, bag on dark concrete parts-room ledge — fine grit and hairline cracks. NOT flat color backdrop. NOT dead top-down.
+Match UPLOADED PACKAGE REFERENCE for polybag, AF.TRUCK seal, install sheet, card-strip layout.
+Only swap the product: raised "440" in satin matte chrome, italic HP digits.
+Harder side light, stronger plastic speculars, install sheet slightly crooked in the bag. Photorealistic B2B parts photo, 1:1
+```
+
 ---
 
 ## 06-480 · 480 HP (matte)
@@ -369,6 +422,15 @@ Photorealistic documentary photo, black Volvo FH cab side, straight side view, 5
 satin matte chrome finish, soft flat daylight, swirl marks and light dust on black paint,
 real truck photograph, natural colors, no people, 4:5
 ```
+
+**package**
+```
+Camera first: three-quarter from the right, bag on oily dark steel plate — light fingerprint smudges near the seal. NOT flat color backdrop. NOT dead top-down.
+Match UPLOADED PACKAGE REFERENCE for polybag, AF.TRUCK seal, install sheet, card-strip layout.
+Only swap the product: raised "480" in satin matte chrome, italic HP digits.
+Dimmer evening shop light, tighter crop on the bag, less empty surface. Photorealistic B2B parts photo, 1:1
+```
+
 ---
 
 ## 07-volvo-fh12 · VOLVO cab-panel matte (FH12)
@@ -397,6 +459,14 @@ classic Volvo iron-mark diagonal grille in the center — no large VOLVO letters
 satin matte chrome VOLVO, soft diffuse reflections, brushed metal, no mirror shine,
 soft cool daylight, light road dust on white paint,
 real truck photograph, natural colors, no people, 4:5
+```
+
+**package**
+```
+Camera first: classic three-quarter from above, bag on worn dark wood packing bench — soft wood grain at edges. NOT flat color backdrop. NOT dead top-down.
+Match UPLOADED PACKAGE REFERENCE for polybag, AF.TRUCK seal, install sheet, card-strip layout.
+Only swap the product: raised wide "VOLVO" letters in satin matte chrome on the card strip.
+Soft cool daylight, bag slightly more puffed, AF seal lower on the bag face. Photorealistic B2B parts photo, 1:1
 ```
 
 ---
@@ -1036,5 +1106,5 @@ silver center, chrome center screw, brass fastener, metal hex bolt in hub center
 
 | Type | Files | AI style |
 |------|-------|----------|
-| All 27 products | hero + mounted | hero = cinematic studio macro · mounted = OEM-standard place + way, light color/light variation only |
-| **Total** | **54 images** | |
+| All 27 products | hero + mounted (+ optional package) | hero = studio macro · mounted = OEM place · package = sealed bag |
+| **Total** | **54+** images | |

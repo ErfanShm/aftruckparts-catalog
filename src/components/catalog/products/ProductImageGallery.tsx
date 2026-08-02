@@ -35,23 +35,32 @@ function PhotoDotStrip({
     <div
       className={cn(
         "flex items-center justify-center gap-1.5",
-        overlay ? "absolute bottom-3 inset-x-0 z-20" : "shrink-0 px-4 pb-3 pt-2",
+        overlay
+          ? "absolute bottom-2.5 inset-x-0 z-20"
+          : "shrink-0 px-4 pb-3 pt-2",
       )}
     >
-      {slides.map((_, i) => (
-        <button
-          key={i}
-          type="button"
-          onClick={() => onPhotoChange(i)}
-          aria-current={i === photoIndex ? "true" : undefined}
-          aria-label={`Photo ${i + 1}`}
-          className={cn(
-            "gallery-photo-dot touch-manipulation",
-            overlay && "bg-foreground/25",
-            i === photoIndex && "gallery-photo-dot-active",
-          )}
-        />
-      ))}
+      <div
+        className={cn(
+          "flex items-center justify-center gap-2",
+          overlay && "rounded-full bg-void/45 px-2.5 py-1.5 backdrop-blur-sm",
+        )}
+      >
+        {slides.map((_, i) => (
+          <button
+            key={i}
+            type="button"
+            onClick={() => onPhotoChange(i)}
+            aria-current={i === photoIndex ? "true" : undefined}
+            aria-label={`Photo ${i + 1}`}
+            className={cn(
+              "gallery-photo-dot touch-manipulation",
+              overlay && "bg-foreground/30 border-foreground/25",
+              i === photoIndex && "gallery-photo-dot-active",
+            )}
+          />
+        ))}
+      </div>
     </div>
   );
 }
@@ -107,8 +116,9 @@ export function ProductImageGallery({
 
   if (!slide) return null;
 
-  const navBtnClass =
-    "absolute top-1/2 z-30 flex h-9 w-9 -translate-y-1/2 touch-manipulation items-center justify-center rounded-full border border-border-hair/40 glass-panel text-foreground/50 transition-all hover:border-brand/25 hover:text-brand-readable active:scale-95";
+  const navBtnClass = isMobile
+    ? "absolute top-1/2 z-30 flex h-10 w-10 -translate-y-1/2 touch-manipulation items-center justify-center rounded-full bg-void/55 text-foreground/70 backdrop-blur-sm transition-all active:scale-95 active:bg-void/75"
+    : "absolute top-1/2 z-30 flex h-9 w-9 -translate-y-1/2 touch-manipulation items-center justify-center rounded-full border border-border-hair/40 glass-panel text-foreground/50 transition-all hover:border-brand/25 hover:text-brand-readable active:scale-95";
 
   const stage = (
     <div
@@ -124,9 +134,9 @@ export function ProductImageGallery({
           type="button"
           onClick={goPrev}
           aria-label={messages.product.detail.prevPhoto}
-          className={cn(navBtnClass, "start-3 md:start-4")}
+          className={cn(navBtnClass, isMobile ? "start-1.5" : "start-3 md:start-4")}
         >
-          <PrevIcon className="h-4 w-4" />
+          <PrevIcon className={isMobile ? "h-5 w-5" : "h-4 w-4"} />
         </button>
       )}
       {showPhotoNav && canNext && (
@@ -134,9 +144,9 @@ export function ProductImageGallery({
           type="button"
           onClick={goNext}
           aria-label={messages.product.detail.nextPhoto}
-          className={cn(navBtnClass, "end-3 md:end-4")}
+          className={cn(navBtnClass, isMobile ? "end-1.5" : "end-3 md:end-4")}
         >
-          <NextIcon className="h-4 w-4" />
+          <NextIcon className={isMobile ? "h-5 w-5" : "h-4 w-4"} />
         </button>
       )}
 
@@ -150,7 +160,9 @@ export function ProductImageGallery({
           <div
             key={i}
             className={cn(
-              "absolute inset-0 px-10 py-6 md:px-14 md:py-8",
+              "absolute inset-0",
+              // Mobile: tight inset so square shots fill the stage; desktop keeps breathing room.
+              isMobile ? "px-1.5 pb-7 pt-1" : "px-10 py-6 md:px-14 md:py-8",
               isActive ? "z-10 opacity-100" : "pointer-events-none z-0 opacity-0",
             )}
             aria-hidden={!isActive}
@@ -183,7 +195,10 @@ export function ProductImageGallery({
   if (isMobile) {
     return (
       <div className={cn("relative shrink-0", className)}>
-        <div className="relative h-[min(24vh,210px)] min-h-[148px] w-full">{stage}</div>
+        {/* ~phone-width tall so square catalog shots fill the stage without cropping. */}
+        <div className="relative h-[min(48dvh,100vw,380px)] min-h-[240px] w-full">
+          {stage}
+        </div>
       </div>
     );
   }

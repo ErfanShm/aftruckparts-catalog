@@ -32,7 +32,7 @@ export function galleryEntriesForProduct(
   const manifest = getManifestForPage(page);
   if (!manifest) return [];
 
-  return [manifest.hero, manifest.mounted].filter(
+  return [manifest.hero, manifest.mounted, manifest.package].filter(
     (e): e is ImageManifestEntry => Boolean(e),
   );
 }

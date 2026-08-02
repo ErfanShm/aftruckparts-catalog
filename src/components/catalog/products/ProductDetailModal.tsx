@@ -346,7 +346,7 @@ function ProductDetailBody({
             type="button"
             onClick={onClose}
             aria-label={messages.product.detail.close}
-            className="absolute end-3 top-3 z-40 flex h-11 w-11 touch-manipulation items-center justify-center rounded-full bg-void/70 text-foreground/62 transition-colors active:text-foreground/92"
+            className="absolute end-2.5 top-2.5 z-40 flex h-10 w-10 touch-manipulation items-center justify-center rounded-full bg-void/55 text-foreground/70 backdrop-blur-sm transition-colors active:bg-void/75 active:text-foreground/92"
           >
             <X className="h-4 w-4" />
           </button>

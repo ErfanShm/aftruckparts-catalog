@@ -40,7 +40,7 @@ const SOURCE_EXTS = [".png", ".jpeg", ".jpg", ".webp"] as const;
 /** Bump when widths, formats, or quality settings change. */
 const CONFIG_VERSION = 1;
 
-type Role = "hero" | "mounted";
+type Role = "hero" | "mounted" | "package";
 
 type RoleCacheEntry = {
   configVersion: number;
@@ -55,7 +55,7 @@ const CHECK_MODE = args.has("--check");
 const FORCE = args.has("--force");
 
 function rolesForCategory(_category: ProductCategory): Role[] {
-  return ["hero", "mounted"];
+  return ["hero", "mounted", "package"];
 }
 
 async function findSource(folder: string, role: Role): Promise<string | null> {

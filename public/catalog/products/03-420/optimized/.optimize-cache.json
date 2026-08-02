@@ -22,5 +22,17 @@
       "srcSetWebp": "/catalog/products/03-420/optimized/mounted-480.webp 480w, /catalog/products/03-420/optimized/mounted-800.webp 800w, /catalog/products/03-420/optimized/mounted-1200.webp 1200w",
       "srcSetAvif": "/catalog/products/03-420/optimized/mounted-800.avif 800w, /catalog/products/03-420/optimized/mounted-1200.avif 1200w"
     }
+  },
+  "package": {
+    "configVersion": 1,
+    "sourceHash": "f17930e3d790166aa3f8b9a95566bcc68368cae274b74586db03cb3b9e7a0556",
+    "entry": {
+      "src": "/catalog/products/03-420/optimized/package-1200.webp",
+      "width": 1200,
+      "height": 1200,
+      "blurDataURL": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAKAAoDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAwQF/8QAIxAAAQMDAgcAAAAAAAAAAAAAAQIDBAARMQUSEyEjMkFSkf/EABQBAQAAAAAAAAAAAAAAAAAAAAP/xAAWEQEBAQAAAAAAAAAAAAAAAAACABL/2gAMAwEAAhEDEQA/AD0WJGdiErZbK0nuI50ioz6lEoFkk3A4nj5Ulylg7TbOKwVSH9x6zmfY0CGpSs3/2Q==",
+      "srcSetWebp": "/catalog/products/03-420/optimized/package-480.webp 480w, /catalog/products/03-420/optimized/package-800.webp 800w, /catalog/products/03-420/optimized/package-1200.webp 1200w",
+      "srcSetAvif": "/catalog/products/03-420/optimized/package-800.avif 800w, /catalog/products/03-420/optimized/package-1200.avif 1200w"
+    }
   }
 }
